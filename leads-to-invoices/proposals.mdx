@@ -1,0 +1,67 @@
+---
+title: "Proposals"
+description: "Send a customer-facing, signable agreement built from an estimate — with payment options, expiration, and e-signature."
+icon: "file-signature"
+---
+
+A **proposal** is the polished, customer-facing version of an estimate. It presents the quote, the payment options, and a place for the customer to sign — formalizing the agreement before work begins. Proposals are optional, but they create a clean paper trail and capture the customer's chosen payment terms.
+
+<Note>
+  A proposal is tied one-to-one to an estimate. Each estimate can have a single proposal, built from the estimate's snapshot so the customer sees exactly what was quoted.
+</Note>
+
+## The proposal lifecycle
+
+Rather than a single status field, a proposal advances through a series of timestamps that record what the customer did and when.
+
+<Steps>
+  <Step title="Draft">
+    The proposal is being prepared and has not been sent. You can add a personalized **note to the client** and choose which salesperson's contact details appear.
+  </Step>
+  <Step title="Sent">
+    The proposal is emailed to the customer. An **expiration date** sets the deadline to accept.
+  </Step>
+  <Step title="Opened">
+    The system records when the customer first views the proposal.
+  </Step>
+  <Step title="Signed">
+    The customer accepts, capturing their **signature** and the **payment method / financing term** they selected. This authorizes work to proceed.
+  </Step>
+</Steps>
+
+### Other outcomes
+
+<AccordionGroup>
+  <Accordion title="Changes requested" icon="pen-to-square">
+    The customer asks for revisions. The estimate can be updated and a fresh proposal sent.
+  </Accordion>
+
+  <Accordion title="Rejected" icon="circle-xmark">
+    The customer declines, with a recorded **rejection reason**. The underlying estimate may be re-quoted or marked Lost.
+  </Accordion>
+
+  <Accordion title="Expired" icon="clock">
+    The acceptance deadline passes without a signature. Re-send with a new expiration to revive it.
+  </Accordion>
+</AccordionGroup>
+
+## What the customer chooses
+
+The estimate can offer more than one way to pay. When the customer signs, their selections are saved on the proposal:
+
+- **Selected payment method** — e.g. cash, credit card, or financing
+- **Selected financing term** — e.g. 3, 6, or 12 months, when financing is chosen
+
+These choices flow forward into invoicing.
+
+<Tip>
+  Set an expiration that creates healthy urgency without rushing the customer. A signed proposal is the cleanest trigger for kicking off the work order and job.
+</Tip>
+
+## After signing
+
+A signed proposal authorizes the sold scope to become operational work.
+
+<Card title="Next: Work orders" icon="clipboard-list" href="/leads-to-invoices/work-orders">
+  Turn the agreement into crew-ready line items.
+</Card>
