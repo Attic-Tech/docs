@@ -72,7 +72,7 @@ Exhaustive, code-grounded rule set for HOW the estimate Calculator computes pric
 - **What it computes / governs:** A Factor is a named multiplier (`factor: number`) that applies to either `Material Cost` OR `Labor Cost` (`appliesTo`). `alwaysEnabled` factors are auto-applied and hidden from the calculator UI; non-alwaysEnabled factors are user-selectable toggles.
 - **Formula / logic:** Factors can be attached at three levels: Item, ItemCategory, and WorkArea. For a given scope, the "factor total" starts at `1` and MULTIPLIES in: (a) every `alwaysEnabled` factor whose `appliesTo` matches, then (b) every user-selected (toggled-on) factor that matches and is NOT `alwaysEnabled`. (Selected-list builders also exclude `alwaysEnabled` from display.)
 - **Inputs:** factor `factor`, `appliesTo`, `alwaysEnabled`; the selected-factors map (`Record<factorId, boolean>`).
-- **Edge cases / rounding / defaults:** Factors are multiplicative (a factor of 1 is a no-op; <1 discounts; >1 marks up). ItemCategory factors apply ONLY their `alwaysEnabled` ones (no UI selection path — see category-factor rule). A factor with no matching `appliesTo` is ignored for that cost type.
+- **Edge cases / rounding / defaults:** Factors are multiplicative (a factor of 1 is a no-op; `<1` discounts; `>1` marks up). ItemCategory factors apply ONLY their `alwaysEnabled` ones (no UI selection path — see category-factor rule). A factor with no matching `appliesTo` is ignored for that cost type.
 - **Source:** `collections/Factors.ts:20-68`; `lib/transforms/workArea.transform.ts:12-19,51-57`; `costService.ts:629-696,857-1000`
 
 ---
