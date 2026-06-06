@@ -1,7 +1,174 @@
 ---
-title: "Activity and conversion"
+title: "Lead activities & conversion (reference)"
+description: "Logging lead activities (e.g. site visits), draft vs published, and how publishing converts a lead."
+icon: "calendar-check"
+keywords: ["lead activity","schedule site visit","publish activity","lead converted to client"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This page explains how lead activities (such as scheduled site visits) move through their lifecycle, how draft and published activities differ, and how publishing an activity converts a lead into a client and project.
+
+## Roles in this page
+
+Throughout this page, **manager roles** means Admin, Sales Admin, Ops Manager, and Client Coordinator (the roles grouped under Branch Management). **Sales Member** is a non-manager role with a more limited scope. Where behavior differs between managers and Sales Members, it's called out explicitly.
+
+## Lead activity statuses
+
+A lead activity has exactly two statuses: **Draft** and **Published**. New activities start as Draft.
+
+There is no separate "cancelled" or "completed" status. Cancelling an activity means deleting it (see Deleting an activity).
+
+The status drives everything downstream — conversion and notifications all depend on whether the activity is Draft or Published.
+
+## Who can create, view, edit, and delete activities
+
+- **Manager roles** can view, edit, and delete any activity within their organization and branches.
+- **Sales Members** can only view, edit, and delete activities that are assigned to them, within their organization and branches.
+- Creating activities is available to manager roles and Sales Members.
+- A user with no branch or no organization assigned has no access to lead activities.
+
+What a viewer sees can be further narrowed by whether drafts are visible to them (see Draft visibility).
+
+## Self-assignment for Sales Members
+
+A **Sales Member can only assign a lead activity to themselves.** If a Sales Member tries to assign an activity to someone else, the save is rejected with a message that they can only create or assign lead activities for themselves.
+
+Manager roles can assign an activity to any eligible user.
+
+## Validation applied on every save
+
+Every time a lead activity is created or edited, these rules are enforced:
+
+1. The person creating the activity is recorded as its creator.
+2. Sales Members can only assign activities to themselves (see above).
+3. The assigned user must belong to the selected branch. If not, the save is rejected with "Assigned user does not belong to this branch."
+4. The lead must belong to the same organization as the activity. If not, the save is rejected with "Lead does not belong to this organization."
+5. The end time cannot be before the start time.
+
+Violations produce a clear, friendly error message and block the save.
+
+## Required information on an activity
+
+A lead activity requires:
+
+- An organization and a branch (set automatically for scoping)
+- A creator (recorded automatically)
+- A lead
+- A single assigned user
+- A start time and end time
+- A status (Draft or Published)
+- A "client confirmed" indicator (defaults to off)
+
+Notes are optional. Activity notes are an **independent copy** of the lead's notes — editing the activity's notes does not change the lead's notes.
+
+## Scheduling a site visit
+
+The schedule-activity form requires:
+
+- A lead
+- An assigned user
+- A date, start time, and end time
+- An address
+- A project name
+- The "client confirmed" indicator
+
+City, state, and postal code are optional. **At least one of phone or email is required** — if neither is provided, the form shows "Either phone or email is required." The date/time range is validated, and all-day events are not allowed.
+
+The address and project name captured here are carried straight into the conversion when the activity is published. This same form is used both to save a draft and to publish.
+
+## Saving a draft
+
+When an activity is saved as a **Draft**, two things can happen in the background (neither blocks the save):
+
+1. **A "not yet published" reminder** is scheduled to prompt you to publish the activity later, if the activity is new, was not already a draft, or its start time changed.
+2. **A client notification.** If the "notify client" setting is on, an "Appointment scheduled" email is sent to the lead's contact (and any additional client emails).
+
+If a background step fails, it's logged but never blocks the save.
+
+## Draft visibility
+
+Read and list views can either include or exclude drafts.
+
+- Published-only views (such as the calendar) exclude drafts, so unpublished site visits don't leak into them.
+- When editing or deleting an activity, drafts are intentionally included so the activity can be found.
+
+Whether a given viewer can see drafts at all is also governed by their permissions on the lead/schedule view.
+
+## Publishing converts the lead
+
+**Publishing a lead activity is what converts the lead into a client and project.**
+
+- When you **create** an activity already set to Published, it converts.
+- When you **edit** a Draft activity and change it to Published, it converts.
+- Re-saving an activity that is **already** Published does **not** re-trigger conversion.
+
+Any role that can create or edit an activity and set it to Published can trigger conversion. Sales Members can publish their own assigned activities.
+
+Important: if conversion fails for any reason, the failure is logged but the **activity publish still succeeds** from your point of view. In that case the client/project may not have been created (see Return behavior).
+
+## What conversion does
+
+When an activity is published, the system does the following, in order:
+
+1. **Saves the entered address to the lead**, then reloads the lead. If the lead no longer exists, or it has no contact, conversion stops with an error.
+2. **Finds or creates a client** matching the lead's contact (first name, last name, email, phone), reusing the lead's existing contact so duplicates aren't created. A newly created client records the publishing user as its creator.
+3. **Converts the contact** from a lead contact into a client contact.
+4. **Finds or creates a property** from the entered address (including city, state, and postal code if provided).
+5. **Finds or creates a project** linked to the lead, client, property, branch, organization, and the entered project name.
+
+This is the lead-to-client conversion, and it is designed to be safe to run more than once (see Idempotency).
+
+## Publish and time-change notifications
+
+After an activity is published, notifications are sent in the background based on the active notification settings:
+
+- If "notify the assigned team" is on, the assigned user gets a "lead activity published" notification with a link to the activity on the calendar.
+- If "notify client" is on, the lead's contact gets an "Appointment scheduled" notification (plus any additional emails).
+
+Separately, when an **already-published** activity's time range changes, updated-event notifications are sent — to the assigned user if "notify the assigned team" is on, and to the client if "notify client" is on.
+
+All of these notifications are best-effort: if a send fails, it's silently dropped and never blocks the save.
+
+## Idempotency — no duplicate clients or projects
+
+Re-publishing, or publishing a second activity for the same lead, will not create duplicate clients or projects:
+
+- The conversion looks for an existing project for the lead first and reuses it if found.
+- It searches for an existing client by email and phone and reuses a match, reusing the lead's existing contact.
+- Re-saving an already-published activity skips conversion entirely.
+
+It's safe to publish multiple activities for the same lead — the lead keeps a single converted client and project.
+
+## "Converted to client" on the lead page
+
+The lead detail page detects whether a lead has been converted by checking for a project linked to that lead within the organization. If one exists, the page surfaces a banner or quick-jump to the converted client and project.
+
+The lead page only attempts to surface client information if the viewer has permission to read clients.
+
+## Return behavior after publishing
+
+When a publish converts a lead, the save reports the newly created client and project so the app can jump you straight to the new project.
+
+Because conversion errors are swallowed (see Publishing converts the lead), a publish can report no created project even though the activity itself was published. The app handles this case gracefully.
+
+## Address is saved even without publishing
+
+If a save is **not** a publish (for example, saving a draft), the entered address is still saved to the lead. On a publish, the address is saved as part of the conversion instead, so it isn't written twice.
+
+Either way, the lead's address stays in sync.
+
+## Recognition for scheduling activities
+
+When a **new** lead activity is created (not on edits), the system evaluates recognition unlocks tied to scheduling activities (such as the Warm Handoff recognition) for the user who created it.
+
+Recognition evaluation runs in the background; if it fails, it's logged and never affects the activity save.
+
+## Deleting (cancelling) an activity
+
+- **Manager roles** can delete any in-scope activity.
+- **Sales Members** can only delete activities assigned to themselves; otherwise the delete is rejected with "You can only delete lead activities assigned to yourself."
+
+Deleting is permanent — there is no "cancelled" status to restore from.
+
+If the deleted activity was **Published**, cancellation notifications are sent in the background based on whether you chose to notify the assignee and/or the lead's contact.
+
+**Deleting an activity does not reverse the conversion** — any client and project that were created remain.
