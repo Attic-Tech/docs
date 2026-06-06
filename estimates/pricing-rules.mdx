@@ -1,0 +1,324 @@
+---
+title: "Pricing rules (reference)"
+description: "How the Calculator computes true cost, markup, retail and final price, discounts, and tax."
+icon: "function"
+---
+
+## Pricing rules
+
+Exhaustive, code-grounded rule set for HOW the estimate Calculator computes pricing (retail cost, true cost, final price, labor hours, tax, factors, multipliers, additional costs, discounts, deposit, rounding, item roll-ups). All paths quote the source file + line range. The live calculation engine is `app/(app)/api/job-breakdown/` (POST route → `CalculationService` → `CostService`). Files are under `apps/web/src/`.
+
+---
+
+### Calculation entry point (live vs. snapshot config)
+- **What it computes / governs:** Resolves which branch configuration + multiplier ranges feed the pricing engine, then runs the full breakdown.
+- **Formula / logic:** POST `/api/job-breakdown` with the form values. If the body has an `id` (an existing estimate / update), it loads the estimate's **immutable snapshot** (`estimateSnapshot.snapshotData`) and uses `branchConfigurationConstants`, `workAreas`, and `multiplierRanges` FROM THE SNAPSHOT (frozen pricing). If no `id` (new estimate), it fetches the **live** branch configuration at depth 4 and the live multiplier ranges. Then constructs `CalculationService(branchConfiguration, resolvedFormValues, ability, multiplierRanges)` and returns `calculateJobBreakdown()`.
+- **Inputs:** `validatedFormValues.id`, `user.branch`, branch `configurationId`, snapshot data, multiplier ranges (populated objects or IDs → fetched via `getMultiplierRangesByIds`).
+- **Edge cases / rounding / defaults:** Missing snapshot → 500. Missing user branch → 400. Branch without configuration → 500. Updates always price against the snapshot, so catalog/price changes do NOT affect an existing estimate until its snapshot is regenerated.
+- **Source:** `app/(app)/api/job-breakdown/route.ts:29-175`
+
+---
+
+### Average labor rate (blended straight-time + overtime)
+- **What it computes / governs:** The single $/hour rate applied to ALL labor hours in the estimate.
+- **Formula / logic:** `averageRate = (8 * baseHourlyRate + baseHourlyRate * 1.5 * (averageWorkDayHours - 8)) / averageWorkDayHours`. First 8 hours of a workday are straight time; hours beyond 8 are 1.5× (overtime); the blended rate is the total day's wage divided by the day length.
+- **Inputs:** `branchConfiguration.baseConstants.baseHourlyRate`, `baseConstants.averageWorkDayHours`.
+- **Edge cases / rounding / defaults:** If `averageWorkDayHours < 8` the overtime term goes negative (no guard). If `averageWorkDayHours = 0` → division by zero (NaN). No rounding.
+- **Source:** `app/(app)/api/job-breakdown/services/calculationService.ts:33-38`
+
+---
+
+### Number of days needed
+- **What it computes / governs:** `numberOfDays` (globalInfo key `2`), which drives load/unload labor, driving distance multiplication, and one special item's labor multiplier.
+- **Formula / logic:** If ALL selected items are sub-items → `0`. Else if `globalInfo[2]` is a finite number > 0 → that value; otherwise default `1`.
+- **Inputs:** `globalInfo[2]` (raw days), `areAllSelectedItemsSubItems(services, workAreas)`.
+- **Edge cases / rounding / defaults:** Full-subout job ⇒ 0 days ⇒ no driving/load-unload labor. Invalid/≤0 raw days ⇒ defaults to 1.
+- **Source:** `app/(app)/api/job-breakdown/services/calculationService.ts:74-89`
+
+---
+
+### Driving distance (round trip)
+- **What it computes / governs:** Total driving distance used for gas material cost and driving-time labor.
+- **Formula / logic:** One-way distance from Google Distance Matrix API (branch base address → property address), in metres, converted: `Math.round(distance.value / 1609)` miles. Then `totalDrivingDistance = 2 * oneWayMiles * numberOfDays` (round trip per day).
+- **Inputs:** branch `baseConstants.address`, property address, `numberOfDays`.
+- **Edge cases / rounding / defaults:** `numberOfDays === 0` ⇒ distance forced to 0 (no API call). Missing base or destination address ⇒ throws validation error. One-way miles are rounded to nearest mile (`Math.round`, on metres/1609). API non-OK status ⇒ throws.
+- **Source:** `app/(app)/api/job-breakdown/services/calculationService.ts:83-89,230-285`
+
+---
+
+### Gas / fuel material cost (base material)
+- **What it computes / governs:** Fuel cost added as base (non-sub) material before any items.
+- **Formula / logic:** `gasMaterialCost = (totalDrivingDistance / truckAverageMPG) * gasCost`. Seeds `totalNonSubMaterialCost`.
+- **Inputs:** `processedGlobalInfo.totalDrivingDistance`, `baseConstants.truckAverageMPG`, `baseConstants.gasCost`.
+- **Edge cases / rounding / defaults:** `truckAverageMPG = 0` ⇒ NaN. No rounding.
+- **Source:** `app/(app)/api/job-breakdown/services/costService.ts:122-123,549-555`
+
+---
+
+### Base labor (driving time + load/unload)
+- **What it computes / governs:** Fixed labor added to every job before per-item labor.
+- **Formula / logic:**
+  - `laborDrivingTime = (2.5 * totalDrivingDistance) / 30` (hours).
+  - `laborLoadUnload = baseConstants.laborHoursLoadUnload * numberOfDays` (hours).
+  - `baseLaborCost = averageRate * (laborDrivingTime + laborLoadUnload)` (dollars). This seeds `totalLaborCost`.
+- **Inputs:** `totalDrivingDistance`, `laborHoursLoadUnload`, `numberOfDays` (`processedGlobalInfo[2]`), `averageRate`.
+- **Edge cases / rounding / defaults:** The `2.5` and `30` constants are hardcoded (no config). No rounding. Both driving + load/unload hours also feed `totalHours`.
+- **Source:** `app/(app)/api/job-breakdown/services/costService.ts:124-131`
+
+---
+
+### Factor definition and selection
+- **What it computes / governs:** A Factor is a named multiplier (`factor: number`) that applies to either `Material Cost` OR `Labor Cost` (`appliesTo`). `alwaysEnabled` factors are auto-applied and hidden from the calculator UI; non-alwaysEnabled factors are user-selectable toggles.
+- **Formula / logic:** Factors can be attached at three levels: Item, ItemCategory, and WorkArea. For a given scope, the "factor total" starts at `1` and MULTIPLIES in: (a) every `alwaysEnabled` factor whose `appliesTo` matches, then (b) every user-selected (toggled-on) factor that matches and is NOT `alwaysEnabled`. (Selected-list builders also exclude `alwaysEnabled` from display.)
+- **Inputs:** factor `factor`, `appliesTo`, `alwaysEnabled`; the selected-factors map (`Record<factorId, boolean>`).
+- **Edge cases / rounding / defaults:** Factors are multiplicative (a factor of 1 is a no-op; <1 discounts; >1 marks up). ItemCategory factors apply ONLY their `alwaysEnabled` ones (no UI selection path — see category-factor rule). A factor with no matching `appliesTo` is ignored for that cost type.
+- **Source:** `collections/Factors.ts:20-68`; `lib/transforms/workArea.transform.ts:12-19,51-57`; `costService.ts:629-696,857-1000`
+
+---
+
+### Material factor total — Item / WorkArea / ItemCategory
+- **What it computes / governs:** The combined multiplicative material factor for each scope.
+- **Formula / logic:** For Item and WorkArea: `total = Π(alwaysEnabled material factors) × Π(selected non-alwaysEnabled material factors)`. For ItemCategory: `total = Π(alwaysEnabled material factors)` ONLY (no selected-factor branch is implemented for categories — selection is a documented placeholder).
+- **Inputs:** scope's `factors[]`, the relevant selected-factor map (`area.factors` for work area; per-item `factors` for item).
+- **Edge cases / rounding / defaults:** Returns `1` when scope/def is missing or has no factors. Category UI selection of factors is NOT supported.
+- **Source:** `costService.ts:629-713` (material item/workArea/category)
+
+---
+
+### Labor factor total — Item / WorkArea / ItemCategory
+- **What it computes / governs:** The combined multiplicative labor factor per scope (mirror of the material version with `appliesTo === 'Labor Cost'`).
+- **Formula / logic:** Identical structure to the material rule but filtered to `Labor Cost`. Item/WorkArea apply alwaysEnabled + selected; ItemCategory applies alwaysEnabled only.
+- **Inputs:** same as material factor total but for labor factors.
+- **Edge cases / rounding / defaults:** Returns `1` when none. No rounding.
+- **Source:** `costService.ts:715-730,857-889,967-1000`
+
+---
+
+### Additional cost (flat per-unit add-on)
+- **What it computes / governs:** An AdditionalCost is a named amount (`cost: number`) with `appliesTo` (Material or Labor). When selected on an item, it adds a flat amount scaled by item quantity.
+- **Formula / logic:** For an item with quantity `amount`: `additionalTotal = Σ over selected additional-costs matching appliesTo of (additionalCost.cost × amount)`. Added AFTER factors are applied to the base cost (additive, not multiplicative).
+- **Inputs:** `additionalCost.cost`, `appliesTo`; the selected-additional-costs map; item `amount`.
+- **Edge cases / rounding / defaults:** Only costs matching the cost type (material vs labor) are summed in each pass. No rounding.
+- **Source:** `collections/AdditionalCosts.ts:20-58`; `costService.ts:732-756` (material), `891-914` (labor)
+
+---
+
+### Non-sub item material cost (primary item)
+- **What it computes / governs:** Material cost for a normal (non-sub) item, with item/category/area factors and additional costs.
+- **Formula / logic:**
+  - `costPerUnit = item.materialCost` (special case: item `'27'` uses `costPerUnit = (ceil(qty/32) * 70 * 1.1) / qty`).
+  - `rawCost = costPerUnit × quantity`.
+  - `costWithFactors = (rawCost × itemMaterialFactor + itemMaterialAdditionalTotal) × areaMaterialFactor × categoryMaterialFactor`.
+  - Accumulated into `nonSubMaterialTotal`.
+- **Inputs:** `item.materialCost`, quantity (`amount`), item/area/category material factor totals, item material additional total, `item.multiplierOverride` (carried through, not applied here).
+- **Edge cases / rounding / defaults:** Items with `amount <= 0` are skipped entirely. Additional costs are added BEFORE area/category factors multiply (so area/category factors also scale the additional costs). Item `'27'` is a hardcoded special (≈ 70$ per 32 units × 1.1 waste, ceil'd). No rounding on money.
+- **Source:** `costService.ts:280-342`
+
+---
+
+### Generated secondary item (e.g. dump/disposal fee)
+- **What it computes / governs:** Auto-generated byproduct item cost (e.g. dump fees) triggered by a primary item.
+- **Formula / logic:** If primary item has `generatesSecondaryItem` and `primaryUnitsPerGeneratedSecondaryItem > 0`:
+  - `numSecondaryItems = ceil(primaryQuantity / primaryUnitsPerGeneratedSecondaryItem)`.
+  - `rawCost = secondaryItem.materialCost × numSecondaryItems`.
+  - `finalCost = rawCost × areaMaterialFactor` (ONLY the primary service's area material factor; NO item/category factors, NO additional costs).
+  - Added to `nonSubMaterialTotal`.
+- **Inputs:** `item.generatesSecondaryItem`, `item.primaryUnitsPerGeneratedSecondaryItem`, secondary item `materialCost`, primary quantity, area material factor.
+- **Edge cases / rounding / defaults:** Secondary item def resolved from item map, falling back to `getItem()` (also seeded as `auxiliaryItems` in the snapshot path). `numSecondaryItems` is ceil'd (rounds up). Skipped if `numSecondaryItems <= 0` or def not found.
+- **Source:** `costService.ts:344-394`; auxiliary seeding `costService.ts:46-55`
+
+---
+
+### Sub-item material cost
+- **What it computes / governs:** Material cost for sub-contracted ("subItem") items. Subs are priced separately and use a different multiplier downstream.
+- **Formula / logic:** `costRaw = item.materialCost × quantity`; `costWithFactors = costRaw × itemMaterialFactor + itemMaterialAdditionalTotal`. NO area or category factors are applied to sub-items. Accumulated into `subMaterialTotal`.
+- **Inputs:** `item.materialCost`, quantity, item material factor total, item material additional total, `item.multiplierOverride` (carried for retail step).
+- **Edge cases / rounding / defaults:** `amount <= 0` skipped. Sub-items deliberately bypass area/category factors. No rounding.
+- **Source:** `costService.ts:480-525,557-599`
+
+---
+
+### Per-item labor cost & hours
+- **What it computes / governs:** Labor hours and labor dollars for each item (sub and non-sub alike).
+- **Formula / logic:**
+  - `hoursPerItemBeforeFactors = item.laborHours`.
+  - `hoursPerItemWithItemFactors = hoursPerItemBeforeFactors × itemLaborFactor`.
+  - `hoursPerItemFinal = hoursPerItemWithItemFactors × areaLaborFactor × categoryLaborFactor`.
+  - `itemLaborCost = hoursPerItemFinal × averageRate × quantity × multiplier + laborAdditionalTotal`, where `multiplier = numberOfDays` for item `'50'` else `1`.
+  - Accumulated into `laborTotal`; `costPerItem = hoursPerItemFinal × averageRate`.
+- **Inputs:** `item.laborHours`, item/area/category labor factor totals, `averageRate`, quantity, labor additional total, `globalInfo[2]` (for item '50').
+- **Edge cases / rounding / defaults:** `quantity <= 0` skipped. Item `'50'` is a hardcoded special whose labor scales by number of days. No rounding.
+- **Source:** `costService.ts:398-478,843-855`
+
+---
+
+### True cost roll-up (non-sub vs sub vs total)
+- **What it computes / governs:** The "true cost" (raw cost to the company before markup), split into non-sub and sub buckets.
+- **Formula / logic:**
+  - `qualityControlVisitPrice = qualityControlVisit ? baseConstants.qualityControlVisitPrice : 0`.
+  - `totalNonSubTrueCost = totalNonSubMaterialCost + totalLaborCost + qualityControlVisitPrice` (note: `totalLaborCost` already includes base driving + load/unload labor, and ALL item labor including sub-item labor).
+  - `totalTrueCost = totalNonSubTrueCost + totalSubMaterialCost`.
+- **Inputs:** `totalNonSubMaterialCost`, `totalLaborCost`, `totalSubMaterialCost`, `qualityControlVisit` flag, `qualityControlVisitPrice`.
+- **Edge cases / rounding / defaults:** QC visit price is a flat add to true cost only when the flag is on. Sub-item LABOR is included in `totalLaborCost` (hence in non-sub true cost), but sub-item MATERIAL is in the sub bucket. No rounding.
+- **Source:** `calculationService.ts:107-111,157-161`
+
+---
+
+### Multiplier Range definition & selection
+- **What it computes / governs:** A MultiplierRange maps a job-cost band `[minCost, maxCost]` to a `lowestMultiple`/`highestMultiple` markup pair. The selected range's `highestMultiple` is the markup applied to non-sub true cost.
+- **Formula / logic:** `findMultiplierRange(totalCost)` = first range where `totalCost >= minCost AND (maxCost === null OR totalCost <= maxCost)`. Both bounds inclusive; `maxCost = null` means "highest/open-ended range". `getMultipliers` returns `[lowestMultiple, highestMultiple]`; retail pricing uses only `highestMultiple`. The `totalCost` passed in is `totalNonSubTrueCost`.
+- **Inputs:** `totalNonSubTrueCost`, the org/branch multiplier ranges (`minCost`, `maxCost`, `lowestMultiple`, `highestMultiple`).
+- **Edge cases / rounding / defaults:** If NO range matches the cost, `getMultipliers` THROWS `Range not found, totalCost: <x>` (hard failure — there must be a range covering the cost). `lowestMultiple` is fetched but unused in retail. Ranges are validated at write time to not overlap within a branch config and `min<=max`, `lowest<=highest` (bounds 0–10).
+- **Source:** `app/(app)/api/job-breakdown/utils/calcUtils.ts:15-38`; `collections/MultiplierRanges.ts:80-259`; `lib/transforms/multiplierRange.transform.ts:22-33`
+
+---
+
+### Retail price computation (markup + payment-method factor + floor)
+- **What it computes / governs:** The retail price (`retailCost` / `retail_cost`) before the customer discount.
+- **Formula / logic:**
+  - `[, highestMultiplier] = getMultipliers(totalNonSubTrueCost, multiplierRanges)`.
+  - `subTotal = Σ over all itemized sub-service costs of (costWithFactors × (item.multiplierOverride || baseConstants.subMultiplier))`. (Per-item `multiplierOverride` wins over the branch `subMultiplier`.)
+  - `nonSubTotal = totalNonSubTrueCost × highestMultiplier`.
+  - `factorToUse =` `cash → baseConstants.cashFactor`; `credit → baseConstants.creditCardFee`; financing (`'3'|'6'|'12'`) → `baseConstants.financeFactors[paymentMethod]`.
+  - `calculatedPrice = factorToUse × (subTotal + nonSubTotal)`.
+  - `retailPrice =` if full-subout (`isFullSubout`) → `calculatedPrice`; else → `max(calculatedPrice, baseConstants.minRetailPrice || 0)` (minimum retail floor).
+  - Also returns `retailPriceWithoutFactor = subTotal + nonSubTotal`.
+- **Inputs:** `totalNonSubTrueCost`, itemized sub-service `costWithFactors` + `multiplierOverride`, `subMultiplier`, `highestMultiplier`, payment method, `cashFactor`/`creditCardFee`/`financeFactors`, `minRetailPrice`, full-subout flag.
+- **Edge cases / rounding / defaults:** The minimum-retail-price floor is SKIPPED for fully sub-out jobs. The payment factor multiplies BOTH sub and non-sub totals. Missing/corrupt finance factor surfaces as NaN (no fallback — by design, see `retailPriceMaps.ts:10-17`). `subMultiplier` and markup are NOT applied to labor separately — labor is already inside `totalNonSubTrueCost`. No rounding here.
+- **Source:** `calculationService.ts:112-117,287-336`
+
+---
+
+### Final price (apply customer discount)
+- **What it computes / governs:** `finalPrice` / `final_price` — the price the customer pays before tax.
+- **Formula / logic:** `finalPrice = retailBreakdown.retailPrice × (1 - discountProvided / 100)`. `discountProvided` is a percentage; defaults to `0`.
+- **Inputs:** `retailPrice`, `discountProvided` (%).
+- **Edge cases / rounding / defaults:** Discount default 0. Discount is applied AFTER the min-retail floor (so final can dip below `minRetailPrice`). No rounding. (Tax is computed on `finalPrice`, see tax rule.)
+- **Source:** `calculationService.ts:51-56,118-119`
+
+---
+
+### Discount clamping (UI enforcement of max discount)
+- **What it computes / governs:** Caps the `discountProvided` a user can enter, by role/B2B context.
+- **Formula / logic:** `maxDiscount = canManageEstimate ? 100 : (baseConstants.maxDiscount ?? 0)`. On input change: `discountProvided = max(0, min(maxDiscount, parseFloat(value) || 0))`. "Apply contractor prices" toggle sets `discountProvided = baseConstants.b2bMaxDiscount` (or 0 when off).
+- **Inputs:** `baseConstants.maxDiscount`, `baseConstants.b2bMaxDiscount`, user ability `canManageEstimate`, input value.
+- **Edge cases / rounding / defaults:** Managers can discount up to 100%. Non-managers are capped at `maxDiscount`. This is a CLIENT-SIDE clamp; the server-side `calculateJobBreakdown` does NOT re-clamp (it trusts the submitted `discountProvided`). Empty/NaN input → 0.
+- **Source:** `app/(app)/(dashboard)/calculator/steps/overallJobBreakdown/TotalBreakdown.tsx:50-82`
+
+---
+
+### Tax (Washington-only, TaxJar on final price)
+- **What it computes / governs:** Sales tax amount and rate breakdown for the estimate.
+- **Formula / logic:** Tax is computed ONLY when the property address has a `WA` state component (`isWashingtonState`). If so, calls TaxJar `taxForOrder` with `amount = finalPrice` (single line item: `{ id:'total', quantity:1, unit_price: finalPrice, discount:0 }`), `shipping:0`, nexus in the destination state. `taxAmount` = `taxData.amount_to_collect` (0 if no tax run).
+- **Inputs:** `finalPrice`, parsed address (`street`, `city`, `state`, `zip`), `TAXJAR_API_KEY`.
+- **Edge cases / rounding / defaults:** Non-WA addresses ⇒ NO tax (`taxData = null`, `taxAmount` saved as 0). Missing zip or state ⇒ throws. Missing street/city ⇒ logs warning, falls back to ZIP-level rates (still computes). TaxJar failure ⇒ throws `TAXJAR_ERROR`. Tax is on the discounted `finalPrice`, not retail.
+- **Source:** `calculationService.ts:40-44,121-140,195-228`; `app/(app)/api/job-breakdown/utils/taxes/getTaxForOrder.ts:27-52`
+
+---
+
+### Tax breakdown roll-up (state vs local)
+- **What it computes / governs:** Splits TaxJar's breakdown into the snapshot-shaped `taxBreakdown` persisted with the estimate.
+- **Formula / logic:**
+  - `localTaxRate = city_tax_rate + special_tax_rate + county_tax_rate`.
+  - `localTaxAmount = city_tax_collectable + county_tax_collectable + special_district_tax_collectable`.
+  - `stateTaxRate = state_tax_rate`; `stateTaxAmount = state_tax_collectable`.
+  - `totalTax = taxData.amount_to_collect`.
+- **Inputs:** `jobBreakdown.taxData.breakdown` fields.
+- **Edge cases / rounding / defaults:** Returns `undefined` when no breakdown (TaxJar didn't run) so the snapshot leaves `taxBreakdown` unset. Each component defaults to 0. No rounding.
+- **Source:** `lib/domain/estimates/jobBreakdownAggregates.ts:41-63`
+
+---
+
+### Total labor hours roll-up
+- **What it computes / governs:** `laborHours` / `labor_hours` saved on the estimate.
+- **Formula / logic:** `totalHours = Σ over areas Σ over items (hoursPerItem × quantity) + laborDrivingTime + laborLoadUnload`. (Per-item final hours already include all item/area/category labor factors.)
+- **Inputs:** itemized `hoursPerItem`, `quantity`, `laborDrivingTime`, `laborLoadUnload`.
+- **Edge cases / rounding / defaults:** Recomputed from itemized costs (not the running `totalLaborCost`). No rounding. Includes base driving + load/unload hours.
+- **Source:** `calculationService.ts:142-155,169-172`
+
+---
+
+### Estimate aggregates persisted to the row
+- **What it computes / governs:** The flat pricing columns saved on `job_estimates` (the canonical stored numbers).
+- **Formula / logic:** `extractEstimateAggregates(jobBreakdown)` maps:
+  - `retailCost = retailBreakdown.retailPrice`.
+  - `finalPrice = jobBreakdown.finalPrice`.
+  - `trueCost = jobBreakdown.totalTrueCost`.
+  - `taxAmount = taxData?.amount_to_collect ?? 0`.
+  - `laborHours = laborCost.totalHours`.
+  - `subServicesRetailCost = retailBreakdown.subTotal ?? 0`.
+  These map to `retail_cost`, `final_price`, `true_cost`, `tax_amount`, `labor_hours`, `sub_services_retail_cost` on save.
+- **Inputs:** `JobBreakdown`.
+- **Edge cases / rounding / defaults:** `taxAmount` and `subServicesRetailCost` default to 0. No rounding applied at persistence. Save path: `useSaveJobEstimate.tsx:91-113`.
+- **Source:** `lib/domain/estimates/jobBreakdownAggregates.ts:22-33`; `app/(app)/(dashboard)/calculator/steps/overallJobBreakdown/useSaveJobEstimate.tsx:91-113`
+
+---
+
+### Per-line-item retail roll-up (proposal display)
+- **What it computes / governs:** Allocates the estimate's retail price down to individual line items for the customer-facing proposal (the calc engine produces only TRUE-cost itemization; retail is allocated here).
+- **Formula / logic:** Builds per-item maps (`nonSubMaterial`, `subMaterial`, `labor`) summed by item ID from the breakdown.
+  - `overhead = totalNonSubTrueCost - Σ(nonSubMaterial + labor per item)`; allocated to each non-sub item proportional to its true cost: `overheadAlloc = overhead × (itemTrueCost / overheadDenom)`.
+  - Non-sub line: `totalRetailBeforeFactor = ((trueCost + overheadAlloc) × highestMultiplier) / occurrences`.
+  - Sub line: `totalRetailBeforeFactor = ((sub.cost) × (multiplierOverride || subMultiplier)) / occurrences`.
+  - `total = totalRetailBeforeFactor × paymentFactor × discountFactor` where `discountFactor = 1 - discountPct/100`.
+  - Then SCALED so the sum of line items doesn't exceed the true retail: `scaleFactor = (cappedSum > uncappedSum) ? (subtotal×discountFactor)/uncappedSum : 1`; each line × scaleFactor. `unitPrice = scaledTotal / quantity`.
+- **Inputs:** breakdown item maps, `highestMultiplier`, `subMultiplier`, `paymentFactor`, `discountPct`, `retailBreakdown.retailPrice` (subtotal), item occurrences/quantities.
+- **Edge cases / rounding / defaults:** This is presentation allocation only — it does NOT change the stored `retail_cost`/`final_price`. `overheadDenom` floored at 1 to avoid /0. Scaling only caps downward (never inflates lines above the cap). `occurrences` splits a repeated item's cost evenly.
+- **Source:** `app/(app)/(dashboard)/estimates/[id]/proposal/proposalViewModel.ts:333-411`; `lib/domain/estimates/retailPriceMaps.ts:10-66`
+
+---
+
+### Deposit amount (proposal + auto-invoice)
+- **What it computes / governs:** Required deposit shown on the proposal and used to auto-create a deposit invoice on proposal signing.
+- **Formula / logic:**
+  - Proposal: `depositPercent = (baseConstants.depositPercent ?? 10)/100`; `rawDeposit = totalAfterTax × depositPercent`; `depositAmount = maxDeposit > 0 ? min(rawDeposit, maxDeposit) : rawDeposit`. (`totalAfterTax = totalBeforeTax + totalTax`, `totalBeforeTax = finalPrice`.)
+  - Auto-invoice: same percent/cap but on `estimate.finalPrice` (the pre-tax final price), then the deposit line item `unitPrice = Math.round(depositAmount × 100) / 100` (rounded to cents). Tax on the deposit line is computed separately via TaxJar.
+- **Inputs:** `baseConstants.depositPercent` (default 10), `baseConstants.maxDepositAmount` (0 = no cap), `finalPrice`/`totalAfterTax`, tax.
+- **Edge cases / rounding / defaults:** `depositPercent` default 10%. `maxDepositAmount = 0` ⇒ no cap. Auto-invoice bails if `finalPrice <= 0`, if a non-deleted invoice already exists for the estimate, if invoices feature flag off, or if `autoCreateDepositInvoice` is false. Note the proposal computes deposit on AFTER-tax total while the auto-invoice computes on the PRE-tax `finalPrice` — different bases.
+- **Source:** `app/(app)/(dashboard)/estimates/[id]/proposal/proposalViewModel.ts:437-446`; `lib/domain/invoices/autoCreateDepositInvoice.ts:83-113`
+
+---
+
+### Item definition fields that drive pricing
+- **What it computes / governs:** The per-item catalog inputs the engine reads.
+- **Formula / logic:** Pricing-relevant Item fields: `materialCost` (per-unit material $), `laborHours` (hours per unit), `multiplierOverride` (overrides `subMultiplier` for sub-items in retail), `subItem` (routes the item to the sub bucket / sub multiplier), `unit` (display unit — Sq.Ft./Big Sq./Dollars/Linear Feet/Each/Hours; not arithmetic), `factors[]`, `additional_costs[]`, `generatesSecondaryItem` + `primaryUnitsPerGeneratedSecondaryItem` (secondary-item generation), `requiresInfo` (UI gating, not pricing).
+- **Inputs:** Items collection.
+- **Edge cases / rounding / defaults:** `multiplierOverride` is nullable. `unit` is informational; the math treats quantity × cost identically regardless of unit (no unit conversion in the active engine).
+- **Source:** `collections/Items.ts:114-203`; `lib/transforms/workArea.transform.ts:80-163`
+
+---
+
+### Items with non-positive quantity are excluded
+- **What it computes / governs:** Zero/negative-quantity items are dropped from every cost pass.
+- **Formula / logic:** In each material, labor, and sub loop: `if (quantity <= 0) continue;`. On save, `filterZeroAmountItems` also strips them from persisted `service_data`.
+- **Inputs:** item `amount`/quantity.
+- **Edge cases / rounding / defaults:** A selected item with amount 0 contributes nothing to cost and is not persisted.
+- **Source:** `costService.ts:280-281,425-426,503-504`; `useSaveJobEstimate.tsx:87-89`
+
+---
+
+### Branch base constants (pricing knobs) — source & defaults
+- **What it governs:** The branch-level configuration values every formula above reads.
+- **Formula / logic:** Defined in `baseConstants` group. Pricing-relevant: `baseHourlyRate`, `averageWorkDayHours`, `creditCardFee`, `gasCost`, `truckAverageMPG`, `laborHoursLoadUnload`, `subMultiplier`, `cashFactor`, `financeFactors.{3,6,12}`, `minRetailPrice`, `qualityControlVisitPrice`, `maxDiscount`, `b2bMaxDiscount`, `depositPercent` (default 10), `maxDepositAmount` (default 0 = no cap), `wasteFactor` (see note below). All numeric, mostly `required: true` (no defaults in code except depositPercent=10, maxDepositAmount=0).
+- **Edge cases / rounding / defaults:** Updates price against the snapshot's frozen copy of these constants, not live values. `financeFactors` default to 0 in the transform if missing (yielding $0 retail for that method — effectively misconfiguration).
+- **Source:** `collections/BranchConfigurations.ts:152-438`; `lib/transforms/branch.transform.ts:79-128,211-232`
+
+---
+
+### Unused / dead pricing helpers (documented to avoid confusion)
+- **What it governs:** Code that LOOKS like pricing but is not in the active calculation path.
+- **Findings:**
+  - `wasteFactor` (`baseConstants.wasteFactor`) is defined on the config and surfaced in the branch settings form (default `1`), but I found NO read of it in the calculation engine (`CostService`/`CalculationService`). It does not affect computed pricing in the current code. The only "waste"-like multiplier in the engine is the hardcoded `1.1` for item `'27'`.
+  - `calculateAmountOfBags(sf, sfPerBag) = ceil(sf / sfPerBag)` and the `sqFtPerBag` field on `ItemizedMaterialCost` exist (`calcUtils.ts:3-6`, `calculator-types.ts:223`) but I found NO caller in the active engine — appears to be legacy/unused.
+- **Edge cases / rounding / defaults:** Flagged as ambiguous: if a documentation reader expects `wasteFactor` or bag math to influence price, it currently does NOT (verify before asserting otherwise).
+- **Source:** `app/(app)/api/job-breakdown/utils/calcUtils.ts:3-6`; `collections/BranchConfigurations.ts:165-169`; (no engine reference found)
+
+---
+
+### Global rounding behavior
+- **What it governs:** Where the system rounds vs. carries full float precision.
+- **Findings:**
+  - The core engine carries full floating-point precision through material, labor, true cost, retail, final price, and tax — NO `Math.round`/`toFixed` is applied to the stored `retail_cost`, `true_cost`, `final_price`, `tax_amount`, or `labor_hours`.
+  - `Math.round`/`Math.ceil` ARE used in specific spots: driving distance miles (`Math.round(metres/1609)`), `numSecondaryItems` (`Math.ceil`), item `'27'` bag count (`Math.ceil(qty/32)`), and the deposit invoice line `unitPrice` (`Math.round(deposit×100)/100`, cents).
+  - Currency is rounded only for DISPLAY via `formatCurrency` / `Intl.NumberFormat`, not in the stored math.
+- **Source:** `calculationService.ts:284`; `costService.ts:303,356`; `autoCreateDepositInvoice.ts:111`; `app/(app)/(dashboard)/calculator/utils/formatCurrency.ts`

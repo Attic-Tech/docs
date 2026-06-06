@@ -1,0 +1,228 @@
+---
+title: "Troubleshooting: why can't I…? (reference)"
+description: "Why an estimate action is blocked, disabled, or failing — cause and resolution for each case."
+icon: "circle-question"
+---
+
+## Validation & troubleshooting rules
+
+Scope: every rule in the estimate Calculator flow that BLOCKS, DISABLES, WARNS, or REQUIRES PERMISSION — the user-visible symptom, the exact code condition, and how to resolve it. All paths are under `apps/web/src` unless noted. Line numbers are from the code at time of writing; verify if the file has changed.
+
+---
+
+### Why can't I open the Calculator page at all?
+
+- **Symptom:** The "Calculator" / "New Estimate" entry point is missing or access is denied.
+- **Cause:** Page access is gated by the CASL `access` ability on `'CalculatorPage'`, granted only to roles that have it (Admin, Ops Manager, Sales Admin, Sales Member, Client Coordinator, Crew Leader). A role without `can('access', 'CalculatorPage')` cannot reach it.
+- **Resolution:** Have an admin grant a role that includes calculator access.
+- **Source:** `packages/common/src/abilities.ts` (per-role `can('access', 'CalculatorPage')` blocks, e.g. Sales Admin `:367`, Sales Member, Client Coordinator `:539`)
+
+---
+
+### Why am I told I've hit the limit of open estimates?
+
+- **Symptom:** Red banner at the top of the wizard: "You have exceeded the limit of open estimates. Please move an existing estimate to *Sold* or *Lost*". The Continue / Generate Proposal buttons are disabled.
+- **Cause:** When creating a NEW estimate, the server counts your open estimates (statuses `In Progress` + `Released`) for the branch and compares against the branch's `maxOpenEstimates`. If `userOpenEstimates >= maxOpenEstimates`, `maxEstimatesExceededForUser` is set true, which both renders the banner and disables the action buttons.
+- **Resolution:** Move one of your existing `In Progress`/`Released` estimates to `Sold` or `Lost` (reduces the open count), then start the new estimate. The limit only applies to new estimates — editing an existing one is unaffected (`if (!jobEstimateData)` guard).
+- **Source:** count rule `lib/api/jobEstimate-api.ts:808` (`getNumberOfEstimatesPerUser`, default statuses In Progress + Released); threshold `app/(app)/(dashboard)/calculator/page.tsx:312-321`; banner `app/(app)/(dashboard)/calculator/wizard/WizardShell.tsx:424-431`; button disable `app/(app)/(dashboard)/calculator/navigation/navigationButtons.tsx:124,183`
+
+---
+
+### Why can't I move past the "Select Work Area" step?
+
+- **Symptom:** The "Continue" button is disabled on the work-area selection step.
+- **Cause:** Two guards on this step. (1) `isWorkAreaStep && !isCurrentStepValid` — the work-area zod schema requires at least one service, and when there's exactly one service it must have a `workAreaTypeId` selected. (2) `isMissingClientProject` — on the work-area step, a client and a project must both be selected (`!liveSelectedClientId || !liveSelectedProjectId`).
+- **Resolution:** Pick a work-area type for the (single) service, and make sure both a client and a project are selected.
+- **Source:** disable logic `navigation/navigationButtons.tsx:110-128`; schema `app/(app)/(dashboard)/calculator/schemas/workAreaSchema.ts:10-19` (`services.min(1)` + refine on `workAreaTypeId`)
+
+---
+
+### Why can't I continue past the "Items" step? ("Add at least one item")
+
+- **Symptom:** "Continue" is disabled on the Items step for the current work area.
+- **Cause:** `isItemsStep && !hasCurrentAreaItems`. `hasCurrentAreaItems` is true only if the current cart area has at least one item with `amount > 0`. An area with no items (or all amounts 0) blocks advancing.
+- **Resolution:** Add at least one item with a quantity greater than 0 to the current work area before continuing.
+- **Source:** disable logic `navigation/navigationButtons.tsx:123`; selector `store/useCalculatorStore.ts:76-78`; predicate `store/useCalculatorStore.ts:64-69` (`areaHasItemsWithAmount` — `item.amount > 0`)
+
+---
+
+### Why can't I submit the Job step? (job-detail required fields)
+
+- **Symptom:** The form won't submit; field-level "required" errors appear under Job name, client name/email/phone, or property fields.
+- **Cause:** The `jobFormSchema` requires: `jobName` (non-empty), client `firstName`, `lastName`, valid `email`, valid `phone`; property `address`, `propertyType`, `parking`. RHF's `handleSubmit` blocks navigation when validation fails.
+- **Resolution:** Fill in every required job/client/property field with valid values (valid email + phone formats).
+- **Source:** `app/(app)/(dashboard)/calculator/schemas/jobFormSchema.ts:5-22`; submit-via-RHF behavior `app/(app)/(dashboard)/calculator/hooks/useWizardNavigation.ts:237-243`
+
+---
+
+### Why can't I complete the Inspection Report step? (required report fields)
+
+- **Symptom:** Inspection report won't submit; "required" errors on demeanor, concerns, impacts, hazards, special instructions, or a crew-notes length error.
+- **Cause:** The `inspectionReportSchema` requires non-empty values for `customerDemeanor`, `customerConcerns`, `installationImpacts` (inspectionReport block) and `hazards`, `specialInstructions` (property block). `crew_notes` is optional but capped at `CREW_NOTES_MAX_LENGTH` characters ("Crew notes must be N characters or fewer.").
+- **Resolution:** Fill the required report fields; keep crew notes within the length cap.
+- **Source:** `app/(app)/(dashboard)/calculator/schemas/inspectionReportSchema.ts:4-42`
+- **Note:** Read-only estimates bypass the RHF submit handler so users can still navigate a report that was saved before some fields became required — this is intentional and not a bug (`useWizardNavigation.ts:226-248`).
+
+---
+
+### Why is the whole estimate read-only / why are all fields greyed out?
+
+- **Symptom:** The estimate opens with no editable fields; only navigation works. No "Save Estimate" / "Add Work Area" buttons.
+- **Cause:** Existing estimates are editable ONLY while status is `In Progress`. Any other status (`Sold`, `Released`, `Lost`, `Secondary Estimate`) opens the calculator in `CalculatorMode.Readonly`. In Readonly mode `canMutateEstimate` is false, which hides the Save button, the Add-Work-Area button, and the proposal-generate action. (Viewing an inspection report via the `page=viewInspectionReport` URL also forces Readonly.)
+- **Resolution:** Change the estimate's status back to `In Progress` (from the estimates list status control) before editing. Note that requires the right role and, if the proposal is signed, removing the signature first (see below).
+- **Source:** editable rule `lib/constants/jobEstimateConstants.ts` (`isEditableStatus` → only `In Progress`); mode selection `hooks/useWizardNavigation.ts:85-95`; button gating `navigation/navigationButtons.tsx:62-64,86-96,130-140`
+
+---
+
+### Why does saving an existing estimate fail with "This estimate is read-only"?
+
+- **Symptom:** Save fails server-side with "This estimate is read-only. Change the status to In Progress before editing."
+- **Cause:** `performUpdateEstimate` row-locks the estimate and re-checks `isEditableStatus`; if it's no longer `In Progress` (e.g. someone flipped it concurrently), the transaction rejects. This is a server-side defense even if the UI allowed the edit.
+- **Resolution:** Set the status back to `In Progress`, then retry the save.
+- **Source:** `app/actions/job-estimates.ts:345-378` (`lockEstimateAndVerifyStatus` with `isEditableStatus`, clientMessage at `:365`)
+
+---
+
+### Why is the "Save Estimate" button disabled? (no changes to save)
+
+- **Symptom:** On the Overall Job Breakdown step of an EXISTING estimate, "Save Estimate" is disabled even though the form looks complete.
+- **Cause:** `isSaveEstimateDisabledWhenClean` — for an existing estimate (`existingEstimateId != null`) with no pending changes (`!hasPendingChanges`, i.e. neither the store nor the active RHF form is dirty), the Save button is disabled to avoid re-posting unchanged data (which would needlessly re-fire collection hooks against any linked job).
+- **Resolution:** Make a real change (quantities, items, job details, breakdown fields). For brand-new estimates this guard never applies.
+- **Source:** `navigation/navigationButtons.tsx:69-78,117-128`
+
+---
+
+### Why does the Save button say "Loading Breakdown..." and stay disabled?
+
+- **Symptom:** On the breakdown step the primary button reads "Loading Breakdown..." (or "Generate Proposal" is disabled) and can't be clicked.
+- **Cause:** `!isJobBreakdownReady` — the job breakdown hasn't finished computing yet. The button label switches to "Save Estimate" / enables only once `jobBreakdown` is available.
+- **Resolution:** Wait for the breakdown to finish loading. If it never resolves and you try to save, the orchestrator returns the error "The job breakdown is still loading. Please wait and try again."
+- **Source:** disable + label `navigation/navigationButtons.tsx:127,141-151,181-185`; runtime guard `steps/overallJobBreakdown/useSaveEstimateOrchestrator.ts:90-94`
+
+---
+
+### Why am I asked "How would you like to handle pricing?" when I save? (regenerate dialog)
+
+- **Symptom:** On saving an existing In-Progress estimate, a "Save changes" modal appears: "There have been changes since you created this estimate. How would you like to handle pricing?" with "Keep original pricing and settings" (default) vs "Use up to date information".
+- **Cause:** The regen prompt fires only when ALL of these hold: the estimate already exists (`existingEstimateId != null`), it's still editable (`isEditableStatus`), the user has the `manage` ability on `JobEstimate`, AND there are actual committed changes (`selectIsDirty` is true after committing the current step). "Keep" preserves the original catalog snapshot; "Use current" rebuilds the snapshot from the live catalog (`saveAndRegenerateEstimate`).
+- **Resolution:** Pick "Keep original" to keep locked-in prices/labels/tax/branch config, or "Use up to date information" to refresh from the current catalog. Default is "Keep" (you must opt in to fresh pricing). If you have only `update` (not `manage`), the dialog is intentionally hidden because "Use current" would 403.
+- **Source:** dialog `app/(app)/(dashboard)/calculator/components/SaveChangesRegenDialog.tsx:35-129`; gating `steps/overallJobBreakdown/useSaveEstimateOrchestrator.ts:82-86,135-194`; server `manage` gate `app/actions/job-estimates.ts:546-575`
+
+---
+
+### Why is there an "impact" warning before save on some estimates?
+
+- **Symptom:** A scheduled-job impact dialog appears before the regen dialog / save.
+- **Cause:** When the estimate has an associated job (`hasAssociatedJob`) AND there are committed changes, the impact dialog is shown first (it takes precedence over regen). It warns that edits could ripple into the linked job. A clean estimate (no real diff after committing) skips both prompts and short-circuits the whole save pipeline.
+- **Resolution:** Confirm the impact dialog to proceed (it then chains into the regen prompt when applicable), or cancel to keep your changes unsaved.
+- **Source:** `steps/overallJobBreakdown/useSaveEstimateOrchestrator.ts:135-143,182-226` (`openNextPromptIfAny`, `handleImpactConfirm`)
+
+---
+
+### Why is the "Back" button disabled?
+
+- **Symptom:** "Back" can't be clicked.
+- **Cause:** `isBackButtonDisabled` is true on the very first work-area step (`activeStep === SelectWorkArea && currentAreaIndex === 0`) — there's nowhere to go back to. Back is also disabled while a save or step submission is in flight (`disableActions`).
+- **Resolution:** This is expected on the first step. Otherwise wait for the in-flight save/submit to finish.
+- **Source:** `navigation/navigationButtons.tsx:153-155,97,226`
+
+---
+
+### Permissions: who can CREATE / EDIT / DELETE an estimate?
+
+- **Symptom:** Action denied or button hidden when trying to create, edit, or delete.
+- **Cause (collection-level, Payload access):** `job-estimates` access is org-scoped plus role-gated: `create` and `update` require `ROLE_GROUPS.CREW_MANAGEMENT` (Super Admin, Admin, Ops Manager, Crew Leader); `delete` requires `ROLE_GROUPS.MANAGEMENT` (Super Admin, Admin, Ops Manager); `read` is org-scoped only. NOTE these are the Payload collection guards — the app primarily enforces via CASL server actions below.
+- **Cause (CASL app-level):** Server actions wrap abilities: create → `create JobEstimate`; edit → `update JobEstimate`; delete → `delete JobEstimate`. The delete button is hidden when `!ability.can('delete', 'JobEstimate')`.
+- **Resolution:** Use a role with the needed ability. Sales Admin and Client Coordinator have broad estimate abilities; Sales Member has read/create/update (no delete in that block); Ops Manager has `manage` but with status restrictions (see next card).
+- **Source:** collection access `collections/JobEstimates.ts:233-238`; role groups `lib/auth/collection-access.ts:12-37`; CASL actions `app/actions/job-estimates.ts:280-294,380-391,458-490`; per-role CASL `packages/common/src/abilities.ts` (Sales Member `:441`, Client Coordinator `:561`, Sales Admin `:382`, Ops Manager `:305`); delete-button guard `app/(app)/(dashboard)/estimates/EstimatesTableTanstack.tsx:138`
+
+---
+
+### Why can't I change the status of a Sold estimate?
+
+- **Symptom:** Status dropdown won't let you move a `Sold` estimate to another status; or the server rejects with "Sold estimates cannot be modified without the required role."
+- **Cause:** Both client and server enforce that leaving `Sold` requires the `manage` ability on `JobEstimate`. Client: `isStatusChangeAllowed` returns false when `currentStatus === 'Sold' && targetStatus !== 'Sold'` and the user lacks `manage`. Server: `updateEstimateStatus` throws a 409 with that clientMessage.
+- **Resolution:** Use a role with `manage` on `JobEstimate` (e.g. Admin / Sales Admin) to change a Sold estimate's status.
+- **Source:** client `app/(app)/(dashboard)/estimates/useEstimateStatusUpdate.ts:26-38`; server `app/actions/job-estimates.ts:210-220`
+
+---
+
+### Why can't I set certain statuses (Released / Sold / Lost / Secondary)? (Ops Manager)
+
+- **Symptom:** As an Ops Manager you can edit estimates but the status dropdown won't let you set `Released`, `Sold`, `Lost`, `Secondary Estimate`, or `Deleted`.
+- **Cause:** Ops Manager has `manage JobEstimate` but an explicit `cannot('updateStatus', 'JobEstimate', { status: { $in: ['Released','Sold','Lost','Secondary Estimate','Deleted'] } })` — they can only set `In Progress`. The status control is filtered by `can('updateStatus', subject('JobEstimate', { status: targetStatus }))`.
+- **Resolution:** A Sales role (Sales Member / Sales Admin / Client Coordinator) — which have `updateStatus` for those statuses — must perform sale/loss/release transitions.
+- **Source:** Ops Manager rule `packages/common/src/abilities.ts:305-310`; Sales Member allowance `:443-454`; Client Coordinator `:561`; per-target check `useEstimateStatusUpdate.ts:33-37`
+
+---
+
+### Why am I asked to "Remove signature to continue" when I change status?
+
+- **Symptom:** Changing a signed estimate's status to `In Progress` pops a red modal: "Remove signature to continue / This estimate has an approved proposal. To make changes, remove the signature and resend the proposal." The confirm button stays disabled until a checkbox is ticked.
+- **Cause:** When the proposal is signed and the target status requires signature removal (only `In Progress` is a gated target), `updateJobEstimateStatusGated` returns `RequiresConfirmation` instead of applying the change. The UI then renders the confirm modal. The "Remove signature" button is disabled until the acknowledgement checkbox is checked.
+- **Resolution:** Tick "I understand this will remove the customer's signature and payment details, and the proposal must be resent," then confirm. This atomically clears the signature, payment method, and financing term alongside the status flip, and shows a "Signature removed" toast. You must have the `manage` ability — confirming without it returns "You do not have permission to remove a customer signature." (403).
+- **Source:** modal `components/estimates/RemoveSignatureConfirmModal.tsx:24-69`; gate `lib/api/jobEstimate-api.ts:443-509`; target rule `lib/constants/jobEstimateConstants.ts` (`targetStatusRequiresSignatureRemoval` → `In Progress` only); confirm-permission gate `app/actions/job-estimates.ts:225-235`; flow + toasts `app/(app)/(dashboard)/estimates/useEstimateStatusUpdate.ts:67-122`
+
+---
+
+### Why can't I delete this estimate? ("signed, cannot be deleted")
+
+- **Symptom:** The delete button is present but tooltip reads "This estimate was signed and cannot be deleted"; or the server rejects with "Cannot delete an estimate with a signed proposal."
+- **Cause:** `deleteJobEstimate` blocks deletion when the estimate's proposal is signed (checked via the back-reference `proposalSignedAt`, falling back to a direct proposal query). Separately, the action layer also blocks deleting a `Sold` estimate ("Sold estimates cannot be deleted.") via the row-locked status check.
+- **Resolution:** A signed estimate can't be deleted — remove the signature first (which requires `manage`). A `Sold` estimate can't be deleted at all via this path; change its status first if appropriate.
+- **Source:** signed-proposal block `lib/api/jobEstimate-api.ts:300-317`; Sold block `app/actions/job-estimates.ts:458-490` (`status !== 'Sold'` predicate, clientMessage `:480`); UI tooltip `app/(app)/(dashboard)/estimates/EstimatesTableTanstack.tsx:448,458,630`
+
+---
+
+### Why can't I edit crew notes on a deleted estimate?
+
+- **Symptom:** Editing crew notes fails with "This estimate has been deleted."
+- **Cause:** `updateEstimateCrewNotes` allows crew-note edits in normally-immutable states (e.g. Sold) but explicitly rejects when status is `Deleted`. Crew notes require the `updateCrewNotes` ability.
+- **Resolution:** Crew notes can be edited on any non-Deleted estimate (with the `updateCrewNotes` ability). A deleted estimate must be restored first.
+- **Source:** `app/actions/job-estimates.ts:397-418` (deleted check `:406-412`); ability `updateCrewNotes` granted to Sales Member `packages/common/src/abilities.ts:442`, Client Coordinator `:562`
+
+---
+
+### Why can't I change the "Sold Date" (effective sold date)?
+
+- **Symptom:** The sold-date picker shows as plain read-only text (no calendar button); or saving a date fails.
+- **Cause:** The picker is editable only when `ability.can('manage', 'JobEstimate')`; otherwise it renders read-only text. It only appears at all when status is `Sold` and an `effective_sold_date` exists. Future dates are disabled in the calendar. Server-side, `updateEffectiveSoldDate` requires `manage`, row-locks the estimate, and rejects unless status is `Sold` ("Effective sold date can only be set on Sold estimates."). At the field level, `effective_sold_date.access.update` requires `ROLE_GROUPS.BRANCH_MANAGEMENT`.
+- **Resolution:** Use a role with `manage` / Branch Management on a `Sold` estimate; pick a non-future date.
+- **Source:** picker gating `components/estimates/EffectiveSoldDatePicker.tsx:46-50,74-83,106`; server action `app/actions/job-estimates.ts:420-456` (Sold predicate + clientMessage `:436-438`); field access `collections/JobEstimates.ts:410-425`
+
+---
+
+### Why can't I set "first sold date" or "status changed at" directly?
+
+- **Symptom:** These sidebar fields are read-only and can't be changed.
+- **Cause:** `status_changed_at.access.update: () => false` and `first_sold_at.access.update: () => false` — both are settable only by collection hooks. `first_sold_at` is immutable once set on the first Sold transition; `status_changed_at` is stamped automatically when status changes.
+- **Resolution:** These are system-maintained; they cannot be edited by any user. To adjust sales attribution use the `effective_sold_date` field instead (see previous card).
+- **Source:** `collections/JobEstimates.ts:374-408` (field access `:387-389` and `:405-407`)
+
+---
+
+### What does the "AI: Check for issues" review tell me? (advisory, non-blocking)
+
+- **Symptom:** A "AI: Check for issues" button; after running, it shows warnings ("AI Review (N issues)"), "Estimate looks good", or "Could not validate estimate".
+- **Cause:** This is an LLM-based advisory validator (`validateEstimateAction` → `validateEstimate`). It returns up to 5 warnings with severity info/warning/error. It is purely advisory — it does NOT block save/continue. The feature itself is gated by the `AI_CALCULATOR` feature flag ("This feature is not available" if off) and requires the branch to have a linked configuration.
+- **Resolution:** Treat warnings as suggestions; dismiss individually (X) or re-check. Errors here flag "clearly wrong data" but never prevent saving. If you see "Could not validate estimate", the AI call failed — you can still proceed.
+- **Source:** component `app/(app)/(dashboard)/calculator/components/EstimateValidationWarnings.tsx:24-203`; action + flag/branch gates `app/(app)/(dashboard)/calculator/actions/validate-estimate.ts:19-62`; severity rules `app/(app)/(dashboard)/calculator/lib/ai/estimate-validation.ts:22-32,150-152`
+- **Unresolved/uncertain:** The specific warning messages are generated by the LLM at runtime (not hardcoded), so they cannot be enumerated from source — only the severity taxonomy and the 5-item cap are code-grounded.
+
+---
+
+### Why did my status change fail with a generic error toast?
+
+- **Symptom:** Toast "Unable to update status" with a server message, or "A network error occurred. Please check your connection and try again."
+- **Cause:** Any failure of `updateEstimateStatus` (ability envelope `success: false`, or a thrown/network error) surfaces as a toast in `handleStatusChange`. The first form carries the server `clientMessage`; the catch-all form is for network failures.
+- **Resolution:** Read the toast message (it relays the server's `clientMessage`, e.g. the Sold-role or read-only messages above) and address that specific cause; retry on network errors.
+- **Source:** `app/(app)/(dashboard)/estimates/useEstimateStatusUpdate.ts:55-97`
+
+---
+
+### Server-side "Invalid ID" / "Estimate not found" errors
+
+- **Symptom:** "Invalid estimate ID." or "Estimate not found." returned from an estimate operation.
+- **Cause:** Non-numeric ID passed to create/update/delete/status actions (`isNaN` guard) → "Invalid estimate ID."; or the estimate row / its branch relationship can't be resolved → "Estimate not found." / "Estimate branch could not be resolved."
+- **Resolution:** Usually transient or a stale link — reload the estimates list and retry with a valid estimate.
+- **Source:** invalid-ID guards `lib/api/jobEstimate-api.ts:291-298,358-365,629-636`; not-found `:49-56,88-108`
