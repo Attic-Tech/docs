@@ -1,7 +1,142 @@
 ---
-title: "Contact lifecycle"
+title: "Contacts (reference)"
+description: "Primary vs secondary contacts, how contacts carry from lead to client, and removal rules."
+icon: "address-book"
+keywords: ["primary contact","secondary contact","remove contact","relationship to property"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+# Contacts
+
+This page covers how contacts are stored and validated, who can create or remove them, how primary and secondary contacts work, how contacts carry from a lead to a client, and the rules for reusing and removing contacts.
+
+## Contact details and validation
+
+### A contact must have at least an email or a phone
+
+Every contact must have either an email or a phone number. If you try to save a contact with both fields empty (whitespace counts as empty), the save is rejected with the message **"Either email or phone number is required"**.
+
+### Email is cleaned up automatically
+
+When you save a contact, the email is trimmed and lowercased automatically.
+
+### Phone numbers are validated
+
+When you save a contact, the phone number is standardized to a full international format. A malformed phone number is rejected with the message **"Invalid phone number"**. An empty phone number is allowed (as long as the contact has an email — see the rule above).
+
+### Required fields
+
+At minimum a contact needs a last name, a preferred contact method, a contact type, and must belong to your workspace. Client-facing forms treat **last name** and **phone** as the default required fields.
+
+- **Preferred contact method** defaults to "none" (options: none, email, phone, text).
+- **Type** defaults to "lead" (options: company referrer, lead, client).
+
+First name, email, phone, relationship to property, and company name are not strictly required (subject to the "email or phone" rule above).
+
+### Full name
+
+A contact's full name is shown by combining the first and last name. It is computed for display and is not edited directly.
+
+### Contacts belong to your workspace
+
+Every contact belongs to a workspace. You can only see and edit contacts within your own workspace.
+
+## Who can create, edit, or remove contacts
+
+### Create or edit a contact
+
+Creating and editing contacts is available to: **Admin, Sales Admin, and Sales Member**.
+
+### Remove a contact from a record
+
+Removing an existing contact from a client or project record is available to: **Admin, Ops Manager, and Sales Admin**.
+
+Crew Leaders cannot create, edit, or remove contacts. Client Coordinators and Sales Members can create and edit contacts but cannot remove an existing one from a record.
+
+## Primary vs secondary contacts
+
+### One primary contact, many secondary contacts
+
+A project, client, or lead has exactly **one primary contact** plus any number of **secondary contacts**. "Primary" is a designation on the record (which contact leads), not a property of the contact itself — so the same person can be primary on one record and secondary on another.
+
+### Exactly one primary is required
+
+When you save the contacts on a project:
+
+- If **no** contact is marked primary, the save is rejected with **"At least one contact must be set as primary."**
+- If **more than one** contact is marked primary, the save is rejected with **"Only one contact can be set as primary."**
+
+The contact marked primary becomes the record's primary contact; the rest become secondary contacts.
+
+### Creating a project requires the client to have a primary contact
+
+When you create a project from a client, the client must already have a primary contact. If it doesn't, project creation fails. The client's primary contact is copied onto the new project.
+
+### Selecting the primary in the form
+
+In the contact form, the Primary toggle is single-select: turning it on for one contact automatically turns it off for all others. The first contact in the list defaults to primary.
+
+### Leads fall back to the first contact
+
+When a lead's contacts are resolved, the primary is the contact explicitly marked primary; if none is marked, the first contact is used as the primary. All other contacts become secondary contacts.
+
+## Relationship to property
+
+A contact can optionally have a **Relationship to Property**, chosen from: homeowner, tenant, landlord, property manager, occupant, HOA / strata, or other. This field is optional and can be hidden in some forms.
+
+## Contact lifecycle: lead to client
+
+### Contact type
+
+Each contact carries a **type** that reflects its role in the lifecycle: **lead** (the default), **client**, or **company referrer**.
+
+- Contacts created through the lead flow start as **lead**.
+- Contacts created through the project or client flow are created as **client**.
+
+### Referral contacts
+
+When a lead has a referral contact with any details filled in, that contact is recorded as a **company referrer** and can include a company name. Referral-contact autocomplete only searches existing company-referrer contacts.
+
+## Reusing and de-duplicating contacts
+
+### Smart reuse when resolving lead contacts
+
+When a submitted lead contact refers to an existing contact, the system reuses that contact when the name matches and the email or phone also matches. When reusing, it only writes an update if something actually changed (such as email, phone, or relationship); otherwise the existing contact is left as-is.
+
+If the submitted details have changed beyond recognition — the name doesn't match, or neither email nor phone matches — a brand-new contact is created instead of overwriting the wrong one. If no existing match is found, a new contact is created.
+
+### Referral contacts are always edited in place
+
+A referral contact that refers to an existing contact is always reused and updated in place, rather than creating a duplicate.
+
+### Client and project contacts reuse by identity only
+
+On clients and projects, a contact is reused only when it is the same contact already linked to that record. There is no fuzzy name or email matching here — anything else creates a new contact (typed as **client**).
+
+### Duplicate-lead guard
+
+To stop automated intake from creating duplicate leads, a new lead is blocked if a recent lead in the same workspace shares the same primary-contact email or phone. The guard only applies when an email or phone is supplied.
+
+## Removing contacts
+
+### You cannot remove the last contact, and a primary must always remain
+
+- **In the form:** the per-contact Delete button only appears when there is more than one contact. With a single contact, there is no Delete button — you cannot remove the last contact.
+- **On save:** the record must always have exactly one primary contact, so a submission with no contacts (or no primary) is rejected.
+
+There is no separate "the primary cannot be deleted" rule beyond this: to remove or replace the primary, another contact must be marked primary first.
+
+### Removing an existing contact asks for confirmation
+
+Removing a contact that is already saved opens a confirmation dialog. A contact you just added in the form (and haven't saved yet) is removed immediately, without confirmation.
+
+### Permission to remove an existing contact
+
+The Delete button for an already-saved contact only appears for users allowed to remove contacts (**Admin, Ops Manager, Sales Admin**). A brand-new, unsaved contact can always be removed (as long as it isn't the last one).
+
+### Server-side removal check
+
+When you save project contacts, if any previously-linked contact was dropped and you don't have permission to remove contacts, the save is rejected with **"You do not have permission to remove contacts from this project."**
+
+### Removal unlinks, it does not delete
+
+Removing a contact from a record only unlinks it (it stops being a primary or secondary contact on that record). The contact's own record is preserved and is not deleted.

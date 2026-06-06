@@ -1,7 +1,199 @@
 ---
-title: "Why cant i"
+title: "Troubleshooting: leads & clients (reference)"
+description: "Why a leads or clients action is blocked, disabled, or failing — cause and resolution."
+icon: "circle-question"
+keywords: ["why can't I delete a client","button disabled lead","permission denied client","why can't I edit"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+# Troubleshooting: Leads & Clients — "Why can't I…?"
+
+Most blocked actions come down to two things working together: your **role** and your **branch membership** (plus, for some areas, whether the feature is turned on for your workspace). A button may be hidden or disabled in the interface, and the same rule is re-checked when you save — so an action can fail even if you got past the screen.
+
+User-facing roles referenced below: **Admin, Ops Manager, Sales Admin, Sales Member, Client Coordinator, Crew Leader, Branch Management.**
+
+---
+
+## A. Page access
+
+### A1. "Why can't I see the Leads page at all?"
+- **Symptom:** The Leads page shows "not found," or a lead action returns "This feature is not available."
+- **Cause:** Two gates. (1) The Leads feature must be enabled for your workspace. (2) Your role must grant access to the Leads page.
+- **Who can (by role):** **Admin, Ops Manager, Sales Admin, Client Coordinator** can open the Leads page. **Sales Member and Crew Leader cannot.**
+- **Resolution:** Have the Leads feature enabled for your workspace, and use a role that grants Leads access.
+
+### A2. "Why can't I see the Clients page at all?"
+- **Symptom:** The Clients page (or a specific client page) shows "not found."
+- **Cause:** Mirrors A1, but for the Clients feature and Clients-page access.
+- **Who can (by role):** **Admin, Ops Manager, Sales Admin, Sales Member, Crew Leader, Client Coordinator** can all open the Clients page.
+- **Resolution:** Have the Clients feature enabled; use a role with Clients access.
+
+### A3. "Why does the lead/client page redirect me to login instead of showing 'not found'?"
+- **Symptom:** You're sent to the login screen.
+- **Cause:** You're not signed in, or your session has no selected/assigned organization. This check runs **before** the feature and role checks.
+- **Resolution:** Sign in, and make sure you have a selected/assigned organization.
+
+---
+
+## B. Leads — create / edit / delete
+
+### B1. "Why can't I create a new lead? (the 'New Lead' button is missing)"
+- **Symptom:** No "New Lead" button on the Leads page.
+- **Cause:** The button only appears for roles that can manage leads.
+- **Who can (by role):** **Admin, Ops Manager, Sales Admin, Client Coordinator.** **Sales Member and Crew Leader** have no lead permissions and see no button.
+- **Resolution:** Use a role that can manage leads.
+
+### B2. "Why does creating a lead fail server-side even though I clicked the button?"
+- **Symptom:** An error toast appears after you submit the Create Lead form.
+- **Cause:** Common reasons, in order:
+  1. **The Leads feature is off** for your workspace → "This feature is not available."
+  2. **Your session has no current branch** → "Branch not found." Creating a lead requires you to have a current branch.
+  3. **Validation:** last name and phone are required contact fields; the postal code must be exactly 5 digits ("ZIP code must be 5 digits"); a lead source, if provided, must be a valid selection.
+  4. **Role/organization:** you must have a lead-management role and belong to the organization.
+- **Who can (by role):** The same lead-management roles as B1, and you must have a current branch.
+- **Resolution:** Make sure a branch is selected; fill in last name, phone, and a valid 5-digit ZIP.
+
+### B3. "Why can't I edit a lead (status, branch, fields)?"
+- **Symptom:** Inline edits or the Edit Lead form fail, or controls are disabled.
+- **Cause:** Editing a lead requires a lead-management role, plus the same feature-enabled and organization checks as B2.
+- **Who can (by role):** **Admin, Ops Manager, Sales Admin, Client Coordinator.** **Sales Member and Crew Leader cannot.**
+- **Resolution:** Use a lead-management role.
+
+### B4. "Why can't I change a lead's branch?"
+- **Symptom:** The branch selector is disabled with a tooltip, or the change is rejected.
+- **Cause (interface disabled):** A Lead Activity is scheduled on the calendar → the selector is disabled with the tooltip: *"This branch can't be changed because a Lead Activity is scheduled on the calendar. Delete the event(s) to change the branch."* It is also disabled while a save is in progress.
+- **Cause (save rejected):** When assigning a branch, you must be a member of the **target** branch. If not, the save is rejected with "You do not have access to this branch."
+- **Side-effect:** Changing the branch can automatically clear the assigned Client Coordinator if that coordinator can't serve the new branch. (Client Coordinators are organization-wide; other assignees must belong to the branch.)
+- **Who can:** Lead-management roles, and you can only assign branches you belong to.
+- **Resolution:** Delete the scheduled Lead Activity first; pick a branch you're a member of.
+
+### B5. "Why can't I assign a particular Client Coordinator to a lead?"
+- **Symptom:** Save fails with a validation message.
+- **Cause:** The selected user must exist ("The selected client coordinator does not exist."), belong to the organization ("…does not belong to this organization."), and **hold the Client Coordinator role** ("The selected user does not have the required role to be a client coordinator."). Also, the **lead must already have a branch**, or you'll see: *"A branch must be assigned to the lead before setting a client coordinator."*
+- **Resolution:** Assign a branch to the lead first, then pick a user who has the Client Coordinator role and belongs to the organization.
+
+### B6. "Why can't I assign a particular Sales Person / referrer to a lead?"
+- **Symptom:** Save fails: "The selected user does not have the required role to be a sales person."
+- **Cause:** The selected user must hold the **Sales Admin** or **Sales Member** role (and exist and belong to the organization).
+- **Resolution:** Choose a user with the Sales Admin or Sales Member role.
+
+### B7. "Why can't I delete a lead? (no Delete option in the ⋯ menu)"
+- **Symptom:** The "Delete Lead" menu item is missing, or delete fails.
+- **Cause:** Deleting a lead requires a lead-management role, and if the lead has a branch you must be a member of that branch.
+- **Who can (by role):** Reliably **Admin** and **Ops Manager** (Branch Management). Sales Admin and Client Coordinator can manage leads in general, but lead deletion is restricted to management roles, so use Admin or Ops Manager to be certain.
+- **Side-effect:** The lead is soft-deleted (it stops appearing in lists but isn't permanently erased).
+- **Resolution:** Use a management-level role (Admin or Ops Manager), and be a member of the lead's branch.
+
+### B8. "Why is the 'Schedule Lead Activity' button disabled?"
+- **Symptom:** The button is greyed out with the tooltip: *"Please complete all required fields (First Name, Last Name, Address, and either Phone Number or Email) before scheduling a lead activity."*
+- **Cause:** Scheduling requires all of: a primary contact with first name and last name and (phone or email), plus the lead's address, city, state, and branch.
+- **Resolution:** Fill in the contact name, an address (street/city/state), a phone or email, and assign a branch.
+
+### B9. "Why don't my filter results / map pins show all leads?"
+- **Symptom:** A lead exists but doesn't appear in the list or on the map.
+- **Cause:** Lead lists only show leads in your selected organization and exclude deleted leads. The "Unassigned" branch filter only matches leads with no branch. Map pins additionally require a geocoded address (latitude/longitude), so leads without one don't appear, and the map shows a limited number of pins.
+- **Resolution:** Confirm the lead isn't deleted, is in the selected organization, and (for the map) has a geocoded address.
+
+### B10. "Why did saving a lead/contact fail with 'Either email or phone number is required'?"
+- **Symptom:** An error appears when saving a lead or contact.
+- **Cause:** A contact must have at least one of email or phone (whitespace counts as empty). The phone number must also be a valid number, or you'll see "Invalid phone number."
+- **Resolution:** Provide at least one of email or a valid phone number for each contact.
+
+---
+
+## C. Clients — edit / delete / contacts
+
+### C1. "Why can't I edit a client? (no pencil/edit button)"
+- **Symptom:** The edit (pencil) button is missing on the client header, or the Edit Client form fails to save.
+- **Cause:** Editing a client requires a role that can update clients, and an organization must be selected.
+- **Who can (by role):** **Admin, Ops Manager, Sales Admin, Sales Member, Crew Leader, Client Coordinator** can all update a client.
+- **Resolution:** Use any of the roles above and make sure an organization is selected.
+
+### C2. "Why can't I delete a client? (no Delete in the ⋯ menu)"
+- **Symptom:** The "Delete Client" item is missing, or delete fails.
+- **Cause:** Deleting a client is restricted to management roles.
+- **Who can (by role):** **Admin, Ops Manager, Sales Admin** can delete a client. **Sales Member, Crew Leader, and Client Coordinator cannot.** For certainty, use Admin or Ops Manager, as client deletion is restricted to management roles.
+- **Side-effect:** The client is soft-deleted, and you're returned to the Clients list.
+- **Resolution:** Use Admin or Ops Manager.
+
+### C3. "Why can't I remove a contact from a client / project?"
+- **Symptom:** The remove-contact (trash) icon is hidden in the contact form, or saving returns "You do not have permission to remove contacts from this client/project."
+- **Cause:** Removing an **already-saved** contact requires permission to delete contacts. This is enforced both in the interface (the remove control is hidden) and on save, for both clients and projects.
+- **Who can (by role):** **Admin, Ops Manager, Sales Admin** can remove existing contacts. **Sales Member, Crew Leader, and Client Coordinator cannot** remove existing contacts (they can still add and edit contacts).
+- **Resolution:** Have an Admin, Ops Manager, or Sales Admin remove the contact. Other users can still add or edit contacts, just not remove existing ones.
+
+### C4. "Why does a client contact save fail validation?"
+- **Symptom:** An error appears when saving client/project contacts.
+- **Cause:** Same contact rule as B10 (email or phone required, valid phone number). Project contacts additionally require **exactly one** primary contact: "At least one contact must be set as primary." / "Only one contact can be set as primary." and "At least one contact is required."
+- **Resolution:** Set exactly one primary contact, and give each contact an email or phone.
+
+### C5. "Why can't I see clients from another organization or branch in search?"
+- **Symptom:** Client search returns nothing or "You do not have access to this organization."
+- **Cause:** Search is limited to organizations you belong to and branches you have access to. Search also requires at least 2 characters.
+- **Resolution:** Search within your own organization and branch, and use at least 2 characters.
+
+---
+
+## D. Projects
+
+### D1. "Why can't I create a project? / convert a lead to a client-project?"
+- **Symptom:** Project creation fails.
+- **Cause:** Creating a project requires a sales role, and the client must exist in the organization and have a **primary contact** — otherwise you'll see "Client does not have a primary contact." or "Client not found."
+- **Who can (by role):** **Admin, Sales Admin, Sales Member** can create projects. **Ops Manager and Client Coordinator** can view and update projects but **cannot create** them. Crew Leader cannot.
+- **Resolution:** Use a sales role (Admin, Sales Admin, or Sales Member), and make sure the client has a primary contact.
+
+### D2. "Why can't I edit project details / contacts even though I can view the project?"
+- **Symptom:** Edit buttons are hidden, or the update fails.
+- **Cause:** Editing requires a role that can update projects, **and** you must be a member of the project's branch.
+- **Who can (by role):** **Admin, Ops Manager, Sales Admin, Sales Member, Client Coordinator** can update projects. **Crew Leader cannot.**
+- **Resolution:** Use a role that can update projects, and be a member of the project's branch.
+
+### D3. "Why can't I edit the property address on a project?"
+- **Symptom:** The address field is disabled with the tooltip: *"This address is locked due to an existing estimate. Delete the associated estimate(s) to edit it."*
+- **Cause:** When the project has an estimate, the address is locked.
+- **Resolution:** Delete the associated estimate(s) to unlock the address.
+
+### D4. "Why can't I load project proposals / media?"
+- **Symptom:** Proposals or media fail to load with a permissions error.
+- **Cause:** These project sections require you to belong to the project's branch, and an organization must be selected.
+- **Resolution:** Switch to (or be assigned) the project's branch.
+
+### D5. "Why doesn't the 'View Project Summary' link appear on a converted lead?"
+- **Symptom:** The "converted into a client" banner shows, but there's no link.
+- **Cause:** The link only appears if you're a member of the lead's branch. Without branch access you see the banner text but not the link.
+- **Resolution:** Get access to the lead/project's branch.
+
+---
+
+## E. Cross-cutting organization / branch scoping
+
+### E1. "Why do reads return nothing for a record I know exists (no error)?"
+- **Symptom:** A lead, client, or project silently shows "not found" or is absent.
+- **Cause:** Records are scoped to your selected organization (or, if none is selected, the organizations you belong to). Leads are further limited to those with no branch or a branch you belong to — so a lead assigned to a branch you're not in is invisible to you.
+- **Resolution:** Select the correct organization, and make sure you have membership in the relevant branch.
+
+### E2. "Why does a server action say 'You do not have access to this organization'?"
+- **Symptom:** A lead, client, or project action is blocked with that message.
+- **Cause:** The action resolves a target organization (your selected one, or your only one) and requires you to belong to it. Missing context gives "Invalid request: Missing organization context."
+- **Resolution:** Select an organization you belong to before retrying.
+
+### E3. "Why can an API / service-account token act on leads/clients but a regular user can't (or vice-versa)?"
+- **Cause:** Service-account access is the intersection of the token's granted permissions and the underlying user's role. A token missing the leads or clients permission is denied even if the user's role would allow it. Feature-off restrictions apply to these tokens as well.
+- **Resolution:** Grant the token the leads/clients read or write permission it needs, and confirm the feature is enabled.
+
+---
+
+## Quick role → capability matrix (Leads & Clients core actions)
+
+| Capability | Admin | Ops Manager | Sales Admin | Sales Member | Crew Leader | Client Coordinator |
+|---|---|---|---|---|---|---|
+| Open Leads page | ✓ | ✓ | ✓ | ✗ | ✗ | ✓ |
+| Open Clients page | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Create / edit lead | ✓ | ✓ | ✓ | ✗ | ✗ | ✓ |
+| Delete lead | ✓ | ✓ | restricted | ✗ | ✗ | restricted |
+| Edit client | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Delete client | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| Remove existing contact | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| Create project | ✓ | ✗ | ✓ | ✓ | ✗ | ✗ |
+| Update project | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ |
+
+Note: lead and client **deletion** is reliably available to management roles (Admin, Ops Manager). For Sales Admin and Client Coordinator, deletion may be more restricted than other actions, so use a management role when you need to delete with certainty.

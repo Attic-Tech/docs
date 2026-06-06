@@ -1,7 +1,92 @@
 ---
-title: "Conversion order"
+title: "Lead-to-client conversion (reference)"
+description: "What gets created when a lead becomes a client and project, and in what order."
+icon: "arrow-right-arrow-left"
+keywords: ["convert lead to client","lead becomes client","project created from lead"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This page explains how a lead becomes a client and project, what records get created, and in what order.
+
+## How conversion happens
+
+There is **no dedicated "Convert lead" button**. Conversion happens automatically when you **publish a scheduled appointment (a lead activity)** for that lead. Publishing the appointment is what creates the Client, the Property, and the Project, and changes the contact from a lead into a client.
+
+Saving the appointment as a **draft** does not convert anything. A draft only saves the appointment and the address you entered (and may send the client an appointment email). Conversion runs only the first time the appointment is moved to **Published**.
+
+## Who can convert a lead
+
+Conversion runs when someone with permission to create a lead activity publishes one. These roles can create and publish lead activities: **Admin**, **Ops Manager**, **Sales Admin**, **Client Coordinator**, and **Sales Member**. **Crew Leader** cannot.
+
+Access is also limited by organization and branch. Users who are not managers can only create or update appointments that are assigned to themselves.
+
+## Rule 1 — Conversion is triggered by publishing an appointment, not a standalone action
+
+A lead becomes a client only when an appointment for that lead is saved as **Published** for the first time. Saving the appointment as a **draft** does not convert the lead; it only saves the appointment and the address.
+
+After a successful publish, the schedule refreshes and publish notifications go out (to the assignee and, as an email, to the client).
+
+## Rule 2 — The order of effects on publish is fixed
+
+When the appointment is published, conversion performs its steps in this exact order:
+
+1. **Save the address onto the lead** — the address, city, state, and postal code you entered are stored on the lead.
+2. **Re-read the lead** (with its primary contact loaded). If the lead can't be found at this point, conversion stops.
+3. **Find or create the Client** (this also changes the contact's type to "client" — see Rules 4 and 5).
+4. **Find or create the Property** under that client.
+5. **Find or create the Project** for that lead and client.
+
+The result is a linked client, project, and property.
+
+## Rule 3 — The lead's existing contact is reused, not duplicated
+
+The lead's primary contact (name, email, phone) is carried over to the new client. Conversion reuses that same contact rather than creating a second one, so the contact's identity is preserved from lead to client.
+
+If the lead has no primary contact, conversion stops with an error ("Lead does not have a primary contact."). The project's primary contact is later set from the client's primary contact (Rule 7).
+
+## Rule 4 — Converting changes the contact's type from lead to client
+
+When the lead's existing contact is carried over, that contact's type is changed to **client**. This happens whether a matching client already existed or a brand-new client is created — in both cases the same contact is reused and re-typed as a client.
+
+If conversion ever creates a brand-new contact (no existing one to carry over), that contact is created as a client with no preferred contact method set.
+
+This type change is what makes the contact appear as a client, and it's why the lead afterward shows the "converted into a client" banner (Rule 9).
+
+## Rule 5 — Client matching: phone first, then email; otherwise create new
+
+When finding an existing client, conversion looks for a client whose primary contact's **email or phone** matches the lead's contact. If there are matches, it prefers a **phone match first** (phone is treated as the stronger identifier), then an **email match** (case-insensitive). If no match is found, a new client is created.
+
+When an existing client is matched, that client is reused and its primary contact's name, email, and phone are updated only where they differ from the new values. A newly created client records when it became a client and who published the conversion.
+
+**Worth knowing:** Client matching keys on the contact's email or phone only. If no email and no phone are present, a new client is always created.
+
+## Rule 6 — Property matching: same client + exact same address; otherwise create new
+
+When finding an existing property, conversion looks for a property under the **same client** with the **exact same address text**. If found, that property's address details (city, state, postal code, and any provided attributes) are updated. If not found, a new property is created under the client, filling in placeholder values for any missing address components. An empty address stops conversion with an error ("Address is required when creating a property.").
+
+**Worth knowing:** Address matching is exact-text. An address that means the same thing but is typed differently will create a second property for the same client, so property matching is looser than client or project matching.
+
+## Rule 7 — Project matching: one project per lead + client; otherwise create new, linked to the lead
+
+Conversion first looks for an existing project tied to the **same lead and same client**. If one exists, it is reused and no new project is created — this is the core "no duplicate project" guard. Otherwise a new project is created and linked back to the lead.
+
+When a new project is created:
+
+- The client is re-checked (must still exist, be in the same organization, not be deleted, and have a primary contact).
+- The project name is the name you provided, or a fallback of `{First Last} - {date}`.
+- The project's primary contact comes from the client's primary contact, along with the organization, client, property, branch, and lead.
+
+## Rule 8 — If conversion fails, the appointment still publishes
+
+Conversion runs after the appointment is published. If conversion fails, the **appointment stays published** and the failure is recorded for the team — the publish itself is not rolled back. In other words, publishing and conversion are not all-or-nothing.
+
+**Worth knowing:** Because there is no automatic retry, a one-off failure can leave a published appointment without a client or project. If a lead shows a published appointment but never converted, re-publishing or recreating the appointment is the path to retry.
+
+## Rule 9 — After conversion, the lead shows a "converted to client" banner
+
+Once a project exists for the lead, the lead page shows a **"This lead has been converted into a client."** banner. The banner includes a **View Project Summary** link to the new project.
+
+The banner text is visible to anyone viewing the lead. The **View Project Summary** button only appears if the viewer has access to the lead's branch, and following it may prompt a branch switch first.
+
+## Rule 10 — The address is saved to the lead before conversion reads it
+
+The address entered in the schedule sheet (address, city, state, postal code) is saved onto the lead as the **first** step of conversion, and the lead is then re-read so the saved address and contact drive client, property, and project creation. Before you can publish, the form requires a **non-empty project name**, a **non-empty address**, and **either a phone number or an email**.

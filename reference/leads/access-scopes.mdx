@@ -1,7 +1,101 @@
 ---
-title: "Access scopes"
+title: "Client, property & project access (reference)"
+description: "Who can view and edit clients, properties, and projects, and how branch scoping works."
+icon: "lock"
+keywords: ["who can edit client","delete client permission","branch scope","project access"]
 ---
 
+This page explains who can view and edit **clients**, **properties**, and **projects**, and how access is scoped to your organization.
+
+Permissions throughout the product are based on a user's **role**. The roles referenced here are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Branch Management**.
+
+## How access is scoped
+
+All viewing and editing of clients, properties, and projects is bounded by the organization(s) a user belongs to:
+
+- A user only sees and edits records that belong to an organization they are a member of.
+- A user who belongs to no organization sees nothing and can edit nothing.
+- If a user has selected a specific organization (tenant) and has access to it, results are narrowed to exactly that organization. Otherwise, results span all of the user's organizations.
+
+**Branch is not an access boundary.** Projects carry a branch, but access is scoped by organization only. Belonging to a particular branch does not widen or narrow what a user can view or edit for these records.
+
+## Clients
+
+### Viewing clients
+
+Any signed-in user may view clients within their organization. No specific role is required to view — every role can see the clients in organizations they belong to.
+
+### Creating clients
+
+Creating a client requires one of: **Admin**, **Ops Manager**, or **Crew Leader**. The client must be created under an organization the user belongs to. Sales roles and Client Coordinators cannot create clients.
+
+### Editing clients
+
+Editing a client requires one of: **Admin**, **Ops Manager**, or **Crew Leader**, scoped to the user's organization(s).
+
+### Deleting clients
+
+Deleting a client requires one of: **Admin** or **Ops Manager**, scoped to the user's organization(s). **Crew Leader can create and edit clients but cannot delete them.**
+
+## Properties
+
+### Viewing properties
+
+Any signed-in user may view properties within their organization. No specific role is required to view.
+
+### Creating properties
+
+Creating a property requires one of: **Admin**, **Ops Manager**, or **Crew Leader**, under an organization the user belongs to.
+
+### Editing properties
+
+Editing a property requires one of: **Admin**, **Ops Manager**, or **Crew Leader**, scoped to the user's organization(s).
+
+### Deleting properties
+
+Deleting a property requires one of: **Admin** or **Ops Manager**, scoped to the user's organization(s).
+
 <Note>
-  This page is coming soon.
+When a property's address changes, its location (latitude/longitude) is updated automatically. This happens behind the scenes and is not a permission control.
 </Note>
+
+## Projects
+
+### Viewing projects
+
+Any signed-in user may view projects within their organization. No specific role is required to view.
+
+### Creating projects
+
+Creating a project requires one of: **Admin**, **Sales Admin**, or **Sales Member**, under an organization the user belongs to.
+
+<Note>
+Project creation and editing is a **sales** responsibility. Ops Manager and Crew Leader — who can create clients and properties — **cannot** create or edit projects.
+</Note>
+
+### Editing projects
+
+Editing a project requires one of: **Admin**, **Sales Admin**, or **Sales Member**, scoped to the user's organization(s).
+
+### Deleting projects
+
+Deleting a project requires one of: **Admin** or **Ops Manager**, scoped to the user's organization(s). **Sales roles can create and edit projects but cannot delete them.**
+
+## Quick reference
+
+| Action | Who can do it |
+| --- | --- |
+| View client / property / project | Every role, within their organization |
+| Create or edit a client | Admin, Ops Manager, Crew Leader |
+| Delete a client | Admin, Ops Manager |
+| Create or edit a property | Admin, Ops Manager, Crew Leader |
+| Delete a property | Admin, Ops Manager |
+| Create or edit a project | Admin, Sales Admin, Sales Member |
+| Delete a project | Admin, Ops Manager |
+
+## Notable points
+
+- **Viewing is open to all roles** (within the user's organization), but creating, editing, and deleting are role-gated as shown above.
+- **Crew Leader** can create and edit clients and properties, but **cannot delete** them, and **cannot** touch projects.
+- **Sales roles** own projects (create/edit) but **cannot delete** them; deletion is reserved for Admin and Ops Manager.
+- **Branch is never an access boundary** for clients, properties, or projects — only organization membership determines what a user can view and edit.

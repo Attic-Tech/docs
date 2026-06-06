@@ -1,7 +1,183 @@
 ---
-title: "Capture rules"
+title: "Lead capture rules (reference)"
+description: "What it takes to create a lead — required fields, address handling, duplicates, and referrals."
+icon: "user-plus"
+keywords: ["lead required fields","duplicate lead","referral required","create a lead rules","why can't I save a lead"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This page explains everything that has to be true for a lead to be created, plus how addresses, duplicates, and referrals are handled.
+
+There are **two** ways a lead gets created, and a few rules differ between them:
+
+- **Manual creation** — a signed-in team member fills out the **Create Lead** form.
+- **Automated creation** — a lead is created for you from an inbound web form or phone call. There is no acting user in this case.
+
+Where the two differ, each rule below says so.
+
+---
+
+## Who can create a lead
+
+Creating a lead manually is limited to **Branch Management** roles: **Admin, Sales Admin, Ops Manager, and Client Coordinator**.
+
+- Editing a lead requires the same roles.
+- Deleting a lead is limited to **Admin** and **Ops Manager**.
+- Anyone in your workspace can view leads.
+
+Automated leads from web forms and phone calls are created by the system, not by a person, so these role rules don't apply to that path.
+
+---
+
+## Branch requirement
+
+**Manual creation:** You must have a branch assigned to your account. If you don't, the **Create Lead** form will not let you save and you'll see a "Branch not found" message. The new lead is automatically assigned to your branch — there is no branch picker on the form.
+
+**Automated creation:** A branch is optional. If the system can't determine one, the lead is created with no branch, and the branch is filled in later by matching the lead's address to the nearest branch (see [Branch matching for automated leads](#branch-matching-for-automated-leads)).
+
+---
+
+## Required contact fields
+
+Every lead must have a **primary contact**, and that contact must include at least a **last name** and a **phone number**.
+
+- First name is **not** required.
+- The lead's displayed first/last name always comes from its primary contact.
+
+---
+
+## A contact needs an email or a phone number
+
+Every contact — including ones created while capturing a lead — must have **either** an email **or** a phone number. A value that is only spaces counts as empty. If neither is present, the contact can't be saved.
+
+For automated leads, the same rule applies earlier: if an inbound web form or phone call has neither a usable email nor a usable phone number, the lead is skipped entirely (it isn't created, and it isn't reported as an error).
+
+This applies to every way a contact can be created.
+
+---
+
+## How contact details are cleaned up
+
+When a contact is saved:
+
+- The email is trimmed and converted to lowercase.
+- The phone number is standardized to international format and then validated. A phone number that can't be recognized is rejected with an "Invalid phone number" message.
+- For automated leads, an unrecognizable phone number is simply dropped (defaulting to a US number format) so the lead can still be created.
+
+---
+
+## Postal code
+
+- A postal code, if provided, must be exactly **5 digits**, or you'll see "ZIP code must be 5 digits." The field is optional — leaving it blank is fine.
+- Before storage, the postal code is trimmed, and anything shorter than 5 digits is discarded.
+
+The 5-digit format check applies to the manual form; the cleanup applies whenever a lead is created or updated by any path.
+
+---
+
+## Address geocoding
+
+When a lead is saved, its address is geocoded so it can be placed on a map (latitude/longitude are filled in automatically and aren't editable by hand).
+
+- On creation, the address is always geocoded. On an update, geocoding only re-runs if an address field (street, city, state, or postal code) changed.
+- If coordinates are already supplied, they're kept as-is and not recalculated.
+- The address must be specific enough to locate — at minimum a **city** or a **postal code**. If it isn't, the map coordinates are cleared.
+- If the address can't be located, the coordinates are left empty and the lead is still saved successfully — geocoding never blocks saving.
+
+---
+
+## Lead source and referral requirements
+
+Choosing a **lead source** is optional. When you do select one, that source's configuration decides whether referral details are required. Each lead source has two referral settings, and each can be set to **None**, **Optional**, or **Required** (the default is **None**).
+
+- **Internal referral = Required** ⇒ a referring **salesperson** is required ("Sales person is required").
+- **External referral = Required** ⇒ a **referral contact** is required, and it must include first name, last name, phone, and email.
+- **External referral = Optional** ⇒ once you start filling in the referral, all of those referral fields become required; remove the referral to skip it.
+- **None** ⇒ no referral details are needed.
+
+Referral requirements are configured by **Admin** on each lead source; the requirement is enforced for whoever creates the lead.
+
+---
+
+## How a referral contact is stored
+
+A referral is saved as its own contact, marked as a company referrer, with an optional company name. It's only saved when at least one of first name, last name, phone, or email is provided. If the referral points at an existing contact, that contact is reused and updated in place (referrals are matched only by their existing record, not re-matched by name, email, or phone the way primary and secondary contacts are).
+
+---
+
+## Branch matching for automated leads
+
+This applies to **automated leads only**. When an inbound lead has a usable address, the system looks at the branches in your workspace that have a base address set and assigns the one closest by **driving distance**. If there's no address, no branches with a base address, or any problem during matching, the lead is created with **no branch**.
+
+Manual leads do not use distance matching — they're assigned to the creating user's branch.
+
+---
+
+## Lead source for automated leads
+
+This applies to **automated leads only**. The system tries to match the inbound lead to one of your existing active lead sources using, in order:
+
+1. The campaign source combined with the campaign medium.
+2. The campaign source on its own.
+3. The website domain the lead came from.
+
+The first match wins. If nothing matches:
+
+- If you have an **active default** lead source, it's used, and the tried keys are added to it so future leads match directly.
+- Otherwise a **new** lead source is created automatically, named after the first key tried, set active and not default, with no referral requirements.
+
+If there's nothing to match on at all, the lead is created with no source. Any problem during this step is handled quietly and the lead is still created.
+
+---
+
+## Starting status
+
+On both creation paths, a new lead is automatically given your workspace's active **New** status. If you don't have a status in the "New" category configured, the lead is created with no status (this is not an error). Status is never chosen by the user at creation time.
+
+---
+
+## Lead channel
+
+Every lead records the **channel** it came in through — **Web Form**, **Phone Call**, or **Manual Entry**.
+
+- Manually created leads are always **Manual Entry**.
+- Automated leads use the channel of the inbound source (web form or phone call).
+
+---
+
+## Duplicate handling
+
+There are two separate mechanisms, and they behave very differently.
+
+**Automated leads — duplicate block:** Before creating an automated lead, the system checks for an existing, non-deleted lead in your workspace whose primary contact has the **same email or phone number** and was created within the **last hour**. If it finds one, creation is **skipped** (logged, not an error). If neither an email nor a phone number is supplied, no duplicate check runs.
+
+**Manual form — match assist (not a block):** As you type a primary contact's phone or email in the **Create Lead** form, the system looks for an existing **client** that matches and surfaces it in a banner, auto-filling the contact details. This is a convenience only — it does **not** stop you from creating a new lead. Obvious placeholder values (a repeated-digit phone number and an "unknown" example email) are ignored and won't trigger a match.
+
+In short: only the automated path has a hard duplicate block. On the manual form, the match is purely an assist.
+
+---
+
+## Reusing contacts within a lead
+
+When you save a lead, its primary and secondary contacts are matched against existing contacts:
+
+- If the contact points at an existing record, it's reused when the name matches and either the email or phone also matches; changed fields are updated in place. If the existing record's details have changed so much it's clearly a different person, a **new** contact is created instead — so the wrong person is never overwritten.
+- If there's no existing record, a new contact is created.
+- Creating a new lead uses smart matching; editing an existing lead updates the same contacts in place.
+
+All contact matching and the lead creation happen together, so a lead is never half-saved.
+
+---
+
+## Ownership, deletion, and view tracking
+
+- Every lead belongs to a workspace, and all create, read, and update actions are scoped to your current workspace. Manually created leads record who created them; automated leads have no creator.
+- Leads use **soft delete** — deleting a lead hides it rather than erasing it, and deleted leads are filtered out of lists. Deleting a lead also checks that you have access to that lead's branch.
+- The system tracks when a lead was last viewed and by whom (deduplicated within a 5-minute window). View tracking never blocks anything if it fails.
+
+Deleting a lead requires the **Admin** or **Ops Manager** role, plus access to the lead's branch.
+
+---
+
+## Feature availability
+
+Leads are gated behind a feature setting. If leads aren't enabled for your account, lead actions return "This feature is not available." You also need a current workspace selected.

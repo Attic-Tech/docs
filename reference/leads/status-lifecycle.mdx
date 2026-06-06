@@ -1,7 +1,126 @@
 ---
-title: "Status lifecycle"
+title: "Lead status lifecycle (reference)"
+description: "Lead statuses, how they are organized, and how a lead moves through them."
+icon: "arrows-spin"
+keywords: ["lead status","lead stages","won lost lead","change lead status"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains how lead statuses are defined, how a lead's status is set and changed, and who can do each of those things.
+
+The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Branch Management** (the group of roles that can work with leads: Admin, Ops Manager, Sales Admin, and Client Coordinator).
+
+## What a lead status is
+
+### Statuses are configurable and belong to your workspace
+
+A lead status is a configurable item that belongs to a single workspace. Each status has a name, a description, a color, a display order, a category, and an active/inactive flag. Today all statuses are lead statuses.
+
+### Each status belongs to one of four fixed categories
+
+Every status maps to exactly one of four built-in categories:
+
+- **New**
+- **In progress**
+- **Done**
+- **Cancelled**
+
+The set of categories is fixed and cannot be changed. What *is* configurable is which individual statuses you create and how they map onto these categories.
+
+### Category behavior
+
+The four categories behave differently:
+
+- **New** — the starting point of a lead. You can have only one New status.
+- **In progress** — a lead is being worked. You can have multiple In progress statuses.
+- **Done** — the lead's lifecycle has ended successfully (converted to a sale). You can have only one Done status.
+- **Cancelled** — the lead's lifecycle has ended without a sale (lost or abandoned). You can have only one Cancelled status.
+
+Done and Cancelled are both end states. For leads, "won" corresponds to **Done** and "lost" corresponds to **Cancelled** — there is no separate won/lost label on a lead beyond which of these two categories it lands in.
+
+### System statuses vs. custom statuses
+
+Some statuses are **system statuses** created automatically when your workspace is set up. System statuses are partially locked: certain fields can't be changed and they can't be deleted (see the rules below). Statuses you create yourself are **custom statuses** and are fully editable.
+
+### Default statuses are created with your workspace
+
+When a workspace is created, two system lead statuses are created automatically:
+
+- **New** — category New, blue, first in the display order, active.
+- **Done** — category Done, green, later in the display order, active, described as "Lead converted to a sale".
+
+No In progress or Cancelled status is created by default — you add those yourself if you want them.
+
+## Defining and changing the status catalog
+
+Lead statuses are managed under workspace settings, on the lead statuses screen.
+
+### Who can create, update, or delete a status
+
+- **View statuses:** Admin, Ops Manager, Sales Admin, and Client Coordinator can view the list of statuses. Any member of the workspace can see the statuses applied to their leads.
+- **Create, update, or delete a status:** Only **Admin** can create, update, or delete statuses.
+
+The lead statuses settings screen itself is only reachable by users who can manage workspace settings (Admin). Users who can view but not manage settings are redirected; users who can't view workspace settings at all don't see the screen.
+
+### Locked fields on system statuses
+
+When you edit a **system status**, the following cannot be changed: its category, its slug/identifier, and whether it's active. You *can* still edit a system status's name, description, color, and display order.
+
+### Status names must be unique
+
+Within a workspace, you can't create two statuses that resolve to the same identifier. If you try, you'll get an error telling you a status with that name already exists.
+
+### One status per single-status category
+
+If a category only allows a single status (New, Done, Cancelled), you can't create a second status in that category. Attempting to do so returns an error explaining that the category does not allow multiple statuses and that one already exists.
+
+## Setting and changing a lead's status
+
+### A lead's status is optional
+
+A lead can have a status or no status at all. The values you can choose from are exactly the active statuses configured for your workspace.
+
+### New leads default to the New status
+
+When a lead is created, it is automatically assigned your workspace's active **New** status. If there is no active New status, the lead is created without a status.
+
+### Who can create a lead
+
+Lead creation is limited to **Branch Management** roles: **Admin**, **Sales Admin**, **Ops Manager**, and **Client Coordinator**. A **Sales Member** cannot create leads.
+
+### Who can change a lead's status
+
+Changing a lead's status is allowed for: **Admin**, **Ops Manager**, **Sales Admin**, and **Client Coordinator**.
+
+A **Sales Member** cannot change a lead's status. **Crew Leader** and Crew Member roles have no ability to work with leads.
+
+### There is no forced transition order
+
+You can move a lead to any of your workspace's statuses at any time. There is no enforced state machine — for example, you can move a lead from a Done or Cancelled status back to an in-progress one. The only requirement is that the status you choose is a real, existing status in your workspace.
+
+### The status picker shows active statuses, in order
+
+When choosing a lead's status, the picker shows only **active** statuses, sorted by their configured display order. Inactive statuses are hidden from selection.
+
+## Deleting and deactivating statuses
+
+### System statuses cannot be deleted
+
+System statuses can never be deleted. Attempting to delete one returns an error: "System statuses cannot be deleted."
+
+### You can't delete a status that's still in use
+
+A status that still has leads assigned to it cannot be deleted. You'll be told to reassign those leads to another status first, then delete it.
+
+### Deactivating vs. deleting
+
+Marking a custom status **inactive** hides it from the lead status picker and from the default-status lookup, but keeps the status and any existing lead assignments intact. This is the way to retire a status you no longer want without deleting it.
+
+System statuses cannot be made inactive (their active flag is locked), so a system status can't be deactivated — only custom statuses can.
+
+## Quick reference
+
+- **Manage the status catalog (create/update/delete statuses):** Admin only.
+- **View statuses:** Admin, Ops Manager, Sales Admin, Client Coordinator.
+- **Create a lead / change a lead's status:** Admin, Ops Manager, Sales Admin, Client Coordinator. Sales Member is excluded.
+- **Won = Done category; Lost = Cancelled category.** There is no separate won/lost label on a lead.
+- **No forced transition order** between statuses.
