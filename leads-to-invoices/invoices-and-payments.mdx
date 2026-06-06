@@ -1,0 +1,59 @@
+---
+title: "Invoices & payments"
+description: "Bill the customer, record and allocate payments, and handle refunds with credit notes."
+icon: "receipt"
+---
+
+The final stage of the pipeline turns delivered work into cash. An **invoice** bills the client, **payments** record what they pay, and **credit notes** handle any refunds or adjustments — closing the loop that started with a lead.
+
+## Invoices
+
+An invoice is generated for the work — most often **from the estimate**, so the billed amount matches what was sold. It can also be created as a standalone manual invoice.
+
+<Steps>
+  <Step title="Build">
+    Invoices carry **line items** (description, quantity, unit price, total) and roll up to a **subtotal**, **tax**, and **total**.
+  </Step>
+  <Step title="Number & dates">
+    A unique invoice **number** is generated automatically. The invoice has an **issue date**, a **due date**, and an optional **payment term** (such as _Due on Receipt_ or _Net 30_).
+  </Step>
+  <Step title="Send">
+    Sending records a **send date**, and the system tracks whether the client has **viewed** it.
+  </Step>
+</Steps>
+
+### Invoice status
+
+An invoice's status is derived from its **balance** — the total minus payments applied to it.
+
+| Status | Meaning |
+| --- | --- |
+| Draft | Created but not yet sent |
+| Open | Sent, nothing paid yet |
+| Partially Paid | Some payment received, balance remaining |
+| Paid | Balance is zero |
+| Voided | Cancelled, with a recorded reason |
+
+## Payments and allocation
+
+A **payment** records money received — its amount, method (card, ACH, cash, and so on), and any reference number. Payments aren't tied blindly to a single bill: a **payment allocation** maps each payment to one or more invoices.
+
+<Info>
+  Allocation is what lets one payment cover several invoices, or a deposit be split across bills. An invoice becomes **Paid** only when allocations bring its balance to zero.
+</Info>
+
+## Credit notes & adjustments
+
+When a refund, courtesy discount, or correction is needed, a **credit note** records it with a reason code. Like payments, credit notes are **allocated** to invoices to reduce the balance owed. A credit note can itself be voided, with that reversal tracked for a clean audit trail.
+
+<Warning>
+  Use credit notes — not edits to a sent invoice — for adjustments after an invoice goes out. This preserves the original billed record and keeps your accounting auditable.
+</Warning>
+
+## Closing the loop
+
+When an invoice is fully **Paid**, the originating **job** can move to **Closed**. The journey that began with a single lead ends with collected, reconciled revenue.
+
+<Card title="Back to: Pipeline overview" icon="map" href="/leads-to-invoices/overview">
+  Review how all seven stages connect end to end.
+</Card>
