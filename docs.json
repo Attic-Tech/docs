@@ -16,6 +16,15 @@
         "pages": [
           "estimates/create"
         ]
+      },
+      {
+        "group": "Estimates reference",
+        "icon": "book",
+        "pages": [
+          "estimates/pricing-rules",
+          "estimates/lifecycle",
+          "estimates/troubleshooting"
+        ]
       }
     ]
   },
