@@ -41,5 +41,8 @@
   },
   "appearance": {
     "default": "dark"
+  },
+  "seo": {
+    "indexing": "all"
   }
 }
