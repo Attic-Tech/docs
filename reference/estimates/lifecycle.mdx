@@ -43,7 +43,7 @@ The table below shows the allowed moves between statuses, the condition for each
 | In Progress | Sold | Anyone allowed to set Sold. Creates the job and work order. |
 | In Progress | Released / Lost / Secondary Estimate / Deleted | Anyone allowed to set that target status. Ops Manager is specifically not allowed to set these. |
 | Released | Sold | Anyone allowed to set Sold. Because the estimate was previously released, the existing job (if any) is reactivated. |
-| Sold | any other status | Requires management-level permissions: Sales Admin, Ops Manager, Admin, or Super Admin. |
+| Sold | any other status | Requires management-level permissions: Sales Admin, Ops Manager, or Admin. |
 | Sold | Lost | As above, plus an extra rule: blocked if the related job is already Closed. On success the related job is cancelled. |
 | Sold | In Progress (to re-edit) | Management-level permissions only. If the proposal is signed, the user must explicitly confirm that re-editing will remove the signature. |
 | any (except Sold) | Deleted | Through the delete action only. Blocked if the estimate is Sold, or if its proposal is signed. |
@@ -67,13 +67,13 @@ Each role is limited to the statuses it is allowed to set:
 
 - **Sales Member** — may set In Progress, Released, Sold, Lost, Secondary Estimate, or Deleted.
 - **Ops Manager** — may only set In Progress through the status change. Ops Manager is specifically not allowed to set Released, Sold, Lost, Secondary Estimate, or Deleted.
-- **Sales Admin, Admin, Super Admin** — full access to all statuses, with no per-status restriction.
+- **Sales Admin, Admin** — full access to all statuses, with no per-status restriction.
 
 Attempting to set a status the role is not allowed to set is rejected.
 
 ### Leaving Sold requires management-level permissions
 
-Once an estimate is Sold, moving it to any other status requires management-level permissions: Sales Admin, Ops Manager, Admin, or Super Admin. A Sales Member can mark an estimate Sold but cannot later move it out of Sold.
+Once an estimate is Sold, moving it to any other status requires management-level permissions: Sales Admin, Ops Manager, or Admin. A Sales Member can mark an estimate Sold but cannot later move it out of Sold.
 
 ### Sold to Lost is blocked when the job is Closed
 
@@ -117,7 +117,7 @@ The effective sold date is the date used for sales reporting. It starts out equa
 
 Crew notes are an annotation, not part of pricing or scope, so they can be updated in any status except Deleted — even when the estimate is otherwise read-only (such as Sold). This is the one exception to the "only In Progress is editable" rule. Crew notes are limited to 5,000 characters.
 
-Crew notes can be edited by Sales Member, Crew Leader, Ops Manager, Sales Admin, Admin, and Super Admin. Note that Crew Leader can edit crew notes even though they cannot otherwise edit estimates.
+Crew notes can be edited by Sales Member, Crew Leader, Ops Manager, Sales Admin, and Admin. Note that Crew Leader can edit crew notes even though they cannot otherwise edit estimates.
 
 ### Each estimate keeps an immutable snapshot of its pricing
 
@@ -125,7 +125,7 @@ When an estimate is created, the system saves a snapshot of the pricing and conf
 
 ### Rebuilding the snapshot requires management-level permissions
 
-Saving edits and rebuilding the snapshot from the current catalog at the same time requires management-level permissions (Sales Admin, Ops Manager, Admin, or Super Admin). The save and the rebuild happen independently — if the rebuild fails after the save succeeds, the edits are kept and the previous snapshot stays in place, and the failure is reported.
+Saving edits and rebuilding the snapshot from the current catalog at the same time requires management-level permissions (Sales Admin, Ops Manager, or Admin). The save and the rebuild happen independently — if the rebuild fails after the save succeeds, the edits are kept and the previous snapshot stays in place, and the failure is reported.
 
 ### Estimates are soft-deleted; signed or Sold estimates can't be deleted
 
@@ -149,7 +149,7 @@ Every time an estimate is changed, the edit is recorded so there is an audit tra
 
 ### Secondary Estimate has no special behavior
 
-Secondary Estimate is simply a status value. It follows the same per-role rules and the same project-priority ordering (lowest) as any other status. There is no dedicated "create a secondary estimate" flow and no special side effect tied to it. Anyone whose allowed statuses include Secondary Estimate can set it (Sales Member, and Sales Admin / Admin / Super Admin); Ops Manager cannot.
+Secondary Estimate is simply a status value. It follows the same per-role rules and the same project-priority ordering (lowest) as any other status. There is no dedicated "create a secondary estimate" flow and no special side effect tied to it. Anyone whose allowed statuses include Secondary Estimate can set it (Sales Member, and Sales Admin / Admin); Ops Manager cannot.
 
 ### Baseline access
 
