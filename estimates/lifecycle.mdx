@@ -2,223 +2,161 @@
 title: "Estimate lifecycle & statuses (reference)"
 description: "Every estimate status, the transitions between them, what each one triggers, and which fields lock when."
 icon: "arrows-spin"
-keywords: ["estimate status", "sold", "released", "lost", "secondary estimate", "deleted", "status transition", "first sold date", "effective sold date", "change sold date", "snapshot", "who can change status", "permissions"]
+keywords: ["estimate status", "sold", "released", "lost", "secondary estimate", "deleted", "status transition", "first sold date", "effective sold date", "change sold date", "who can change status", "permissions"]
 ---
 
-## Lifecycle & status rules
+This page is the complete reference for an estimate's lifecycle: every status it can be in, how it moves between statuses, what each move triggers, and which fields lock when.
 
-Scope: the complete, code-grounded set of states, transitions, gates, side effects, and field-immutability rules for a job estimate (`job-estimates` collection) in Menaia. Paths are relative to `apps/web/src` unless noted; `packages/...` paths are repo-root-relative.
+## Status reference
 
----
+An estimate is always in exactly one of six statuses.
 
-### Status reference (plain-English)
+| Status | Meaning |
+| --- | --- |
+| In Progress | The default working state. This is the only state in which an estimate's pricing and scope can be edited. |
+| Sold | The estimate has been won. Selling it creates the job and work order and records the sold dates. The estimate then becomes read-only and protected — only management-level roles can move it out of Sold. |
+| Released | A non-sold, non-editable holding state. It still counts toward a user's "open estimate" allowance alongside In Progress. |
+| Lost | The estimate was not won. Moving an estimate to Lost cancels the related job (if there is one). |
+| Secondary Estimate | An alternate estimate for the same client or project. It behaves like any other status — there is no special creation step or side effect attached to it. It has the lowest priority when one estimate has to be picked to represent a project. |
+| Deleted | A soft-deleted estimate. It is hidden from lists and lookups. Estimates are deleted through the delete action, not by picking a status from the dropdown. |
 
-The six statuses are the single source of truth in `lib/constants/jobEstimateConstants.ts:7-25` (`JOB_ESTIMATE_STATUSES` / `JOB_ESTIMATE_STATUS`). The Payload `select` field enumerates the same six values in `collections/JobEstimates.ts:361-373`.
+Deleted is not a status you can choose from the status dropdown — deletion always goes through the delete action.
 
-| Status | Value string | Meaning |
+There is no "Completed" status. (A "Completed, Paid in Full" status existed in the past and was retired.)
+
+**Which estimate represents a project.** When a single project has several non-deleted estimates, one is chosen to represent it, in this priority order (highest first):
+
+1. Sold
+2. Released
+3. In Progress
+4. Lost
+5. Secondary Estimate
+
+## Transition table
+
+The table below shows the allowed moves between statuses, the condition for each, and who can perform it (by role). Some status changes are made automatically by the system when another part of the product changes — those automatic cascades are not subject to the role checks below.
+
+| From | To | Condition / who can do it |
 | --- | --- | --- |
-| In Progress | `'In Progress'` | The default working state. The ONLY state in which pricing/scope fields are editable (`isEditableStatus`, `jobEstimateConstants.ts:85-87`). |
-| Sold | `'Sold'` | The estimate has been won. Triggers job/work-order creation and stamps the sold-date fields. Becomes effectively read-only and protected (only `manage`-capable roles can leave it). |
-| Released | `'Released'` | A non-sold, non-editable holding state (counts toward a user's "open estimate" quota alongside In Progress — `jobEstimate-api.ts:808-823`). |
-| Lost | `'Lost'` | The estimate was not won. On entering Lost, the related job (if any) is cancelled. |
-| Secondary Estimate | `'Secondary Estimate'` | An alternate/secondary estimate for the same client/project. In application code it is ONLY a status value — no special creation or transition logic exists (see "Secondary Estimate has no special code behavior" below). Lowest shortcut priority. |
-| Deleted | `'Deleted'` | Soft-deleted. Filtered out of list/lookup queries. Set only via `deleteJobEstimate`, never via the status dropdown for normal flows. |
+| (new estimate) | In Progress | The default when an estimate is created. Subject to the per-user open-estimate cap. |
+| (new estimate) | Sold | An estimate may be created already Sold; this records both sold dates at creation. |
+| In Progress | Sold | Anyone allowed to set Sold. Creates the job and work order. |
+| In Progress | Released / Lost / Secondary Estimate / Deleted | Anyone allowed to set that target status. Ops Manager is specifically not allowed to set these. |
+| Released | Sold | Anyone allowed to set Sold. Because the estimate was previously released, the existing job (if any) is reactivated. |
+| Sold | any other status | Requires management-level permissions: Sales Admin, Ops Manager, Admin, or Super Admin. |
+| Sold | Lost | As above, plus an extra rule: blocked if the related job is already Closed. On success the related job is cancelled. |
+| Sold | In Progress (to re-edit) | Management-level permissions only. If the proposal is signed, the user must explicitly confirm that re-editing will remove the signature. |
+| any (except Sold) | Deleted | Through the delete action only. Blocked if the estimate is Sold, or if its proposal is signed. |
+| Sold | Sold (re-sale) | When the estimate was previously In Progress or Released and a job already exists, re-selling reactivates and re-syncs that job. |
 
-`SelectableStatus` excludes `Deleted` (`jobEstimateConstants.ts:27-31`) — `Deleted` is not a user-selectable status; deletion goes through the delete path.
-
-There is no `Completed` status in the current enum. `'Completed, Paid in Full'` was removed (migration `migrations/20260602_170013_remove_completed_paid_in_full.ts`). NOTE: a stale doc-comment in `jobEstimate-api.ts:686-687` still lists "Completed" in the priority order; the actual `SHORTCUT_ESTIMATE_STATUS_PRIORITY` map (`jobEstimateConstants.ts:114-123`) has no Completed entry. Treat the code map as authoritative.
-
-**Shortcut priority** (which single estimate "wins" when a project has several non-deleted estimates), lower = higher priority (`jobEstimateConstants.ts:114-123`): Sold (0) → Released (1) → In Progress (2) → Lost (3) → Secondary Estimate (4). Used by `getEstimateByProjectId` (`jobEstimate-api.ts:726-740`).
-
----
-
-### Transition table (from → to)
-
-CASL `updateStatus` is the per-target gate. The relevant rule blocks: Admin (`abilities.ts:231` `manage`), Ops Manager (`abilities.ts:305-310`), Sales Admin (`abilities.ts:382` `manage`), Sales Member (`abilities.ts:441-454`), Super Admin (`abilities.ts:192-195` `manage all`). System-initiated cascades bypass validation (see below).
-
-| From | To | Gate / condition |
-| --- | --- | --- |
-| (create) | In Progress | Default create path. Subject to per-user open-estimate cap (`jobEstimateService.ts:998-1029`). |
-| (create) | Sold | Allowed at create; stamps `first_sold_at` + `effective_sold_date` at creation (`jobEstimateService.ts:377-389`). |
-| In Progress | Sold | Caller needs `updateStatus` for target `Sold`; creates job/work-order (`jobEstimateService.ts:778-817`). |
-| In Progress | Released / Lost / Secondary / Deleted | `updateStatus` with target in the actor's allowed set. Ops Manager is explicitly forbidden these (`abilities.ts:306-310`). |
-| Released | Sold | `updateStatus` Sold; `resellEstimate` runs because previous status is in the resell set (`jobEstimateService.ts:797-803`). |
-| Sold | any other status | Requires `manage` on `JobEstimate` (Sales Admin, Ops Manager, Admin, Super Admin). Enforced in BOTH `jobEstimateValidationService.ts:28-39` and the server action `job-estimates.ts:211-220`. |
-| Sold | Lost | Additional gate: blocked if the related job is `Closed` (`jobEstimateValidationService.ts:55-72`). On success the related job is cancelled (`jobEstimateService.ts:759-776`). |
-| Sold | In Progress (re-edit) | Allowed only for `manage` roles; if the proposal is signed, requires explicit signature-removal confirmation (`jobEstimate-api.ts:456-466`, `job-estimates.ts:225-235`). |
-| any (non-Sold) | Deleted | Via `deleteEstimate`/`deleteJobEstimate` only. Blocked when Sold (`job-estimates.ts:473-480`) or when the proposal is signed (`jobEstimate-api.ts:300-317`). |
-| Sold (re-sale) | Sold | When previous status was In Progress or Released and a job already exists, `resellEstimate` resets job/job-plan (`jobEstimateService.ts:796-806`). |
-
----
-
-### Rule cards
+## Rules
 
 ### Only In Progress is editable
-- **Governs:** mutability of pricing/scope fields across all statuses.
-- **Rule:** An estimate's pricing/scope fields can be edited only while status is `In Progress`. Every other non-Deleted status is read-only; the user must transition back to In Progress first. `crew_notes` is the sole exception (see its own card).
-- **Triggers / side effects:** `performUpdateEstimate` row-locks the estimate `FOR UPDATE` and re-checks `isEditableStatus` inside the transaction; a non-editable status throws 409 ("This estimate is read-only…").
-- **Who can do it:** Anyone with `update` on `JobEstimate` (Sales Member, Ops Manager, Sales Admin, Admin, Super Admin per their `update`/`manage` grants). Branch access is asserted (`assertUserBranchAccess`).
-- **Source:** `lib/constants/jobEstimateConstants.ts:78-87`, `app/(app)/(dashboard)/calculator/.../app/actions/job-estimates.ts:345-378` (status check at 359-366).
 
-### Status changes go through a dedicated action, not the generic update
-- **Governs:** how status is allowed to change.
-- **Rule:** `status` is deliberately excluded from `EstimateUpdateData` and the update zod schema, so an actor with only `update` cannot change status through `updateEstimate`. Status changes must go through `updateEstimateStatus` (CASL `updateStatus`), which enforces the per-target whitelist.
-- **Triggers / side effects:** none directly; routing-only invariant.
-- **Who can do it:** n/a (structural).
-- **Source:** `app/actions/job-estimates.ts:106-120` and `:174-176`.
+An estimate's pricing and scope can be edited only while it is In Progress. In every other status (except Deleted) those fields are read-only — the user must move the estimate back to In Progress first. Crew notes are the one exception (see below).
 
-### Per-target status whitelist (CASL updateStatus)
-- **Governs:** which target statuses each role may set.
-- **Rule:** `updateStatus` is conditioned on the target `status`. Sales Member may set any of In Progress / Released / Sold / Lost / Secondary Estimate / Deleted. Ops Manager has `manage` but is explicitly `cannot('updateStatus', …)` for Released/Sold/Lost/Secondary/Deleted (so Ops Manager can only set In Progress via updateStatus). Sales Admin / Admin / Super Admin have full `manage` with no updateStatus restriction.
-- **Triggers / side effects:** `validateStatusChange` throws 403 if `updateStatus` for the new status is not allowed.
-- **Who can do it:** role-dependent as above.
-- **Source:** `packages/common/src/abilities.ts:306-310` (Ops Manager), `:441-454` (Sales Member), `:231/:305/:382/:192-195` (manage grants); enforced in `lib/services/jobEstimateValidationService.ts:41-53`.
+If someone tries to edit an estimate that is no longer In Progress, the edit is rejected with a "this estimate is read-only" error. Anyone with permission to edit estimates can make edits while In Progress (Sales Member and above), provided they have access to the relevant branch.
 
-### Leaving Sold requires the manage ability
-- **Governs:** the Sold → anything transition.
-- **Rule:** When the current (old) status is `Sold` and the new status differs, the actor must have `manage` on `JobEstimate`. Sales Members (who can otherwise set Sold) cannot move an estimate OUT of Sold.
-- **Triggers / side effects:** 403 ("Only Sales Admins, Ops Managers, Admins, and Super Admins can change status from \"Sold\"") if lacking `manage`. Double-guarded at the action boundary (409, "Sold estimates cannot be modified without the required role").
-- **Who can do it:** Sales Admin, Ops Manager, Admin, Super Admin (the `manage` holders).
-- **Source:** `lib/services/jobEstimateValidationService.ts:28-39`; `app/actions/job-estimates.ts:211-220`.
+### Status changes go through a dedicated action
 
-### Sold → Lost blocked when job is Closed
-- **Governs:** the specific Sold → Lost transition.
-- **Rule:** An estimate cannot move from Sold to Lost if its related job is in `Closed` status.
-- **Triggers / side effects:** 409 conflict error. (Note: only checked when `estimateId` and `req` are supplied to `validateStatusChange`.)
-- **Who can do it:** otherwise-`manage`-capable roles; this is an extra business gate on top of role.
-- **Source:** `lib/services/jobEstimateValidationService.ts:55-72`.
+Status cannot be changed through the ordinary "edit estimate" action. It can only be changed through the dedicated status-change action, which enforces the per-role rules below. This means having permission to edit an estimate's contents does not, by itself, let someone change its status.
 
-### Sold transition creates a Job + WorkOrder (first sale)
-- **Governs:** the In Progress/Released → Sold transition side effects.
-- **Rule:** When status changes to `Sold` and no job exists yet for the estimate, the system creates a WorkOrder (from `crew_notes`, property, client, org), populates WorkOrderWorkAreas + WorkOrderItems from the estimate's snapshot/`service_data`, then creates a `jobs` record (status `'Requires Crew Lead'`, `scheduled_date` = now, linked to estimate/branch/workOrder/org/project).
-- **Triggers / side effects:** work-order-work-areas, work-order-items, work-orders, jobs rows created. Runs inside the afterChange event handler (`job-estimates.changed`), with `trackEstimateChanges` as the direct fallback.
-- **Who can do it:** triggered by any actor who can set status to Sold; the side effect is system-run.
-- **Source:** `lib/domain/estimates/jobEstimateService.ts:778-817` (dispatch) and `:881-996` (`createWorkOrderFromEstimate`); `collections/JobEstimates.ts:187-217` (afterChange dispatch).
+### Who can set which status
 
-### Re-sale (Released/In Progress → Sold) reactivates the existing job
-- **Governs:** Sold transition when a job already exists.
-- **Rule:** If a job already exists for the estimate and the previous status was In Progress or Released, `resellEstimate` runs: if the job is not Closed and not just-created (`Requires Crew Lead`), it is reset to `Plans In Progress` and a non-draft job plan is reset to `Draft`. Regardless, `updateWorkOrderFromEstimate` re-syncs the work order from the estimate.
-- **Triggers / side effects:** job status reset, job-plan reset to Draft, work order updated. Closed jobs are left untouched.
-- **Who can do it:** the actor performing the Sold transition; side effect is system-run.
-- **Source:** `lib/domain/estimates/jobEstimateService.ts:793-806`; `lib/domain/estimates/jobEstimateTransitions.ts:8-38` (`resellEstimate`).
+Each role is limited to the statuses it is allowed to set:
 
-### Lost transition cancels the related job
-- **Governs:** any → Lost transition.
-- **Rule:** When status changes to `Lost` (and was not already Lost), the related job (if any) is cancelled — unless it is already `Cancelled` or `Closed`.
-- **Triggers / side effects:** related job status set to `Cancelled`.
-- **Who can do it:** the actor performing the Lost transition; side effect is system-run.
-- **Source:** `lib/domain/estimates/jobEstimateService.ts:759-776`; `lib/domain/estimates/jobEstimateTransitions.ts:40-48` (`loseEstimate`).
+- **Sales Member** — may set In Progress, Released, Sold, Lost, Secondary Estimate, or Deleted.
+- **Ops Manager** — may only set In Progress through the status change. Ops Manager is specifically not allowed to set Released, Sold, Lost, Secondary Estimate, or Deleted.
+- **Sales Admin, Admin, Super Admin** — full access to all statuses, with no per-status restriction.
 
-### System-initiated status cascades skip permission validation
-- **Governs:** status changes driven by other domain flows (e.g. job cancellation → estimate Lost).
-- **Rule:** When `req.context.skipEstimateStatusValidation` is set, the `beforeChange` permission/`validateStatusChange` block is skipped. This lets system cascades flip status without a human's CASL ability.
-- **Triggers / side effects:** bypasses the role/whitelist gate only; the stamping and afterChange side effects still run.
-- **Who can do it:** system/internal callers that set the context flag.
-- **Source:** `lib/domain/estimates/jobEstimateService.ts:214-234` (`!req.context?.skipEstimateStatusValidation`).
+Attempting to set a status the role is not allowed to set is rejected.
 
-### status_changed_at stamped on every status change
-- **Governs:** the `status_changed_at` timestamp field.
-- **Rule:** On any update where `status` differs from the original, `status_changed_at` is set to now. On create, it is set to `createdAt` (or now). The field is hook-only — direct writes are blocked.
-- **Triggers / side effects:** timestamp write; field is indexed for period comparisons.
-- **Who can do it:** hooks only. `access.update: () => false` on the field.
-- **Source:** `lib/domain/estimates/jobEstimateService.ts:360-389`; `collections/JobEstimates.ts:374-390`.
+### Leaving Sold requires management-level permissions
 
-### first_sold_at captured once, immutable
-- **Governs:** the `first_sold_at` timestamp field.
-- **Rule:** `first_sold_at` is set to now ONLY on the FIRST transition into `Sold` (when `originalDoc.first_sold_at` is null), or at creation if the estimate is created already Sold. It never changes thereafter — even on re-sale (because the guard checks the existing value). It captures the immutable original sale date for sales-metrics attribution.
-- **Triggers / side effects:** timestamp write on first sale; also seeds `effective_sold_date` with the same value.
-- **Who can do it:** hooks only. `access.update: () => false` on the field (immutable).
-- **Source:** `lib/domain/estimates/jobEstimateService.ts:369-389`; `collections/JobEstimates.ts:391-408`.
+Once an estimate is Sold, moving it to any other status requires management-level permissions: Sales Admin, Ops Manager, Admin, or Super Admin. A Sales Member can mark an estimate Sold but cannot later move it out of Sold.
 
-### effective_sold_date defaults to first sold date; adjustable by Branch Management
-- **Governs:** the `effective_sold_date` field (sales-metrics attribution date).
-- **Rule:** Defaults to the first-sold timestamp when the estimate is first sold. It can later be adjusted, but only by Branch Management roles (Sales Admin and above), and only while the estimate is `Sold`.
-- **Triggers / side effects:** the dedicated `updateEffectiveSoldDate` action row-locks the estimate and requires status `Sold` (409 otherwise) before writing. Used as the "sold date" filter column in estimate list queries (`jobEstimate-api.ts:221-229`).
-- **Who can do it:** field-level `access.update: hasRoleAdmin(ROLE_GROUPS.BRANCH_MANAGEMENT)`; the server action additionally requires `manage` on `JobEstimate`.
-- **Source:** `collections/JobEstimates.ts:409-425`; `app/actions/job-estimates.ts:420-456`; default seeding at `jobEstimateService.ts:371-388`.
+### Sold to Lost is blocked when the job is Closed
 
-### crew_notes stays editable in any non-Deleted status
-- **Governs:** the `crew_notes` field.
-- **Rule:** `crew_notes` is an annotation (not pricing/scope) and can be updated in any status except `Deleted`, even when the estimate is otherwise read-only (e.g. Sold). It is the sole exception to the "only In Progress is editable" rule.
-- **Triggers / side effects:** `updateEstimateCrewNotes` writes only `crew_notes`; rejects with 400 if the estimate is Deleted. Max length 5000.
-- **Who can do it:** anyone with `updateCrewNotes` on `JobEstimate` — Sales Member, Crew Leader, Ops Manager, Sales Admin, Admin, Super Admin (note: Crew Leader has `updateCrewNotes` but NOT general `update`).
-- **Source:** `lib/constants/jobEstimateConstants.ts:78-87` (doc), `app/actions/job-estimates.ts:393-418`; CASL grants `abilities.ts:442/:504/:562` and Sales Admin/Admin via `manage`.
+An estimate cannot move from Sold to Lost if its related job is already Closed. The move is rejected. (This is an extra business rule on top of the management-level permission requirement.)
 
-### Snapshot created once at estimate creation, then immutable (except taxBreakdown)
-- **Governs:** the `estimateSnapshot` relationship and the snapshot's contents.
-- **Rule:** On CREATE, an immutable snapshot of calculator/pricing/config data (financing terms, payment methods, org branding, reviews, taxBreakdown) is built and linked. On UPDATE, only `taxBreakdown` is refreshed (because it depends on current price); the rest of the snapshot stays immutable. Snapshots are content-addressed: deduplicated by a SHA-256 hash of their data (`findOrCreateSnapshot`), so identical data reuses one row.
-- **Triggers / side effects:** a `job-estimate-snapshots` row is found-or-created and its id assigned to `estimateSnapshot`. The snapshot is what work-order items are later extracted from on Sale.
-- **Who can do it:** system (beforeChange hook). The snapshot collection is `readOnlyAccess` and admin-hidden; the field is `required: true` and admin-readOnly.
-- **Source:** `lib/domain/estimates/jobEstimateService.ts:283-358`; `lib/api/jobEstimateSnapshot-api.ts:30-75`; `collections/JobEstimateSnapshots.ts:7-56`; `collections/JobEstimates.ts:434-447`.
+### Selling an estimate creates the job and work order
 
-### estimateSnapshot can be regenerated only by manage roles
-- **Governs:** rebuilding the snapshot from the live catalog.
-- **Rule:** `saveAndRegenerateEstimate` (save edits + rebuild snapshot from current catalog) requires `manage` on `JobEstimate`. The two operations run as independent transactions; a regen failure after a successful save leaves the previous snapshot in place and is reported as `regen.kind === 'failed'`.
-- **Triggers / side effects:** snapshot rebuilt; multiple paths revalidated.
-- **Who can do it:** `manage` holders (Sales Admin, Ops Manager, Admin, Super Admin).
-- **Source:** `app/actions/job-estimates.ts:546-575`.
+The first time an estimate becomes Sold and no job yet exists for it, the system automatically:
 
-### Soft delete only; signed proposals and Sold estimates cannot be deleted
-- **Governs:** the Deleted status.
-- **Rule:** Deletion sets `status='Deleted'` (soft delete); the proposal row is preserved for possible un-delete. Deletion is blocked when the estimate's proposal is signed (400) and when the estimate is `Sold` (409, "Sold estimates cannot be deleted."). Deleted estimates are filtered out of list and project-lookup queries.
-- **Triggers / side effects:** status set to Deleted; `afterDelete` is NOT fired (this is an update, not a hard delete) — cache invalidation rides the normal `job-estimates.changed` path. The hard-delete `afterDelete` hook (`smartInvalidate`) only runs on true Payload deletes.
-- **Who can do it:** `delete` on `JobEstimate` = MANAGEMENT roles (collection `delete: makeOrgMutateAccess({ roles: ROLE_GROUPS.MANAGEMENT })`); action gated on CASL `delete`.
-- **Source:** `lib/api/jobEstimate-api.ts:280-340`; `app/actions/job-estimates.ts:458-490`; query filters `jobEstimate-api.ts:180-184`, `:703-707`; `collections/JobEstimates.ts:237`, `:524-529`.
+- creates a work order, drawing on the crew notes, property, client, and the estimate's saved pricing and scope;
+- fills in the work order's work areas and line items from the estimate;
+- creates a job, set to "Requires Crew Lead", scheduled for the current date and linked to the estimate, branch, work order, and project.
 
-### Signed-proposal gate on transition back to In Progress
-- **Governs:** moving a signed estimate back into an editable state.
-- **Rule:** If the proposal is signed and the target status requires signature removal (only `In Progress` is in `SIGNED_PROPOSAL_GATED_TARGET_STATUSES`), the transition returns `RequiresConfirmation` (with the proposalId) instead of performing it, unless `confirmRemoveSignature` is passed. Confirming the removal additionally requires the `manage` ability. When confirmed, signature clear + status flip happen atomically in one transaction. Transitions to other read-only states (Lost/Released/Secondary) preserve the signature as audit evidence.
-- **Triggers / side effects:** proposal signature cleared (`clearProposalSignature`) in the same transaction as the status change; `signatureCleared: true` returned.
-- **Who can do it:** confirming requires `manage` on `JobEstimate` (`job-estimates.ts:225-235`).
-- **Source:** `lib/api/jobEstimate-api.ts:443-509`; `lib/constants/jobEstimateConstants.ts:89-107`; `app/actions/job-estimates.ts:225-249`.
+This happens automatically as a result of the sale — anyone allowed to set Sold triggers it.
 
-### Sold transition awards badges (deferred)
-- **Governs:** side effect of a non-Sold → Sold transition through the server action.
-- **Rule:** When the action transitions an estimate from non-Sold to Sold, badge evaluation (`evaluateEstimateSoldBadges`) is scheduled via `after()` to run post-response (Next.js render-context constraint).
-- **Triggers / side effects:** badge earnings may be created; failures are swallowed to Sentry.
-- **Who can do it:** any actor performing the Sold transition; side effect is system-run.
-- **Source:** `app/actions/job-estimates.ts:250-274`.
+### Re-selling reactivates the existing job
 
-### Concurrency: status-gated writes row-lock the estimate
-- **Governs:** TOCTOU safety for editability/delete/effective-sold-date.
-- **Rule:** `updateEstimate`, `deleteEstimate`, and `updateEffectiveSoldDate` acquire a `SELECT … FOR UPDATE` lock and re-verify the status predicate inside the transaction before writing, closing the window where a concurrent status flip could invalidate the gate.
-- **Triggers / side effects:** 404 if row vanished, 409 if predicate no longer holds.
-- **Who can do it:** n/a (infrastructure).
-- **Source:** `app/actions/job-estimates.ts:305-337` (`lockEstimateAndVerifyStatus`), used at `:359-366`, `:432-439`, `:473-480`.
+If a job already exists for the estimate and the estimate was previously In Progress or Released, re-selling it reactivates the existing job rather than creating a new one: unless the job is already Closed or still brand-new ("Requires Crew Lead"), it is moved back to "Plans In Progress", and any non-draft job plan is reset to Draft. In all cases the work order is re-synced from the estimate. Closed jobs are left untouched.
 
-### Open-estimate cap on creating In Progress estimates
-- **Governs:** creating a new In Progress estimate.
-- **Rule:** On create, if the new estimate is `In Progress` and the branch config defines `maxOpenEstimates`, creation is rejected (400) when the user already has that many estimates in the open set. "Open" is counted as In Progress + Released for the user/branch.
-- **Triggers / side effects:** APIError "The maximum number of open estimates has already been created for this user."
-- **Who can do it:** applies to all create callers; it is a beforeValidate guard, not role-based.
-- **Source:** `lib/domain/estimates/jobEstimateService.ts:998-1029`; the open-set definition in `lib/api/jobEstimate-api.ts:808-823` (default statuses In Progress + Released).
+### Marking an estimate Lost cancels the related job
 
-### Estimate-field history tracking on update
-- **Governs:** the audit trail (`job-estimate-histories`).
-- **Rule:** On every update, field-level changes are diffed and written as history rows, EXCEPT for the ignored fields (`user`, `branch`, `organization`, `estimateSnapshot`, `createdAt`, `updatedAt`, `id`, `client`, `status`-adjacent `status_changed_at`). History requires a user context; with no user, history is skipped.
-- **Triggers / side effects:** `job-estimate-histories` rows inserted (bulk drizzle insert). The collection is org-read, admin-hidden, mutate/delete restricted to ADMINS.
-- **Who can do it:** system (afterChange → `trackEstimateChanges`).
-- **Source:** `lib/domain/estimates/jobEstimateService.ts:839-875`; ignored-fields list `lib/constants/jobEstimateConstants.ts:33-46`; `collections/JobEstimateHistories.ts:7-30`.
+When an estimate moves to Lost (and was not already Lost), its related job — if there is one — is cancelled, unless that job is already Cancelled or Closed.
 
-### Secondary Estimate has no special code behavior
-- **Governs:** the `Secondary Estimate` status.
-- **Rule:** In application code, `Secondary Estimate` is purely a status value — it participates in the same `updateStatus` whitelist and shortcut priority (lowest, 4) as any other status. There is NO dedicated "create secondary estimate" path, no special transition, and no special side effect in the app layer. Its only special handling lives in a one-time data migration that links secondary estimates to an existing client project (`migrations/20260106_090000_media_schema.ts:125-152`), not in runtime lifecycle code.
-- **Triggers / side effects:** none beyond generic status-change side effects.
-- **Who can do it:** anyone whose `updateStatus` whitelist includes Secondary Estimate (Sales Member; Sales Admin/Admin/Super via manage). Ops Manager is forbidden (`abilities.ts:306-310`).
-- **Source:** `lib/constants/jobEstimateConstants.ts:7-25`, `:114-123`; `packages/common/src/abilities.ts:306-310`, `:443-454`; (data-migration only) `migrations/20260106_090000_media_schema.ts:125-152`.
+### Automatic status changes skip the role checks
 
-### Collection-level create/update/read/delete access
-- **Governs:** baseline Payload access (org-scoped, role-gated) underneath the CASL action gates.
-- **Rule:** `read` = org read. `create` and `update` = org-mutate for `CREW_MANAGEMENT` roles. `delete` = org-mutate for `MANAGEMENT` roles. These are the floor; the server actions add CASL `updateStatus`/`update`/`manage` checks on top.
-- **Triggers / side effects:** access denial.
-- **Who can do it:** as above (org membership + role group).
-- **Source:** `collections/JobEstimates.ts:233-238`.
+Some status changes are driven by other parts of the product rather than by a person (for example, cancelling a job can flip its estimate to Lost). These automatic cascades bypass the role and per-status permission checks, but every other side effect — recording dates and creating or updating related records — still runs.
 
----
+### When the status last changed is recorded automatically
 
-### Open questions / ambiguities
+Every time an estimate's status changes, the system records when the status last changed. On creation, this is set to the creation time. This value is maintained by the system and cannot be set directly.
 
-1. **Sold→Lost job-Closed gate is conditional.** `validateStatusChange` only runs the "job is Closed" check when both `estimateId` and `req` are passed (`jobEstimateValidationService.ts:55-72`). The collection hook does pass them (`jobEstimateService.ts:227-233`), so the gate is active for the normal flow, but a caller invoking `validateStatusChange` without those args would silently skip it. Not a runtime bug today, but worth noting.
-2. **Stale "Completed" reference.** `getEstimateByProjectId`'s doc comment (`jobEstimate-api.ts:686-687`) still mentions a "Completed" priority tier that no longer exists in `SHORTCUT_ESTIMATE_STATUS_PRIORITY`. The code map is authoritative; the comment is stale.
-3. **`effective_sold_date` two-layer gate.** Field-level access uses `BRANCH_MANAGEMENT`; the server action uses CASL `manage`. These role sets are intended to coincide (Sales Admin and above) but are defined in two places — confirm they stay in sync if roles are added.
-4. **No explicit allowed-transition graph.** There is no single transition-matrix data structure; allowed transitions are the emergent result of the CASL `updateStatus` whitelist plus the Sold-departure `manage` gate plus the per-transition side-effect handlers. A future "illegal transition" (e.g. Lost → Secondary) is permitted as long as the actor's `updateStatus` whitelist includes the target — there is no from-state restriction except the special Sold-departure rule.
+### The first sold date is recorded once and can't be changed
+
+The date an estimate was first sold is recorded the first time it becomes Sold (or at creation, if it is created already Sold). It never changes afterward — not even if the estimate is later re-sold. It captures the original sale date for sales reporting and is permanent.
+
+### The effective sold date defaults to the first sold date and can be adjusted by Branch Management
+
+The effective sold date is the date used for sales reporting. It starts out equal to the first sold date. It can later be adjusted, but only by Branch Management roles (Sales Admin and above), and only while the estimate is Sold. Adjusting it on an estimate that is not Sold is rejected.
+
+### Crew notes stay editable in any status except Deleted
+
+Crew notes are an annotation, not part of pricing or scope, so they can be updated in any status except Deleted — even when the estimate is otherwise read-only (such as Sold). This is the one exception to the "only In Progress is editable" rule. Crew notes are limited to 5,000 characters.
+
+Crew notes can be edited by Sales Member, Crew Leader, Ops Manager, Sales Admin, Admin, and Super Admin. Note that Crew Leader can edit crew notes even though they cannot otherwise edit estimates.
+
+### Each estimate keeps an immutable snapshot of its pricing
+
+When an estimate is created, the system saves a snapshot of the pricing and configuration it was built from — financing terms, payment methods, branding, reviews, and tax breakdown. This snapshot is permanent, with one exception: the tax breakdown is refreshed on update because it depends on the current price. The snapshot is what the work order's line items are built from when the estimate is sold.
+
+### Rebuilding the snapshot requires management-level permissions
+
+Saving edits and rebuilding the snapshot from the current catalog at the same time requires management-level permissions (Sales Admin, Ops Manager, Admin, or Super Admin). The save and the rebuild happen independently — if the rebuild fails after the save succeeds, the edits are kept and the previous snapshot stays in place, and the failure is reported.
+
+### Estimates are soft-deleted; signed or Sold estimates can't be deleted
+
+Deleting an estimate is a soft delete — the estimate is hidden from lists and project lookups, and its proposal is preserved in case it needs to be restored. Deletion is blocked if the estimate's proposal is signed, and blocked if the estimate is Sold. Deletion is available to management-level roles.
+
+### Re-editing a signed estimate requires confirming signature removal
+
+If an estimate's proposal is signed and someone wants to move it back to In Progress (the only status that requires removing the signature), the system asks for explicit confirmation first instead of making the change. Confirming the change also requires management-level permissions. When confirmed, the signature is cleared and the status changes together as a single step. Moving a signed estimate to other read-only statuses (Lost, Released, Secondary Estimate) keeps the signature as audit evidence.
+
+### Selling an estimate can award badges
+
+When an estimate moves from a non-sold status to Sold, the system evaluates whether any sales badges have been earned. This happens automatically after the sale.
+
+### Cap on open estimates
+
+When a new In Progress estimate is created, if the branch sets a maximum number of open estimates, creation is rejected once the user already has that many open. "Open" is counted as In Progress plus Released estimates for that user and branch. This applies to everyone creating estimates, regardless of role.
+
+### Estimate history is tracked on update
+
+Every time an estimate is changed, the edit is recorded so there is an audit trail of what changed and who changed it. (Routine bookkeeping fields aren't tracked.)
+
+### Secondary Estimate has no special behavior
+
+Secondary Estimate is simply a status value. It follows the same per-role rules and the same project-priority ordering (lowest) as any other status. There is no dedicated "create a secondary estimate" flow and no special side effect tied to it. Anyone whose allowed statuses include Secondary Estimate can set it (Sales Member, and Sales Admin / Admin / Super Admin); Ops Manager cannot.
+
+### Baseline access
+
+Underneath the per-status rules above, baseline access to estimates is scoped to the user's organization and gated by role: reading is available to organization members; creating and updating are available to crew-management-level roles; deleting is available to management-level roles. The per-status rules on this page apply on top of this baseline.
+
+## Notes on edge cases
+
+- **Sold to Lost / Closed-job check.** The "job is already Closed" check that blocks a Sold-to-Lost move is applied on the normal flow. It is worth being aware that it depends on the job information being available at the time of the check.
+- **Effective sold date permissions.** The effective sold date is governed both at the field level (Branch Management) and at the action level (management-level permissions). These role sets are intended to line up (Sales Admin and above); keep them aligned if roles are ever added.
+- **No fixed transition graph.** There is no single fixed map of "legal" transitions. Allowed moves are the combined result of the per-role allowed-status rules plus the special "leaving Sold needs management-level permissions" rule plus the per-transition side effects. A move is allowed as long as the actor is permitted to set the target status — there is no restriction based on the starting status except the special Sold rule.
