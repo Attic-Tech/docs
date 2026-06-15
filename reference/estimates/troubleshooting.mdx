@@ -117,8 +117,8 @@ This page covers every rule in the estimate Calculator flow that blocks, disable
 ### Permissions: who can create / edit / delete an estimate?
 
 - **Symptom:** An action is denied, or a button is hidden, when you try to create, edit, or delete an estimate.
-- **Cause:** Creating and editing estimates require management-level permissions (Admin, Ops Manager, or Crew Leader). Deleting requires higher management permissions (Admin or Ops Manager). The delete button is hidden for roles that can't delete.
-- **Resolution:** Use a role with the permission you need. Sales Admin and Client Coordinator have broad estimate permissions. Sales Member can read, create, and edit but not delete. Ops Manager can manage estimates but with status restrictions (see the next card).
+- **Cause:** Creating and editing estimates are available to Admin, Ops Manager, Sales Admin, Sales Member, and Client Coordinator. Crew Leader can edit crew notes only, not the estimate itself. Deleting is reserved for Admin, Ops Manager, and Sales Admin. The delete button is hidden for roles that can't delete.
+- **Resolution:** Use a role with the permission you need. Sales Member and Client Coordinator can create and edit but not delete. Ops Manager can manage estimates but with status restrictions (see the next card).
 
 ---
 
@@ -165,8 +165,8 @@ This page covers every rule in the estimate Calculator flow that blocks, disable
 ### Why can't I change the "Sold Date" (effective sold date)?
 
 - **Symptom:** The sold-date picker shows as plain read-only text with no calendar button, or saving a date fails.
-- **Cause:** The sold date can be changed only by a role with management-level permissions (Branch Management); for everyone else it appears as read-only text. It only appears at all when the estimate is **Sold** and already has a sold date. Future dates can't be selected, and the date can only be set on **Sold** estimates ("Effective sold date can only be set on Sold estimates.").
-- **Resolution:** Use a role with Branch Management permissions on a **Sold** estimate, and pick a date that isn't in the future.
+- **Cause:** The sold date can be changed only by Admin, Ops Manager, or Sales Admin; for everyone else it appears as read-only text. It only appears at all when the estimate is **Sold** and already has a sold date. Future dates can't be selected, and the date can only be set on **Sold** estimates ("Effective sold date can only be set on Sold estimates.").
+- **Resolution:** As an Admin, Ops Manager, or Sales Admin, pick a date that isn't in the future on a **Sold** estimate.
 
 ---
 

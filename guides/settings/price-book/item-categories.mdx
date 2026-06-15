@@ -1,0 +1,102 @@
+---
+title: "Item categories"
+description: "Group your Price Book items into categories — the buckets estimators browse in the Calculator, and the link that connects items to the work areas and factors that use them."
+icon: "folder-tree"
+keywords: ["item categories", "price book", "categories", "items", "calculator", "work areas", "factors"]
+---
+
+An **item category** is a bucket you group your items into — *Insulation*, *Disposal*, *Labor*, and so on. Categories are how items are organized in the Calculator: an estimator opens a category and sees the items inside it, instead of scrolling one long flat list. Every item must belong to at least one category, so categories are the foundation the rest of the Price Book builds on.
+
+This page lives under **Settings → Price Book → Item Categories**.
+
+<Note>
+Price Book settings are Admin-only. If you can open this page, you can create, edit, and delete item categories. If you don't see Settings or the Price Book, you don't have the access level for it — ask an admin on your team.
+</Note>
+
+## How item categories fit together
+
+A category sits between your items and the parts of a job that use them:
+
+- **Items** — the priced building blocks that belong to the category. An item can sit in more than one category.
+- **Work Areas** — the parts of a job (an attic, a crawl space) that offer this category's items to estimators.
+- **Factors** — the Yes / No questions that can adjust pricing for items in this category.
+
+Because items can't be saved without a category, this is usually the **first** thing you set up in the Price Book — create the categories you need, then add items into them.
+
+## Find your item categories
+
+<Steps>
+  <Step title="Open the Price Book">
+    Go to **Settings**, then **Price Book**, and select the **Item Categories** tab along the top.
+  </Step>
+  <Step title="Browse or search the list">
+    Each category appears as a row showing its **Name** and a count of how many **Items**, **Factors**, and **Work Areas** are attached to it. Use **Search by name...** at the top to jump to one quickly.
+  </Step>
+</Steps>
+
+## Create an item category
+
+<Steps>
+  <Step title="Start a new category">
+    On the **Item Categories** tab, click **Create New** in the top-right. This opens the **Create Item Category** form.
+  </Step>
+  <Step title="Name the category">
+    Type a clear **Name** — for example, *Attic insulation*. This is the label estimators see in the Calculator, so keep it plain and recognizable.
+  </Step>
+  <Step title="Add items (optional)">
+    In **Available items**, search and tick the items that belong in this category. Selected items move up into the **Selected items** card so you can see the full set and remove any from there. You can also attach an item to a category later from the item itself.
+  </Step>
+  <Step title="Attach factors (optional)">
+    In **Factors**, tick the Yes / No questions that should apply to items in this category. Use **Select all** or **Clear all** to set them in one click.
+  </Step>
+  <Step title="Review work areas">
+    The **Work Areas** panel shows which work areas already include this category. This list is set by editing each work area's category list, so it's read-only here — it's there so you can see where the category is used.
+  </Step>
+  <Step title="Save">
+    Click **Create Item Category**. The category is saved and you're returned to the list, ready to put items into it.
+  </Step>
+</Steps>
+
+<Tip>
+A category can be empty when you create it. That's fine — make the category first so you have somewhere to file items, then add the items as you build out your Price Book.
+</Tip>
+
+## Edit an item category
+
+<Steps>
+  <Step title="Open the category">
+    On the **Item Categories** tab, click the **pencil** icon on the category's row (or **Edit** from the menu on a phone). The form opens as **Edit Item Category** with everything filled in.
+  </Step>
+  <Step title="Make your changes">
+    Update the **Name**, adjust which **items** belong to the category, or change its **factors**. The **Save Changes** button stays disabled until you've actually changed something.
+  </Step>
+  <Step title="Save">
+    Click **Save Changes**. Your updates take effect for new estimates immediately.
+  </Step>
+</Steps>
+
+## Delete an item category
+
+Click the **trash** icon on a category's row (or **Delete** from the menu on a phone), then confirm in the **Delete item category?** dialog. Before you confirm, the app checks where the category is used and tells you what removing it will do:
+
+- If nothing uses it, the category is simply removed from the Price Book.
+- If items or work areas reference it, the dialog tells you how many. Deleting it means those items will no longer belong to this category, and the category is dropped from those work areas.
+
+In every case, **proposals you've already created are not affected**. The Delete button stays disabled until the usage check finishes, so you always confirm with the full picture in front of you. Deleting can't be undone.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Items" icon="boxes-stacked" href="/guides/settings/price-book/items">
+    Build the priced items that live inside your categories.
+  </Card>
+  <Card title="Work areas" icon="layout-grid" href="/guides/settings/price-book/work-areas">
+    Set up the parts of a job that offer each category's items to estimators.
+  </Card>
+  <Card title="Factors and additional costs" icon="sliders" href="/guides/settings/price-book/factors-additional-costs">
+    Define the Yes / No factors and extra costs you can attach to a category's items.
+  </Card>
+  <Card title="Multiplier ranges" icon="percent" href="/guides/settings/price-book/multiplier-ranges">
+    Set the branch pricing that turns an item's raw costs into a customer price.
+  </Card>
+</CardGroup>

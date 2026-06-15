@@ -56,7 +56,7 @@
             "guides/settings/overview",
             { "group": "Company & branches", "pages": ["guides/settings/organization", "guides/settings/branches"] },
             { "group": "Your team", "pages": ["guides/settings/users", "guides/settings/roles-branches"] },
-            { "group": "Price book", "pages": ["guides/settings/price-book/items", "guides/settings/price-book/factors-additional-costs", "guides/settings/price-book/multiplier-ranges", "guides/settings/price-book/work-areas"] },
+            { "group": "Price book", "pages": ["guides/settings/price-book/items", "guides/settings/price-book/item-categories", "guides/settings/price-book/factors-additional-costs", "guides/settings/price-book/multiplier-ranges", "guides/settings/price-book/work-areas"] },
             { "group": "Proposal & invoice setup", "pages": ["guides/settings/proposal-content", "guides/settings/payment-methods-financing", "guides/settings/invoice-content-automations", "guides/settings/payment-terms", "guides/settings/credit-void-reasons"] },
             { "group": "Lists & lifecycles", "pages": ["guides/settings/statuses", "guides/settings/tags", "guides/settings/subcontractors", "guides/settings/task-types", "guides/settings/equipment-vehicles"] },
             { "group": "Integrations", "pages": ["guides/settings/integrations", "guides/settings/menaia-pay", "guides/settings/webhooks"] },

@@ -21,7 +21,7 @@ Where the two differ, each rule below says so.
 Creating a lead manually is limited to **Branch Management** roles: **Admin, Sales Admin, Ops Manager, and Client Coordinator**.
 
 - Editing a lead requires the same roles.
-- Deleting a lead is limited to **Admin** and **Ops Manager**.
+- Deleting a lead is limited to **Admin**, **Ops Manager**, **Sales Admin**, and **Client Coordinator**.
 - Anyone in your workspace can view leads.
 
 Automated leads from web forms and phone calls are created by the system, not by a person, so these role rules don't apply to that path.
@@ -174,7 +174,7 @@ All contact matching and the lead creation happen together, so a lead is never h
 - Leads use **soft delete** — deleting a lead hides it rather than erasing it, and deleted leads are filtered out of lists. Deleting a lead also checks that you have access to that lead's branch.
 - The system tracks when a lead was last viewed and by whom (deduplicated within a 5-minute window). View tracking never blocks anything if it fails.
 
-Deleting a lead requires the **Admin** or **Ops Manager** role, plus access to the lead's branch.
+Deleting a lead requires one of the **Admin**, **Ops Manager**, **Sales Admin**, or **Client Coordinator** roles, plus access to the lead's branch.
 
 ---
 

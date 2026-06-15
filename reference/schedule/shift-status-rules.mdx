@@ -49,7 +49,7 @@ There is no forced order beyond this. Breaks happen inside an In Progress shift 
 
 ### Who can clock into a shift
 
-- For a **scheduled job shift**, you must be assigned to that shift's team — unless you are a manager (Admin, Ops Manager, or Crew Leader), who can clock in on a crew member's behalf.
+- For a **scheduled job shift**, you must be assigned to that shift's team — unless you are a manager (Admin or Ops Manager), who can clock in on a crew member's behalf.
   - Not assigned and not a manager → "You are not assigned to this shift."
   - The shift has no assigned team members and you aren't assigned → "This shift has no assigned team members."
 - For a **scheduled task**, you must be the task's assignee — unless you are a manager.
@@ -128,7 +128,7 @@ On success you see "Shift edited and approved."
 
 ## Approving a shift
 
-Approving a shift is a manager action (Admin, Ops Manager, or Crew Leader with edit access to the shift).
+Approving a shift is a manager action (Admin or Ops Manager).
 
 - You need permission to update the shift, or you'll see "You do not have permission to perform this action."
 - The shift must belong to your current workspace, or you'll see "You do not have access to this shift."
@@ -162,7 +162,7 @@ Reset deletes the recorded shift (and, for job shifts, recalculates bonuses if t
 
 ## Which actions appear, by status and role
 
-Whether a button appears depends on the shift's status and whether you're a manager. On the shifts page, managers see the workspace-wide view of all employees' shifts; crew members see only their own.
+Whether a button appears depends on the shift's status and whether you're a manager. Here, **Manager** means **Admin or Ops Manager** — the only roles with shift write access. On the shifts page, managers see the workspace-wide view of all employees' shifts; everyone else (including Crew Leaders) sees only their own shifts and uses the **Crew member** column below.
 
 | Status | Crew member sees | Manager sees |
 |---|---|---|
@@ -185,8 +185,7 @@ Every action button is disabled while another action is still in progress.
 Access to shift records is scoped to your workspace and branch, and gated by role:
 
 - **View** — any member of the workspace.
-- **Create and update** — Admin, Ops Manager, and Crew Leader.
-- **Delete** — Admin and Ops Manager only. A **Crew Leader** can create and update shifts but cannot delete (reset) them.
+- **Create, update, and delete** — Admin and Ops Manager only. A **Crew Leader** can view shifts and clock into their own, but cannot create, update, approve, reset, or enter details on others' shifts.
 
 ### Shifts on a closed job
 
