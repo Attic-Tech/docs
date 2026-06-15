@@ -1,7 +1,146 @@
 ---
 title: "Payment methods financing"
+description: "Set up the payment methods and financing offers that appear on your proposals — per branch — so customers always see the right ways to pay."
+icon: "credit-card"
 ---
 
+Proposal settings let you control how customers pay for the work you've quoted. There are two pieces:
+
+- **Payment methods** — the ways a customer can pay (for example, Credit Card, Check, or Cash), shown as a clear list on the proposal.
+- **Financing terms** — the monthly payment offers (for example, "0% for 12 Months") a customer can choose instead of paying all at once.
+
+Both are set up **per branch**, so each branch can show the payment options and financing offers that make sense for it.
+
 <Note>
-  This page is coming soon.
+These settings live in **Workspace Settings**, which is available to administrators. If you don't see Settings in your navigation, ask an administrator at your company to make these changes.
 </Note>
+
+## Find these settings
+
+<Steps>
+  <Step title="Open Workspace Settings">
+    Go to **Settings**, then under **Sales & Operations** choose **Proposals**. This is where everything that appears on a proposal is managed.
+  </Step>
+  <Step title="Pick the branch">
+    If your company has more than one branch, use the **branch selector** in the top-right to choose the branch you want to edit. Every change on this page applies only to the selected branch.
+  </Step>
+  <Step title="Choose a tab">
+    Along the top you'll see tabs for **Proposal Content**, **Financing Terms**, **Customer Reviews**, and **Payment Methods**. Use **Payment Methods** and **Financing Terms** for the steps below.
+  </Step>
+</Steps>
+
+<Tip>
+The branch you're editing is carried with you as you move between tabs, so you can set up payment methods and financing for the same branch without re-selecting it each time.
+</Tip>
+
+## Payment methods
+
+The **Payment Methods** tab lists every way a customer can pay, in the order they'll appear on the proposal. Each row shows the method's name, its icon, where it sits in the order, and whether it's **Active** or **Inactive**.
+
+### Add a payment method
+
+<Steps>
+  <Step title="Open the form">
+    On the **Payment Methods** tab, click **Create New**. The **Create Payment Method** form opens.
+  </Step>
+  <Step title="Enter a name">
+    In **Name**, type the label customers will see — for example, **Credit Card**, **Check**, or **Cash**. This is exactly what shows on the proposal.
+  </Step>
+  <Step title="Choose whether it's a financing option">
+    Leave **Is financing** unchecked for an ordinary payment method. Check it only if this method is a financing offer — checking it adds the monthly-payment selector and an apply-for-financing link to the proposal (see Financing terms below).
+  </Step>
+  <Step title="Pick an icon">
+    Choose an **Icon** to show next to the method on the proposal. You can pick from options such as Credit Card, Dollar Sign, Bank, Wallet, Receipt, and more — choose the one that best fits the method.
+  </Step>
+  <Step title="Set the order">
+    **Sort Order** controls where this method appears in the list. A lower number comes first, so the method with the lowest number shows at the top.
+  </Step>
+  <Step title="Set it active">
+    Leave **Is Active** checked so the method appears on proposals right away. Uncheck it to keep the method saved but hidden for now.
+  </Step>
+  <Step title="Save">
+    Click **Create**. The new method appears in the list and, if active, on this branch's proposals.
+  </Step>
+</Steps>
+
+<Note>
+Each payment method on a branch needs a distinct name. If you try to save a name that's already in use on the branch, you'll be asked to choose a different one.
+</Note>
+
+### Edit, reorder, or remove a method
+
+- **Edit** — click the pencil icon on a row (or **Edit** in the row menu on a phone) to change the name, icon, order, or active state.
+- **Reorder** — change the **Sort Order** numbers so the methods line up the way you want them to read on the proposal.
+- **Turn off temporarily** — edit the method and uncheck **Is Active**. It stays in your list but won't show on proposals until you turn it back on. This is the safe way to pause a method without losing it.
+- **Delete** — click the trash icon (or **Delete** in the row menu) and confirm. Deleting removes the method for good.
+
+<Tip>
+Use **Search by name** at the top of the list to jump to a specific method when the list gets long.
+</Tip>
+
+## Financing terms
+
+The **Financing Terms** tab is where you set up the monthly-payment offers customers can choose on a proposal. Each term has a name, a length in months, and an interest rate. The list shows all the offers set up for the selected branch.
+
+### Add a financing term
+
+<Steps>
+  <Step title="Open the form">
+    On the **Financing Terms** tab, click **Create New** to open the **Create Financing Term** form.
+  </Step>
+  <Step title="Name the offer">
+    In **Name**, enter a customer-friendly label such as **0% for 12 Months** or **60-Month Plan**. This is what the customer sees when choosing how to pay.
+  </Step>
+  <Step title="Set the term length">
+    In **Term length (months)**, enter the number of months the plan runs — for example, **12**, **24**, or **60**.
+  </Step>
+  <Step title="Set the interest rate">
+    In **Interest rate (%)**, enter the annual rate as a percentage — for example, **0** for an interest-free offer, or **8.99**.
+  </Step>
+  <Step title="Highlight it (optional)">
+    Check **Mark as most popular** to flag this as your recommended offer. It gets a **Most popular** badge to help guide the customer's choice. Use it on just one term so the badge stays meaningful.
+  </Step>
+  <Step title="Save">
+    Click **Create**. The term joins the list and becomes available as a financing option on this branch's proposals.
+  </Step>
+</Steps>
+
+### Edit or remove a term
+
+- **Edit** — click the pencil icon on a row to adjust the name, length, rate, or "most popular" flag.
+- **Delete** — click the trash icon and confirm. The term is removed and will no longer appear as a financing option on new proposals. Proposals you've already sent aren't changed.
+
+<Note>
+Financing terms only reach customers when the proposal offers a financing payment method. Make sure you have a payment method with **Is financing** checked on the same branch, so the financing offers you set up here actually appear.
+</Note>
+
+## How it fits together
+
+For a branch's proposals to show financing the way you intend, you need both pieces on that branch:
+
+<Steps>
+  <Step title="Create a financing payment method">
+    On the **Payment Methods** tab, add a method (for example, **Financing**) with **Is financing** checked. This turns on the monthly-payment selector for the customer.
+  </Step>
+  <Step title="Create the offers">
+    On the **Financing Terms** tab, add the plans customers can pick — their names, lengths, and rates.
+  </Step>
+  <Step title="Review on a proposal">
+    Open a proposal for that branch to confirm the payment methods and financing offers appear the way you expect.
+  </Step>
+</Steps>
+
+<Tip>
+Because everything here is per branch, set up one branch fully, then switch branches with the selector and repeat. Branches don't share these settings.
+</Tip>
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Proposal content" icon="file-lines" href="/guides/settings/proposal-content">
+    Shape the rest of what customers see on a proposal — the content and presentation for each branch.
+  </Card>
+  <Card title="Payment terms" icon="calendar-check" href="/guides/settings/payment-terms">
+    Set the due dates and schedule for invoices, separate from how customers pay on a proposal.
+  </Card>
+</CardGroup>

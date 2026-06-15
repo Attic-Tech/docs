@@ -1,7 +1,101 @@
 ---
 title: "Work areas"
+description: "Set up the work areas in your Price Book — the parts of a job estimators pick from, each bundling the item categories and factors that belong to it."
+icon: "layout-grid"
 ---
 
+A **work area** is a part of a job your estimators choose when they build an estimate — an attic, a crawl space, a garage, and so on. Each work area bundles together the **item categories** and **factors** that belong to that part of the job, so when an estimator picks a work area in the Calculator, they only see the items and questions that actually apply.
+
+Setting up clean work areas keeps the estimate experience fast and focused: estimators choose where they're working, and everything relevant is already grouped and waiting for them.
+
 <Note>
-  This page is coming soon.
+Work areas live in **Settings → Price book → Work Areas**. The Price book is an admin area, so you'll need administrator access to view and change it.
 </Note>
+
+## How work areas fit together
+
+Think of a work area as a container that points at two other things you set up in the Price book:
+
+- **Item categories** — the groups of items and services an estimator can add while working in this area (for example, an "Insulation" category that holds your insulation items).
+- **Factors** — the simple Yes / No questions an estimator answers about the conditions in this area, which help the estimate reflect the real job.
+
+A work area doesn't hold prices itself. It's the bridge that decides *which* categories and *which* factors show up for *which* part of the job.
+
+## Open the Work Areas page
+
+<Steps>
+  <Step title="Go to Settings">
+    Open **Settings** from the main navigation.
+  </Step>
+  <Step title="Open the Price book">
+    Choose **Price book**, then select the **Work Areas** tab along the top. You'll see your existing work areas in a table, each showing its name and how many item categories and factors are attached.
+  </Step>
+</Steps>
+
+<Tip>
+Use the **Search work areas** box at the top of the list to jump straight to one by name when the list gets long.
+</Tip>
+
+## Create a work area
+
+<Steps>
+  <Step title="Click Create New">
+    Press **Create New** in the top-right of the Work Areas list. This opens the **Create Work Area** panel.
+  </Step>
+  <Step title="Name the work area">
+    Type a clear **Name** — for example, *Attic* or *Crawl Space*. This is the label estimators will see when they pick a work area in the Calculator, so keep it plain and recognizable.
+  </Step>
+  <Step title="Choose its item categories">
+    In **Item categories**, select the categories an estimator should be able to reach in this area. Open the dropdown, search if you have a long list, and tick each one you want — your choices show up as labelled tags so you can see the full set at a glance.
+  </Step>
+  <Step title="Choose its factors">
+    In **Factors**, pick the Yes / No questions that apply to this area. These are the conditions an estimator confirms when they're working here.
+  </Step>
+  <Step title="Save it">
+    Click **Create**. The new work area appears in the list right away and is immediately available to estimators.
+  </Step>
+</Steps>
+
+<Note>
+You can leave item categories or factors empty and come back to fill them in later. A work area with nothing attached simply won't offer anything to add — so it's worth setting at least its categories before estimators rely on it.
+</Note>
+
+## Edit a work area
+
+To change a work area's name, the categories it offers, or the factors it asks about, click the **pencil** icon on its row (or **Edit** from the menu on a mobile card). The **Edit Work Area** panel opens with the current values filled in.
+
+Adjust the **Name**, **Item categories**, or **Factors**, then click **Save Changes**. Updates take effect on new estimates going forward.
+
+<Tip>
+Adding a category to a work area is the usual way to surface a new group of items to estimators without rebuilding anything — set up the category once, then attach it to every work area where it belongs.
+</Tip>
+
+## Delete a work area
+
+Click the **trash** icon on a work area's row (or **Delete** from the menu on a mobile card) to remove it. Before you confirm, the app checks where the work area is in use and tells you what removing it will do:
+
+- If the work area isn't enabled on any branch, you'll see that it will simply be removed from the Price book.
+- If it **is** enabled on one or more branches, the message tells you how many. Deleting it removes the work area from those branches, and estimators will no longer see it on new estimates.
+
+In both cases, **estimates and proposals you've already created are not affected** — they keep what they had. Deleting a work area can't be undone, so review the message before you confirm.
+
+<Note>
+The Delete button stays disabled until the app finishes checking where the work area is used, so you always confirm with the full picture in front of you.
+</Note>
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Items" icon="boxes-stacked" href="/guides/settings/price-book/items">
+    Set up the individual items and services, organized into the categories your work areas point to.
+  </Card>
+  <Card title="Factors and additional costs" icon="sliders" href="/guides/settings/price-book/factors-additional-costs">
+    Build the Yes / No factors that work areas ask about, and the extra costs that round out a price.
+  </Card>
+  <Card title="Multiplier ranges" icon="percent" href="/guides/settings/price-book/multiplier-ranges">
+    Fine-tune how the Price book scales pricing across the conditions of a job.
+  </Card>
+  <Card title="Settings overview" icon="gear" href="/guides/settings/overview">
+    See everything you can configure for your workspace in one place.
+  </Card>
+</CardGroup>

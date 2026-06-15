@@ -1,7 +1,148 @@
 ---
 title: "Users"
+description: "Add and manage the people on your team — create users, assign their roles and branches, reset passwords, and block access — all from Settings."
+icon: "users"
 ---
 
+The **Users** page in Settings is where you manage everyone on your team. From here you can add a new team member, set what they can do by giving them roles, choose which branches they work in, and keep their accounts secure by resetting passwords or blocking access.
+
 <Note>
-  This page is coming soo
+The Users page is an Admin-only area. If you don't see **Users** in your Settings menu, you don't have permission to manage team members — ask an administrator for help.
 </Note>
+
+## Open the Users page
+
+<Steps>
+  <Step title="Go to Settings">
+    Open **Settings** from the main navigation.
+  </Step>
+  <Step title="Choose Users">
+    In the Settings menu, select **Users**. You'll see a list of everyone in your organization, with their name, email, roles, branches, status, and the date their account was created.
+  </Step>
+</Steps>
+
+## Find a team member
+
+The Users list is built for teams of any size.
+
+- **Search** by name or email using the search box at the top of the list.
+- **Filter** the list to narrow it down. Open the filters to limit by:
+  - **Date Created** — a date range for when accounts were added.
+  - **Role** — show only people with a specific role.
+  - **Status** — show only **Active** or only **Blocked** users.
+  - **Pay Structure** — **Salary** or **Hourly**.
+  - **Branch** — show only people assigned to a particular branch.
+- **Sort** the list by clicking a column heading, such as Name or Created.
+
+<Tip>
+A person's **Status** badge tells you at a glance whether they can sign in. **Active** means they have access; **Blocked** means they're locked out.
+</Tip>
+
+## Add a new user
+
+<Steps>
+  <Step title="Click Add User">
+    Press the **Add User** button in the top-right corner of the Users page. This opens the **Add New User** window.
+  </Step>
+  <Step title="Fill in their details">
+    Enter the new team member's information:
+
+    - **Name** (required) — their full name.
+    - **Email** (required) — the address they'll sign in with.
+    - **Temporary Password** (required) — a starting password of at least 8 characters. They'll be prompted to set their own password when they first sign in.
+    - **Phone** (optional).
+    - **Payroll ID** (optional) — your internal payroll reference for this person.
+    - **Pay Structure** (optional) — **Salary** or **Hourly**.
+  </Step>
+  <Step title="Assign roles and branches">
+    - **Roles** (required) — choose one or more roles. Roles decide what each person can see and do in the app. You can assign more than one.
+    - **Branches** (required) — choose one or more branches the person works in. This controls which work and data they have access to.
+  </Step>
+  <Step title="Create the account">
+    Click **Create**. The new user is added to your organization and receives an email to set up their password.
+  </Step>
+</Steps>
+
+<Note>
+Both **Roles** and **Branches** are required — every team member needs at least one of each before you can create their account.
+</Note>
+
+## Edit a user
+
+<Steps>
+  <Step title="Open the actions menu">
+    Find the person in the list and click the **three-dot menu** at the end of their row.
+  </Step>
+  <Step title="Choose Edit">
+    Select **Edit** to open the **Edit User** window.
+  </Step>
+  <Step title="Update and save">
+    Change any of their details — name, email, phone, payroll ID, pay structure, roles, or branches — and add an optional **About** note. Click **Save Changes** when you're done. The **Save Changes** button stays disabled until you actually change something.
+  </Step>
+</Steps>
+
+## Manage access and security
+
+Each person's **three-dot menu** also gives you account-security actions. These help you keep your team's access tidy and safe.
+
+### Block or unblock a user
+
+Blocking is the quickest way to stop someone from signing in without deleting their account — useful when someone leaves or is temporarily away.
+
+<Steps>
+  <Step title="Open the actions menu">
+    Click the **three-dot menu** on the person's row.
+  </Step>
+  <Step title="Choose Block (or Unblock)">
+    Select **Block** to revoke access, or **Unblock** to restore it. You'll be asked to confirm. Once blocked, the person can no longer sign in or use the app; unblocking lets them back in.
+  </Step>
+</Steps>
+
+<Tip>
+A blocked user keeps all their roles, branches, and history. Unblocking restores their access exactly as it was — so blocking is reversible and safe to use for temporary situations.
+</Tip>
+
+### Reset a password
+
+If someone is locked out or forgets their password, you can send them a reset link.
+
+<Steps>
+  <Step title="Choose Reset Password">
+    Open the person's **three-dot menu** and select **Reset Password**, then confirm.
+  </Step>
+  <Step title="They get an email">
+    A password reset email is sent to that person's address. They'll be asked to set a new password the next time they sign in.
+  </Step>
+</Steps>
+
+### Sign a user out everywhere
+
+If you need to end someone's active sessions — for example, after a lost or shared device — you can sign them out of all their devices.
+
+<Steps>
+  <Step title="Choose Invalidate sessions">
+    Open the person's **three-dot menu** and select **Invalidate sessions**, then confirm.
+  </Step>
+</Steps>
+
+<Note>
+After you invalidate sessions, the person is signed out on every device once their current session expires. They can sign in again right away with their existing password — this doesn't lock them out, it just ends their current sessions.
+</Note>
+
+## Roles and branches
+
+When you add or edit a user, the **Roles** and **Branches** you assign do the heavy lifting:
+
+- **Roles** control what a person can see and do across the app.
+- **Branches** control which locations' work and data a person has access to.
+
+You manage the available roles and branches in their own Settings areas.
+
+<CardGroup cols={2}>
+  <Card title="Roles" icon="user-shield" href="/guides/settings/roles-branches">
+    Learn how roles shape what each team member can access.
+  </Card>
+  <Card title="Branches" icon="building" href="/guides/settings/branches">
+    Set up the branches you can assign people to.
+  </Card>
+</CardGroup>

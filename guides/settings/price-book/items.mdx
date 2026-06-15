@@ -1,7 +1,123 @@
 ---
 title: "Items"
+description: "Build and maintain the items in your Price Book — the priced building blocks estimators add to a job. Set each item's unit, costs, category, image, and pricing behavior."
+icon: "package"
 ---
 
+**Items** are the priced building blocks of every estimate. Each item — a material, a service, or a line of labor — carries its own unit, costs, and pricing rules. When an estimator builds an estimate in the Calculator, they pick from this list, and the price you set up here is what flows into the breakdown.
+
+This page lives under **Settings → Price Book → Items**, the first tab in the Price Book.
+
 <Note>
-  This page is coming soon.
+Price Book settings are Admin-only. If you can open this page, you can create, edit, and delete items. If you don't see Settings or the Price Book, you don't have the access level for it — ask an admin on your team.
 </Note>
+
+## Find your items
+
+<Steps>
+  <Step title="Open the Price Book">
+    Go to **Settings**, then **Price Book**. The page opens on the **Items** tab. The other tabs — **Work Areas**, **Item Categories**, **Factors**, **Additional Costs**, and **Multiplier Ranges** — hold the supporting pieces that items can reference.
+  </Step>
+  <Step title="Browse or search the list">
+    The list shows each item's **Name** (with its image), **Item Info**, **Unit**, and **Category**. Use **Search by name...** at the top to filter the list to a single item quickly.
+  </Step>
+</Steps>
+
+<Tip>
+An item can belong to more than one category. When it does, the list shows the first category and a **+N more** badge — hover it to see the rest.
+</Tip>
+
+## Create an item
+
+<Steps>
+  <Step title="Start a new item">
+    On the **Items** tab, click **Create Item** in the top-right. This opens the **Create New Item** form.
+  </Step>
+  <Step title="Fill in the basics">
+    In the first card, set:
+
+    - **Item Name** — what estimators see when they search for it.
+    - **Item Category** — pick one or more categories. At least one is required; categories are how the item is grouped in the Calculator.
+    - **Description** — optional text that shows up in the Calculator and on client proposals. Use it to explain what the item covers.
+  </Step>
+  <Step title="Set the pricing">
+    In the **Pricing** card, set how the item is priced (see [Pricing fields](#pricing-fields) below for what each one does).
+  </Step>
+  <Step title="Add an image (optional)">
+    In the **Item Media** card on the right, click or drag to upload a picture or short video of the item. This is what appears alongside the item in the Calculator. Images can be up to 20MB; videos up to 50MB.
+  </Step>
+  <Step title="Save">
+    Click **Create Item**. The item is saved and you're returned to the list, where it's ready for estimators to use right away.
+  </Step>
+</Steps>
+
+## Pricing fields
+
+The **Pricing** card is where you tell the system how to price the item. You don't enter a final price — the system calculates it from these inputs and your branch's pricing settings.
+
+- **Unit Type** — the unit the item is measured and sold in (for example, square feet or each). Required.
+- **Material Cost** — the cost of materials for one unit. Required.
+- **Labor Hours** — how many hours of labor one unit takes. Required.
+- **Multiplier Override** — leave this blank to use your branch's normal pricing. Fill it in only when this one item should ignore the branch multiplier and use a fixed multiplier instead.
+- **Factors** — optional conditions that adjust the item's price based on answers to the work-area questions on an estimate.
+- **Additional Costs** — optional extra costs attached to the item, such as a fee or a surcharge that always applies when it's used.
+
+<Note>
+You set raw costs and hours here, not the price the customer sees. The customer-facing price is worked out from these numbers together with your branch's pricing — so the same item can price differently from one branch to another.
+</Note>
+
+### Generate a secondary item
+
+Some items automatically bring along a second item — for example, a material that always produces waste that needs disposal.
+
+<Steps>
+  <Step title="Pick the secondary item">
+    Use **Generates Secondary Item** to choose the item that should be added automatically. Leave it on **None** if the item doesn't generate anything.
+  </Step>
+  <Step title="Set the ratio">
+    Once you pick a secondary item, a **Primary Units per Generated Secondary Item** field appears. Enter how many units of the main item produce one unit of the secondary item — for example, 40 square feet of the main item generates one disposal unit.
+  </Step>
+</Steps>
+
+### Item behavior
+
+Two optional checkboxes change how the item shows up and behaves on a job:
+
+- **Sub Item** — lists the item under **Sub Services** in the job breakdown instead of with the main itemized costs. Use it for supporting items you want grouped separately.
+- **Requires Info** — prompts estimators to enter extra details (such as a measurement or a note) on this item whenever they add it to a job.
+
+## Edit an item
+
+<Steps>
+  <Step title="Open the item">
+    On the **Items** tab, click the **pencil** icon on the item's row (or **Edit** in the menu on a phone). The form opens as **Edit Item** with everything filled in.
+  </Step>
+  <Step title="Make your changes">
+    Update any field. To swap the image, remove the current one with the trash button and upload a new file. The **Save Changes** button stays disabled until you've actually changed something.
+  </Step>
+  <Step title="Save">
+    Click **Save Changes**. Your updates take effect for new estimates immediately.
+  </Step>
+</Steps>
+
+<Tip>
+Editing an item changes how it prices going forward. Estimates and proposals that were already built keep the pricing they were saved with — they aren't rewritten when you edit the item.
+</Tip>
+
+## Delete an item
+
+On the **Items** tab, click the **trash** icon on the item's row, then confirm in the **Delete item?** dialog. Estimates, proposals, and documents that already reference the item are unaffected — deleting only removes it from the list estimators can pick from going forward.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Work areas" icon="layer-group" href="/guides/settings/price-book/work-areas">
+    Set up the areas of a job (like an attic or a crawl space) that estimators choose from when building an estimate.
+  </Card>
+  <Card title="Factors and additional costs" icon="sliders" href="/guides/settings/price-book/factors-additional-costs">
+    Define the conditions and extra costs you can attach to an item to fine-tune its price.
+  </Card>
+  <Card title="Multiplier ranges" icon="percent" href="/guides/settings/price-book/multiplier-ranges">
+    Set the branch pricing that turns an item's raw costs into the customer-facing price.
+  </Card>
+</CardGroup>

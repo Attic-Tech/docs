@@ -1,7 +1,99 @@
 ---
 title: "Proposal content"
+description: "Set the boilerplate that appears on every proposal for a branch — the default send email, your license and About info, payment terms, disclaimers, and terms and conditions."
+icon: "file-signature"
 ---
 
+**Proposal content** is where you set the standard text that shows up on the proposals your team sends out — the default email used to send a proposal, your contractor license and About information, plus the legal and payment language like disclaimers, payment terms, and terms and conditions. Set it once per branch and every new proposal starts with it filled in, so your team doesn't retype the same boilerplate on every deal.
+
 <Note>
-  This page is coming soon.
+Proposal content is part of **Workspace Settings** and is **Admin-only**. If you don't see Settings in your navigation, your role doesn't include settings access — ask an admin to make these changes for you.
 </Note>
+
+## Open Proposal content
+
+<Steps>
+  <Step title="Go to Settings → Proposals">
+    Open **Settings** from your navigation, then choose **Proposals**. The page opens on the **Proposal Content** tab.
+  </Step>
+  <Step title="Pick the branch">
+    If your company has more than one branch, use the **branch selector** in the top-right to choose which branch you're editing. Each branch keeps its own proposal content, so the license, About text, and terms can differ from one location to the next.
+  </Step>
+</Steps>
+
+<Note>
+Proposal settings are organized into tabs: **Proposal Content**, **Financing Terms**, **Customer Reviews**, and **Payment Methods**. This guide covers the first tab. Switching branches here keeps you on the same tab, so you can move from branch to branch without losing your place.
+</Note>
+
+## What you can set
+
+Every field below appears on the **Proposal Content** tab. None of them are required — fill in the ones that apply to how your branch sends proposals, and leave the rest blank.
+
+### The send email
+
+These two fields set the default email your team starts with when sending a proposal to a customer. Whoever sends the proposal can still edit the email before it goes out — this is just the starting point.
+
+- **Default proposal email subject** — the subject line for the send email.
+- **Default proposal email body** — the message body for the send email.
+
+Both fields support **variables** — short placeholders that get filled in automatically with the right details for each proposal. Type them exactly as shown, including the double braces:
+
+| Variable | Fills in |
+| --- | --- |
+| `{{ company_name }}` | Your company name |
+| `{{ date }}` | The current date |
+| `{{ client_first_name }}` | The customer's first name |
+| `{{ inspector_name }}` | The name of the person on the job |
+| `{{ inspector_number }}` | That person's phone number |
+
+<Tip>
+A good subject and body save your team real time. For example: subject `Your proposal from {{ company_name }}` and a body that opens with `Hi {{ client_first_name }},` — every proposal then goes out personalized without anyone having to type the customer's name.
+</Tip>
+
+### Company and licensing
+
+- **Finance partner URL** — the web link customers tap from the **Apply Now** button on a proposal to apply for financing. Paste the full address, starting with `https://`.
+- **Contractor license** — your contractor license, shown on proposals.
+- **About** — a short description of your company that appears on proposals. This is your chance to introduce yourselves to the customer.
+- **About video URL** — a link to a video about your company to feature on proposals. Paste the full address, starting with `https://`.
+
+### Legal and payment language
+
+- **Disclaimer** — disclaimer text shown on proposals.
+- **Payment terms** — the payment terms shown on proposals.
+- **Insurance claims** — text about insurance claims, shown on proposals.
+- **Terms and conditions** — the full terms and conditions shown on proposals. This field allows the most text, so it's the right place for your complete legal language.
+
+<Note>
+These fields are plain text shown to the customer on the proposal. Paste in the exact wording you want customers to see.
+</Note>
+
+## Save your changes
+
+<Steps>
+  <Step title="Edit the fields">
+    Update any field you want to change. A short note under each field reminds you what it's for and where it shows up.
+  </Step>
+  <Step title="Save Changes">
+    Click **Save Changes** at the bottom. The button stays disabled until you've actually changed something, so if it's greyed out, there's nothing new to save.
+  </Step>
+</Steps>
+
+<Tip>
+Changed your mind before saving? Click **Cancel** to drop your edits and snap every field back to what it was when you opened the page.
+</Tip>
+
+<Note>
+Saving updates the proposal content for the **selected branch only**. To change another branch, switch to it with the branch selector and save again there. Updates apply to proposals you create from then on.
+</Note>
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Branches" icon="building" href="/guides/settings/branches">
+    Proposal content is set per branch. Manage your branches and their details here.
+  </Card>
+  <Card title="Payment terms" icon="credit-card" href="/guides/settings/payment-terms">
+    Set up the payment terms your team can offer, separate from the payment-terms text shown on a proposal.
+  </Card>
+</CardGroup>

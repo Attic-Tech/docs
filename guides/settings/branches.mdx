@@ -1,7 +1,120 @@
 ---
 title: "Branches"
+description: "Set up and manage the branches in your workspace — addresses, timezones, pricing defaults, and the cost and bonus settings that drive every estimate in that branch."
+icon: "building"
 ---
 
+A **branch** is one location or operating unit of your business. Each branch carries its own address and timezone, its own pricing defaults, and its own cost, deposit, and bonus settings. Those settings flow into every estimate built for that branch, so getting a branch set up correctly is what makes its pricing come out right.
+
+You manage branches from **Settings**, under **Branch Configurations**.
+
 <Note>
-  This page is coming soon.
+Branch settings are part of Workspace Settings, which is an admin-only area. If you don't see Settings or the Branch Configurations page, you don't have manage access — ask an administrator on your team.
 </Note>
+
+## Find your branches
+
+<Steps>
+  <Step title="Open Settings">
+    Go to **Settings** from the main navigation, then open **Branch Configurations**.
+  </Step>
+  <Step title="Browse the list">
+    Each branch appears as a row showing its **Name**, **Timezone**, **Address**, and **Phone Number**. Use **Search by name** at the top to jump to a specific branch.
+  </Step>
+  <Step title="Open one to edit">
+    Click the pencil (edit) icon on a branch row to open its full configuration.
+  </Step>
+</Steps>
+
+## Create a branch
+
+<Steps>
+  <Step title="Click New Branch">
+    On the Branch Configurations page, press **New Branch** in the top-right corner.
+  </Step>
+  <Step title="Fill in the sections">
+    The form is grouped into four sections — **Branch Details**, **Costs & Production**, **Pricing & Finance**, and **System Customization**. Work through each one (covered below).
+  </Step>
+  <Step title="Create the branch">
+    Press **Create Branch** at the bottom. You can come back and adjust any setting later by reopening the branch from the list.
+  </Step>
+</Steps>
+
+<Tip>
+Editing an existing branch uses the same form. Make your changes and press **Save**. Use **Cancel** to leave without saving.
+</Tip>
+
+## Branch Details
+
+This section identifies the branch and connects it to your price book.
+
+- **Branch Name** — the name shown everywhere this branch appears.
+- **Branch Address** — start typing and pick the address from the suggestions.
+- **Branch Phone Number** — the contact number for this location.
+- **Timezone** — used for scheduling and for the date ranges on dashboards in this branch. Set this to the branch's local time.
+- **Branch Payroll ID** — an optional identifier that links this branch to your external payroll system.
+- **Multiplier Ranges** — the sold-price tiers this branch uses for pricing and bonuses. You must pick at least one; the estimate calculator needs a range to produce pricing.
+- **Work Areas** — the work areas estimators can choose on proposals for this branch.
+
+<Note>
+Multiplier ranges and work areas are defined elsewhere in the price book. If the one you need isn't in the list, an administrator can add it first, then return here to select it.
+</Note>
+
+## Costs & Production
+
+These values are the cost basis the calculator uses to price a job. Together they turn labor, materials, and travel into a real number.
+
+- **Base Hourly Rate** — the default hourly labor rate, used when no crew-specific rate applies.
+- **Average Work Day Hours** — a typical crew workday length. Used to translate labor hours into the number of days a job needs on the schedule.
+- **Waste Factor** — a material overage multiplier applied to materials (for example, `1` means no waste and `1.1` adds 10%).
+- **Gas Cost** — price per gallon of fuel.
+- **Truck Average Miles Per Gallon** — fuel efficiency, combined with gas cost and driving distance to estimate fuel cost per job.
+- **Labor Hours Load / Unload** — fixed hours added to every job to cover loading and unloading.
+- **Sub Multiplier** — a multiplier applied to subcontracted material costs before they're added to the price.
+- **Cash Factor** — a factor applied to the price when the customer pays cash (for example, `0.95` gives a 5% cash discount).
+- **Max Discount** — the highest discount, as a percentage, a sales rep can apply without a manager override.
+- **Deposit Percent** — the percentage of the total required as a deposit (for example, `10` means 10%).
+- **Max Deposit Amount** — a dollar cap on the deposit. `0` means no cap.
+
+## Pricing & Finance
+
+These settings shape the final price and the financial rules for proposals.
+
+- **Credit Card Fee** — a factor applied to the price when the customer pays by credit card (for example, `1.03` adds a 3% surcharge).
+- **Min Retail Price** — the lowest dollar amount any proposal in this branch can be priced at.
+- **B2B Max Discount** — the discount automatically applied when contractor / business-to-business pricing is turned on for a proposal.
+- **Quality Control Visit Price** — a flat cost added to a job when a quality-control visit is included on the proposal.
+- **Bonus Pool Percentage** — the share of a job's bonus base that goes into the crew bonus pool.
+- **Bonus Payout Cutoff (Days)** — the number of days after the scheduled date before a bonus is finalized and eligible for payout.
+
+## System Customization
+
+These settings tune dashboards and limits for the branch.
+
+- **Leaderboard Color Percentage** — how far from the team average, as a percentage, a score must be to show green or red on the leaderboard instead of yellow.
+- **Max Open Estimates** — the most open estimates (not yet marked Sold or Lost) a salesperson in this branch can have at once.
+- **Sub-Contractor Sales** — a checkbox. When on, subcontracted work counts toward sales performance figures such as Total Sold, Average Sale, and the leaderboard. It's off by default.
+
+<Tip>
+Don't worry about memorizing the math behind each field. Each one has a short on-screen hint explaining what it does and the units it expects. When in doubt, hover the field's tooltip before changing a value.
+</Tip>
+
+## A few things to keep in mind
+
+- Changes to a branch's costs, factors, and defaults affect **new** estimates priced after you save. Estimates already saved keep the pricing they were built with unless you reopen them and choose to refresh.
+- Every branch needs at least one **Multiplier Range** selected, or the calculator can't produce a price for it.
+- Because these settings drive real pricing and bonuses, treat changes carefully and double-check the values before saving.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Multiplier ranges" icon="layer-group" href="/guides/settings/price-book/multiplier-ranges">
+    Define the sold-price tiers you assign to each branch.
+  </Card>
+  <Card title="Work areas" icon="ruler-combined" href="/guides/settings/price-book/work-areas">
+    Set up the work areas estimators choose when building a proposal.
+  </Card>
+  <Card title="Roles and branch access" icon="users" href="/guides/settings/roles-branches">
+    Control who can work in which branch and what they're allowed to do.
+  </Card>
+</CardGroup>

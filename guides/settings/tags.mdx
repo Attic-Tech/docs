@@ -1,7 +1,125 @@
 ---
 title: "Tags"
+description: "Create and manage the tags your team uses to label and organize leads, then keep the list tidy by editing or deactivating tags as needs change."
+icon: "tag"
 ---
 
+**Tags** are short, reusable labels you create once and then attach to leads to group and organize them — for example to flag a referral, a priority lead, or a particular kind of job. You manage the master list of tags from **Settings**, and your team applies them out in the workspace.
+
 <Note>
-  This page is coming soon.
+Tags settings live in the admin **Settings** area, so creating, editing, and deactivating tags is available to admins. Once a tag exists, anyone on your team who works with leads can apply it.
 </Note>
+
+## Open the Tags page
+
+<Steps>
+  <Step title="Go to Settings">
+    Open **Settings** from the main navigation.
+  </Step>
+  <Step title="Choose Tags">
+    Select **Tags** in the settings list. You can also use the settings search and type "tags" (or "labels" or "categories") to jump straight there.
+  </Step>
+</Steps>
+
+The page header reads **Tags** with the subtitle *Manage tags for organizing leads and projects*. Below it is a searchable, sortable table of every tag in your workspace.
+
+## Read the tags table
+
+Each row in the table shows three things:
+
+- **Tag Name** — the label your team sees and selects.
+- **Type** — what the tag is used for. Today tags are used for **Lead**.
+- **Status** — an **Active** or **Inactive** badge. Active tags can be applied to leads; inactive ones cannot be newly assigned.
+
+Use the **Search by name...** box at the top of the table to find a tag, and click a column heading to sort. You can also adjust how many tags appear per page.
+
+<Tip>
+On a phone, each tag appears as a card instead of a table row, with the same status badge and an actions menu in the corner.
+</Tip>
+
+## Create a tag
+
+<Steps>
+  <Step title="Click Create New">
+    Press the **Create New** button in the top-right of the Tags page. The **Create Tag** dialog opens.
+  </Step>
+  <Step title="Enter a name">
+    In the **Name** field, type the label you want, such as "Referral" or "High Priority". Keep it short and clear — this is exactly what your team will see when they pick tags.
+  </Step>
+  <Step title="Choose a type">
+    Set the **Type**. Choose **Lead**, which makes the tag available when labeling leads.
+  </Step>
+  <Step title="Confirm it is active">
+    The **Is Active** checkbox is on by default, so the new tag is ready to use right away. Leave it on unless you are setting up a tag you do not want available yet.
+  </Step>
+  <Step title="Save">
+    Click **Create**. You will see a confirmation that the tag was created, and it appears in the table immediately.
+  </Step>
+</Steps>
+
+<Tip>
+Decide on a small, consistent set of tag names before you start creating them. A tidy list — a handful of meaningful labels rather than dozens of near-duplicates — is far easier for your team to use well.
+</Tip>
+
+## Edit a tag
+
+<Steps>
+  <Step title="Open the tag">
+    In the table, click the **pencil** (edit) icon on the tag's row. On a phone, open the tag's actions menu and choose **Edit**.
+  </Step>
+  <Step title="Update the details">
+    The **Edit Tag** dialog lets you change the **Name**, the **Type**, and the **Is Active** setting.
+  </Step>
+  <Step title="Save changes">
+    Click **Save Changes**. The button stays disabled until you actually change something, so an accidental open never alters a tag.
+  </Step>
+</Steps>
+
+<Note>
+Renaming a tag updates it everywhere it is already applied — every lead that carries the tag will show the new name. Rename thoughtfully so existing labels still make sense.
+</Note>
+
+## Deactivate a tag
+
+When a tag is no longer useful, you deactivate it rather than deleting it. Deactivating keeps your history intact while taking the tag out of circulation for new work.
+
+<Steps>
+  <Step title="Start the deactivation">
+    Click the **trash** icon on the tag's row (or choose **Deactivate** from the actions menu on a phone). A confirmation dialog titled **Deactivate tag?** appears.
+  </Step>
+  <Step title="Confirm">
+    Read the note — the tag can no longer be assigned to new items, but existing assignments are preserved — then click **Deactivate**.
+  </Step>
+</Steps>
+
+After deactivation the tag's status shows **Inactive**, and the trash icon for that row is disabled with the hint *This tag is already inactive*. The tag stays in the table for the record; if you ever need it again, open it and turn **Is Active** back on.
+
+<Note>
+There is no permanent delete for tags. Deactivating is the intended way to retire one, which is why leads that were already tagged keep their labels.
+</Note>
+
+## Apply tags to a lead
+
+Creating tags in Settings just builds the menu. Your team applies them while working a lead:
+
+<Steps>
+  <Step title="Open a lead">
+    Go to a lead's detail page.
+  </Step>
+  <Step title="Use the Tags selector">
+    Find the **Tags** field, start typing to search your active tags, and pick the ones that apply. You can attach several at once, and changes save on their own.
+  </Step>
+</Steps>
+
+Applied tags appear in the **Tags** column on the leads list, so you can scan and filter your pipeline at a glance. Only **Active** tags show up in the picker, which is exactly why deactivating a tag removes it from future use without disturbing the leads that already carry it.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Statuses" icon="flag" href="/guides/settings/statuses">
+    Set up the statuses that track where each lead stands in your pipeline.
+  </Card>
+  <Card title="Roles and branches" icon="users" href="/guides/settings/roles-branches">
+    Control who can reach the admin Settings area and manage tags.
+  </Card>
+</CardGroup>

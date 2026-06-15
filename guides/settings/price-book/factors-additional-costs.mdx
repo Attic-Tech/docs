@@ -1,7 +1,125 @@
 ---
 title: "Factors additional costs"
+description: "Set up factors and additional costs in your Price Book so estimates pick up the right markups and extra charges automatically."
+icon: "sliders"
 ---
 
+**Factors** and **Additional costs** are two Price Book tools that adjust the price of an estimate beyond the items themselves. A **factor** is a multiplier that scales material or labor cost up or down. An **additional cost** is a flat dollar amount added on top. Set them up once and the Calculator applies them to estimates for you.
+
 <Note>
-  This page is coming soon.
+These are admin settings. You'll find them under **Settings → Price book**, and you need workspace settings access to view or change them. If you don't see the Settings area, ask an admin on your team.
 </Note>
+
+## Find these settings
+
+<Steps>
+  <Step title="Open Price book">
+    Go to **Settings**, then open **Price book**. You'll see a row of tabs across the top: **Items**, **Work Areas**, **Item Categories**, **Factors**, **Additional Costs**, and **Multiplier Ranges**.
+  </Step>
+  <Step title="Pick the tab you need">
+    Click **Factors** to manage multipliers, or **Additional Costs** to manage flat extra charges. Each tab is its own list with its own search and Create button.
+  </Step>
+</Steps>
+
+## Factors
+
+A factor is a number that multiplies a cost. Use factors for things like a surcharge on remote jobs, a premium for difficult access, or any adjustment you want expressed as a multiplier rather than a fixed dollar amount.
+
+### What each field means
+
+When you create or edit a factor, you'll fill in:
+
+- **Name** — what the factor is, in plain language (for example, *Remote jobsite surcharge*). This is how it shows up in the list and, when relevant, in the Calculator.
+- **Factor** — the multiplier itself, entered as a number (zero or higher).
+- **Applies to** — whether the multiplier acts on **Material Cost** or **Labor Cost**.
+- **Always enabled** — a checkbox. When it's on, the factor is applied automatically on every matching estimate and is hidden from the Calculator, so estimators can't switch it off. When it's off, the factor is available in the Calculator for estimators to turn on per estimate.
+
+<Tip>
+Use **Always enabled** for adjustments that should never be skipped — a standard markup, for example. Leave it off when it's a situational charge that an estimator should decide on job by job.
+</Tip>
+
+### Create a factor
+
+<Steps>
+  <Step title="Open the Factors tab">
+    Under **Settings → Price book**, click **Factors**.
+  </Step>
+  <Step title="Click Create New">
+    Press **Create New** (top right of the list). The Create Factor window opens.
+  </Step>
+  <Step title="Fill in the details">
+    Enter a **Name**, the **Factor** value, choose what it **Applies to**, and decide whether **Always enabled** should be on.
+  </Step>
+  <Step title="Save it">
+    Click **Create**. The factor is saved and appears in the list right away.
+  </Step>
+</Steps>
+
+### Edit or delete a factor
+
+Each row in the list has an edit (pencil) and delete (trash) action. On a phone, tap the menu on the card and choose **Edit** or **Delete**.
+
+- **Edit** reopens the same fields so you can change the name, value, what it applies to, or the Always enabled setting.
+- **Delete** removes the factor. Before you confirm, the window tells you where the factor is currently used — across items, item categories, and work areas — so you know the impact.
+
+<Note>
+Deleting a factor removes it from everything that referenced it, and it will no longer be applied on new estimates. Proposals you've already created are not affected. Deleting can't be undone.
+</Note>
+
+## Additional costs
+
+An additional cost is a flat dollar amount added to an estimate — a dumpster fee, a permit charge, a fixed trip fee, and the like.
+
+### What each field means
+
+When you create or edit an additional cost, you'll fill in:
+
+- **Name** — what the charge is (for example, *Dumpster fee*).
+- **Cost** — the dollar amount to add.
+- **Applies to** — whether it's grouped with **Material Cost** or **Labor Cost** on the estimate.
+
+### Create an additional cost
+
+<Steps>
+  <Step title="Open the Additional Costs tab">
+    Under **Settings → Price book**, click **Additional Costs**.
+  </Step>
+  <Step title="Click Create New">
+    Press **Create New**. The Create Additional Cost window opens.
+  </Step>
+  <Step title="Fill in the details">
+    Enter a **Name**, the **Cost** amount, and choose what it **Applies to**.
+  </Step>
+  <Step title="Save it">
+    Click **Create**. The new cost shows up in the list.
+  </Step>
+</Steps>
+
+### Edit or delete an additional cost
+
+Use the edit (pencil) and delete (trash) actions on each row, or the card menu on a phone.
+
+- **Edit** reopens the name, cost, and applies-to fields.
+- **Delete** removes the cost. The confirmation tells you how many items currently use it before you commit.
+
+<Tip>
+Use the **search** box at the top of either list to find a factor or cost by name once your Price Book grows. You can also change how many rows show per page.
+</Tip>
+
+## How factors and additional costs reach an estimate
+
+You set these up once here, and the Calculator does the rest. When an estimator builds an estimate, **Always enabled** factors are applied automatically, optional factors can be turned on for that estimate, and additional costs are added where they apply. The estimate's breakdown reflects all of it in the final price — no manual math required.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Items" icon="box" href="/guides/settings/price-book/items">
+    Set up the priced items and services that make up the bulk of every estimate.
+  </Card>
+  <Card title="Multiplier ranges" icon="arrows-left-right" href="/guides/settings/price-book/multiplier-ranges">
+    Define how prices scale across quantity or size ranges.
+  </Card>
+  <Card title="Work areas" icon="layer-group" href="/guides/settings/price-book/work-areas">
+    Manage the areas of a job that estimators choose from in the Calculator.
+  </Card>
+</CardGroup>

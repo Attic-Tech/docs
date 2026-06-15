@@ -1,7 +1,96 @@
 ---
 title: "Status config vs usage"
+description: "Which statuses you can customize, where they apply, and why a status that's in use can't be deleted."
+keywords: ["status configuration", "custom status", "delete status in use", "lead status", "job status", "estimate status", "system status"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains the difference between **configuring** a status (defining it in settings) and **using** a status (assigning it to a record), which kinds of status are customizable, and the rules that govern editing and deleting them.
+
+For who can change a lead's status and how a lead moves through its stages, see [Lead status lifecycle](/reference/leads/status-lifecycle). For the role definitions used below, see the [Permissions and roles matrix](/reference/platform/permissions-roles-matrix).
+
+## Two different status systems
+
+The word "status" covers two unrelated mechanisms in the product. Only one of them is customizable.
+
+<Card title="Lead statuses — customizable per workspace">
+  Lead statuses are configurable items that belong to a single workspace. You create, rename, recolor, reorder, and retire them yourself under **Settings → Leads → Statuses**. This is the only status system you can configure.
+</Card>
+
+<Card title="Estimate and job statuses — fixed, not configurable">
+  Estimate statuses and job statuses are built into the product and are the same for every workspace. There is no settings screen or table to add, rename, or remove them.
+
+  - **Estimate statuses:** In Progress, Sold, Released, Lost, Secondary Estimate, Deleted.
+  - **Job statuses:** Requires Crew Lead, Plans In Progress, Pending Review, Requires Scheduling, Pre-Production, In Production, Production Complete, Pending Payment, Closed Job, Cancelled.
+</Card>
+
+The rest of this page is about the customizable **lead** statuses.
+
+## How a lead status is configured
+
+### What a lead status carries
+
+Each lead status has a name, a description, a color, a display order, a category, and an active/inactive flag. It also has a short identifier derived from its name, used internally to keep statuses distinct within a workspace.
+
+### Category drives behavior
+
+Every status maps to exactly one of four fixed categories. The set of categories cannot be changed; what you configure is which statuses you create and how they map onto these categories.
+
+| Category | Meaning | End state? | More than one allowed? |
+| --- | --- | --- | --- |
+| **New** | The starting point of a lead | No | No — one only |
+| **In progress** | The lead is being worked | No | Yes |
+| **Done** | Ended successfully (converted to a sale) | Yes | No — one only |
+| **Cancelled** | Ended without a sale (lost or abandoned) | Yes | No — one only |
+
+<Card title="Rule: who can manage the status catalog">
+  Only **Admin** can create, update, or delete lead statuses. The Settings → Leads → Statuses screen is reachable only by users who can manage workspace settings (Admin); users who can view but not manage settings are redirected. Admin, Ops Manager, Sales Admin, and Client Coordinator can view the list of statuses.
+</Card>
+
+### Validation rules when creating or editing
+
+<Card title="Rule: the status identifier must be unique">
+  Within a workspace you can't create two statuses that resolve to the same identifier. Attempting to do so returns an error saying a status with that name already exists.
+</Card>
+
+<Card title="Rule: one status per single-status category">
+  The New, Done, and Cancelled categories allow only one status each. If a status already exists in one of those categories, creating a second one in the same category is rejected with an error explaining the category does not allow multiple statuses.
+</Card>
+
+## System statuses are locked down
+
+Some statuses are **system statuses**, created automatically when your workspace is set up. They are partially locked. Statuses you create yourself are **custom statuses** and are fully editable.
+
+<Card title="Rule: certain fields on a system status can't be changed">
+  On a system status, its category, its identifier, and whether it's active are all locked — those inputs are disabled in the edit form. You can still change a system status's name, description, color, and display order. Because the active flag is locked, a system status can't be deactivated; only custom statuses can.
+</Card>
+
+<Card title="Rule: a system status can't be deleted">
+  System statuses can never be deleted. The Delete control isn't shown for them, and a delete attempt returns the error "System statuses cannot be deleted."
+</Card>
+
+## Why a status that's in use can't be deleted
+
+A status is "in use" when at least one lead has it assigned. Even for a custom status, deletion is blocked while any lead still references it.
+
+<Card title="Rule: you can't delete a status that still has leads assigned">
+  Deleting a status that any lead currently uses is rejected. You're told to reassign those leads to another status first, then delete the original. This guard prevents leads from being silently left without a status.
+</Card>
+
+<Card title="What you see when a delete is blocked">
+  The delete fails and an error message appears: "Cannot delete a status that has leads assigned to it. Reassign leads first." The status stays in place, unchanged.
+</Card>
+
+### Deactivate instead of delete
+
+Marking a custom status **inactive** hides it from the lead status picker and from the default-status lookup, but keeps the status and every existing lead assignment intact. This is the way to retire a status you no longer want without having to reassign every lead first.
+
+### Order of checks on a delete
+
+For a single delete request, the checks run in this order:
+
+1. The status exists.
+2. It is not a system status.
+3. No lead currently has it assigned.
+4. Delete.
+
+If any check fails, the delete stops there with the matching error and nothing is removed.

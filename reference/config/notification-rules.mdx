@@ -1,7 +1,117 @@
 ---
 title: "Notification rules"
+description: "How notification rules decide who gets notified when something happens in your workspace, and who can configure them."
+keywords: ["notification rules", "notification settings", "who gets notified", "notification recipients", "notification targeting"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains what a notification rule is, what triggers one, who ends up receiving the notification, and who is allowed to configure rules.
+
+The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Crew Member**. "Branch Management" refers to the group of roles that can work with most workspace records: Admin, Ops Manager, Sales Admin, and Client Coordinator.
+
+## What a notification rule is
+
+A notification rule is a small routing policy that belongs to a single workspace. Each rule answers one question: "When this kind of event happens in this workspace, who should be notified?"
+
+For a given event, a workspace can have more than one rule — for example one rule that notifies Sales Admins and a separate rule that notifies a specific person. Each rule can be turned on or off independently.
+
+### What a rule contains
+
+<Card title="The parts of a rule">
+- A **name** — a readable label for the rule.
+- The **event** it reacts to — chosen from a fixed list of supported events (see below).
+- A **description** — optional free text for your own reference.
+- An **on/off switch** — a rule that is turned off is ignored entirely; it never fires.
+- **Who can trigger it** — an optional set of roles. The rule only fires when the person whose action caused the event holds one of these roles. Leave it empty to let the rule fire for anyone, including events the system raises on its own.
+- A **targeting mode** plus its recipient settings — this is what determines who receives the notification (see [Who receives a notification](#who-receives-a-notification)).
+</Card>
+
+### The events a rule can react to
+
+Rules can only be attached to a fixed set of supported events. Today these are:
+
+- **Time off added** — someone records time off.
+- **Calendar event not published reminder** — a calendar event is approaching its start without being published.
+- **Lead ingested** — a new lead arrives.
+- **Proposal signed by client** — a client signs a proposal.
+
+The list of supported events is fixed. You choose which of them each rule reacts to; you can't invent a new event type.
+
+## Who can configure rules
+
+Rules belong to a workspace, so they are never shared across workspaces.
+
+<Card title="Configuration permissions">
+- **View rules** — workspace Admins can see their own workspace's rules.
+- **Edit rules** — workspace Admins can update their own workspace's rules (for example, change who is targeted, or turn a rule on or off).
+- **Creating and deleting rules** is reserved — Admins adjust the rules their workspace starts with rather than adding or removing rule entries.
+- A rule can never be re-pointed at a different workspace.
+</Card>
+
+Every workspace starts with a default set of rules already in place, so notifications work out of the box without any setup. Admins tune those defaults — turning rules on or off and adjusting their recipients — rather than building rules from scratch.
+
+## What triggers a rule
+
+When something happens in the product — a lead arrives, a proposal is signed, time off is recorded — the relevant event is raised. For that event and workspace, only rules that are **turned on** are considered.
+
+Each candidate rule is then checked against **who can trigger it**:
+
+- If the rule's trigger-roles list is **empty**, it matches any actor — including events the system raises on its own with no person behind them.
+- If the list is **not empty**, the rule fires only when the person who caused the event holds at least one of those roles. A person with none of the listed roles will not trigger the rule.
+
+Notifications are delivered shortly after the triggering action, in the background, rather than instantly inline. For the timing and retry behavior, see [Notifications are delivered in the background](/reference/platform/background-processing#notifications-and-reminders).
+
+## Who receives a notification
+
+Each rule uses one of three **targeting modes** to build its recipient list. Whichever mode is used, the same final guardrails always apply:
+
+<Card title="Guardrails applied to every rule">
+- The recipient list is **always limited to members of the workspace** — a rule can never notify someone who isn't in the workspace.
+- The person who triggered the event is **left out by default**, unless the rule is set to include them.
+- Where the event is tied to specific branches, recipients are narrowed to those branches.
+- Blocked users are never notified.
+</Card>
+
+### Mode 1 — By role (the default)
+
+Recipients are everyone in the workspace who holds one of the rule's chosen **recipient roles**, narrowed to the relevant branches when the event is branch-specific.
+
+If no recipient roles are chosen, the rule notifies no one.
+
+### Mode 2 — Specific recipients
+
+Recipients are built from an allow-list that can combine specific **people**, **roles**, and **branches**. A setting controls how those criteria combine:
+
+- **Match any** — a person qualifies if they meet at least one of the criteria.
+- **Match all** — a person qualifies only if they meet every criterion at once.
+
+Any branches named here are further narrowed to the event's own branch scope. If the allow-list is empty, the rule notifies no one.
+
+### Mode 3 — Everyone except
+
+Recipients start as everyone in the workspace (narrowed to the relevant branches), and then anyone matching the rule's **excluded people**, **excluded roles**, or **excluded branches** is removed.
+
+### Extra recipients
+
+Some events always notify a specific person on top of whatever the rule resolves. For example, when a client signs a proposal, the salesperson on that proposal is always notified, in addition to anyone the rule targets (such as Sales Admins). These extra recipients are still held to the workspace-membership guardrail.
+
+## How notifications are delivered
+
+Once recipients are resolved, the notification is sent through the workspace's notification workflow for that event. The channels a notification can use — in-app, email, and so on — are configured at the workflow level, not inside the individual rule.
+
+- Notifications carry your workspace's branding — they are routed under your workspace and include your workspace logo. Recipients who aren't part of the triggering workspace are dropped from that send.
+- Delivery is retried on failure and de-duplicated, so a notification may arrive a moment after the triggering action, but you won't receive the same one twice.
+
+## Operational notes
+
+These behaviors are worth knowing when a rule doesn't notify whom you expected:
+
+- **A rule that resolves to nobody simply doesn't send.** If a rule's recipient settings produce an empty list, no notification goes out and nothing is logged for you to see.
+- **Recipients can be dropped at delivery.** If someone has no valid notification profile, is blocked, or isn't part of the triggering workspace, they are quietly removed from that send.
+- **If the triggering person can't be identified, the whole send is skipped.** A notification needs a valid actor (or a recognized system source) to go out.
+- **Roles are matched by name.** Renaming a role can cause a rule that targeted the old name to stop matching until the rule is updated to the new name.
+
+## Related references
+
+- [Roles and permissions matrix](/reference/platform/permissions-roles-matrix)
+- [Workspace and branch scoping](/reference/platform/org-branch-scoping)
+- [Background processing](/reference/platform/background-processing#notifications-and-reminders)

@@ -1,7 +1,145 @@
 ---
 title: "Roles branches"
+description: "Understand how roles and branches control what each person sees and does, then assign them to your team from the Users and Branch Configuration pages."
+icon: "shield-user"
 ---
 
+Two settings decide what each person on your team can see and do: their **roles** and their **branches**.
+
+- A **role** is the job a person has in the system — for example **Admin**, **Ops Manager**, or **Crew Member**. The role controls which pages and actions are available to them.
+- A **branch** is a location your company works out of. Assigning someone to a branch decides which work, schedules, and numbers they see.
+
+Together they answer two questions for every teammate: *what are they allowed to do?* and *which part of the business do they do it in?*
+
 <Note>
-  This page is coming soon.
+These settings live in the **Admin** area. You'll only see the Settings pages described here if your role can manage your organization and its people — most often an **Admin**.
 </Note>
+
+## Roles at a glance
+
+When you add or edit a person, you pick one or more roles for them. The roles you can choose from are:
+
+- **Admin** — full run of the workspace: settings, branches, pricing, and people.
+- **Sales Admin** — oversees the sales side and the sales team.
+- **Ops Manager** — runs day-to-day operations and scheduling for a branch.
+- **Crew Leader** — leads a crew in the field.
+- **Crew Member** — works on jobs in the field.
+- **Sales Member** — builds estimates and works leads.
+- **Client Coordinator** — handles customer scheduling and communication.
+
+<Tip>
+A person can hold more than one role. When they do, they get the combined access of all the roles you give them — so you rarely need a special "extra access" account. Just add the second role.
+</Tip>
+
+## How branches fit in
+
+Most companies run more than one location. A branch keeps each location's work, schedule, and performance numbers separate, while still living under one organization.
+
+Assigning a person to a branch does two things:
+
+- It puts their work, schedule, and results in that branch's view.
+- It lets people who oversee a branch see that person's activity.
+
+You can assign someone to **more than one branch** if they work across locations. If you only run a single location, everyone simply belongs to that one branch.
+
+<Note>
+Branches also carry their own pricing and cost defaults (labor rates, fees, deposit rules, and more). Setting those up is covered on the [Branch Configuration](/guides/settings/branches) page — this guide focuses on creating branches and assigning people to them.
+</Note>
+
+## Assign roles and branches to a person
+
+Roles and branches are set per person on the **Users** page.
+
+<Steps>
+  <Step title="Open Users">
+    In **Settings**, open **Users** under the **General** group. This lists everyone in your organization, with their **Roles** and **Branches** shown as labels on each row.
+  </Step>
+  <Step title="Add or edit the person">
+    To set up someone new, click **Add User** and fill in their name and email. To change an existing person, open the row's actions menu (the three-dot button) and choose **Edit**.
+  </Step>
+  <Step title="Pick their roles">
+    In the **Roles** field, select one or more roles. Type to search if your list is long. Each role you add appears as a labeled chip you can remove.
+  </Step>
+  <Step title="Pick their branches">
+    In the **Branches** field, select every branch the person works in. Like roles, you can choose more than one.
+  </Step>
+  <Step title="Save">
+    Click **Create** (for a new person) or **Save Changes** (when editing). The Users list updates with the new roles and branches.
+  </Step>
+</Steps>
+
+<Tip>
+New people receive a password setup email automatically, so you don't have to share a password yourself. When adding someone, you set a temporary password just to create the account — they'll set their own on first sign-in.
+</Tip>
+
+### Find people by role or branch
+
+The Users page has a search box and filters at the top. Search by **name or email**, or filter the list down to a specific **role** or **branch** to quickly see, for example, everyone in one location or every Crew Leader on the team.
+
+### Other things you can do to a person
+
+From a user's actions menu you can also:
+
+- **Block** someone so they can no longer sign in (and **Unblock** them later to restore access). A person's **Status** shows as **Active** or **Blocked** in the list.
+- **Reset Password** — sends them a fresh password-reset email.
+- **Invalidate sessions** — signs the person out everywhere, useful if a device is lost.
+
+<Note>
+Blocking removes access without deleting the person, so their history stays intact. It's the safe way to off-board someone who has left.
+</Note>
+
+## Create and manage branches
+
+Branches are managed on the **Branch Configuration** page.
+
+<Steps>
+  <Step title="Open Branch Configuration">
+    In **Settings**, open **Branch Configuration** under the **General** group. You'll see every branch in your workspace, with its name, timezone, address, and phone number.
+  </Step>
+  <Step title="Create a branch">
+    Click **New Branch**. Fill in the **Branch Details** — at minimum a **Branch Name**, **Branch Address**, and **Timezone** — then add the location's pricing and cost defaults in the sections below.
+  </Step>
+  <Step title="Save">
+    Click **Create Branch**. The new branch is now available to assign people to on the Users page.
+  </Step>
+</Steps>
+
+To change an existing branch, click the **edit** (pencil) button on its row. The branch form is organized into clear sections — **Branch Details**, **Costs & Production**, **Pricing & Finance**, and **System Customization** — so you can find the setting you need and **Save** your changes.
+
+<Tip>
+Each branch needs at least one **Multiplier Range** selected in its details before the estimate calculator can price work for that branch. If pricing isn't working for a location, check that this is set.
+</Tip>
+
+## A simple way to plan it
+
+When you bring someone on, think through it in two quick passes:
+
+<Steps>
+  <Step title="Decide what they do">
+    Pick the role (or roles) that matches their job. When in doubt, start with the narrower role — you can always add another later.
+  </Step>
+  <Step title="Decide where they do it">
+    Assign the branch (or branches) they work in. People who oversee multiple locations get multiple branches; everyone else gets just theirs.
+  </Step>
+</Steps>
+
+<Note>
+If someone says they can't see a job, a schedule, or a page they expect, the cause is almost always one of these two settings. Open their profile on the **Users** page and check that their **roles** and **branches** are right.
+</Note>
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Branch Configuration" icon="building-2" href="/guides/settings/branches">
+    Set each branch's pricing, labor rates, fees, and deposit rules.
+  </Card>
+  <Card title="Users" icon="user" href="/guides/settings/users">
+    Add people, edit their details, and manage access.
+  </Card>
+  <Card title="Organization" icon="building" href="/guides/settings/organization">
+    Set company-wide details like your name and timezone.
+  </Card>
+  <Card title="Subcontractors" icon="hard-hat" href="/guides/settings/subcontractors">
+    Manage the outside crews you assign work to.
+  </Card>
+</CardGroup>

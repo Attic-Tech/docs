@@ -1,7 +1,129 @@
 ---
 title: "Branch invariants"
+description: "The rules that always hold for a branch — its identity, required settings, what a save can and cannot change, and the errors you see when a rule is broken."
+keywords: ["branch", "branch settings", "branch configuration", "multiplier ranges", "branch timezone", "branch color", "max open estimates"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+A **branch** is the unit a workspace divides itself into. Each branch carries its own pricing constants, proposal copy, payment methods, financing terms, timezone, and multiplier ranges. Every branch belongs to exactly one workspace and is created together with a single set of branch settings that holds all of those values.
+
+This reference lists what must always be true about a branch, what a save may and may not change, and the exact errors you see when a rule is broken.
+
+For how branches relate to workspaces and how access is scoped per person, see [Org and branch scoping](/reference/platform/org-branch-scoping). For the rules that govern multiplier coverage specifically, see [Multiplier range overlap](/reference/config/multiplier-range-overlap).
+
+## What must always be true
+
+These rules can never be violated — a branch can never exist in a state that breaks one of them.
+
+<Card title="A branch belongs to exactly one workspace" icon="building">
+  Every branch is owned by a single workspace, and it is only visible and editable inside that workspace. You can never see or change a branch that belongs to a different workspace.
+</Card>
+
+<Card title="A branch name is unique within its workspace" icon="tag">
+  Two branches in the same workspace cannot share a name. The same name is fine in a different workspace.
+</Card>
+
+<Card title="A branch always has a name" icon="font">
+  The name is required and must be at least one character.
+</Card>
+
+<Card title="A branch always has one set of settings" icon="sliders">
+  Every branch has exactly one linked set of branch settings — its pricing constants, proposal copy, timezone, and the rest. The branch and its settings are created together, and the link between them is never re-pointed.
+</Card>
+
+<Card title="A branch always has a color" icon="palette">
+  The color is one of a fixed palette (Accent, Info, Bronze, Success, Warning, Error, Teal, Neutral). When you create a branch without choosing a color, the next color in the workspace's rotation is assigned automatically (Accent, then Info, then Bronze, wrapping around).
+</Card>
+
+<Card title="A branch has a valid timezone" icon="clock">
+  The timezone is one of Pacific, Mountain, Central, or Eastern. It drives how dashboard periods (day, week, month) are bucketed for the branch.
+</Card>
+
+<Card title="Multiplier ranges fully cover pricing from $0 upward" icon="ruler">
+  The multiplier ranges attached to a branch must cover every job cost with no gaps and no overlaps. The set must contain at least one range, start at $0, include a range with no upper limit, leave no uncovered band, and never have two ranges overlap. Without full coverage, a proposal whose cost falls in an uncovered band cannot be priced. See [Multiplier range overlap](/reference/config/multiplier-range-overlap) for the full coverage rules.
+</Card>
+
+<Card title="Ranges and work areas belong to the same workspace" icon="link">
+  Every multiplier range and work area attached to a branch must belong to the branch's own workspace. A branch can never reference another workspace's pricing ranges or work areas.
+</Card>
+
+<Card title="Max open estimates is a whole number from 1 to 100,000" icon="list-check">
+  This caps how many open estimates one salesperson may hold in the branch. It must be a whole number, at least 1 and no more than 100,000.
+</Card>
+
+## What a new branch sets up automatically
+
+Creating a branch also seeds default supporting data so the branch is usable right away:
+
+- **Default payment methods** — Financing, Cash, Credit Card, and Check, all enabled.
+- **Default financing terms** — "0% for 12 Months", "8.99% for 5 years", and "8.99% for 10 years".
+- **A task type** — if the workspace has no task types yet, a default "Task" type is created and linked.
+- **Default proposal copy** — disclaimer, payment terms, insurance-claims text, and terms-and-conditions text, plus a default proposal email subject and body.
+
+## What a save can change
+
+Editing a branch submits the full settings form and rewrites the branch and its settings together:
+
+- **Name** — editable, still subject to the per-workspace uniqueness rule.
+- **Color** — editable. A save that leaves color untouched keeps the existing color.
+- **Timezone, payroll id, and every pricing and proposal base constant** — editable.
+- **Multiplier ranges and work areas** — fully replaced on each save, and re-checked for workspace ownership, overlap, and full coverage.
+- **Address** — editable. When the address changes, the branch's map coordinates are looked up again. If that lookup fails, the existing coordinates are kept rather than cleared. See [Geocoding and ZIP](/reference/platform/geocoding-zip).
+
+## What a save cannot change
+
+<Card title="A branch's workspace cannot be reassigned" icon="lock">
+  Ordinary users can never move a branch to a different workspace. Saving the settings form never changes which workspace a branch belongs to.
+</Card>
+
+<Card title="The settings link is never re-pointed" icon="lock">
+  A save always rewrites the branch's existing settings in place. It never swaps a branch onto a different set of settings.
+</Card>
+
+<Card title="Task types are left alone on save" icon="lock">
+  Task types are seeded when the branch is created and are not touched by the branch settings form. Per-branch task-type assignment is managed elsewhere.
+</Card>
+
+## Errors you may see
+
+When a rule is broken, the create or save action returns one of these messages.
+
+| What happened | Message |
+| --- | --- |
+| Name already used by another branch in the workspace | A branch named "..." already exists in this organization. |
+| Empty or missing name | Branch name is required |
+| Empty or missing address | Branch address is required |
+| No multiplier range supplied | At least one multiplier range is required |
+| A multiplier range belongs to another workspace | One or more selected multiplier ranges do not belong to your organization. |
+| A work area belongs to another workspace | One or more selected work areas do not belong to your organization. |
+| Two assigned multiplier ranges overlap | Assigned multiplier ranges overlap: ... overlaps with ... |
+| Ranges don't start at $0 | Your multiplier ranges must include one that starts at $0 (your lowest currently starts at ...). |
+| No range with an open upper limit | Your multiplier ranges must include one with no maximum cost so jobs above ... can still be priced. |
+| Gap between consecutive ranges | Your multiplier ranges don't cover jobs between ... and ... (gap between "..." and "..."). |
+| Max open estimates not a whole number | The value must be a whole number |
+| Max open estimates below 1 | Max open estimates must be at least 1 |
+| Branch not found in your workspace | Branch ... not found |
+
+The numeric base constants also carry their own messages, such as "Base hourly rate must be greater than 0", "Max discount must be between 0 and 100", and "Average work day hours must be at least 1".
+
+## Who can read and write
+
+For the full breakdown of what each role can do, see the [Permissions roles matrix](/reference/platform/permissions-roles-matrix).
+
+<Card title="Reading a branch" icon="eye">
+  Admins and the operational roles that need branch context can read a branch. Reads are always scoped to your active workspace.
+</Card>
+
+<Card title="Creating and editing a branch" icon="pen">
+  Creating and editing a branch is gated on workspace-settings access — Admins by default. It also turns off when the workspace-settings feature is unavailable for the workspace.
+</Card>
+
+<Card title="Per-branch access for members" icon="user-lock">
+  A member who is not an admin can only act on branches they belong to. Acting on an invalid branch returns "Invalid branch." Acting on a branch you don't belong to returns "You do not have access to this branch".
+</Card>
+
+## Related references
+
+- [Org and branch scoping](/reference/platform/org-branch-scoping)
+- [Multiplier range overlap](/reference/config/multiplier-range-overlap)
+- [Geocoding and ZIP](/reference/platform/geocoding-zip)
+- [Permissions roles matrix](/reference/platform/permissions-roles-matrix)

@@ -1,7 +1,146 @@
 ---
 title: "Equipment vehicles"
+description: "Set up your company's equipment and vehicles in Settings — define the categories they fall into, then add each item with its details so it's ready for the field."
+icon: "truck"
 ---
 
+The **Resources** area in Settings is where you keep a tidy record of your company's field gear — the **equipment** your crews use and the **vehicles** they drive. You organize everything into reusable categories first, then add each individual item under the right category and branch.
+
 <Note>
-  This page is coming soon.
+Resources is an admin-only area. You'll find it in **Settings** under **Sales & Operations → Resources**. If you don't see it, your account doesn't have permission to manage it.
+</Note>
+
+## How Resources is organized
+
+Open **Settings → Resources** and you'll see four tabs across the top:
+
+- **Equipment** — your individual pieces of equipment (a specific blower, sprayer, generator, and so on).
+- **Equipment Types** — the categories your equipment falls into.
+- **Vehicles** — your individual vehicles.
+- **Vehicle Types** — the categories your vehicles fall into.
+
+The pattern is the same for both: **set up the types first**, then add the individual items. Every item belongs to a **branch** and to a **type**, so it's worth creating the types you need before you start adding equipment and vehicles.
+
+<Tip>
+Each type belongs to a single branch, and when you add a piece of equipment or a vehicle you pick its branch first — that's what decides which types you can choose from. Sorting your branches out first keeps the type lists short and relevant. See [Branches](/guides/settings/branches).
+</Tip>
+
+## Set up equipment types
+
+Equipment types are the categories you'll sort your equipment into. Set these up before adding equipment.
+
+<Steps>
+  <Step title="Open the Equipment Types tab">
+    Go to **Settings → Resources** and select **Equipment Types**.
+  </Step>
+  <Step title="Click Create New">
+    Use the **Create New** button at the top right. You can search the existing list by name at any time using the search box.
+  </Step>
+  <Step title="Fill in the details">
+    - **Branch** — which branch this type belongs to.
+    - **Name** — what the category is called (for example, "Insulation Blower").
+    - **Slug** — a short, lowercase identifier for the type. Use only lowercase letters, numbers, hyphens, and underscores (for example, `insulation-blower`).
+    - **Sort Order** — a number that controls where this type appears in lists. Lower numbers come first.
+    - **Active** — leave this checked so the type is available to choose. Uncheck it to retire a type without deleting it.
+  </Step>
+  <Step title="Save">
+    Click **Create** to add the type. To change one later, use the pencil icon on its row; to remove one, use the trash icon.
+  </Step>
+</Steps>
+
+<Note>
+Some equipment types come built in to get you started. You can rename a built-in type and adjust its sort order, but you can't change its branch or slug, and it can't be deleted. Your own types can be edited or deleted freely.
+</Note>
+
+## Add equipment
+
+Once your equipment types exist, add the actual pieces of equipment.
+
+<Steps>
+  <Step title="Open the Equipment tab">
+    Go to **Settings → Resources** and select **Equipment**. The list shows each item's name, type, branch, and serial number.
+  </Step>
+  <Step title="Click Create New">
+    Use the **Create New** button at the top right.
+  </Step>
+  <Step title="Fill in the details">
+    - **Name** *(required)* — a clear name for this piece of equipment.
+    - **Branch** *(required)* — which branch the equipment lives at. Pick this first.
+    - **Type** *(required)* — the category it belongs to. The list of types is filtered to the branch you chose, so select the branch before the type.
+    - **Serial number** — a unique identifier for the equipment, if you track one.
+    - **Notes** — any relevant notes about this item.
+  </Step>
+  <Step title="Save">
+    Click **Create Equipment**. The item now appears in the Equipment list, where you can search for it, edit it with the pencil icon, or delete it with the trash icon.
+  </Step>
+</Steps>
+
+<Tip>
+If the **Type** dropdown says "Select branch first," it's waiting on you to choose a branch. Pick the branch and the matching types appear.
+</Tip>
+
+## Set up vehicle types
+
+Vehicle types work exactly like equipment types — they're the categories your vehicles fall into. Set these up before adding vehicles.
+
+<Steps>
+  <Step title="Open the Vehicle Types tab">
+    Go to **Settings → Resources** and select **Vehicle Types**.
+  </Step>
+  <Step title="Click Create New and fill in the details">
+    - **Branch** — which branch this type belongs to.
+    - **Name** — what the category is called (for example, "Box Truck" or "Service Van").
+    - **Slug** — a short, lowercase identifier (lowercase letters, numbers, hyphens, and underscores only).
+    - **Sort Order** — controls the order in lists; lower numbers come first.
+    - **Active** — keep checked to make the type available; uncheck to retire it.
+  </Step>
+  <Step title="Save">
+    Click **Create**. Edit a type later with the pencil icon, or remove one with the trash icon.
+  </Step>
+</Steps>
+
+<Note>
+As with equipment, some vehicle types are built in. Built-in types can be renamed and reordered but not deleted, and their branch and slug stay fixed.
+</Note>
+
+## Add vehicles
+
+With your vehicle types in place, add each vehicle.
+
+<Steps>
+  <Step title="Open the Vehicles tab">
+    Go to **Settings → Resources** and select **Vehicles**. The list shows each vehicle's name, type, branch, license plate, and make/model.
+  </Step>
+  <Step title="Click Create New">
+    Use the **Create New** button at the top right.
+  </Step>
+  <Step title="Fill in the details">
+    - **Name** *(required)* — a clear name for the vehicle.
+    - **Branch** *(required)* — which branch the vehicle is based at. Pick this first.
+    - **Type** *(required)* — its category. The type list is filtered to the branch you chose.
+    - **Make** and **Model** — the vehicle's manufacturer and model.
+    - **Year** — the model year.
+    - **License Plate** *(required)* — the plate number. Use 2 to 10 characters, uppercase letters and numbers only.
+    - **VIN** — the vehicle identification number, if you track it.
+    - **Notes** — any relevant notes about this vehicle.
+  </Step>
+  <Step title="Save">
+    Click **Create Vehicle**. The vehicle appears in the Vehicles list, where you can search, edit, or delete it.
+  </Step>
+</Steps>
+
+<Tip>
+The license plate field accepts only uppercase letters and numbers, with no spaces or dashes — for example, `ABC1234`. If the form rejects what you typed, check for spaces or other characters.
+</Tip>
+
+## Editing and removing items
+
+Every tab works the same way once you have items in it:
+
+- **Search** — use the box at the top to find an item by name.
+- **Edit** — click the pencil icon on a row (or **Edit** in the menu on a phone) to open the item and change its details. On edit, the save button reads **Save Changes**, and it stays inactive until you actually change something.
+- **Delete** — click the trash icon (or **Delete** in the menu). You'll be asked to confirm, since deleting is permanent and can't be undone.
+
+<Note>
+A type that's still in use can't be deleted. If you try to remove a type that has equipment or vehicles assigned to it, you'll see a message explaining why — reassign or remove those items first, or simply uncheck **Active** to retire the type instead.
 </Note>

@@ -1,7 +1,89 @@
 ---
 title: "Payment terms"
+description: "Set up the payment terms your branch offers on invoices — name them, choose how many days until they're due, pick a default, and control which ones appear when billing customers."
+icon: "calendar-clock"
 ---
 
+A **payment term** tells a customer when an invoice is due — for example, "Due on receipt" or "Net 30." You set up the terms your branch offers once, here in Settings, and they then appear as options whenever someone creates an invoice. Each term carries a due window (the number of days until payment is due) so the invoice can calculate its own due date.
+
 <Note>
-  This page is coming soon.
+Payment terms are a branch-level setting and are managed by **admins**. If you don't see Settings, your role doesn't include workspace settings access.
 </Note>
+
+## Open the Payment Terms screen
+
+<Steps>
+  <Step title="Go to Settings">
+    Open **Settings** from the main navigation, then choose **Invoices**.
+  </Step>
+  <Step title="Pick the Payment Terms tab">
+    On the Invoices page, select the **Payment Terms** tab. You'll see the list of terms already set up for this branch.
+  </Step>
+  <Step title="Choose the right branch">
+    Invoice settings are tailored per branch. If your organization has more than one branch, use the **branch selector** in the top-right to switch to the branch you want to edit. Each branch keeps its own list of payment terms.
+  </Step>
+</Steps>
+
+<Tip>
+Use the **Search payment terms** box at the top of the list to quickly find a term by name when the list gets long.
+</Tip>
+
+## Create a payment term
+
+<Steps>
+  <Step title="Start a new term">
+    Click **Create New** to open the **Create Payment Term** form.
+  </Step>
+  <Step title="Fill in the details">
+    Complete the fields described below, then click **Create Payment Term**.
+  </Step>
+</Steps>
+
+Each term has these fields:
+
+- **Name** — what the term is called, for example "Due on receipt" or "Net 30." This is the label customers and your team see on invoices.
+- **Days Until Due** — the number of days after an invoice is sent before payment is due. Enter `0` for a term that's due immediately (such as "Due on receipt").
+- **Is Default** — turn this on to make the term that's pre-selected for every new invoice. Most branches keep one obvious default, like "Due on receipt."
+- **Is Enabled** — keep this on for terms you want available when creating invoices. Turn it off to hide a term from selection without deleting it.
+- **Sort Order** — controls the order terms appear in the list when someone picks one. A lower number comes first, so the term you reach for most can sit at the top.
+
+<Note>
+The **Create Payment Term** button stays disabled until the required fields are filled in correctly. Name, Days Until Due, and Sort Order are all required.
+</Note>
+
+## Edit a payment term
+
+Find the term in the list and click the **pencil (edit)** icon on its row — on a phone, open the **three-dots menu** and choose **Edit**. The **Edit Payment Term** form opens with the current values. Change whatever you need and click **Save Changes**.
+
+<Tip>
+Editing a term updates how it behaves going forward. Invoices that already used the term keep the due dates they were given.
+</Tip>
+
+## Disable instead of delete
+
+If you simply don't want a term offered on new invoices anymore, the cleanest move is to **turn off Is Enabled** rather than delete it. The term stops appearing as a choice, but stays on record for the invoices that already used it.
+
+## Delete a payment term
+
+Click the **trash (delete)** icon on the term's row — or **Delete** from the three-dots menu on a phone — then confirm in the **Delete payment term?** dialog.
+
+<Note>
+Deleting a term can't be undone, and it affects existing invoices:
+
+- Any invoices that used the term will lose it, and the term shows as blank on those invoices.
+- Due dates on already-sent invoices don't change, but you lose the record of which term was originally applied.
+- It no longer appears as an option when creating new invoices.
+
+If you only want to hide a term from new invoices, **disable it** instead of deleting.
+</Note>
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Credit and void reasons" icon="ban" href="/guides/settings/credit-void-reasons">
+    Set up the reasons your team can choose when crediting or voiding an invoice — another per-branch invoice setting on the same Invoices page.
+  </Card>
+  <Card title="Invoice content automations" icon="file-invoice" href="/guides/settings/invoice-content-automations">
+    Control the default content and automatic touches applied to your branch's invoices.
+  </Card>
+</CardGroup>

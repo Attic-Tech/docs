@@ -1,7 +1,122 @@
 ---
 title: "Credit void reasons"
+description: "Set up the standard reasons your team picks from when crediting or voiding an invoice or credit note — so every adjustment is consistent, searchable, and easy to report on."
+icon: "receipt-text"
 ---
 
+A **credit or void reason** is a short, reusable label your team chooses when they credit or void an invoice — or void a credit note. Setting up a clean list here means everyone reaches for the same wording, your records stay consistent, and you can filter and report on why money moved later.
+
 <Note>
-  This page is coming soon.
+Credit and void reasons live in **Workspace Settings**, which is for admins. Most people on your team won't see this area — they'll simply pick from the reasons you set up when they credit or void something.
 </Note>
+
+## Where to find it
+
+Credit and void reasons are set up **per branch**, alongside your other invoice settings.
+
+<Steps>
+  <Step title="Open Workspace Settings">
+    Go to **Settings** from the main navigation.
+  </Step>
+  <Step title="Go to Invoices">
+    Open the **Invoices** section. You'll see a row of tabs across the top: **Overview**, **Invoice Content**, **Credit & Void Reasons**, and **Payment Terms**.
+  </Step>
+  <Step title="Open the Credit & Void Reasons tab">
+    Click **Credit & Void Reasons**. This is the list you'll manage.
+  </Step>
+  <Step title="Pick the branch">
+    If your organization has more than one branch, use the **branch selector** in the top-right to choose which branch you're editing. Each branch keeps its own list of reasons.
+  </Step>
+</Steps>
+
+<Tip>
+In a hurry? Use the search box in Settings and type *credit*, *void*, or *reasons* to jump straight to this page.
+</Tip>
+
+## The three kinds of reason
+
+Every reason belongs to one of three categories, which decides where it shows up:
+
+- **Invoice Credit Reason** — offered when someone credits an invoice (for example, *Goodwill Adjustment* or *Pricing Correction*).
+- **Invoice Void Reason** — offered when someone voids an invoice (for example, *Created in Error* or *Duplicate*).
+- **Credit Note Void Reason** — offered when someone voids a credit note.
+
+When your team credits or voids something, they only see the reasons that match what they're doing — so a void reason never clutters the list during a credit, and vice versa.
+
+## Add a reason
+
+<Steps>
+  <Step title="Click Create New">
+    On the **Credit & Void Reasons** tab, click **Create New** to open the **Create Credit or Void Reason** form.
+  </Step>
+  <Step title="Choose the Reason Type">
+    Pick the category from the **Reason Type** menu — Invoice Credit Reason, Invoice Void Reason, or Credit Note Void Reason. This controls where the reason appears, so choose the one that matches when your team should reach for it.
+  </Step>
+  <Step title="Give it a Name">
+    Enter a clear, short **Name** — this is exactly what your team sees in the list when they credit or void. Aim for plain wording like *Goodwill Adjustment* or *Created in Error*.
+  </Step>
+  <Step title="Add a Description (optional)">
+    Use the **Description** to explain when to use this reason. It's a helpful nudge for your team — for example, "Use when we waive a charge as a courtesy."
+  </Step>
+  <Step title="Set whether it's enabled">
+    Leave **Is Enabled** checked so the reason is available right away. Uncheck it to keep the reason on file but hide it from the list your team picks from.
+  </Step>
+  <Step title="Set the Sort Order">
+    Enter a **Sort Order** number to control where the reason sits in the list. Lower numbers come first, so the reasons you use most can sit at the top.
+  </Step>
+  <Step title="Save it">
+    Click **Create Reason**. The new reason appears in the list right away.
+  </Step>
+</Steps>
+
+<Note>
+The **Reason Type** is locked in when you create a reason — you can't change it afterward. If you picked the wrong category, create a new reason under the right one and disable the old one.
+</Note>
+
+## Edit a reason
+
+Find the reason in the list and click the **pencil** icon (or, on a phone, the **three-dots** menu, then **Edit**). You can update the **Name**, **Description**, **Is Enabled** state, and **Sort Order**. The **Reason Type** is shown for reference but can't be changed. Click **Save Changes** when you're done.
+
+<Tip>
+Want to retire a reason without losing your history? Just uncheck **Is Enabled** and save. The reason disappears from the list your team picks from, but every past invoice or credit note that used it keeps its label intact.
+</Tip>
+
+## Find a reason in a long list
+
+Use the **search box** at the top of the list to filter by name. You can also sort the table by clicking the **Name** or **Sort Order** column headers, and the list pages through when there are more reasons than fit on one screen.
+
+## Delete a reason
+
+Deleting is permanent — disabling is usually the safer choice. If you're sure, click the **trash** icon next to the reason (or the **three-dots** menu, then **Delete**) and confirm in the **Delete reason?** dialog.
+
+<Note>
+Before you delete, know what happens:
+
+- Any past invoices or credit notes that used this reason will **lose their reason** — it shows as blank.
+- You **won't be able to filter or report** on this reason for those past records.
+- It **no longer appears** as an option when crediting or voiding.
+
+If you only want it gone from new invoices, **disable it instead of deleting**.
+</Note>
+
+## Tips for a tidy list
+
+<Tip>
+Keep names short and unmistakable. *Created in Error* and *Duplicate* tell the whole story at a glance — long sentences are harder to scan when someone's mid-task.
+</Tip>
+
+- Cover the cases your team actually runs into, but resist adding near-duplicates — too many similar reasons make the data noisier, not richer.
+- Put your most common reasons first with a low **Sort Order** so they're a one-click choice.
+- Use the **Description** to settle "which one do I pick?" questions before they reach you.
+- Remember each branch has its own list — set up the reasons that match how each branch works.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Payment terms" icon="calendar-days" href="/guides/settings/payment-terms">
+    Set the due-date terms your invoices use, branch by branch.
+  </Card>
+  <Card title="Invoice content & automations" icon="file-lines" href="/guides/settings/invoice-content-automations">
+    Tailor what appears on your invoices and automate routine invoice steps.
+  </Card>
+</CardGroup>

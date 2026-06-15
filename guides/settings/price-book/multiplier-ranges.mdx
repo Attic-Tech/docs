@@ -1,7 +1,117 @@
 ---
 title: "Multiplier ranges"
+description: "Set up cost-based pricing multipliers in the Price Book so larger jobs price differently from smaller ones — define each cost band's low and high multiplier, keep ranges from overlapping, and edit or remove them safely."
+icon: "percent"
 ---
 
+**Multiplier ranges** let your pricing scale with the size of a job. Each range covers a band of job cost (for example, jobs from `$0` to `$1,000`) and carries a low and a high pricing multiplier. When an estimate is built, the system looks at the total cost of the work, finds the range that band falls into, and uses its multipliers to help calculate the customer-facing price. This is how a small job and a large job can be priced on different terms without anyone doing the math by hand.
+
+You manage multiplier ranges in **Settings → Price book → Multiplier ranges**.
+
 <Note>
-  This page is coming soon.
+Multiplier ranges live in the Price Book, which is part of your workspace's admin settings. You'll need administrator access to view and change them. If you open Settings and don't see the Price book area, your role doesn't include that access — an administrator on your team can help.
 </Note>
+
+## How a multiplier range works
+
+Each range has five pieces:
+
+- **Name** — a label you'll recognize in the list, usually describing the cost band (for example, `$0 – $1,000`).
+- **Minimum cost** — the bottom of the cost band. A job's cost has to reach this amount to fall into the range.
+- **Maximum cost** — the top of the cost band. Leave it blank to mean "no maximum," which is how you cap your highest band so very large jobs always have a range to land in.
+- **Lowest multiplier** — the low end of the pricing multiplier for jobs in this band.
+- **Highest multiplier** — the high end of the pricing multiplier for jobs in this band.
+
+When an estimate's total cost lands inside a range, that range's lowest and highest multipliers feed into the retail price calculation. Smaller bands and larger bands can carry different multipliers, so your pricing can ease up or tighten as jobs grow.
+
+<Tip>
+Think of your ranges as a ladder of cost bands with no gaps and no overlaps: one band ends where the next begins, and the top band is left open (blank maximum) so it catches every large job.
+</Tip>
+
+## View your multiplier ranges
+
+<Steps>
+  <Step title="Open the Price Book">
+    Go to **Settings**, then choose **Price book**.
+  </Step>
+  <Step title="Open the Multiplier ranges tab">
+    Select **Multiplier ranges** from the Price Book tabs. You'll see a table of every range with its **Name**, **Min cost**, **Max cost**, **Lowest multiplier**, and **Highest multiplier**.
+  </Step>
+</Steps>
+
+A range with no upper limit shows **No maximum** in the **Max cost** column. You can sort by any column heading, and use the **Search multiplier ranges...** box at the top to find a range by name.
+
+## Create a multiplier range
+
+<Steps>
+  <Step title="Start a new range">
+    On the **Multiplier ranges** tab, click **Create New**. The **Create Multiplier Range** window opens.
+  </Step>
+  <Step title="Name the range">
+    In **Name**, enter something you'll recognize at a glance, such as `$1,000 – $5,000`.
+  </Step>
+  <Step title="Set the cost band">
+    Enter the **Minimum cost** for this band. Then enter the **Maximum cost**, or leave it blank to mean no maximum (use this for your top band). The maximum can't be lower than the minimum.
+  </Step>
+  <Step title="Set the multipliers">
+    Enter the **Lowest multiplier** and the **Highest multiplier** for this band. The highest can't be lower than the lowest. Multipliers can be any value from 0 up to the allowed maximum.
+  </Step>
+  <Step title="Save it">
+    Click **Create**. The new range appears in the table and is ready to use in pricing.
+  </Step>
+</Steps>
+
+<Note>
+A new range can't overlap a band you've already set up where ranges are in use together. If the cost band you entered collides with an existing one, you'll see a message and the range won't save. Adjust the minimum or maximum so the bands sit side by side instead of overlapping.
+</Note>
+
+## Edit a multiplier range
+
+<Steps>
+  <Step title="Open the range">
+    In the table, find the range and click the **pencil** icon on its row. On a smaller screen, open the row's menu and choose **Edit**.
+  </Step>
+  <Step title="Make your changes">
+    Update the **Name**, the cost band, or the multipliers in the **Edit Multiplier Range** window. The same rules apply: the maximum can't be below the minimum, the highest multiplier can't be below the lowest, and the band can't overlap another range.
+  </Step>
+  <Step title="Save">
+    Click **Save Changes**.
+  </Step>
+</Steps>
+
+<Tip>
+Editing a range changes how future estimates in that cost band are priced. If a change is rejected for overlapping, look at the ranges on either side and nudge their boundaries so the bands line up cleanly.
+</Tip>
+
+## Delete a multiplier range
+
+<Steps>
+  <Step title="Choose the range to remove">
+    In the table, click the **trash** icon on the range's row (or open the row menu and choose **Delete** on a smaller screen).
+  </Step>
+  <Step title="Confirm">
+    A confirmation window appears. Deleting is permanent, so make sure you have the right range before you continue, then click **Delete**.
+  </Step>
+</Steps>
+
+<Note>
+Removing a range can leave a gap in your cost bands. Anywhere that range was relied on will need updating, so review your remaining ranges afterward and make sure every cost band you care about is still covered — especially that your top band still has a blank maximum.
+</Note>
+
+## Tips for a healthy set of ranges
+
+- **No gaps.** Make sure each cost band ends right where the next begins, so every possible job cost falls into exactly one range.
+- **No overlaps.** Two ranges shouldn't both claim the same cost. The system blocks overlaps, but it's worth eyeballing the list after changes.
+- **Leave the top open.** Give your highest band a blank **Maximum cost** so the largest jobs always have somewhere to land.
+- **Name for the band.** A name like `$5,000 – $10,000` makes the table easy to scan and easy to keep in order.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Items" icon="box" href="/guides/settings/price-book/items">
+    Manage the items and services that make up the cost of a job before multipliers are applied.
+  </Card>
+  <Card title="Work areas" icon="layer-group" href="/guides/settings/price-book/work-areas">
+    Set up the work areas your estimates are built around in the Price Book.
+  </Card>
+</CardGroup>
