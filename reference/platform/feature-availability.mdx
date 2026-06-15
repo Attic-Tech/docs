@@ -1,7 +1,179 @@
 ---
 title: "Feature availability"
+description: "Why some capabilities are turned on or off for your account, how to tell whether a feature is available to you, and what you see when it isn't."
+keywords: ["feature not showing up", "why can't I see this page", "feature not available", "page disappeared from menu", "this feature is not available", "missing menu item", "feature turned off for my workspace", "rollout", "why is this hidden"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains why certain capabilities in the platform are turned on for some accounts and off for others, how to tell whether a feature is available to you, and what you see when it isn't.
+
+## How availability is decided
+
+### Availability is evaluated for you, every time
+
+Whether a capability is available is decided per request, based on four things about you: your **organization (workspace)**, your **branch**, your **role**, and your **user account**. A capability can also be scheduled to switch on or off automatically on future dates.
+
+### A capability can be scoped four ways
+
+- **Everyone** — on for the whole workspace.
+- **Only specific accounts (include)** — on for selected organizations, branches, roles, or users.
+- **Everyone except specific accounts (exclude)** — on for the workspace but turned off for selected organizations, branches, roles, or users.
+- **Gradual rollout** — on for a fixed percentage of accounts, expanded over time.
+
+With include-style scoping, the configuration can require you to match **any one** of the listed conditions (org, branch, role, or user) or **all** of them at once.
+
+### Scheduling and gradual rollout are stable
+
+A scheduled capability only counts as available between its start date and end date. Outside that window it behaves as off, even if it is otherwise turned on.
+
+Gradual rollouts are stable per account: the same account always lands either inside or outside the rollout, so a feature won't flicker on and off for you between page loads.
+
+### Availability is per workspace
+
+The same capability can be on for one workspace and off for another. Turning it off for your workspace has no effect on other workspaces, and turning it off for another workspace has no effect on yours.
+
+### When availability can't be determined, the feature stays off
+
+If availability can't be determined — because of an error, or because no targeting has been configured — the capability is treated as **not available** rather than open. Features default to off until they are explicitly turned on.
+
+## How you can tell a capability is unavailable
+
+### The menu item disappears
+
+When a page-level capability is off for you, its menu item and its page are removed. Navigating to it directly shows a "not found" page rather than an error.
+
+### Direct access is blocked, not just hidden
+
+Turning a capability off also revokes the underlying action behind it. Reaching it by URL, or through a connected integration, is refused — not merely hidden from the menu.
+
+### Some features show an inline message
+
+When an off capability is triggered directly — for example an AI action or a media upload — the platform returns a plain "This feature is not available" message instead of completing the action.
+
+## AI capabilities
+
+### AI Calculator (estimate assistant)
+
+An AI-assisted estimating flow — estimate chat, photo analysis, and estimate validation inside the calculator. Off by default; only available where it has been turned on. When unavailable, the AI calculator surface is not shown in the calculator, and the photo-analysis and estimate-validation actions each refuse with "This feature is not available."
+
+### AI Ride Along
+
+Records and analyzes sales conversations (ride-alongs) and produces coaching insights. The Ride Alongs page only exists when this capability is available to you; otherwise it returns "not found."
+
+### AI Ride Along — voice tone analysis
+
+A sub-capability of Ride Along that adds voice emotion (tone) analysis on top of the standard processing. It can be on or off independently of Ride Along itself. When it is off, ride-alongs are still recorded, transcribed, and given coaching insights — they are simply processed without voice-tone analysis.
+
+### AI BI dashboard
+
+An embedded analytics and business-intelligence dashboard. The page returns "not found" when the capability is unavailable to you.
+
+## Payments, invoicing, and expenses
+
+### Invoices
+
+Invoicing can be on or off. When off, invoice-related views on a project — including the project create flow — are hidden.
+
+### Payments
+
+Payment acceptance is a separate capability. It also gates the payments integration in the Integrations marketplace: when payments is off, that integration is hidden and its detail page returns "not found." Connecting it activates payment processing, payouts, and compliance.
+
+### Project expenses
+
+An **Expenses** tab on project detail pages. When the capability is off, the tab is not shown.
+
+### Bonus report
+
+A **Bonus Report** page that can be turned on or off.
+
+## Estimating, proposals, and calculator
+
+### Proposals
+
+Estimate proposal preview and view pages. When off, proposal views are hidden across the calculator, the estimates list, the estimate detail page, and project pages.
+
+### Inspection Report step
+
+An Inspection Report step in the Time & Materials calculator wizard, plus its shortcut links. When off, the step and its shortcuts are removed from the wizard.
+
+## Jobs, scheduling, and field operations
+
+### Jobs page and planner
+
+The jobs pages and the planner. When off, the jobs page returns "not found," and supporting data such as job map pins is refused.
+
+### Schedule calendar
+
+The scheduling calendar page; it also drives schedule-related views on jobs and projects.
+
+### Job forms
+
+Forms attached to jobs, shown on the job forms tab. Gated alongside the jobs capability.
+
+### My Shifts and Job Shifts
+
+The crew **My Shifts** page and the manager **Job Shifts** page.
+
+## Clients, leads, and projects
+
+### Clients page
+
+The clients page and its functionality.
+
+### Leads page
+
+The leads page and its functionality.
+
+### Comments on projects
+
+The comments feature on project pages. When off, the comments tab is unavailable and comment media uploads are refused with "This feature is not available."
+
+## Earnings and performance
+
+### My Wallet
+
+The **My Wallet** earnings dashboard. When off, the wallet page returns "not found."
+
+### Sales overview dashboard
+
+The sales overview experience. When this is on, it can also unlock the **My Performance** dashboard for roles that can read sales metrics but don't otherwise have that page.
+
+### My Performance — Operations view
+
+The Operations view of the **My Performance** dashboard, including the crew/ops board and the switch between sales and ops boards.
+
+### Leaderboard exclusions
+
+Specific users, roles, or branches can be excluded from leaderboard rankings — both the general leaderboard and the sales leaderboard. If you don't appear in a leaderboard where you'd expect to, your account, role, or branch may be on an exclusion list.
+
+## Recognition and engagement
+
+### Win Channels
+
+The Win Channels feature — groups, posts, leaderboards, and celebrations. When off, the win-board groups don't load in navigation, and win-related views and uploads are refused.
+
+### Badges
+
+The badges system end to end: awarding, badge displays, the badge-earned notification, and badge links. This is scoped per workspace — turning it off for a workspace silently stops all badge activity for that workspace without affecting any other.
+
+### Notifications in the top navigation
+
+Visibility of the notifications control in the top navigation bar.
+
+## Integrations and administration
+
+### Integrations marketplace
+
+The Integrations marketplace page. Off by default. Individual integrations within it can additionally require their own capability — for example, the payments integration requires payments to be on.
+
+### Workspace settings
+
+The workspace settings area. When off, the settings pages are hidden **and** all settings changes are blocked, so the area can't be reached by URL or through a connected integration.
+
+### User management
+
+The user management page.
+
+## Related references
+
+- [Roles and permissions matrix](/reference/platform/permissions-roles-matrix)
+- [Lead status lifecycle](/reference/leads/status-lifecycle)

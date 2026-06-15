@@ -1,7 +1,117 @@
 ---
 title: "Geocoding zip"
+description: "How addresses become map coordinates, what happens when a lookup fails, and how the ZIP and address drive sales tax, driving distance, and nearest-branch routing for leads."
+keywords: ["why is my address not on the map", "address has no coordinates", "zip code is missing tax error", "unable to calculate tax", "how is sales tax calculated", "Washington sales tax", "nearest branch assignment", "how are leads assigned to a branch", "driving distance to property", "lead has no branch", "5 digit zip", "territory by zip"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains how the platform turns a typed address into map coordinates, what happens when that lookup can't resolve, and how the ZIP code and address drive sales tax, driving-distance display, and automatic branch assignment for inbound leads.
+
+The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Branch Management** (Admin, Ops Manager, Sales Admin, and Client Coordinator).
+
+## What gets coordinates, and when
+
+### Properties, leads, and branch base addresses all carry coordinates
+
+Properties, leads, and a branch's base address each store a latitude/longitude pair derived from their address. On a property, the coordinates are read-only — they come from the address, not from manual entry.
+
+### Coordinates are resolved automatically on save
+
+When you create one of these records, its address is resolved to coordinates automatically. On a later edit, coordinates are only re-resolved when the address actually changes — editing other fields leaves the coordinates as they are. The same rule applies to a branch's base address: it is re-resolved only when that address changes.
+
+### An address needs at least a city or a ZIP to be located
+
+An address can only be placed on the map if it has at least a city or a postal code. With neither, the platform skips the lookup and the record is saved without coordinates.
+
+### Picking an address from the suggestions skips the lookup
+
+When you choose an address from the autocomplete suggestions while typing, that selection already carries its coordinates. In that case the platform keeps those coordinates and does not run a separate lookup.
+
+### Lookups are limited to the United States
+
+Both the address suggestions and the coordinate lookup are restricted to United States results, and the first matching result is used.
+
+## When an address can't be located
+
+### A failed lookup never blocks the save
+
+If an address can't be resolved to coordinates, the record still saves. The lookup is designed to fail quietly rather than error out — a save is never blocked because the map lookup didn't succeed.
+
+### Existing coordinates are not overwritten on failure
+
+If you edit a record and the new address can't be resolved, the platform leaves the record's existing coordinates untouched rather than wiping them. On a brand-new record that can't be resolved, the record is simply saved with no coordinates.
+
+### A property with an unusable address still saves
+
+A property created from free-text with no resolvable city, state, or ZIP is still created. When the address components can't be determined, placeholder values are stored so the record can exist, and these can be corrected later by editing the property's address.
+
+### Records with missing coordinates can be backfilled
+
+Properties, leads, and branch base addresses that have an address but no coordinates can be filled in later by a maintenance pass that resolves them in bulk. Records that still can't be resolved are skipped and reported, and one failure never stops the rest of the run.
+
+## The ZIP code drives sales tax (Washington only)
+
+### Tax is calculated only for Washington-state addresses
+
+Sales tax is calculated only when the property's address resolves to Washington. For any other state, no tax is requested.
+
+<Warning>
+A Washington estimate that is missing its ZIP code will surface an error to the user — tax is **not** silently set to zero.
+</Warning>
+
+### A Washington job missing its ZIP shows a clear error
+
+When a Washington estimate's address has no ZIP code, the platform shows: **"Unable to calculate tax — zip code is missing from the property address."** A missing state shows the matching message: **"Unable to calculate tax — state is missing from the property address."** Add the ZIP (or state) to the property's address to clear the error.
+
+### An incomplete address is treated as no address, not a crash
+
+If an address resolves only partially — for example, it lands on Washington but with no ZIP — the platform treats it as having no usable components rather than forwarding a half-result that would fail tax calculation. The practical effect is "incomplete address, so no tax" instead of an error. A temporary lookup problem (timeout or outage) is handled the same way: the estimate still prices, just without tax.
+
+### ZIP present but street or city missing still calculates tax
+
+If a Washington address has a state and ZIP but is missing the street or city, tax still calculates using ZIP-level rates.
+
+### A genuine tax-lookup error surfaces with the address
+
+If the tax lookup itself errors for a Washington job, the failure is surfaced with the property address rather than silently zeroing the tax.
+
+### ZIP code input on the create-lead form
+
+On the create-lead form, a postal code must be exactly 5 digits ("ZIP code must be 5 digits"). An empty value is treated as no ZIP rather than an error.
+
+## The address drives driving distance and branch routing
+
+There is no fixed ZIP-to-territory table in the platform. "Territory" here is computed from driving distance to branch base addresses, and a lead is assigned to the **nearest** branch.
+
+### Inbound leads are auto-assigned to the nearest branch by driving distance
+
+When a lead comes in, the platform measures the driving distance from each of the workspace's branches (those that have a base address) to the lead's address, and assigns the lead to the closest one.
+
+### A lead with no address is created without a branch
+
+If a lead has no address, branch matching is skipped and the lead is still created — just without a branch. Likewise, if no branch can be matched by distance, the lead proceeds without a branch rather than failing.
+
+### A branch needs a base address to be a routing candidate
+
+Only branches that have a base address are considered when matching. A branch with no base address set can never be the matched branch. Set a branch's base address under its configuration so it can receive routed leads.
+
+### Driving distance shown on a property
+
+Driving distance is measured in miles from the branch's base address to the property. When either address is missing, the distance reads as unavailable. On a property's details, the distance and directions link only appear when there is a valid distance and both the branch and property addresses are present.
+
+### Map and directions links use the address text
+
+"View on map" and "Get directions" links are built from the address text, not from stored coordinates. A maps or directions link only appears when an address is present.
+
+## Quick reference
+
+- **What carries coordinates:** properties, leads, and branch base addresses — resolved from the address on save, re-resolved only when the address changes.
+- **Minimum to locate an address:** at least a city or a ZIP. Lookups are United States only.
+- **A failed lookup never blocks a save** and never overwrites existing coordinates.
+- **Sales tax:** Washington only. A Washington estimate missing its ZIP shows "Unable to calculate tax — zip code is missing from the property address."
+- **Lead routing:** nearest branch by driving distance — not by ZIP. A lead with no address, or no matchable branch, is still created without a branch.
+- **Branch must have a base address** to be a routing candidate or to show a driving distance.
+
+## Related references
+
+- [/reference/platform/permissions-roles-matrix](/reference/platform/permissions-roles-matrix)
+- [/reference/leads/status-lifecycle](/reference/leads/status-lifecycle)

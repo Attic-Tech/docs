@@ -1,7 +1,197 @@
 ---
 title: "Permissions roles matrix"
+description: "The roles in your workspace and what each one can see and do across leads, clients, estimates, jobs, schedule, billing, and settings."
+icon: "shield-check"
+keywords: ["roles and permissions", "who can do what", "what can each role see", "admin vs ops manager permissions", "sales member permissions", "crew leader permissions", "branch management role", "why can't I see this page", "why can't I edit this", "permissions matrix"]
 ---
 
+This reference explains the roles in your workspace and, for each one, what they can view and change across the product. Use it to answer questions like "why can't I see the Invoices page?" or "which roles can change a lead's status?".
+
+## How permissions work
+
+### Permissions are additive
+
+A user starts with no access and gains it from the role (or roles) assigned to them. If someone holds more than one role, they get the combined access of all of them — never less than any single role would grant on its own.
+
+### The roles
+
+These are the roles you can assign to people in your workspace:
+
+- **Admin**
+- **Ops Manager**
+- **Sales Admin**
+- **Sales Member**
+- **Client Coordinator**
+- **Crew Leader**
+- **Crew Member**
+
+### "Branch Management" is a group, not a role you assign
+
+"Branch Management" is a shorthand for a set of roles, not a role you pick from a list. It refers to **Admin, Ops Manager, Sales Admin, and Client Coordinator** together.
+
+Membership in this group controls whether you see **everyone's** data in your branch versus only **your own**. A Branch Management role sees all of the branch's leads, clients, schedule, and metrics; other roles see only what is theirs or assigned to them.
+
+### Two things every signed-in person can do
+
+Regardless of role, every member of the workspace can:
+
+- Manage their own personal preferences.
+- Read customer reviews.
+
+## Reading the matrix
+
+Across this page:
+
+- **View / read** means you can see records that are yours or in your branch scope.
+- **See all** means you see every record across the branch (the manager-style view), not just your own.
+- **Manage** means full control: create, view, edit, and delete.
+- A blank or "no access" means the role can't see or touch that area at all.
+
+A role granting a page is necessary but not always sufficient — some pages are also gated by a workspace feature being turned on. If a feature is switched off, that page and its actions disappear even for a role that would otherwise have them.
+
+## Page access by role
+
+Whether a role can open a given page in the app:
+
+| Page | Admin | Ops Manager | Sales Admin | Sales Member | Client Coordinator | Crew Leader | Crew Member |
+|---|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| Settings | Yes | | | | | | |
+| Leads | Yes | Yes | Yes | | Yes | | |
+| Clients | Yes | Yes | Yes | Yes | Yes | Yes | |
+| Estimates | Yes | Yes | Yes | Yes | Yes | | |
+| Calculator | Yes | Yes | Yes | Yes | Yes | Yes | |
+| Jobs | Yes | Yes | Yes | Yes | Yes | Yes | |
+| Schedule | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
+| Shifts | Yes | Yes | Yes | Yes | | Yes | Yes |
+| Ride-alongs | Yes | Yes | Yes | Yes | | | |
+| Invoices | Yes | | | | | | |
+| Expenses | Yes | Yes | Yes | Yes | Yes | Yes | |
+| Integrations | Yes | | | | | | |
+| Bonus report | Yes | Yes | | | | | |
+| Sales dashboard | Yes | | Yes | Yes | | | |
+| Crew dashboard | Yes | Yes | | | | Yes | Yes |
+| My performance | Yes | Yes | | | | Yes | Yes |
+| Wallet | Yes | Yes | | | | Yes | Yes |
+| Business insights | Yes | Yes | Yes | | | | |
+
 <Note>
-  This page is coming soon.
+  The Settings area and the Integrations page are available to **Admin** only. The Invoices page is **Admin** only as well, and is also gated by the invoicing feature being turned on.
 </Note>
+
+## Estimate breakdown visibility
+
+What pricing detail you can see inside the Calculator depends on your role:
+
+- **Cost breakdown** (underlying cost numbers): **Admin** only.
+- **Operational breakdown**: **Admin, Ops Manager, Crew Leader**.
+- **Retail pricing**: **Admin, Ops Manager, Sales Admin, Sales Member, Client Coordinator**.
+
+## Resource permissions
+
+### Leads
+
+| Area | Admin | Ops Manager | Sales Admin | Sales Member | Client Coordinator | Crew Leader | Crew Member |
+|---|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| Leads | Manage | Manage | Manage | No access | Manage | No access | No access |
+| Lead activities | Manage | Manage | Manage | Own only | Manage | No access | No access |
+| Lead statuses & sources | View | View | View | No access | View | No access | No access |
+
+- A **Sales Member** can't create or own leads. They can only work on **lead activities assigned to themselves** — if they try to edit or delete someone else's activity, they're told "You can only update lead activities assigned to yourself."
+- Branch Management roles see all lead activity in the branch; a Sales Member sees only their own.
+
+See also: [/reference/leads/status-lifecycle](/reference/leads/status-lifecycle) for who can change a lead's status and how statuses are defined.
+
+### Clients
+
+| Area | Admin | Ops Manager | Sales Admin | Sales Member | Client Coordinator | Crew Leader | Crew Member |
+|---|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| Clients | Manage | View all + edit + delete | View all + edit + delete | View all + edit | View all + edit | View + edit | No access |
+| Contacts | Manage | Manage | Manage | Create/view/edit | Create/view/edit | No access | No access |
+| Projects | Manage | View + edit | Manage | Manage | View + edit | No access | No access |
+| Project media | Manage | Manage | Manage | Manage | Manage | Manage | No access |
+| Properties | Manage | Edit | Edit | Edit | Edit | Edit | No access |
+
+- **Deleting a client** is limited to **Admin, Ops Manager, and Sales Admin**. Sales Member, Client Coordinator, and Crew Leader can view and edit clients but can't delete them.
+- Deleting a client shows the warning "Are you sure you want to delete this client? This action cannot be undone."
+
+### Estimates and proposals
+
+| Area | Admin | Ops Manager | Sales Admin | Sales Member | Client Coordinator | Crew Leader | Crew Member |
+|---|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| Estimates | Manage | Manage (with status limits) | Manage | Create/view/edit + status + crew notes | Create/view/edit + status + crew notes | Crew notes only | No access |
+| Proposals | Manage | Manage | Manage | Manage | Manage | No access | No access |
+| Proposal media | Manage | Manage | Manage | Manage | Manage | Manage | No access |
+| Inspection reports | Manage | Manage | Manage | Manage | Manage | View | No access |
+
+- **Ops Manager** can manage estimates but **can't move an estimate's status** to Released, Sold, Lost, Secondary Estimate, or Deleted.
+- **Sales Member** and **Client Coordinator** can change an estimate's status only within an allowed set (In Progress, Released, Sold, Lost, Secondary Estimate, Deleted).
+- **Deleting an estimate** is limited to **Admin, Ops Manager, and Sales Admin**.
+- A **signed** estimate can't be deleted by anyone, regardless of role — you'll see "This estimate was signed and cannot be deleted."
+- A read-only estimate can't be saved from the Calculator: "This estimate is read-only and cannot be saved."
+- Editing crew-facing notes on an estimate is available to **Ops Manager, Sales Member, Client Coordinator, and Crew Leader** (and Admin).
+
+### Jobs and schedule
+
+| Area | Admin | Ops Manager | Sales Admin | Sales Member | Client Coordinator | Crew Leader | Crew Member |
+|---|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| Jobs | Manage | Manage | View all + edit + status + assign | View all + status | View all + status | View + edit + assign | View |
+| Job plans | Manage | Manage | View | View | View | Manage | View |
+| Job shifts | Manage | Manage | View | View | View | View | View |
+| Schedule | Manage | Manage | Manage | Own items: create/view/edit/delete | Manage | Create/view/edit/delete | No access |
+| Saved schedule filters | Manage | | | | | | |
+| Ride-alongs | Manage | Manage | Manage | Create + view | No access | No access | No access |
+
+- **Updating a job's status** is available to **Admin, Ops Manager, Sales Admin, Sales Member, and Client Coordinator** — not Crew Leader or Crew Member.
+- **Assigning a job to someone** is available to **Admin, Ops Manager, Sales Admin, and Crew Leader**.
+- **Schedule scope:** managers see everyone's schedule; other roles see only the items assigned to them. **Sales Member** sees only their own schedule items.
+- **Assigning schedule items to other people** is limited to roles that can manage the schedule. A Sales Member who tries to act on items that aren't theirs sees "You can only publish tasks assigned to yourself" or "You can only delete tasks assigned to yourself."
+- **Saving and managing schedule filters** is **Admin** only.
+- **Deleting a completed form** is available to **Admin, Ops Manager, and Sales Admin**.
+
+### Billing and expenses
+
+| Area | Admin | Ops Manager | Sales Admin | Sales Member | Client Coordinator | Crew Leader | Crew Member |
+|---|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| Invoices | Manage | No access | No access | No access | No access | No access | No access |
+| Payments | Manage | No access | No access | No access | No access | No access | No access |
+| Credit notes | Manage | No access | No access | No access | No access | No access | No access |
+| Project expenses | Manage | Manage | Manage | Manage | Manage | Manage | No access |
+
+- **Invoices, payments, and credit notes are Admin only.** They also depend on the invoicing feature being turned on.
+- **Project expenses** can be managed by every role except **Crew Member**.
+- Deleting an expense warns that the expense "will be permanently deleted. This action cannot be undone."
+
+### Sales metrics, bonuses, and performance
+
+| Area | Admin | Ops Manager | Sales Admin | Sales Member | Client Coordinator | Crew Leader | Crew Member |
+|---|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| Sales metrics | Manage | View + see all | View + see all | View own | No access | No access | No access |
+| Bonus payouts | Manage | View + see all | No access | No access | No access | No access | No access |
+| Performance periods | Manage | Manage | No access | No access | No access | View + see all | View |
+
+- On the leaderboard, **Admin, Ops Manager, and Sales Admin** see every branch member's numbers. A **Sales Member** sees only their own.
+
+### Comments
+
+Every staff role can add and read comments on a project and attach media to them. Anyone can edit or delete **their own** comments, but not someone else's.
+
+## Settings
+
+The entire Settings area is controlled by a single permission, and only **Admin** has it among the assignable roles. Every settings change — branches, users, employees, vehicles, equipment, the price book, payment terms, financing terms, tags, lead sources, and so on — requires Admin access.
+
+Other roles can **read** certain settings entities so the rest of the app works (for example, the price book and payment terms feed the Calculator and proposals), but they can't change them. In particular:
+
+- **User administration** (adding or editing people) is **Admin** only. Other roles can see the list of users to fill in dropdowns, but can't create or edit them.
+- **Managing groups** is **Admin** only.
+- **Branches, vehicles, equipment, and employees** can be managed by **Admin and Ops Manager**; **Crew Leader** can also manage vehicles, equipment, employees, and subcontractors.
+
+If the workspace settings feature is turned off, all settings changes are closed at once.
+
+## Quick reference
+
+- **Settings, Integrations, Invoices, user administration, groups:** Admin only.
+- **Branch Management** (see all branch data, not just your own) = Admin, Ops Manager, Sales Admin, Client Coordinator.
+- **Sales Member** has no lead ownership (only their own lead activities) and sees only their own schedule.
+- **Ops Manager** can manage estimates but can't move an estimate to Released, Sold, Lost, Secondary Estimate, or Deleted.
+- **A signed estimate can't be deleted by anyone.**
+- **Cost breakdown** in the Calculator is Admin only.

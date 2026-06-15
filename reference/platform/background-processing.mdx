@@ -1,7 +1,113 @@
 ---
 title: "Background processing"
+description: "What updates automatically in the background, why a short delay is normal, and when to expect metrics, badges, leaderboards, notifications, emails, and cached views to catch up."
+keywords: ["why isn't my badge showing yet", "leaderboard not updating", "performance metrics delayed", "did my invoice email send", "notification arrived late", "ride-along results processing", "list not refreshing", "background updates"]
 ---
 
+Some parts of Menaia don't update the instant you act. Your action is saved immediately, but the *downstream effect* — a metric, a badge, an email, a leaderboard rank, or a list that was cached — catches up a moment later in the background. A short delay is normal and expected.
+
+This reference explains what runs in the background, why it lags, and roughly how long each effect takes to appear.
+
 <Note>
-  This page is coming soon.
+  Background work is retried automatically before it is ever considered failed, and failures are surfaced to the team for monitoring — they are not silently dropped. A transient hiccup means an effect arrives a little later, not that it is lost.
 </Note>
+
+## Performance metrics and badges
+
+### Performance periods recompute after a change
+
+Your rolling sales, crew, and branch performance numbers are recomputed in the background after a customer review changes or a job's data changes. The recompute runs separately from your action, so the new numbers appear a short time after the change, not in the same instant.
+
+During busy periods, recomputes complete one after another, so a backlog can add to the delay.
+
+### Monthly badges are awarded by a month-end sweep
+
+These badges are awarded by a sweep that runs once a month, early on the 1st:
+
+- Personal Best
+- Job Keeper
+- Full House
+- High Five
+- Perfect 10
+- Three-Peat
+- The Closer
+
+They are not awarded the moment you cross the threshold mid-month. The badge appears after the just-closed month's sweep has run.
+
+### A delayed monthly badge is not lost
+
+The monthly sweep depends on the just-closed month's performance numbers being finalized first. If that recompute is running late, the sweep waits and re-checks rather than skipping the month — so a delayed recompute delays the badge, it does not drop it. Awards are also protected against duplication, so a retry or later catch-up never awards the same badge twice.
+
+### Review and comment badges unlock just after the write
+
+Badges driven by reviews or project comments — for example Five Star General and Loud and Clear — are evaluated in the background just after the review or comment is saved. Expect the badge a moment after, not in the same click. Only project comments count toward the comment badge; comments on posts and the feed do not.
+
+## Bonuses and earnings
+
+### Bonuses recalculate when a job closes
+
+Bonus payouts are recalculated in the background when a job closes, and again when a related shift is approved. The recalculation rebuilds the payouts and then re-evaluates earnings badges such as First Bonus and Fat Wallet, so the updated bonus shows up a short time after the triggering action.
+
+Rapid changes to the same job are processed in order. If the job is not closed, or branch or configuration data is missing, the recalculation stops cleanly with a reason rather than producing a wrong number.
+
+### Wallet and earnings summaries are batched
+
+Daily wallet-balance-change notifications are batched and sent on a delay so you receive one settled summary rather than a ping per change. If the balance nets out to no change by send time, the summary is skipped.
+
+## Leaderboards
+
+### Standings are snapshotted once a day
+
+Sales and crew leaderboards are snapshotted once a day, early in the morning. Today's standings and the up and down rank-change arrows are computed from that daily snapshot, so a deal you close today is reflected after the next snapshot. A same-day change won't instantly reorder the board.
+
+- The rank-movement arrow shows the change *since the last snapshot*, not since a moment ago.
+- Leaderboards only update for workspaces with the feature enabled. If your workspace isn't enabled, there is nothing to update.
+- Historical day-over-day movement is available for roughly the last 90 days.
+
+## Notifications and reminders
+
+### Notifications are delivered in the background
+
+When something happens, Menaia works out who should be notified and then delivers the notification — in-app and by email — shortly after. Delivery is retried on failure and de-duplicated, so notifications can arrive a beat after the triggering event but you won't get the same one twice.
+
+### Some reminders are intentionally delayed
+
+Several reminders fire on a delay so they only reach you if the situation still applies:
+
+- The "crew lead hasn't created a job plan" reminder fires about 24 hours after the crew lead is assigned.
+- The "calendar event not published" reminder fires about 48 hours before the event's expected start.
+- Shift reminders (break, break-end, and forgot-to-clock-out) are scheduled for a future moment and are cancelled automatically if the shift state changes first — so resolving the situation early stops the reminder.
+
+## Emails and receipts
+
+### Invoice and receipt emails send in the background
+
+When you send an invoice or record a payment, the status is saved immediately and the screen returns right away. The email and its PDF attachment are rendered and sent in the background, because that is the slow part. The on-screen message confirms this — for example, "Invoice is being emailed to N recipient(s). Delivery may take a moment." The email is still on its way.
+
+## Ride-along recordings
+
+### AI analysis runs in the background
+
+When you stop a ride-along recording, it is uploaded and analyzed in the background. You can navigate away and the analysis keeps running. The status moves through Recording, then Processing, then results.
+
+- While processing, you'll see "Analyzing your conversation… This usually takes 30 to 90 seconds. You can navigate away — the analysis will continue in the background."
+- If it runs long, you'll see "Still processing — check back soon" or a prompt to refresh in a few minutes.
+- If the recording was too short or had no audio, it is marked failed with a readable reason — for example "This recording is too short for meaningful analysis" — rather than spinning forever.
+
+## Lists, search, and cached views
+
+### Cached views refresh a beat after a change
+
+Many list and detail views are cached so they load quickly. When a change is made elsewhere, Menaia sends a refresh signal in the background and the cached view is updated so readers stop seeing stale data. A brief lag between the change and the refresh is normal, and the refresh is retried on failure so it always lands.
+
+Menaia's search reads directly from your live data, so there is no separate search index to rebuild and wait on. The only thing that can lag is the cache in front of these views.
+
+## Housekeeping
+
+### Abandoned uploads are cleaned up automatically
+
+A daily cleanup removes orphaned upload files — files that were started but never attached to a comment — only after a 24-hour safety buffer, so an in-progress draft is never affected. No action is needed on your part.
+
+## Related references
+
+- [Roles and permissions matrix](/reference/platform/permissions-roles-matrix)

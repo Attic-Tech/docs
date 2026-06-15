@@ -1,7 +1,138 @@
 ---
 title: "Money rounding"
+description: "How the platform rounds money on invoices, where full precision is kept on purpose, and why a displayed total can land a penny off a hand calculation."
+keywords: ["why is my invoice total off by a penny", "invoice rounding", "how are taxes rounded", "subtotal doesn't match line items", "deposit invoice amount", "partial invoice percent", "credit amount cannot exceed balance", "allocations must equal total"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains where amounts on an invoice round to the cent, where the platform deliberately keeps full (sub-cent) precision, and why a total can occasionally differ by a penny from a calculation you do by hand.
+
+## The core rule
+
+### Amounts round to the cent only at the invoice level
+
+Money is rounded to the nearest cent at the invoice boundary, not at every intermediate step. Half-cents round up. The subtotal, the tax, and the total are each rounded once and independently, after the underlying line math has been summed at full precision.
+
+### Subtotal, tax, and total each round once
+
+The invoice sums every line's net amount and every line's tax at full precision, then rounds the subtotal once, rounds the tax once, and rounds the total once. There is no per-line rounding inside that calculation.
+
+A single line's contribution to the subtotal is `quantity × unit price − discount`, kept unrounded so that the invoice-level round is the only one that fires. Each line stores this as its amount, and the subtotal is the rounded sum of those amounts.
+
+## Why a total can land a penny off
+
+Three separate behaviors can each produce a one-cent gap. Each answers a real "the math doesn't add up by a penny" question.
+
+<Card title="Subtotal and tax are rounded separately, then added">
+  Because the subtotal and the tax are each rounded to the cent before being added, and the total is then rounded again, the printed total can differ by a penny from a naive "round the raw subtotal plus the raw tax." This is intentional so that the on-screen Subtotal, Tax, and Total lines are each individually correct to the cent.
+</Card>
+
+<Card title="Each displayed line rounds independently of the subtotal">
+  The line-items table shows each line's unit price and amount rounded to exactly two decimals for display, while the subtotal is the round of the full-precision sum. When lines carry sub-cent unit prices, adding up the displayed line amounts by eye can come out a penny off the displayed subtotal.
+</Card>
+
+<Card title="Estimate-derived line prices keep full precision on purpose">
+  When an invoice is built from an estimate, each line's unit price is computed with overhead allocation, multipliers, payment factors, and a proportional scale factor, and is stored at full precision rather than rounded. This is deliberate so the summed subtotal, after the single invoice-level round, equals the estimate's retail price instead of drifting.
+</Card>
+
+## Discounts
+
+### Per-line discount is a flat dollar amount
+
+A line item's discount is a dollar figure subtracted inside the line's net-amount calculation, before the invoice-level round. There is no separate rounding step on the discount itself.
+
+### Estimate "discount provided" is a percentage
+
+The estimate-level discount is entered as a percent and applied to every line as a multiplier at full precision, then reconciled by the proportional scale factor so the line sum lands back on the discounted subtotal. The same percentage flows through the estimate's retail-price math, which is only cent-rounded once it becomes an invoice subtotal.
+
+### Credits on an existing invoice: fixed or percentage
+
+A credit applied to an existing invoice can be a fixed dollar amount or a percentage of the outstanding balance. The percentage path computes the balance multiplied by the entered percent.
+
+Credit limits are compared in whole cents, so a sub-cent rounding artifact never blocks a credit that is legitimately at the limit. Messages you may see:
+
+- "Amount is required" / "Amount must be greater than 0"
+- "Percentage cannot exceed 100%"
+- "Credit amount cannot exceed invoice balance" — or, when there is no balance, "Cannot add credit: no outstanding balance" / "Cannot edit credit: ..."
+
+## Taxes
+
+### The taxable amount is cent-rounded before tax is calculated
+
+The taxable amount (the sum of the line net amounts) is rounded to the cent before tax is calculated, so tax is computed against a clean dollar figure even when individual lines carry full-precision unit prices.
+
+### Every returned tax amount is rounded to the cent
+
+City, county, and special taxes are merged into a single "City Tax" line, and state tax becomes a "State Tax" line. Each line amount and the grand total tax are rounded to the cent.
+
+### Tax is skipped when there is nothing to tax
+
+No tax line is produced when there are no line items, when the billing address is incomplete, or when the taxable amount is zero or less. A complete billing address requires street, city, state, and zip. A City or State line only appears when its amount is greater than zero.
+
+### Tax rate display
+
+Tax rates are shown as percentages with at most two decimal places (for example, `8.25%`). This is display formatting only and does not change any stored value.
+
+## Balances, payments, and allocations
+
+### Balance is rounded after subtracting allocations
+
+The remaining balance is computed by rounding the allocated total to the cent, subtracting it from the invoice total, and rounding the result.
+
+### Allocations must sum to the total, checked in whole cents
+
+When you split a payment or credit across invoices, the allocation amounts must sum to the invoice total. This equality is checked in whole cents so floating-point dust cannot trip it. Messages you may see:
+
+- "At least one invoice allocation is required."
+- "Allocation N: amount must be a positive number."
+- "Allocations sum (X) must equal total (Y)."
+- "One or more invoices not found or cannot receive payments"
+- "Allocation amount exceeds remaining balance (X) on invoice N." — also compared in whole cents.
+
+## Customize amount due (partial invoicing)
+
+### Dollar and percent stay in sync, rounded to the cent
+
+When invoicing for a portion of a project, you can toggle between a dollar amount and a percent of the project total. Both directions round to the cent (or to a two-decimal percent), and the ceiling guard is checked in whole cents so an amount equal to the project total (to the cent) is allowed. Messages and constraints:
+
+- "Amount must be greater than 0"
+- "Amount cannot exceed `$X`" — compared in whole cents.
+- The percent field accepts at most two decimal places while you type.
+
+### Scaling lines for a partial invoice keeps full precision
+
+When line items are scaled down for a partial invoice, each unit price and per-line discount is multiplied by the scale factor without rounding, and tax is cleared so it can be recomputed on the new subtotal. This is intentional: the single invoice-level round then lands the subtotal exactly on target instead of accumulating per-item drift, and no phantom discount is ever injected to correct rounding.
+
+### Editing a line by its total rounds the unit price up
+
+When you type a desired total for a line, the unit price is rounded up so that `quantity × unit price` is at least the total you entered. For example, a `$100` total across a quantity of 3 yields a `$33.34` unit price, not `$33.33` (which would total `$99.99`). Typing a round total can therefore leave a line a penny over, never under.
+
+## Auto-created deposit invoices
+
+A deposit invoice's single line is the estimate subtotal multiplied by the configured deposit percent, capped at the maximum deposit amount if one is set, and the resulting unit price is rounded to the cent.
+
+## Display formatting is not value rounding
+
+Currency is rendered as USD with exactly two decimals (or zero decimals in the "no cents" variant). This is presentation only and never changes a stored amount.
+
+Currency input fields clamp typed values to two decimal places by truncating the extra digits as you type rather than rounding them.
+
+The invoice breakdown panel feeds already-rounded values straight into the display formatter and does no rounding of its own.
+
+## Where rounding does not happen
+
+Full precision is kept on purpose in these places, and only becomes cent-rounded once the value lands on an invoice:
+
+- Estimate and proposal retail-price math (multipliers, overhead allocation, payment factor, discount factor) is computed at full precision and is only cent-rounded once it becomes an invoice subtotal.
+- A line's net amount and the partial-invoice line scaling both return unrounded values by design, so the single invoice-level round stays authoritative.
+
+## Quick reference
+
+- **Rounding happens at the invoice boundary**, to the nearest cent, with half-cents rounding up.
+- **Subtotal, tax, and total each round once and independently** after full-precision summing.
+- **A penny gap** can come from rounding subtotal and tax separately, from per-line display rounding, or from line-total edits that round up.
+- **All limits and equality checks** (allocations, credits, maximum amount) are compared in whole cents to neutralize floating-point dust.
+- **Estimate and breakdown math stays at full precision** until it becomes an invoice subtotal.
+
+## Related references
+
+- [Permissions and roles matrix](/reference/platform/permissions-roles-matrix)
