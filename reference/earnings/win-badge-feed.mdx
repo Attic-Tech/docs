@@ -1,7 +1,124 @@
 ---
-title: "Win badge feed"
+title: "Wins and the badge feed (reference)"
+description: "How wins are created, when they appear in a feed group, and how badge unlocks turn into posts you can share."
+keywords: ["win feed", "celebrate a win", "badge unlocked", "share a win", "win group", "hours saved win", "signed proposal win", "AI win post"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains what a **win** is, the three things that create one, how a win becomes a visible post in a feed group, and how badge unlocks feed into the same flow.
+
+The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Crew Member**.
+
+## What a win is
+
+### A win is a record, not yet a feed post
+
+A **win** is a record that your workspace creates automatically when something worth celebrating happens — a proposal is signed, a job comes in under its estimated hours, or someone unlocks a badge. A win is **not** visible in any feed when it is first created. It sits in an "unposted" list until a person chooses to share it to a feed group. Sharing it is what creates the actual post.
+
+### Every win has a type
+
+A win is one of three types, depending on what triggered it:
+
+- **Signed proposal** — a client signed a proposal and the deal was marked Sold.
+- **Hours saved** — a job was closed and the crew finished in fewer hours than estimated.
+- **Badge unlocked** — a teammate earned a badge.
+
+### Each source can produce only one win
+
+A given proposal, job, or badge can produce **at most one win** for your workspace. If the same source is processed again, no duplicate win is created.
+
+<Card title="Who can see wins">
+Any member of your workspace can see their workspace's wins. Wins are scoped to your workspace, so you never see another workspace's wins.
+</Card>
+
+## What creates a win
+
+### 1. A signed proposal creates a "signed proposal" win
+
+When a client signs a proposal and its estimate flips to **Sold**, your workspace creates a signed-proposal win as a side effect of the signing.
+
+- The win records the client name (or "Unknown Client" if none is on file) and the final price from the estimate.
+- The win is associated with the sales user on the estimate.
+- Creating the win never blocks or delays the signing. If win creation fails for any reason, the signing still completes normally.
+
+### 2. A job closed under its estimated hours creates an "hours saved" win
+
+When a job moves into the **Closed** status for the first time, your workspace checks whether the crew finished in fewer hours than were estimated. If so, it creates an hours-saved win.
+
+No hours-saved win is created when any of the following is true:
+
+- The estimate has no estimated labor hours to compare against.
+- The actual approved hours are equal to or greater than the estimated hours (no time was saved).
+- The job has no crew with approved shifts.
+
+When a win is created:
+
+- Actual hours are the total approved hours across the job's shifts.
+- Hours saved is the estimated hours minus the actual hours.
+- The win is associated with the crew members on those approved shifts.
+
+As with signed proposals, closing the job is never blocked by win creation.
+
+### 3. A badge unlock creates a "badge unlocked" win
+
+When a teammate earns a badge, your workspace creates a badge-unlocked win recording the badge name and the earner. A badge-unlocked win is only created on a **genuinely new** badge award — re-checking an already-earned badge does not create a second win.
+
+<Card title="Badges and wins are separate features">
+Both badge awards and the win feed can be turned on or off for your workspace independently. A badge unlock only seeds a win when **both** the badge feature and the win-feed feature are available. If badges are on but the win feed is off, the teammate still earns the badge (and gets an in-app notification), but no win is created. See [Feature availability](/reference/platform/feature-availability).
+</Card>
+
+## Turning a win into a visible post
+
+### Sharing a win creates the post
+
+A win stays in the unposted list until someone shares it to a **feed group**. Sharing is done through the **AI Post** flow, which drafts a short celebratory post from the win's details, the people associated with it, and an optional note you can add. The drafted post becomes a comment in the feed group — that comment **is** the feed post.
+
+- The note you add is limited to 500 characters.
+- Any instructions you type into the note are treated as plain text to celebrate, not as commands the AI will follow. See [AI features and limits](/reference/platform/ai-features-and-limits).
+
+### A win is marked posted in the same step
+
+The moment the post is created in a feed group, the win is marked **posted** and linked to the group and the new post. This happens together with creating the post — there is no in-between state where the post exists but the win is still listed as unposted.
+
+If you retry a post after a failed first attempt, the win does not accumulate duplicate links — the group and post references are de-duplicated.
+
+<Card title="Posting to another workspace's group is blocked">
+A win can only be posted to a feed group that belongs to your own workspace. Attempting to post to a group outside your workspace fails and nothing is written.
+</Card>
+
+## The unposted-win picker
+
+When you open the AI Post flow for a feed group, you see the wins that have **not yet been posted to that group**, scoped to your workspace. You can optionally filter the list by win type.
+
+- The target group is checked against your workspace first. If the group does not belong to your workspace, you get a "Group not found" message.
+- Each win shows a date label formatted in your workspace's time zone ("Today", or a short weekday-and-date), so the label matches your workspace's clock no matter where you are viewing from.
+
+## Permissions
+
+### Who can share a win
+
+Sharing a win to a feed group requires permission to post comments in that group, access to your workspace, and the win feed being available for your workspace. If the win feed is not available, the action reports that the feature is not available for your organization. See [Permissions roles matrix](/reference/platform/permissions-roles-matrix).
+
+### Badge records behind a badge-unlocked win
+
+- A badge earning is recorded once per teammate per badge in your workspace. Re-awarding the same badge is a silent no-op — no duplicate win and no duplicate notification.
+- Any member of your workspace can see a teammate's earned badges on their profile. Badges are awarded automatically by your workspace, not added by hand.
+
+## Timing and delays
+
+Wins are created as a side effect of the event that triggers them (a signing, a job close, a badge award) and are designed never to block that event. Because some of this work happens in the background, a brand-new win may take a short moment to appear in the unposted list. For more on background timing, see [Background processing](/reference/platform/background-processing).
+
+## Quick reference
+
+- **A win is a record, not a post.** It only becomes visible when someone shares it to a feed group.
+- **Three sources:** a signed proposal (estimate Sold), a job closed under estimated hours, and a badge unlock.
+- **One win per source** — no duplicates from the same proposal, job, or badge.
+- **Badges and the win feed are independent features** — both must be on for a badge unlock to create a win.
+- **Sharing requires** comment-posting permission in the group, workspace access, and the win feed being available.
+- **Cross-workspace posting is blocked** — you can only post to feed groups in your own workspace.
+
+## Related references
+
+- [Feature availability](/reference/platform/feature-availability)
+- [Permissions roles matrix](/reference/platform/permissions-roles-matrix)
+- [AI features and limits](/reference/platform/ai-features-and-limits)
+- [Background processing](/reference/platform/background-processing)

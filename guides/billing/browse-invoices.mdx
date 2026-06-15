@@ -1,7 +1,131 @@
 ---
 title: "Browse invoices"
+description: "Find any invoice fast — use the status tabs, summary totals, search, filters, and sortable columns on the Invoices page, then open one to see the full detail."
+icon: "table-list"
 ---
 
+The **Invoices** page is your home base for every invoice in the branch. From here you can see what's been billed, what's still owed, and what's overdue at a glance — then narrow the list down to the exact invoice you need with tabs, search, filters, and sortable columns.
+
 <Note>
-  This page is coming soon.
+This page shows invoices across all of your projects in one place, so you don't have to open each project to find a bill.
 </Note>
+
+## Open the Invoices page
+
+Go to **Invoices** from the main navigation. The page opens with the full list, the status tabs across the top, and a row of summary totals above it.
+
+## Read the summary totals
+
+At the top of the page is a row of cards that sum up the branch's billing at a glance:
+
+- **Total Invoiced** — the full amount billed.
+- **Outstanding** — money invoiced but not yet collected.
+- **Total Collected** — money that has come in.
+- **Overdue** — outstanding balances past their due date.
+
+<Tip>
+The summary cards double as quick filters. Click a card — for example **Overdue** — and the list below filters to just those invoices. Click the same card again to clear it.
+</Tip>
+
+## Filter by status with the tabs
+
+Just above the list is a set of tabs, each with a live count so you can see how many invoices sit in each state:
+
+- **All** — every invoice.
+- **Draft** — started but not yet sent.
+- **Open** — sent and awaiting payment.
+- **Partially Paid** — some payment received, a balance remains.
+- **Paid** — paid in full.
+- **Voided** — cancelled.
+
+Click a tab to show only invoices in that state.
+
+## Search for an invoice
+
+Use the search box above the list to jump straight to one invoice. Search **by name or invoice number** — start typing a client's name or the invoice number and the list narrows as you type.
+
+<Tip>
+If you only know the invoice number, you can also use the **Invoice ID** field inside the filters panel to match it exactly.
+</Tip>
+
+## Narrow the list with filters
+
+Open the filters panel for finer control. You can combine any of these:
+
+- **Client Name** — show invoices for one client.
+- **Invoice ID** — match a specific invoice number.
+- **Status** — tick one or more states (Draft, Open, Paid, Voided, Partially Paid).
+- **Created Date**, **Issued Date**, **Sent Date**, **Due Date** — pick a date range for any of these.
+- **Created By** — show invoices raised by a particular team member.
+
+<Note>
+Filters stack. Picking a client and a due-date range together shows only that client's invoices due in that window. Clear a filter to widen the list again.
+</Note>
+
+## Make sense of the columns
+
+Each invoice in the list shows:
+
+| Column | What it tells you |
+| --- | --- |
+| **Invoice #** | The invoice number — click it to open the invoice. |
+| **Client Name** | Who the invoice is for. |
+| **Project Name** | The project it belongs to. |
+| **Status** | Draft, Open, Partially Paid, Paid, or Voided. |
+| **Total** | The full invoice amount. |
+| **Balance** | What's still owed. |
+| **Issue Date** | When the invoice was issued. |
+| **Sent Date** | When it was sent to the client. |
+| **Due Date** | When payment is due — a red alert marks an overdue invoice. |
+| **Created Date** | When the invoice was first created. |
+
+<Tip>
+Click a sortable column header to sort the list by it — for example, sort by **Due Date** to see what's coming up first, or by **Balance** to surface the largest outstanding amounts. Click again to flip between ascending and descending.
+</Tip>
+
+## Open an invoice
+
+Click an invoice number (or choose **View Invoice** from its actions) to open the full detail view, where you can see line items, payment history, and the running balance.
+
+## Act on an invoice from the list
+
+Every row has an actions menu (the three-dot button on the right). Depending on the invoice's status, you'll see options such as:
+
+<Steps>
+  <Step title="View Invoice">
+    Open the full invoice detail.
+  </Step>
+  <Step title="Record Payment">
+    Log a payment received against an open or partially paid invoice.
+  </Step>
+  <Step title="Add Credit">
+    Apply a credit to the invoice.
+  </Step>
+  <Step title="Void Invoice">
+    Cancel an invoice that should no longer be collected.
+  </Step>
+  <Step title="Delete Invoice">
+    Remove a draft that was never sent.
+  </Step>
+</Steps>
+
+<Note>
+The menu only shows the actions that make sense for that invoice's current status — a paid invoice won't offer a payment option, and only an unsent draft can be deleted.
+</Note>
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Create an invoice" icon="file-plus" href="/guides/billing/create-an-invoice">
+    Start a new invoice from an estimate or from scratch.
+  </Card>
+  <Card title="Record a payment" icon="wallet" href="/guides/billing/record-allocate-payment">
+    Log a payment against an open invoice and watch the balance update.
+  </Card>
+  <Card title="Send and resend" icon="paper-plane" href="/guides/billing/send-and-resend">
+    Send an invoice to your client, or resend it if it's been missed.
+  </Card>
+  <Card title="Void an invoice" icon="ban" href="/guides/billing/void-an-invoice">
+    Cancel an invoice that should no longer be collected.
+  </Card>
+</CardGroup>

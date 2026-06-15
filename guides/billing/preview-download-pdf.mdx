@@ -1,7 +1,65 @@
 ---
 title: "Preview download pdf"
+description: "Open an invoice as a clean, client-ready PDF, choose what pricing the customer sees, then print it or download a copy."
+icon: "file-pdf"
 ---
 
+Every invoice can be opened as a polished PDF — the same version your customer sees. From the PDF preview you can check how the invoice looks before it goes out, print a copy, or download it to keep on file or attach somewhere else.
+
 <Note>
-  This page is coming soon.
+The PDF preview is read-only. It shows you exactly what the invoice will look like. To change amounts, dates, or line items, edit the invoice itself while it's still a draft.
 </Note>
+
+## Open the PDF preview
+
+<Steps>
+  <Step title="Open the invoice">
+    Go to **Invoices** from the main navigation and click the invoice you want. This opens the invoice detail page.
+  </Step>
+  <Step title="Open the actions menu">
+    In the top-right corner of the invoice, click the **More options** button — the three-dot icon next to **Send Invoice**.
+  </Step>
+  <Step title="Choose View PDF">
+    Select **View PDF**. The **View Invoice** window opens and renders the invoice as a PDF. It takes a moment to build the first time.
+  </Step>
+</Steps>
+
+<Tip>
+**View PDF** is always available, no matter the invoice's status — draft, open, paid, or void. It's the quickest way to double-check how an invoice reads before you send it.
+</Tip>
+
+## Print the invoice
+
+Inside the **View Invoice** window, click **Print** in the top-right. Your browser's print dialog opens with the invoice ready to go, so you can send it to a printer or save it as a PDF that way too.
+
+## Download a copy
+
+Click **Download** in the top-right of the **View Invoice** window. The invoice saves to your device as a PDF named after the invoice number (for example, `Invoice-1042.pdf`). While it's being prepared the button reads **Downloading...**, then the file lands in your usual downloads folder.
+
+<Tip>
+A downloaded PDF is a snapshot of the invoice as it looks right now. If you later change a draft invoice, download a fresh copy to keep your records up to date.
+</Tip>
+
+## Choose what the customer sees
+
+The PDF reflects two **Client View Settings** on the invoice: **Unit Price** and **Total Price**. These switches control whether per-item pricing shows up on the customer-facing invoice.
+
+- **Unit Price** — show or hide the price of each individual item.
+- **Total Price** — show or hide the per-line totals.
+
+Turn either switch off when you'd rather present a single bottom-line amount instead of an itemized price list. You can adjust these on a draft invoice before sending; the PDF preview, the printout, and the download all reflect whatever you've chosen.
+
+<Note>
+The amount due, taxes, payments, and credits always appear on the PDF. The **Client View Settings** only affect whether per-item pricing is shown.
+</Note>
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Send the invoice" icon="paper-plane" href="/guides/billing/send-and-resend">
+    Email the invoice straight to your customer, or resend one you've already sent.
+  </Card>
+  <Card title="Record a payment" icon="dollar-sign" href="/guides/billing/record-allocate-payment">
+    Once the customer pays, log the payment and allocate it to the right invoice.
+  </Card>
+</CardGroup>

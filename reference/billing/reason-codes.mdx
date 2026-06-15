@@ -1,7 +1,123 @@
 ---
 title: "Reason codes"
+description: "Configurable reason codes for voiding invoices, adding credit notes, and voiding credit notes — what they are, when they're required, and who manages them."
+keywords: ["reason codes", "credit reason", "void invoice reason", "void credit note", "credit note", "billing settings"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains accounting reason codes: the categorized labels someone picks when voiding an invoice, adding a credit note, or voiding a credit note. A reason code records *why* a financial action was taken and stays attached to the affected record.
+
+The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Crew Member**.
+
+## What a reason code is
+
+### A reason code is a configurable label that belongs to your workspace
+
+A reason code belongs to a single workspace. Each reason code has:
+
+- **Category** — which action it applies to (one of three, see below). Required, and chosen when the code is created.
+- **Name** — the label shown in dropdowns. Required, up to 200 characters.
+- **Description** — an optional note explaining when to use it, up to 500 characters.
+- **Display order** — controls the order in dropdowns; lower appears first. Defaults to first position.
+- **Enabled** — whether the code appears in selection dropdowns. Defaults to enabled. Turning it off hides it without deleting it.
+
+### Each reason code belongs to one of three categories
+
+Every reason code maps to exactly one of three fixed categories:
+
+| Category | Used when |
+| --- | --- |
+| **Invoice Credit Reason** | Adding a credit note against an invoice |
+| **Invoice Void Reason** | Voiding an invoice |
+| **Credit Note Void Reason** | Voiding a credit note |
+
+The set of categories is fixed. What you configure is which individual codes you create within each category.
+
+<Card title="A code's category is locked after creation" icon="lock">
+  You choose a reason code's category when you create it, and it cannot be changed afterward. To recategorize a reason, create a new code in the desired category and disable the old one.
+</Card>
+
+## Managing reason codes
+
+Reason codes are managed under invoice settings, on the **Credit & Void Reasons** screen.
+
+### Who can manage them
+
+<Card title="Creating, updating, and deleting reason codes" icon="user-shield">
+  Only **Admin** and **Ops Manager** can create, update, or delete reason codes. Everyone else in the workspace can read them (so the right options appear in the void and credit dropdowns) but cannot change the catalog.
+</Card>
+
+### How editing works
+
+- **Editing** a reason code re-submits all of its editable fields at once. The category is not editable — it stays locked to whatever was chosen at creation.
+- **Disabling** a reason code (turning Enabled off) removes it from the void and credit dropdowns while preserving it on any historical records that already reference it. This is how you retire a reason without deleting it.
+- **Deleting** removes the code entirely.
+
+### Name and description are cleaned up
+
+Names and descriptions have leading and trailing spaces removed, and are capped at 200 and 500 characters respectively. A description that is empty or only spaces is stored as no description.
+
+## When a reason is required
+
+### Voiding an invoice — required
+
+<Card title="A reason and an internal note are both required" icon="ban">
+  The Void Invoice form requires you to pick a reason and to enter an internal note. The submit button stays disabled until both are filled in.
+</Card>
+
+When you submit:
+
+1. Only **open** invoices can be voided. Voiding any other invoice is rejected with **"Only open invoices can be voided."**
+2. The chosen reason is checked to confirm it belongs to your workspace. An unknown reason is rejected with **"Reason code not found."**
+3. The invoice is set to **Voided**, its balance is zeroed, the void reason is stored on the invoice, and the matching ledger entry is zeroed.
+
+### Voiding a credit note — required
+
+<Card title="A reason and an internal note are both required" icon="ban">
+  The Void Credit Note form requires you to pick a reason and to enter an internal note before you can submit.
+</Card>
+
+When you submit:
+
+1. A credit note that has already been voided is rejected with **"This credit note has already been voided."**
+2. The chosen reason is checked to confirm it belongs to your workspace **and that it is a Credit Note Void Reason**. A reason of the wrong category is rejected with **"Reason code not found."** This is the only flow that enforces the reason's category at submit time.
+3. The credit note is marked voided, the reason and an optional note are stored, the credit's ledger entry is zeroed, and the affected invoice balances are recalculated.
+
+### Adding a credit note — required in the form
+
+<Card title="The form requires a reason and notes" icon="circle-plus">
+  The Add Credit form requires you to pick a reason and to enter notes. The submit button is disabled if the invoice has no outstanding balance or if no credit reasons are configured.
+</Card>
+
+If the invoice's branch has no credit reason codes configured, the form blocks credit creation with: **"No credit reason codes are configured for this invoice's branch. Please configure credit reason codes in branch settings before adding a credit."**
+
+The reason you pick is stored on the credit note. Unlike the two void flows, the reason on an added credit note is enforced by the form rather than re-checked at submit time, so keep your credit reason catalog accurate.
+
+## How reasons appear
+
+### Selection dropdowns are filtered by category
+
+Each dropdown only shows **enabled** reason codes of its category, sorted by display order:
+
+- **Invoice Void Reason** codes appear in the Void Invoice dropdown (only when you're allowed to void).
+- **Invoice Credit Reason** codes appear in the Add Credit dropdown (only when crediting is allowed).
+- **Credit Note Void Reason** codes appear in the Void Credit Note dropdown.
+
+### On the transactions ledger
+
+The invoice's transactions table includes a **Credit Reason** column, populated from the reason name chosen on each credit note.
+
+## Quick reference
+
+- **Manage reason codes (create / update / delete):** Admin and Ops Manager only. Everyone else can read.
+- **A reason code's category is set at creation and cannot be changed.** Recategorize by creating a new code and disabling the old one.
+- **Voiding an invoice:** a reason and an internal note are both required; only open invoices can be voided.
+- **Voiding a credit note:** a reason and an internal note are both required; the reason must be a Credit Note Void Reason.
+- **Adding a credit note:** a reason and notes are required by the form; the branch must have credit reasons configured.
+- **Disabling** hides a code from dropdowns but keeps it on historical records; **deleting** removes it entirely.
+
+## Related references
+
+- [Invoice status and actions](/reference/billing/invoice-status-and-actions)
+- [Ledger](/reference/billing/ledger)
+- [Payment allocation](/reference/billing/payment-allocation)
+- [Permissions roles matrix](/reference/platform/permissions-roles-matrix)

@@ -1,7 +1,134 @@
 ---
 title: "Invoice status and actions"
+description: "The five invoice statuses, how each is derived, which actions are available in each, and who can perform them."
+keywords: ["invoice status", "void invoice", "record payment", "send invoice", "draft invoice", "invoice overdue", "add credit"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains the invoice statuses, how an invoice's status is set, which actions (send, record payment, add credit, void, edit, delete) are available in each status, and who can perform them.
+
+The user-facing roles referenced below are **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Crew Member**.
+
+## The five invoice statuses
+
+An invoice is always in exactly one of five statuses. The status is shown on the invoice and drives which actions appear.
+
+| Status | Meaning |
+| --- | --- |
+| **Draft** | Created but not yet sent. This is the status of every newly created invoice. |
+| **Open** | Sent to the client; the full balance is outstanding. |
+| **Partially Paid** | Some, but not all, of the balance has been collected. |
+| **Paid** | The balance has been collected in full. |
+| **Voided** | Cancelled. The balance is forced to zero and the invoice no longer affects the workspace ledger. |
+
+<Card title="Status is automatic, never set by hand" icon="lock">
+You never pick an invoice's status directly. It is derived from whether the invoice has been sent and how much of the balance has been collected. Recording a payment, adding a credit, sending, or voiding an invoice is what moves it between statuses.
+</Card>
+
+### How the status is derived
+
+After a payment or credit changes the balance, the status is recomputed automatically:
+
+- A **Draft** or **Voided** invoice never changes status from a payment or credit. Recording a payment or adding a credit cannot move a Draft or a Voided invoice.
+- If the remaining balance reaches zero or below, the invoice becomes **Paid**.
+- If part of the balance is still outstanding but some has been collected, the invoice is **Partially Paid**.
+- Otherwise the invoice is **Open**.
+
+### "Overdue" is a flag, not a status
+
+Overdue is not one of the five statuses. It is a separate flag the invoice shows when both of these are true:
+
+- The status is **Open** or **Partially Paid**, and
+- The current date, in the branch's local time, is past the invoice's due date.
+
+A Draft, Paid, or Voided invoice is never marked overdue.
+
+## Which actions are available in each status
+
+The actions offered on an invoice depend entirely on its current status. The action menu hides anything that isn't allowed, and the same rule is enforced when the action is submitted, so an action that isn't valid for the current status is rejected.
+
+| Action | Available when status is |
+| --- | --- |
+| **Send** | Draft or Open |
+| **Record Payment** | Open or Partially Paid |
+| **Add Credit** | Open or Partially Paid |
+| **Void** | Open only |
+| **Edit** | Draft only |
+| **Delete** | Draft only |
+
+### Per-status summary
+
+<CardGroup>
+  <Card title="Draft" icon="pen-ruler">
+    Can **Send**, **Edit**, **Delete**. Cannot record a payment, add a credit, or void.
+  </Card>
+  <Card title="Open" icon="envelope-open">
+    Can **Send** (re-send), **Record Payment**, **Add Credit**, **Void**. Cannot edit or delete.
+  </Card>
+  <Card title="Partially Paid" icon="circle-half-stroke">
+    Can **Record Payment**, **Add Credit**. Cannot send, void, edit, or delete.
+  </Card>
+  <Card title="Paid / Voided" icon="circle-check">
+    No actions beyond viewing and downloading the PDF. Both are end states.
+  </Card>
+</CardGroup>
+
+## Action details
+
+### Send
+
+Sending a Draft invoice moves it from **Draft** to **Open**, records the send date, and adds it to the workspace ledger. An invoice that is already **Open** can be re-sent without changing anything. Sending is rejected in any other status with the message **"This invoice cannot be sent."**
+
+### Edit
+
+Only **Draft** invoices can be edited. Editing any other status is rejected with **"Only draft invoices can be edited."** Line items can only be edited on invoices created from scratch or from an estimate; attempting it elsewhere returns **"Line items can only be edited on invoices created from scratch or from estimates."** The due date must be on or after the issue date, otherwise you'll see **"Due date must be the same as or after the issue date."**
+
+### Record Payment
+
+Recording a payment is available on **Open** and **Partially Paid** invoices. The payment is applied to the invoice, the balance is reduced, and the status is recalculated, which may move the invoice toward **Partially Paid** or **Paid**. You can optionally send a receipt. A recorded payment can later be deleted from the transaction row on the invoice (not from the invoice's own action menu).
+
+### Add Credit
+
+Adding a credit is available on **Open** and **Partially Paid** invoices. The credit is applied to the invoice and reduces its balance. The amount must be a positive number, otherwise you'll see **"Credit amount must be a positive number."**
+
+A credit can later be voided or edited from its transaction row, with these limits:
+
+- A credit that has already been voided cannot be voided again: **"This credit note has already been voided."**
+- A voided credit cannot be edited: **"Cannot edit a voided credit note."**
+- When editing a credit, you cannot change which invoices it applies to: **"Cannot add or remove invoice allocations when editing a credit note."** and **"Cannot assign the credit note to a different invoice."**
+
+### Void
+
+Only **Open** invoices can be voided. This is stricter than Record Payment and Add Credit, which also allow **Partially Paid**. Voiding an invoice that isn't Open is rejected with **"Only open invoices can be voided."** Voiding sets the status to **Voided**, forces the balance to zero, records a void reason, and removes the invoice's effect from the workspace ledger.
+
+### Delete
+
+Only **Draft** invoices can be deleted. Deleting any other status is rejected with **"Only draft invoices can be deleted."** Delete is reversible — the invoice is removed from view but retained, in line with the platform's standard delete behavior.
+
+## Who can perform invoice actions
+
+Invoice billing is restricted to **Admin**. Every invoice action — send, record payment, add credit, void, edit, delete, and viewing the Invoices page — is available only to Admins.
+
+All other roles (Ops Manager, Sales Admin, Sales Member, Client Coordinator, Crew Leader, Crew Member) have no access to invoices, payments, or credits.
+
+<Card title="Actions are also limited to your branch" icon="building">
+Beyond the role check, every invoice action confirms that you have access to the branch the invoice belongs to. An Admin can only act on invoices in branches they belong to.
+</Card>
+
+### When invoicing is turned off
+
+The **Invoices** page can be turned off for a workspace as a capability. When invoicing is off, the Invoices page is hidden from navigation. See [Feature availability](/reference/platform/feature-availability) for how capabilities are decided and how to tell when one is unavailable.
+
+## Quick reference
+
+- **Five statuses:** Draft, Open, Partially Paid, Paid, Voided. Status is always derived, never chosen by hand.
+- **Overdue** is a flag (Open or Partially Paid, past due date), not a sixth status.
+- **Send:** Draft or Open. **Record Payment / Add Credit:** Open or Partially Paid. **Void:** Open only. **Edit / Delete:** Draft only.
+- **Paid and Voided** are end states with no further actions.
+- **Only Admins** can perform any invoice action, and only within branches they belong to.
+
+## Related references
+
+- [Permissions roles matrix](/reference/platform/permissions-roles-matrix)
+- [Org and branch scoping](/reference/platform/org-branch-scoping)
+- [Soft delete](/reference/platform/soft-delete)
+- [Feature availability](/reference/platform/feature-availability)

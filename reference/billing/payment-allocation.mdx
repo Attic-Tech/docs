@@ -1,7 +1,142 @@
 ---
 title: "Payment allocation"
+description: "How a recorded payment is split across one or more invoices, how over- and under-payment behave, and how credits use the same balance math."
+keywords: ["payment allocation","record payment","split payment","invoice balance","partial payment","overpayment","credit note","apply credit"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains how a payment you record is distributed across invoices, the rules a valid allocation must satisfy, what happens to an invoice's balance and status afterward, and how credits reduce a balance through the same math.
+
+The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, and **Crew Leader**.
+
+## What an allocation is
+
+### A payment is one amount split across one or more invoices
+
+A recorded payment has a single gross amount. An **allocation** is the portion of that amount applied to one specific invoice. A payment carries one allocation per invoice it touches.
+
+- One allocation = the payment pays a single invoice.
+- Several allocations = one received amount split across several invoices in the same project.
+
+### Amounts are applied exactly as entered — there is no auto-distribution
+
+The system never spreads a payment for you (for example, oldest-invoice-first or proportionally). Whoever records the payment supplies the exact amount per invoice, and those amounts must reconcile to the payment total. When you record a payment against a single invoice, the full amount is applied to that one invoice.
+
+## The two rules every allocation must satisfy
+
+<Card title="Rule 1 — Allocations must add up to the payment total">
+The sum of all per-invoice allocations must equal the payment amount to the cent. If they do not match, the payment is rejected with a message telling you the allocations total must equal the payment amount.
+
+You also see this check live in the multi-invoice screen before you submit, so mismatches are caught with inline feedback. Blank or zero allocation rows are ignored, and at least one non-zero allocation is required.
+</Card>
+
+<Card title="Rule 2 — Every targeted invoice must be eligible to receive a payment">
+Each invoice you allocate to must belong to your workspace and be in a status that can accept a payment. If any invoice is missing, not yours, or not in an eligible status, the whole payment fails — nothing is partially applied.
+
+- **Recording a new payment:** eligible invoice statuses are **Open** and **Partially paid**.
+- **Editing an existing payment:** eligibility also includes **Paid**, so you can adjust a payment on an invoice it already settled in full.
+
+Draft and voided invoices can never receive a payment.
+</Card>
+
+Each individual allocation amount, and the payment total itself, must be a positive number. An empty allocation list, a zero or negative allocation, or a zero or negative payment total are all rejected.
+
+## What happens after a payment is applied
+
+### The invoice balance is recomputed from scratch
+
+When allocations are written, edited, or removed, every affected invoice has its balance recalculated. This is a full recompute, not an adjustment: the system re-reads all live payments and all live credits on the invoice and recalculates the balance from the invoice total. Deleting a payment recalculates the same invoices.
+
+The balance is: **invoice total minus the sum of all payment allocations and all credit allocations**, rounded to the cent. For how rounding is applied, see [Money rounding](/reference/platform/money-rounding).
+
+### The invoice status follows the new balance
+
+| New balance | Resulting status |
+|---|---|
+| Zero or below | **Paid** |
+| Above zero but below the total | **Partially paid** |
+| Equal to the full total (nothing applied) | **Open** |
+| Invoice was a draft or voided | Unchanged — a payment never flips these |
+
+So a payment smaller than the balance leaves the invoice **Partially paid**; a payment that brings the balance to zero (or below) marks it **Paid**. See [Invoice status and actions](/reference/billing/invoice-status-and-actions) for the full status picture.
+
+## Under-payment
+
+A payment smaller than the invoice's balance is the normal, fully supported case. It leaves a positive remaining balance and sets the invoice to **Partially paid**. There is no minimum-payment rule; the only floor is that the payment total and each allocation must be greater than zero.
+
+## Over-payment
+
+<Card title="Over-payment is not blocked on the payment path">
+The payment flow checks only that allocations sum to the payment total — it does not compare an allocation against the invoice's remaining balance. If an allocation is larger than what the invoice still owes, the recomputed balance can go negative, which the system treats as **Paid** (any balance at or below zero is Paid).
+
+The practical guard is in the multi-invoice screen: fully paid and zero-balance invoices are hidden from the allocation list, and a running "remaining to allocate" figure is shown so you do not over-apply by accident.
+</Card>
+
+Keep the distinction in mind:
+
+- **Mis-allocation** (allocations do not add up to the payment total) is rejected on the server.
+- **Over-payment** (an allocation exceeds an invoice's balance) is *not* rejected on the payment path — only steered by the screen.
+- The **credit** path guards both (see below).
+
+## Editing a payment's allocations
+
+When you edit a payment, the system compares the new allocations against the existing ones, invoice by invoice:
+
+- An invoice dropped from the payment has its allocation removed, and its balance is restored.
+- An invoice whose amount changed has its allocation updated.
+- An invoice newly added gets a new allocation.
+
+Every invoice touched before or after the edit is recalculated, so an invoice that lost its allocation returns to the correct higher balance. The same two rules above (allocations sum to the new total; invoices must be eligible) apply to edits.
+
+## Deleting a payment
+
+Deleting a payment reverses its effect. The payment is removed, its allocations are removed, and every invoice it had touched is recalculated — balances rise back up and statuses revert from **Paid** or **Partially paid** as appropriate. A payment that was already deleted cannot be deleted again. Deletion is a recoverable removal; see [Soft delete](/reference/platform/soft-delete).
+
+## Credits use the same balance math
+
+Credits reduce an invoice's balance through the **same allocation math** as payments — a credit carries an amount split across one or more invoices, and those credit allocations are subtracted from the invoice total exactly like payment allocations. Credits, however, carry stricter rules.
+
+<Card title="How credits differ from payments">
+- **Credits cannot exceed the remaining balance.** Unlike payments, a credit allocation larger than the invoice's remaining balance is rejected, with a message naming the invoice and its remaining balance.
+- A credit's allocations must add up to the credit amount — the same summing rule as payments.
+- Eligible invoice statuses for adding a credit are **Open** and **Partially paid**.
+- A credit is never deleted; it is **voided**. Voiding restores the affected invoices' balances. A credit that was already voided cannot be voided again.
+- **Editing a credit cannot add, remove, or reassign invoices** — only the amounts may change, and the number of allocations must match the original. You cannot point a credit at a different invoice.
+- When you re-save a credit at its current size, its own existing amount is treated as available headroom, so resaving does not trip the over-balance rule.
+- Voided credits are excluded from balance recalculation.
+</Card>
+
+## Messages you may see
+
+| Situation | What you see |
+|---|---|
+| No allocations supplied | At least one invoice allocation is required. |
+| An allocation amount is zero or negative | The allocation amount must be a positive number. |
+| Allocations do not sum to the total | The allocations total must equal the payment amount. |
+| An invoice is ineligible or not found | One or more invoices not found or cannot receive payments. |
+| A credit allocation exceeds the balance | The allocation amount exceeds the remaining balance on the invoice. |
+| Payment total is zero or negative | The total must be a positive number. |
+| Payment recorded | The payment has been successfully recorded. |
+| Recording failed | Failed to record payment (with the underlying reason). |
+
+## Integrity guarantees
+
+- Recording, editing, and deleting a payment are **all-or-nothing**: the allocations, the recalculated invoice balances, and the financial record either all save together or none do.
+- While a payment is being applied, the targeted invoices are held so two payments to the same invoice cannot both read a stale balance and over-apply.
+- Each payment posts one financial-record entry equal to the payment total; each credit posts one entry equal to the credit amount. For how these entries are kept, see [Ledger](/reference/billing/ledger).
+
+## Quick reference
+
+- **A payment is one amount split into per-invoice allocations.** Amounts are applied exactly as entered — no automatic distribution.
+- **Allocations must sum to the payment total** (rejected if not) and **target eligible invoices** (Open or Partially paid for a new payment; also Paid when editing).
+- **Balance and status are recomputed from scratch** after every change. Zero or below = Paid; above zero but below total = Partially paid.
+- **Under-payment is normal.** **Over-payment is not blocked** on the payment path (only the screen steers you); the **credit** path blocks it.
+- **Credits reuse the same math** but cannot exceed the remaining balance, are voided rather than deleted, and cannot have invoices added, removed, or reassigned on edit.
+
+## Related references
+
+- [Invoice status and actions](/reference/billing/invoice-status-and-actions)
+- [Ledger](/reference/billing/ledger)
+- [Sales tax](/reference/billing/sales-tax)
+- [Money rounding](/reference/platform/money-rounding)
+- [Soft delete](/reference/platform/soft-delete)
+- [Permissions roles matrix](/reference/platform/permissions-roles-matrix)

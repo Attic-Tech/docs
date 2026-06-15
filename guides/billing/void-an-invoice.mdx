@@ -1,7 +1,83 @@
 ---
 title: "Void an invoice"
+description: "Cancel a sent invoice you no longer want collected — record a reason, add an internal note, and mark it Voided so the client no longer owes payment."
+icon: "ban"
 ---
 
+Voiding an invoice cancels it for good. Once an invoice has been sent and is sitting in **Open** status — meaning the client owes a balance — voiding it clears that outstanding amount, sets the invoice's status to **Voided**, and stops it from being collected. Use it when an invoice was sent in error, the work was cancelled, or it's being replaced by a corrected one.
+
 <Note>
-  This page is coming soon.
+Voiding is not the same as deleting. A **Draft** invoice that was never sent can simply be deleted. Voiding is for an invoice that has already gone out, so a record of it stays in your history.
 </Note>
+
+## Before you start
+
+You can only void an invoice that's in **Open** status — sent, with a balance still owed.
+
+- A **Draft** invoice can't be voided. Delete it instead, or send it first.
+- A **Paid** or **Partially Paid** invoice can't be voided. If money has already been recorded against it, you'll work with a credit or payment instead.
+- An invoice that's already **Voided** stays that way — the action can't be reversed.
+
+<Tip>
+Not sure of an invoice's status? Open the **Invoices** page and use the status tabs across the top (**All**, **Draft**, **Open**, **Partially Paid**, **Paid**, **Voided**) to see where each one stands.
+</Tip>
+
+## Void the invoice
+
+<Steps>
+  <Step title="Open the invoice">
+    Go to the **Invoices** page and click the invoice you want to cancel. This opens its detail view, where you can see its line items, status, and history.
+  </Step>
+  <Step title="Open the actions menu">
+    Click the **More options** button — the three-dot icon in the top-right of the invoice. From the menu, choose **Void Invoice**. (You'll only see this option when the invoice is in **Open** status.)
+  </Step>
+  <Step title="Read the warning">
+    A **Void Invoice** window opens with a warning banner. It confirms that voiding clears any outstanding amount due, that the client will no longer owe payment, and that the status will change to **Voided**. This action cannot be undone, so make sure you have the right invoice.
+  </Step>
+  <Step title="Pick a reason">
+    Choose a **Reason** from the dropdown. This explains why the invoice is being cancelled and is required. (The choices in this list are set up by your workspace — see below.)
+  </Step>
+  <Step title="Add an internal note">
+    Type an **Internal Note** describing the situation. This is required and is for your team's records only — it isn't shown to the client.
+  </Step>
+  <Step title="Confirm">
+    Click **Void Invoice** to finish. You'll see a confirmation that the invoice has been voided, and its status updates to **Voided**. To back out without changing anything, click **Cancel** instead.
+  </Step>
+</Steps>
+
+## What happens after voiding
+
+- The invoice's status becomes **Voided**, and it shows up under the **Voided** tab on the Invoices page.
+- Any outstanding balance is cleared, so the client no longer owes payment on it.
+- The invoice stays in your records — it isn't removed — so you keep a complete history of what was billed and why it was cancelled.
+
+<Note>
+Voiding can't be undone. If you voided the wrong invoice, you'll need to create a new invoice to bill the work again.
+</Note>
+
+## Manage the list of void reasons
+
+The reasons you can pick when voiding are defined per branch by your workspace. To review or add to them, go to **Settings**, open **Invoices**, and select the **Credit & Void Reasons** tab.
+
+There you can add a new reason with **Create Reason** — give it a **Name**, choose its **Reason Type**, add an optional **Description**, set whether it's **Enabled**, and set a **Sort Order** that controls where it appears in the dropdown. Disabling a reason hides it from the void window without removing past records that used it.
+
+<Tip>
+Keep your reason list short and clear — for example "Billed in error", "Job cancelled", or "Replaced by corrected invoice". Clean reasons make your voided-invoice history easy to scan later.
+</Tip>
+
+## Related guides
+
+<CardGroup cols={2}>
+  <Card title="Create an invoice" icon="file-invoice" href="/guides/billing/create-an-invoice">
+    Bill a job by building a new invoice from an estimate or from scratch.
+  </Card>
+  <Card title="Add a credit" icon="circle-minus" href="/guides/billing/add-a-credit">
+    Reduce what a client owes on an open invoice without cancelling the whole thing.
+  </Card>
+  <Card title="Record and allocate a payment" icon="hand-holding-dollar" href="/guides/billing/record-allocate-payment">
+    Log a payment against an invoice and apply it to the balance.
+  </Card>
+  <Card title="Browse invoices" icon="list" href="/guides/billing/browse-invoices">
+    Find, filter, and check the status of every invoice in one place.
+  </Card>
+</CardGroup>

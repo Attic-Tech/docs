@@ -1,7 +1,155 @@
 ---
 title: "Record allocate payment"
+description: "Record a customer payment against an invoice, send a receipt, and split a single payment across several invoices in the same project."
+icon: "hand-holding-dollar"
 ---
 
+When a customer pays you, you record that payment on the invoice so the balance updates and everyone can see what's been collected. If one payment covers more than one invoice, you can split (allocate) it across those invoices so each one reflects the right amount.
+
+This guide covers recording a payment, sending a receipt, fixing a payment you already entered, and spreading a single payment across several invoices.
+
 <Note>
-  This page is coming soon.
+Recording a payment is for marking money you've already received (cash, check, card, transfer, and so on). It logs the payment for your records — it doesn't charge the customer's card.
 </Note>
+
+## Before you start
+
+You can record a payment on any invoice that has been sent and still has a balance owing. A payment can only be recorded once the invoice is open — you can't record a payment on a draft.
+
+Your branch also needs at least one **payment method** set up (for example Cash, Check, or Card). If none exist yet, the Record Payment button is disabled and the screen will tell you to add one in settings first. See [Set up payment methods](#set-up-payment-methods) below.
+
+## Record a payment
+
+<Steps>
+  <Step title="Open the invoice">
+    Go to **Invoices** from the main navigation and open the invoice the customer paid. (Need help finding it? See [Browse invoices](/guides/billing/browse-invoices).)
+  </Step>
+  <Step title="Click Record Payment">
+    Press the **Record Payment** button at the top of the invoice. You can also open it from the **More options** menu (the three-dots button) on the invoice.
+  </Step>
+  <Step title="Fill in the payment details">
+    In the **Record Payment** window, enter:
+
+    - **Payment Amount** — how much the customer paid.
+    - **Method** — how they paid (the list comes from your branch's payment methods).
+    - **Reference #** — an optional check number, transfer ID, or confirmation code.
+    - **Payment Date** — the day the payment was received (defaults to today).
+    - **Internal Notes** — an optional note for your team. This stays internal and isn't shown to the customer.
+  </Step>
+  <Step title="Choose whether to send a receipt">
+    Tick **Send receipt** to email the customer a receipt for this payment. If the customer doesn't have an email on file, a **Recipient Email** box appears so you can type one in. Leave the box unticked to record the payment without sending anything.
+  </Step>
+  <Step title="Save the payment">
+    Click **Record Payment**. The payment is logged, the invoice balance goes down, and the payment appears in the invoice's **Transaction History**. If you chose to send a receipt, it's emailed to the customer (delivery may take a moment).
+  </Step>
+</Steps>
+
+<Tip>
+When the full balance is paid, the invoice marks itself as paid automatically — you don't need to flip a separate switch. Just record payments until the balance reaches zero.
+</Tip>
+
+## See recorded payments
+
+Every payment, credit, and adjustment for an invoice is listed in the **Transaction History** section on the invoice, with the amount, method, date, and reference for each one. This is your running record of what's been collected and when.
+
+To take action on a single entry, use the **More options** (three-dots) button on that row.
+
+## Edit a payment
+
+Made a typo in the amount, picked the wrong method, or need to move a payment to a different date? You can correct a payment after it's recorded.
+
+<Steps>
+  <Step title="Find the payment in Transaction History">
+    On the invoice, scroll to **Transaction History** and find the payment you want to change.
+  </Step>
+  <Step title="Open Edit Payment">
+    Click the **More options** (three-dots) button on that row and choose **Edit Payment**.
+  </Step>
+  <Step title="Update the details and save">
+    Change the amount, method, reference, date, or notes, then click **Save Changes**. Balances update to match.
+  </Step>
+</Steps>
+
+## Delete a payment
+
+If a payment was entered by mistake, you can remove it.
+
+<Steps>
+  <Step title="Open Delete Payment">
+    In **Transaction History**, click the **More options** (three-dots) button on the payment and choose **Delete Payment**.
+  </Step>
+  <Step title="Confirm">
+    Review the amount in the confirmation window and click **Delete Payment**. The invoice balance goes back up by that amount.
+  </Step>
+</Steps>
+
+<Note>
+Deleting a payment can't be undone. If the payment was split across more than one invoice, the window warns you which invoices are affected — deleting it reverses the payment on all of them.
+</Note>
+
+## Allocate one payment across several invoices
+
+Sometimes a customer sends a single payment that covers more than one invoice on the same project — for example, one check that pays two outstanding invoices at once. You can split that payment so each invoice gets the right share. This is called allocating the payment.
+
+You set allocations from the **Edit Payment** window, which shows every open invoice on the project that can still take part of the payment.
+
+<Steps>
+  <Step title="Record (or open) the payment">
+    Record the payment as usual on one of the invoices, then reopen it from **Transaction History** with **Edit Payment**. (Allocation lives in the Edit Payment window.)
+  </Step>
+  <Step title="Go to Allocate to Invoices">
+    In the Edit Payment window, scroll to the **Allocate to Invoices** section. Each invoice on the project is listed with its number, its status, and how much it can still take (**Available**).
+  </Step>
+  <Step title="Enter an amount for each invoice">
+    Type the portion of the payment that should go to each invoice. As you do, the **Remaining** figure at the top of the section counts down so you can see how much of the payment is still unassigned.
+  </Step>
+  <Step title="Balance the totals and save">
+    Keep entering amounts until **Remaining** reaches zero — the amounts you assign must add up to the full payment amount. Then click **Save Changes**. Each invoice's balance updates by the amount you gave it.
+  </Step>
+</Steps>
+
+<Tip>
+The total you assign across invoices has to match the payment amount exactly. If it doesn't, the window tells you the assigned total and the payment total so you can spot the gap, and it won't let you save until they line up.
+</Tip>
+
+<Note>
+You can only allocate within a single project — the invoices you see are the open invoices for that project. The amount available on each invoice already accounts for anything this payment was previously assigned to it, so editing existing splits is safe.
+</Note>
+
+## Apply a credit instead
+
+A payment records money received. A **credit** lowers what the customer owes without money changing hands — for example, a goodwill discount or a correction. If that's what you need, use **Add Credit** rather than Record Payment. See [Add a credit](/guides/billing/add-a-credit) for the full walkthrough.
+
+## Set up payment methods
+
+The **Method** list in the Record Payment window comes from your branch's payment methods. If the list is empty, you'll need to add at least one before you can record a payment.
+
+<Steps>
+  <Step title="Open payment method settings">
+    Go to **Settings**, then to the payment methods area for your branch.
+  </Step>
+  <Step title="Add a method">
+    Choose **Create Payment Method**, give it a name (such as Cash, Check, or Card), and save. It will then appear in the **Method** dropdown when you record a payment.
+  </Step>
+</Steps>
+
+<Note>
+Payment methods are set per branch. If you work across branches, each one keeps its own list, so add the methods you need wherever you record payments.
+</Note>
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Add a credit" icon="badge-percent" href="/guides/billing/add-a-credit">
+    Reduce a customer's balance without recording a payment — a discount, goodwill, or correction.
+  </Card>
+  <Card title="Send or resend an invoice" icon="paper-plane" href="/guides/billing/send-and-resend">
+    Email the invoice to the customer so they know what's owed and how to pay.
+  </Card>
+  <Card title="Browse invoices" icon="list" href="/guides/billing/browse-invoices">
+    Find any invoice, check its status and balance, and open it to record a payment.
+  </Card>
+  <Card title="Void an invoice" icon="ban" href="/guides/billing/void-an-invoice">
+    Cancel an invoice that should no longer be collected.
+  </Card>
+</CardGroup>

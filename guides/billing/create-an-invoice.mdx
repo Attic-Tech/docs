@@ -1,7 +1,125 @@
 ---
 title: "Create an invoice"
+description: "Bill a customer for a project — start from a sold estimate or build line items from scratch, set your dates and terms, then save it as a draft or send it straight away."
+icon: "file-invoice-dollar"
 ---
 
+An invoice is how you bill a customer for work on a project. You can build one in two ways: pull the line items straight from a sold estimate, or start fresh and add items yourself. Either way, you set the issue date and payment terms, choose what the customer sees, and finish by saving a draft or sending the invoice by email.
+
 <Note>
-  This page is coming soon.
+You start every invoice by choosing a **client** and a **project** — an invoice always belongs to one project, so the work and the customer are clear.
 </Note>
+
+## Start a new invoice
+
+<Steps>
+  <Step title="Open the Invoices page">
+    Go to **Invoices** from the main navigation. This is where every invoice lives — drafts, sent, and paid. From here you can search, filter, and reopen any of them.
+  </Step>
+  <Step title="Click Create Invoice">
+    Press the **Create Invoice** button in the top-right corner. A short two-step setup opens.
+  </Step>
+  <Step title="Choose the client and project">
+    Pick the **Client** and then the **Project** the invoice is for. The project list fills in once a client is selected. Click **Continue**.
+  </Step>
+</Steps>
+
+<Tip>
+You can also start an invoice from inside a project. When you do, the client and project are filled in for you, and you jump straight to choosing how to add items.
+</Tip>
+
+## Choose how to add items
+
+On the second step you pick one of two starting points:
+
+- **Import From Estimate** — pull the items from an estimate that's already been marked sold on this project. This is the fastest way to bill exactly what was quoted.
+- **Create New** — start with an empty invoice and add items yourself, either from your catalogue or as custom one-off lines.
+
+### Importing from a sold estimate
+
+If you choose **Import From Estimate**, pick the estimate from the **Estimates** dropdown. Each option shows the date it was sold and its price, so you can tell them apart. If the project has only one sold estimate, it's selected for you automatically.
+
+<Note>
+A sold estimate is required to import. If the project has no sold estimates yet, you'll see a notice — switch to **Create New**, or go mark an estimate sold first.
+</Note>
+
+Click **Continue** to open the full invoice with those items already filled in.
+
+## Fill in the invoice details
+
+Whichever path you took, you now land on the invoice builder. The top section, **Invoice Details**, shows the **Client Name** and **Project** you chose, plus three things you set:
+
+- **Issue Date** — the date the invoice is dated. Defaults to today.
+- **Payment Terms** — choose from the terms your workspace has set up. The one marked as default is picked automatically.
+- **Due Date** — calculated for you from the issue date and the terms you pick, so you don't have to work it out.
+
+There's also a **Description of work** box where you can write a short summary of what was done. This appears on the invoice the customer sees.
+
+<Note>
+If a payment term is marked **(disabled)** in the list, it's no longer in normal use — pick an active term instead.
+</Note>
+
+## Review and adjust the line items
+
+The **Line Items** card shows everything the customer will be billed for, with a running breakdown of subtotal, any tax, and the total.
+
+### When you imported from an estimate
+
+The items come straight from the estimate and are shown as a clean list. To change the actual items or quantities, you update the estimate itself — the **Edit Line Items** note explains this.
+
+You can still adjust two things here:
+
+- **Customize the amount due.** If you only want to bill part of the job right now (a deposit, say), use the customize option on the breakdown. You can enter a flat dollar amount or a percentage of the project total, and the invoice scales to match. Use the reset option to go back to the full amount.
+- **Client View Settings.** Two switches — **Unit Price** and **Total Price** — control whether those columns show on the customer's copy. Turn them off for a simpler, total-only invoice.
+
+### When you started from scratch
+
+Click **Add New Item** to add a line. For each line you can:
+
+- Search your catalogue and pick an item, or type a name and choose **Add as custom item** to create a one-off line.
+- Set the **Qty/Unit**, the **Unit Price**, or just the **Total Price** — the others adjust to match.
+- Remove a line with the trash icon (you'll be asked to confirm).
+
+The breakdown at the bottom keeps the totals up to date as you go.
+
+## Add a disclaimer
+
+The **Disclaimer** card holds any terms or notes you want printed on the invoice — warranty language, payment instructions, anything standard for your work. It comes pre-filled with your workspace's default text, and you can edit it for this one invoice.
+
+## Save or send
+
+When the invoice looks right, use the buttons at the bottom of the screen:
+
+<Steps>
+  <Step title="Save as Draft">
+    Choose **Save as Draft** to store the invoice without sending it. It lands in your Invoices list as a draft, where you can reopen, finish, and send it later.
+  </Step>
+  <Step title="Save and Send">
+    Choose **Save and Send** to email the invoice now. This opens a short email window where you confirm the **Recipients**, the **Subject**, and the **Body** — all pre-filled for you, including the customer's email and a friendly default message. Add or remove recipients as needed, then send.
+  </Step>
+</Steps>
+
+<Note>
+**Save and Send** needs at least one line item — you can't send an empty invoice. **Save as Draft** is always available so you can come back to it.
+</Note>
+
+<Tip>
+After sending, you land on the invoice's detail page. From there you can record payments, resend the email, download the PDF, or void the invoice if something's wrong.
+</Tip>
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Send and resend" icon="paper-plane" href="/guides/billing/send-and-resend">
+    Email an invoice to the customer, add more recipients, or resend it later.
+  </Card>
+  <Card title="Record a payment" icon="dollar-sign" href="/guides/billing/record-allocate-payment">
+    Mark an invoice paid — in full or in part — and keep the balance up to date.
+  </Card>
+  <Card title="Preview or download the PDF" icon="file-pdf" href="/guides/billing/preview-download-pdf">
+    See exactly what the customer gets and save a copy for your records.
+  </Card>
+  <Card title="Auto-deposit invoices" icon="bolt" href="/guides/billing/auto-deposit-invoices">
+    Have a deposit invoice created automatically when an estimate is sold.
+  </Card>
+</CardGroup>

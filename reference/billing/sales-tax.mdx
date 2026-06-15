@@ -1,7 +1,113 @@
 ---
 title: "Sales tax"
+description: "How sales tax is determined and applied across estimates, proposals, and invoices — where the rate comes from, when tax is charged, and when an order ends up untaxed."
+keywords: ["sales tax", "how is sales tax calculated", "Washington sales tax", "why is there no tax on my estimate", "why is my invoice not taxed", "local tax vs state tax", "tax breakdown", "tax exempt", "unable to calculate tax", "tax by address"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains how sales tax is determined and applied in product terms — where tax appears, how a rate is chosen, when tax is charged, and when an order ends up untaxed.
+
+The platform never stores its own tax rates. Every tax figure is looked up live from the tax engine at the moment of calculation, based on the order's address and amount.
+
+## Where tax appears
+
+Tax is calculated in two places, each driven off its own address and amount:
+
+- **Estimates and proposals** — tax is calculated on the estimate's final (post-discount) price and saved with the estimate, so the proposal can show a tax breakdown and an after-tax total.
+- **Invoices** — tax is recalculated from the invoice's line items against the billing address whenever a draft invoice is created, edited, or scaled.
+
+Both paths use the same tax engine, but they have **independent rules for when tax applies** (covered below).
+
+## How a tax rate is chosen
+
+<Card title="Rates are address-driven and looked up live">
+The platform does not keep a rate table. For every calculation it sends the destination address (street, city, state, ZIP) and the order amount to the tax engine, and uses whatever rate and amount the tax engine returns for that exact address. The rate is resolved all the way down to the locality.
+</Card>
+
+The tax engine returns several rate components, which the platform groups into two displayed lines:
+
+- **Local Tax** — the city, county, and special-district rates, summed into a single line (shown as "City Tax" or "Local Tax").
+- **State Tax** — the state rate on its own.
+
+The **total tax shown is the amount the tax engine says is collectable** for that address — it is taken directly from the tax engine, not re-derived by multiplying the displayed component rates.
+
+### Address resolution and ZIP-level fallback
+
+- **Estimates** use the property's address (street number, street, city, state, ZIP).
+- **Invoices** use the **client's billing address first**, and fall back to the **project's property address** if the client has no complete billing address.
+
+If the street and/or city are missing but the **state and ZIP are present**, the platform still calculates tax — it falls back to a coarser, ZIP-level rate instead of a precise rooftop rate. (See also `/reference/platform/geocoding-zip` for how addresses are resolved.)
+
+## How tax is calculated on an estimate
+
+<Card title="Estimates are taxed only for Washington properties">
+When an estimate is priced, tax is requested **only if the property is in Washington state**. For a property in any other state, tax is skipped entirely and the estimate carries no tax. This is the single biggest reason an estimate shows no tax.
+</Card>
+
+When an estimate is priced for a Washington property:
+
+1. The final price is computed (retail price minus any discount provided).
+2. Tax is looked up from the tax engine for that property address.
+3. The local-tax and state-tax amounts and the total tax are saved with the estimate. If the tax engine returns no applicable tax, the estimate simply carries no tax breakdown.
+
+On the proposal:
+
+- Each tax line is shown **only when its amount is greater than zero**.
+- The deposit percentage is computed against the **after-tax total**.
+
+## How tax is calculated and applied on an invoice
+
+Invoice tax is computed **per line item**, then summarized into a tax breakdown.
+
+1. Each line item is sent to the tax engine with its quantity, unit price, line discount, and a product tax category. Today every line uses the **same "taxable services" tax category**.
+2. The tax engine returns the collectable tax for each line. Each line stores its own tax amount, and the invoice total is the subtotal plus the total tax.
+3. Tax is always **recomputed from the current line items** — on the draft invoice detail page, in the create-invoice flow, and whenever line items are scaled.
+
+<Card title="Scaling an invoice recalculates tax — it is never carried forward">
+When you invoice for part of a project (for example 50%), each line's price is scaled and its **previously stored tax is discarded and recalculated** on the new, smaller subtotal. Tax always reflects the current amount being invoiced, never a stale figure.
+</Card>
+
+### Live recalculation in the editor
+
+While you edit a draft invoice's line items, tax is recalculated automatically a moment after you stop typing, and the updated per-line tax, tax lines, and total are pushed back into the form.
+
+### When invoice tax comes out as zero
+
+Invoice tax computation returns **zero tax, with no error**, in any of these cases:
+
+- The invoice has no line items.
+- No valid billing address could be resolved (street, city, state, or ZIP is missing or empty).
+- The net taxable amount is zero or negative.
+
+<Card title="There is no per-client tax-exempt toggle">
+There is no explicit "tax exempt" flag on a client or invoice. In practice an order ends up untaxed when the estimate property is outside Washington, when no usable address is available, or when the tax engine returns nothing collectable for that address.
+</Card>
+
+Note the difference between the two paths: the **estimate path only requests tax for Washington properties**, but the **invoice path is not limited to Washington** — it will request tax for any valid billing address and rely on the tax engine to return the correct (possibly zero) amount.
+
+## Errors and guards
+
+### On estimates, a tax failure stops pricing
+
+For a Washington property, if the tax lookup fails, the whole pricing call fails and shows a tax error rather than silently dropping tax. You may see:
+
+- "Error calculating tax for address ..." — the tax engine could not return a rate for that address.
+- "Unable to calculate tax — zip code is missing from the property address."
+- "Unable to calculate tax — state is missing from the property address."
+
+### On invoices, a tax failure is non-fatal
+
+When tax can't be calculated for an invoice, the invoice is **still created and shown without tax** — the failure is logged for the team rather than blocking you. This applies to the draft detail page, the create-invoice flow, and the deposit invoice that is auto-created when a proposal is signed (it is created without tax if the lookup fails).
+
+## Quick reference
+
+- **Rates are never stored locally.** Every calculation asks the tax engine for the rate at the given address.
+- **Displayed tax is grouped** into Local Tax (city + county + special district) and State Tax. The total is the tax engine's collectable amount.
+- **Estimates are taxed only for Washington properties.** Non-Washington estimates carry no tax.
+- **Invoices are taxed for any valid billing address** (client billing address first, otherwise the property address).
+- **Tax is always recomputed** from the current line items and amount (for example on scaling) — never carried forward.
+- **An order ends up untaxed** when there are no line items, no usable address, a non-positive amount, or the tax engine returns nothing. There is no per-client tax-exempt toggle.
+
+## Related references
+
+- `/reference/platform/geocoding-zip` — how an address becomes coordinates and a ZIP, and why a Washington job missing its ZIP shows a tax error.
+- `/reference/platform/money-rounding` — how the taxable amount and each tax figure are rounded to the cent.

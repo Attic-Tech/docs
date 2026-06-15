@@ -1,7 +1,65 @@
 ---
 title: "Auto deposit invoices"
+description: "Turn on automatic deposit invoices so a deposit is created — and optionally sent to the client — the moment a proposal is signed, with no manual steps."
+icon: "receipt"
 ---
 
+When a customer signs a proposal, you usually want to collect a deposit right away. Instead of building that first invoice by hand every time, you can let Menaia do it for you. With **Invoice Automations** turned on, a deposit invoice is created automatically as soon as a proposal is signed — and if you want, it's emailed to the client without you lifting a finger.
+
+These settings live in your branch's invoice settings, so you can turn them on for one branch and leave them off for another.
+
 <Note>
-  This page is coming soon.
+Invoice settings are part of your workspace settings. If you don't see them, your role may not include access — ask an admin on your team to make the change or grant you access.
 </Note>
+
+## Open Invoice Automations
+
+<Steps>
+  <Step title="Go to Invoices settings">
+    From **Settings**, open **Invoices**. This is where you tailor how invoices work for each branch.
+  </Step>
+  <Step title="Pick the branch">
+    If your company has more than one branch, use the **branch selector** at the top right to choose the one you want to set up. Each branch has its own automation settings.
+  </Step>
+  <Step title="Stay on the Overview tab">
+    The **Overview** tab is selected by default. The **Invoice Automations** panel is right there.
+  </Step>
+</Steps>
+
+## Turn on automatic deposit invoices
+
+The Invoice Automations panel has two checkboxes that work together.
+
+<Steps>
+  <Step title="Check Auto Create Deposit Invoice">
+    Tick **Auto Create Deposit Invoice**. From now on, whenever a proposal is signed in this branch, Menaia creates a deposit invoice for that job automatically. The setting saves on its own — there's no separate Save button, and you'll see a brief confirmation.
+  </Step>
+  <Step title="Optionally check Auto Send Deposit Invoice">
+    If you also want each new deposit invoice emailed to the client the moment it's created, tick **Auto Send Deposit Invoice**. With this off, the deposit invoice is still created automatically — it just waits for you to review and send it yourself.
+  </Step>
+</Steps>
+
+<Note>
+**Auto Send** depends on **Auto Create.** You can only turn on sending while creating is on, and if you ever turn off **Auto Create Deposit Invoice**, sending switches off with it.
+</Note>
+
+<Tip>
+For automatic sending to work, the client needs an **email address on file.** If there's no email, the deposit invoice is still created for that job — you'll just need to add the client's email and send it manually.
+</Tip>
+
+## How to turn it off
+
+To stop creating deposit invoices automatically, uncheck **Auto Create Deposit Invoice**. Sending turns off at the same time. Any deposit invoices already created stay exactly as they are — turning the setting off only changes what happens for proposals signed from that point on.
+
+## What happens next
+
+Once it's on, every signed proposal in that branch produces a deposit invoice you can find with your other invoices. From there you can review it, preview the document, record a payment, or send it on whenever you're ready.
+
+<CardGroup cols={2}>
+  <Card title="Create an invoice" icon="file-invoice" href="/guides/billing/create-an-invoice">
+    Prefer to build one yourself, or need an extra invoice beyond the deposit? Here's how to create an invoice by hand.
+  </Card>
+  <Card title="Send and resend" icon="paper-plane" href="/guides/billing/send-and-resend">
+    Review a deposit invoice before it goes out, send it to the client, or resend it if they need another copy.
+  </Card>
+</CardGroup>

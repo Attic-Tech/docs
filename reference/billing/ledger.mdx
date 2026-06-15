@@ -1,7 +1,140 @@
 ---
 title: "Ledger"
+description: "What the billing ledger records, how invoice, payment, and credit events are logged, how it differs from the balances shown on a project, and who can see it."
+keywords: ["billing ledger", "ledger entry", "audit trail", "where do balances come from", "totalCollected outstanding", "voided invoice ledger", "who can see the ledger"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains what the billing ledger is, what events it records, how it relates to the balances shown on invoices and projects, and who can access it.
+
+The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Crew Member**.
+
+## What the ledger is
+
+### The ledger is an append-style audit trail
+
+The ledger is a running accounting record of billing events. Each entry logs one event — an invoice being issued, a payment being recorded, or a credit being issued — and is scoped to a workspace, a branch, a client, and a project.
+
+Entries are added as events happen; the ledger is not edited the way a spreadsheet is. It exists as a parallel audit trail.
+
+### Balances are not read from the ledger
+
+This is the key thing to understand: the running balance you see on a client or a project is **not** read from the ledger. Balances are derived from the invoices themselves (see [How a balance is derived](#how-a-balance-is-derived) below). The ledger is a separate record kept for audit purposes.
+
+### What an entry records
+
+Every ledger entry carries the workspace, branch, client, and project it belongs to, the kind of event (its entry type), a link to the exact thing that caused it (the invoice, payment, or credit), an amount, and the date the event actually took place.
+
+Amounts on the ledger are always recorded as a non-negative number. Whether an entry represents money owed or money received is determined by the entry type, not by a positive or negative sign.
+
+## Entry types
+
+There are three kinds of ledger entry, each tied to the event that creates it:
+
+<Card title="Invoice issued" icon="file-invoice">
+  Logged when an invoice becomes a live (issued) invoice. The amount recorded is the invoice total, dated to the invoice's issue date. A draft invoice records nothing — the entry is created only when the invoice is issued.
+</Card>
+
+<Card title="Payment recorded" icon="money-bill-wave">
+  Logged after a payment and its allocations are saved and the affected invoice balances are recalculated. The amount recorded is the payment total, dated to the payment's posted date.
+</Card>
+
+<Card title="Credit issued" icon="receipt">
+  Logged after a credit and its allocations are saved and balances are recalculated. The amount recorded is the credit amount, dated to when the credit was issued.
+</Card>
+
+### Each entry must match its source event
+
+An entry's type must agree with the thing it links to. A payment entry must point at a payment, a credit entry at a credit, and an invoice entry at an invoice. If they don't match, the action is rejected with a clear message — for example, "A payment-type ledger entry must reference a payment."
+
+## What the ledger records
+
+### Events are recorded once, never twice
+
+The ledger never double-logs the same event. Before adding an entry, the system checks whether one already exists for that exact source event in this workspace; if it does, nothing new is written. Re-saving or re-running an action will not create duplicate entries.
+
+### When each event is logged
+
+<Card title="Issuing an invoice" icon="circle-check">
+  An entry is recorded only when an invoice becomes live — either at creation, if it is issued immediately, or when an edit moves a draft to issued. Drafts are not logged.
+</Card>
+
+<Card title="Recording a payment" icon="circle-check">
+  An entry is recorded once the payment is saved, its allocations applied, and the touched invoice balances recalculated.
+</Card>
+
+<Card title="Issuing a credit" icon="circle-check">
+  An entry is recorded once the credit is saved, its allocations applied, and balances recalculated.
+</Card>
+
+### Reversals zero out the entry — they don't erase it
+
+The ledger is never deleted out from under these flows. When you void or remove a source record, the matching ledger entry is kept but its amount is set to zero, so the audit trail stays intact:
+
+<Card title="Deleting a payment" icon="rotate-left">
+  The payment's ledger entry is kept, with its amount set to zero.
+</Card>
+
+<Card title="Voiding a credit" icon="rotate-left">
+  The credit's ledger entry is kept, with its amount set to zero.
+</Card>
+
+<Card title="Voiding an invoice" icon="rotate-left">
+  The invoice's ledger entry amount is set to zero, the invoice balance is set to zero, and the invoice moves to Voided.
+</Card>
+
+### Editing a payment or credit updates its existing entry
+
+When you edit a payment or a credit, the existing ledger entry is updated in place rather than re-created (a payment edit also updates the recorded date). If the matching entry can't be found, the edit stops with a message asking you to contact support — for example, "Payment ledger entry is missing. Please contact support." This is a safeguard so the audit trail and the source record never silently fall out of step.
+
+## How a balance is derived
+
+Balances are calculated from invoices, not from the ledger.
+
+### An invoice's balance
+
+An invoice's balance is its total minus everything applied to it — payments and credits — rounded to the cent. It is recalculated whenever a payment or credit changes, and the invoice's status is re-derived from the result:
+
+- Balance at or below zero → **Paid**
+- Balance below the total but above zero → **Partially paid**
+- Otherwise → **Open**
+
+Draft and Voided invoices are left as they are. For the full rounding behavior, see [Money rounding](/reference/platform/money-rounding).
+
+### Project and financial-summary totals
+
+The financial summary on a project (and the roll-ups for a branch or workspace) is calculated by adding up the **invoices**, not the ledger:
+
+- **Total invoiced** — the sum of totals across open, partially paid, and paid invoices.
+- **Total collected** — the sum of total minus balance across those same invoices.
+- **Total outstanding** — the sum of balances on open and partially paid invoices.
+- **Total overdue** — the sum of balances on outstanding invoices past their due date.
+- **Gross profit** — total collected minus paid expenses.
+
+### The transaction list
+
+The list of transactions shown in the financial summary is also built from the underlying payments and credits — not from the ledger — and it leaves out deleted payments and voided credits.
+
+## Access and visibility
+
+<Card title="The ledger is admin-only and workspace-isolated" icon="lock">
+  Ledger entries can only be viewed and managed by Admin, and only ever within their own workspace. Ops Manager, Sales Admin, Sales Member, Client Coordinator, Crew Leader, and Crew Member do not have access to the ledger.
+</Card>
+
+Workspace isolation here is a hard boundary — one workspace can never see another's entries. For how workspace and branch scoping work in general, see [Org and branch scoping](/reference/platform/org-branch-scoping).
+
+## Quick reference
+
+- **The ledger is an audit trail**, not the source of your balances.
+- **Balances come from invoices** — total minus applied payments and credits.
+- **Three event types are logged:** invoice issued, payment recorded, credit issued. Drafts are never logged.
+- **Each event is logged once** — no duplicates.
+- **Reversals zero out the entry** (void invoice, delete payment, void credit) rather than deleting it.
+- **Editing a payment or credit** updates its existing entry in place.
+- **Only Admin can see the ledger**, and only within their own workspace.
+
+## Related references
+
+- [Money rounding](/reference/platform/money-rounding)
+- [Org and branch scoping](/reference/platform/org-branch-scoping)
+- [Soft delete](/reference/platform/soft-delete)
+- [Permissions and roles matrix](/reference/platform/permissions-roles-matrix)

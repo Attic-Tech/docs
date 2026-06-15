@@ -1,7 +1,110 @@
 ---
 title: "Badge catalog"
+description: "Every earnings badge and the user-facing criteria to earn it, plus the shared rules for how badges are awarded."
+keywords: ["badges", "earn a badge", "how do I get a badge", "badge criteria", "first bonus badge", "five star general", "sales badges", "ops manager badges", "why didn't I get a badge"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference lists every earnings badge and the plain-English criteria to earn it. Badges recognize milestones across crews, sales, coordination, and branch performance. They are awarded automatically — you never claim one by hand.
+
+The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Crew Member**.
+
+## How earning works (shared rules)
+
+There are **17 badges**. The same set of rules governs how every one of them is awarded.
+
+<Card title="One-time and permanent" icon="lock">
+  Each badge can be earned only **once per person**. Re-crossing a threshold a second time does not award it again. Once earned, a badge is **never revoked** — even if the underlying number later drops below the threshold (for example, after a clawback, a deleted comment, or a cancelled activity).
+</Card>
+
+<Card title="Evaluated against your current totals" icon="clock-rotate-left">
+  Criteria are checked as "do you meet the threshold **right now**," not "did this exact action push you over." If you already met a badge's criteria before the badge existed, you are awarded it the next time a relevant action of yours is processed.
+</Card>
+
+<Card title="You get a notification" icon="bell">
+  When a badge is awarded, you receive an in-app notification announcing it.
+</Card>
+
+## Crew badges
+
+<Card title="First Bonus" icon="award">
+  **Receive your first bonus payout.** Earned the first time you have at least one positive bonus payout in your workspace.
+</Card>
+
+<Card title="Fat Wallet" icon="wallet">
+  **Reach $1,000 in cumulative wallet bonus earnings.** Your net bonus balance — all bonus credits minus any clawbacks or deductions — must reach $1,000. Someone who earned $1,100 in credits and then had a $200 clawback sits at $900 and has not earned it yet. Once awarded, the badge stays even if your balance later drops below $1,000.
+</Card>
+
+<Card title="Five Star General" icon="star">
+  **Earn 10 five-star customer reviews across completed jobs.** Counts distinct five-star reviews on closed jobs where you are listed on the job's assigned crew. The threshold is 10.
+</Card>
+
+<Card title="Clockwork" icon="clock">
+  **Complete 20 approved shifts with on-time clock-ins.** A shift counts when it is approved and you clocked in at or before the shift's scheduled start time. Shifts with no scheduled start (ad-hoc shifts) cannot count toward this badge — there is no scheduled start to be on time against. The threshold is 20.
+</Card>
+
+## Crew Leader badges
+
+<Card title="Plan Captain" icon="clipboard-check">
+  **Publish job plans for 10 distinct jobs.** A job plan is "published" once it moves past Draft (submitted, complete, or later approved). You must have published plans for 10 distinct jobs. Each job can have only one plan, so this is effectively 10 jobs. Plans whose underlying job has been deleted no longer count.
+</Card>
+
+## Coordinator and project badges
+
+<Card title="Loud & Clear" icon="comments">
+  **Post 10 comments on projects.** Counts comments you authored on a project that are not deleted. Both top-level comments and replies count. Deleted comments do not count, but once you have the badge, deleting comments afterward does not revoke it. The threshold is 10.
+</Card>
+
+<Card title="Warm Handoff" icon="handshake">
+  **Schedule 10 lead activities.** Counts lead activities you scheduled (created). Both drafts and published activities count. Cancelling an activity removes it from the count, but once earned the badge is kept regardless. The threshold is 10.
+</Card>
+
+## Sales badges
+
+<Card title="First Dollar" icon="dollar-sign">
+  **Mark your first estimate as Sold.** Earned the first time you have any estimate with a status of Sold.
+</Card>
+
+<Card title="Quote Machine" icon="paper-plane">
+  **Send 25 proposals to prospects.** Counts proposals that have been sent and whose underlying estimate belongs to you as the salesperson. The badge is attributed to the salesperson on the estimate, not to whoever clicked send — so a manager sending on your behalf still credits you. The threshold is 25.
+</Card>
+
+<Card title="Hat-Trick" icon="signature">
+  **Collect 3 signatures within a single calendar day (branch timezone).** Earned when 3 of your proposals are signed within the same calendar day, measured in the branch's local timezone. The threshold is 3.
+</Card>
+
+<Card title="Personal Best" icon="chart-line">
+  **Beat your previous best monthly sales total for the first time.** Earned the first time your total Sold revenue in a calendar month strictly exceeds the immediately preceding calendar month's total. The comparison is month vs. the month before — not your all-time best — so it can fire on a comeback after a slow month. Your very first month of sales does not count (there is no prior month to beat). Revenue is bucketed in your workspace's local timezone and scoped to your currently-assigned branch, matching the sales leaderboard.
+</Card>
+
+<Card title="The Closer" icon="percent">
+  **Beat last month's closing ratio for the first time.** Earned the first time your monthly closing ratio (estimates Sold divided by estimates created) strictly exceeds the immediately preceding month's ratio. The created-count denominator excludes Deleted and Secondary estimates, matching the leaderboard. Months where you created no estimates are skipped, and your first month is never itself a record.
+</Card>
+
+<Card title="High Five" icon="trophy">
+  **Break your personal monthly sales record on 5 separate occasions.** Earned once you have 5 distinct months where your Sold revenue beat the immediately preceding calendar month. Each qualifying month is a "monthly win" (the same signal behind Personal Best). The threshold is 5.
+</Card>
+
+<Card title="Perfect 10" icon="medal">
+  **Break your personal monthly sales record on 10 separate occasions.** Same as High Five but at 10 monthly wins — 10 distinct months where your Sold revenue beat the immediately preceding calendar month.
+</Card>
+
+<Card title="Three-Peat" icon="fire">
+  **Break your personal monthly sales record in three consecutive calendar months.** Earned the first time you post three consecutive calendar months in which your Sold revenue beat the immediately preceding month — a 3-month streak of monthly wins.
+</Card>
+
+## Ops Manager badges
+
+These two badges are awarded to **every Ops Manager assigned to the qualifying branch** when the branch hits the milestone.
+
+<Card title="Job Keeper" icon="gauge-high">
+  **Your branch sets a new high for hourly job savings this calendar month.** Awarded to the branch's Ops Managers the first time the branch's monthly average time savings (percent of estimated labor hours saved across the month's jobs) strictly exceeds the immediately previous calendar month. The comparison is month vs. month — a branch can trigger it by recovering after a slump, not only by setting a forever-record. A branch with no prior-month baseline does not award.
+</Card>
+
+<Card title="Full House" icon="house">
+  **Your branch receives 10 reviews in a single calendar month.** Awarded to the branch's Ops Managers the first calendar month in which the branch receives 10 customer reviews. The month is bucketed in the branch's local timezone (falling back to the workspace timezone), so a review left at 11pm local on the last day of a month counts toward that month. The threshold is 10.
+</Card>
+
+## Related references
+
+- [Org and branch scoping](/reference/platform/org-branch-scoping) — how branch and workspace timezones and assignments scope the metrics behind several badges.
+- [Permissions roles matrix](/reference/platform/permissions-roles-matrix) — what each role can see and do across the product.
