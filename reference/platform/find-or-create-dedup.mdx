@@ -1,7 +1,119 @@
 ---
 title: "Find or create dedup"
+description: "Why Menaia reuses an existing client, contact, property, project, or lead instead of creating a duplicate — the matching rules and how to force a new record."
+keywords: ["why was no duplicate client created","existing client found","duplicate lead suppressed","merge contact on lead conversion","force a new client record","property same address not added","dedup matching rules"]
 ---
 
+This reference explains Menaia's "find or create" (deduplication) behavior. When you add something that matches a record you already have, Menaia **reuses** the existing record and merges your new details onto it instead of creating a second copy. This applies to **Clients**, **Contacts**, **Properties**, **Projects**, and **Leads**.
+
+The same rules apply whether you create a record directly, save an estimate for a new client, or convert a lead.
+
+## Clients — matched by primary contact's phone or email
+
+When you create a client (directly, by saving an estimate for a new client, or by converting a lead), Menaia first looks in your workspace for an existing client whose **primary contact** already has the same **phone** or **email**. If one matches, that client is reused — no new client is created — and your incoming details are merged onto it.
+
+### Matching rules
+
+- **Phone or email match.** A client matches if the existing primary contact's phone **or** email equals the phone or email you entered. Either one matching is enough.
+- **Phone is preferred over email.** If the phone you enter points at one client and the email points at a different client, Menaia uses the phone match. Phone is treated as the stronger unique identifier.
+- **Your workspace only.** Matching is scoped to your own workspace. A client in another workspace that happens to share a phone or email will never match and will never be overwritten.
+- **Deleted clients are ignored.** A client you've deleted won't block creating a new one and won't be matched.
+- **Primary contact only.** The find-or-create matcher checks the client's primary contact. Secondary contacts are not used for this match. (The lead forms warn more broadly — see [The "Existing client found" warning](#the-existing-client-found-warning) below.)
+
+### Formatting doesn't matter
+
+Two clients only collide if their **normalized** phone or email match, so formatting differences neither create duplicates nor prevent a match:
+
+- **Email** is trimmed and lowercased before comparison.
+- **Phone** is converted to its international form (for example, `(555) 123-4567` becomes `+15551234567`) before comparison. A non-empty but invalid phone is rejected with **"Invalid phone number."**
+
+### What you must supply
+
+To create a client you must provide:
+
+- A **first name** — otherwise you'll see **"First name is required."**
+- A **last name** — otherwise you'll see **"Last name is required."**
+- **At least one of email or phone** — otherwise you'll see **"Either email or phone is required."**
+
+### Merge behavior on a match
+
+When an existing client matches, the new name, email, and phone you entered are **merged onto** the existing primary contact. You don't lose the new information, and you don't get a second client. If nothing you entered actually differs from what's stored, the client is returned unchanged.
+
+## Contacts — reused on lead-to-client conversion
+
+Converting a lead into a client does **not** create a second contact for the same person. The lead's existing contact is reused, and its type changes from lead to client.
+
+### Standalone contact rules
+
+When client or project edits add or update contacts:
+
+- Editing an existing contact merges your incoming values over the stored ones.
+- An edit that would leave a contact with neither email nor phone is rejected with **"Either email or phone number is required."**
+- **You can't hijack someone else's contact by guessing an ID.** When editing a client's or project's contacts, a contact reference that doesn't actually belong to that record is treated as a **new** contact rather than an edit to an unrelated one. This prevents one user from altering arbitrary contacts.
+
+## Properties — matched by exact address within the same client
+
+A property is deduplicated **per client, by exact address**. If you add a property whose address already exists for that client, Menaia reuses (and updates) the existing property instead of creating a new one.
+
+### Matching rules
+
+- **Exact address match, per client.** The address you enter must match an existing property's address exactly, for the same client. The match is exact text — it is not fuzzy and is not normalized.
+- **Address is required.** Creating a property without an address fails with **"Address is required when creating a property."**
+- **Same workspace only.** A property can only attach to a client in your own workspace.
+- **No-op reuse writes nothing.** If you re-add a property and nothing changed, the existing property is returned without an update.
+
 <Note>
-  This page is coming soon.
+Because the address match is exact, the **same** physical address typed two different ways (for example, "123 Main St" vs. "123 Main Street") is treated as **two different properties**. There is no fuzzy address matching.
 </Note>
+
+## Projects — created once per lead and client
+
+When a lead is converted, the project linked to that lead is created only once. Converting the same lead and client again returns the existing project instead of duplicating it. The lookup matches on both the lead and the client.
+
+## Leads — recent-duplicate suppression on automated intake
+
+Automated lead intake (such as web-form submissions and integrations) **skips** creating a new lead when a lead with the **same primary-contact email or phone** already exists in your workspace **within the last hour**. This stops a repeated form submission from generating duplicate leads.
+
+- The suppression window is **one hour**.
+- The match is on primary-contact email **or** phone, scoped to your workspace, ignoring deleted leads.
+- Phone is normalized to its international form before the check, so formatting doesn't defeat the window.
+
+Unlike clients, this is a **time-windowed skip**, not a reuse-and-merge.
+
+<Note>
+Manually creating a lead in the app does **not** hit the one-hour suppression — that window applies only to automated intake. The manual create form instead **surfaces** a matching client (see below) while still letting you proceed.
+</Note>
+
+## The "Existing client found" warning
+
+On the lead forms, Menaia proactively tells you when the phone or email you're typing already belongs to a client, so you don't unknowingly create a duplicate relationship.
+
+- **On the lead detail page**, a banner reads **"Existing client found:"** followed by the client's name and the phone and/or email that matched.
+- **In the create-lead form**, when you type a phone or email that matches a client, the form auto-fills that client's contact details and shows **"Existing client found, auto-filled details."**
+- This warning checks **both primary and secondary contacts** of the client — broader than the find-or-create matcher, which checks the primary contact only.
+- The warning appears only for users who can **view clients**, and only for clients in your own workspace. Without that access, no banner is shown.
+- The form only looks for a match once your input **looks complete** — a full phone number, or an email containing both `@` and a dot. Partial input does not trigger a match.
+- Known placeholder values left over from old data migrations are excluded from auto-matching, so they don't falsely match many leads onto one client.
+
+## How to force a new record instead of reusing the match
+
+There is **no "create duplicate anyway" toggle.** Because matching is driven by normalized phone/email (clients, contacts, leads) or exact address per client (properties), you force a new record by making the identifier not match:
+
+- **New client or contact:** use a **different phone and a different email** than the existing record's primary contact. Matching succeeds if **either** the phone or the email matches, so changing only one still matches on the other.
+- **Clearing a value won't help:** at least one of email or phone is always required, so you can't create an identifier-less client to dodge the match.
+- **New property at the "same" location:** vary the address text. Since the match is exact, a different street string for the same client is a distinct property.
+- **Lead intake duplicate skip:** either wait out the one-hour window or submit with a different primary-contact email or phone.
+- **In the create-lead form:** clear the auto-matched client to detach from the suggestion and start a fresh contact set.
+
+## Quick reference
+
+- **Clients / contacts:** matched by normalized phone **or** email, primary contact only, your workspace only, deleted records excluded, phone preferred over email. On a match the record is reused and your details are merged.
+- **Properties:** matched by exact address text, per client, your workspace only.
+- **Projects:** created once per lead and client; a repeat conversion returns the existing project.
+- **Leads (automated intake):** suppressed for one hour on a matching primary-contact phone or email — a skip, not a merge.
+- **No "create duplicate" override** — force a new record by giving it a non-matching identifier.
+
+## Related references
+
+- [Roles and permissions matrix](/reference/platform/permissions-roles-matrix)
+- [Lead status lifecycle](/reference/leads/status-lifecycle)

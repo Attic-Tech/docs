@@ -1,7 +1,128 @@
 ---
 title: "Org branch scoping"
+description: "How workspaces and branches scope what you can see and do — the hard tenant boundary versus the softer branch filter, and who can see across branches."
+keywords: ["why can't I see other branches", "switch branch", "switch organization", "active branch", "no branches assigned", "see all branches on the schedule", "branch filter", "workspace isolation", "multi-branch user", "cross-branch visibility"]
 ---
 
+This reference explains the two levels of scoping in the product — **workspace** (your organization) and **branch** (a location or sub-unit inside a workspace) — and how each one controls what you see and what you can do.
+
+The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Branch Management** (the group of roles that work across a branch: Admin, Ops Manager, Sales Admin, and Client Coordinator).
+
+## The two levels of scoping
+
+There are two levels in the data hierarchy:
+
+- **Workspace (organization)** — the tenant. This is a hard isolation boundary: records in one workspace are never visible from another, full stop.
+- **Branch** — a location or sub-unit inside a workspace. Branch narrows what most lists show and stamps new records, but it is **not** a security wall.
+
+A single user can belong to more than one workspace, and to more than one branch within a workspace. At any moment your session has exactly one **active workspace** and one **active branch**.
+
+### Workspace is a hard boundary; branch is a soft filter
+
+This is the key distinction:
+
+- **Workspace isolation is absolute.** You can never see, query, or touch a record that belongs to a workspace you aren't a member of. This holds no matter your role, and no matter how you reach the data.
+- **Branch is a scope, not a wall.** It determines which records most screens show you by default and which branch new records are stamped with. It can be widened (see [Who can see across branches](#who-can-see-across-branches)), and a stale branch selection falls back to a safe default rather than blocking you.
+
+## Your active workspace and branch
+
+### Where they come from
+
+Your access — which workspaces you belong to, which branches, and your roles — is determined by your account when you sign in. That is the source of truth for what you can reach; you can't widen it by changing a setting in your browser.
+
+### Active workspace
+
+If you belong to exactly one workspace, that workspace is always your active one. If you belong to more than one, you choose which is active, and every screen is scoped to it.
+
+You cannot make a workspace active that you aren't a member of. Attempting to select one you don't belong to is rejected with **"You do not have access to this organization."**
+
+### Active branch
+
+Your active branch is your own per-user preference. It controls which records most lists show and which branch new records you create are stamped with.
+
+- If you have branches in the active workspace but haven't picked one, the product defaults you to your first branch.
+- Your active branch is `null` only when you have no branches in the active workspace at all.
+- The branch list you see in switchers and pickers is always filtered to your active workspace — a multi-workspace user never sees another workspace's branches.
+
 <Note>
-  This page is coming soon.
+Your branch selection persists across sessions until you change it. If your saved branch ever points somewhere no longer valid (for example a branch in a workspace you've since switched away from), the product silently falls back to your first branch in the active workspace instead of showing an error — branch is a convenience filter, and workspace isolation already keeps tenants separate.
 </Note>
+
+## What changing your active branch changes
+
+Switching branch updates your preference and refreshes the screen. Specifically:
+
+- **Lists re-scope.** Most lists and dashboards re-fetch for the newly active branch.
+- **You may be sent back to a list.** If you're on a record's detail page when you switch, you may be redirected to the list for that area, because the record you were viewing may belong to the branch you just left.
+- **New records are stamped with the active branch.** When you create a record, it is assigned to your active branch. For example, creating a lead requires an active branch — without one you'll get **"A branch must be assigned before creating a lead."**
+- **A record's branch can be reassigned** (for example, a lead's branch on its detail page). You can only assign it to a branch you have access to; the change confirms with a toast such as **"Branch set to [branch name]."** or **"Branch unassigned."**
+
+Examples of screens scoped to your active branch:
+
+- **Schedule** shifts are shown per active branch.
+- **Saved schedule filters** belong to your active branch — without an active branch you can't create one.
+- The **Sales Overview** dashboard defaults to your active branch when its scope is set to **Branch**.
+
+## Who can see across branches
+
+Workspace isolation always applies. Seeing across **branches** within your workspace is the exception, and it's allowed in a few specific situations.
+
+### Branch-Management roles aren't automatically cross-branch
+
+Branch checks apply to people-based access within a workspace. Belonging to Branch Management doesn't by itself let you see every branch — cross-branch visibility comes from the cases below, and even then you only ever see branches you actually belong to.
+
+### Cross-branch reporting on Sales Overview
+
+On the **Sales Overview** dashboard:
+
+- Viewing other people's or other branches' data requires the cross-branch sales-reporting permission. Without it, requesting a branch you aren't entitled to is rejected with **"You do not have permission to access one or more branches."** (or, for another person's data, **"You do not have permission to view other users' sales data."**).
+- The **Company** scope shows all branches in the workspace at once. The **Branch** and **Personal** scopes constrain the view to specific branches.
+
+### Seeing all your branches on the Schedule
+
+The **Schedule** can show shifts across **all the branches you belong to** at once, but only when both are true:
+
+1. Your workspace has **cross-branch calendar sync** turned on (a workspace-level setting), **and**
+2. You belong to more than one branch.
+
+Otherwise the Schedule shows only your active branch. Even with cross-branch calendar sync on, the view is limited to the branches you belong to — you never see branches you aren't a member of.
+
+### You can't be assigned to a branch you don't belong to
+
+Whenever an action targets a specific branch — assigning a record's branch, filtering a report — the branch must be one you belong to. A branch you don't belong to is refused with **"You do not have access to this branch."**, and a missing or invalid branch returns **"Invalid branch specified."**
+
+## Edge cases and guards you may hit
+
+<AccordionGroup>
+  <Accordion title="This organization does not have any branches configured">
+    A workspace with no branches you can access can't be used. During sign-in you'll see **"This organization does not have any branches configured. Please contact your administrator."** Ask an Admin to set up a branch and add you to it.
+  </Accordion>
+  <Accordion title="You do not have access to any branches">
+    If you have no branches in the active workspace, you'll see **"You do not have access to any branches, please contact your administrator."** An Admin needs to add you to a branch.
+  </Accordion>
+  <Accordion title="You do not have access to any organizations">
+    A user with no workspace memberships can't sign in and will see **"You do not have access to any organizations, please contact your administrator."** An Admin needs to add you to a workspace.
+  </Accordion>
+  <Accordion title="Switching workspace also resets your branch">
+    When you switch to a different workspace, your active branch is automatically reset to your first branch within the newly selected workspace — a safe default until you pick a branch yourself. If a workspace switch fails, your previous workspace and branch are restored together, so you never end up half-switched.
+  </Accordion>
+  <Accordion title="My branch selection seems to have reset">
+    On each page load the product re-checks your saved branch against the branches you can actually access. If it points somewhere invalid, you're defaulted to your first available branch. A user with no branches at all is sent back to sign-in.
+  </Accordion>
+  <Accordion title="Signing out clears your workspace and branch">
+    Logging out clears your active workspace and active branch along with your session, so the next sign-in starts fresh.
+  </Accordion>
+</AccordionGroup>
+
+## Quick reference
+
+- **Workspace = hard boundary.** You never see another workspace's data, regardless of role.
+- **Branch = soft filter.** It scopes most lists and stamps new records, but isn't a security wall.
+- **One active workspace and one active branch** at a time; both are remembered between sessions.
+- **A stale branch falls back to a default** instead of erroring.
+- **Cross-branch visibility is the exception** — granted by the cross-branch sales-reporting permission on Sales Overview, and by cross-branch calendar sync on the Schedule for multi-branch users — and only ever across branches you belong to.
+
+## Related references
+
+- [Roles and permissions matrix](/reference/platform/permissions-roles-matrix)
+- [Lead status lifecycle](/reference/leads/status-lifecycle)

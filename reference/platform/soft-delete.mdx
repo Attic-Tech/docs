@@ -1,7 +1,113 @@
 ---
 title: "Soft delete"
+description: "What Delete really does to a record, why deleted items disappear from your lists but can still be recovered, and when Delete is blocked."
+keywords: ["delete a record","undo a delete","restore deleted item","recover deleted client","why can't I delete this invoice","deleted but still recoverable","cannot delete estimate","delete vs deactivate","this action cannot be undone"]
 ---
 
+This reference explains what happens when you delete a record, why a deleted item vanishes from every list but can still be brought back, and the cases where Delete is blocked or warns you first.
+
+## What Delete actually does
+
+### Most records are hidden, not erased
+
+For most core records — clients, leads, invoices, payments, comments, groups, expense types, project expenses, and payment allocations — **Delete hides the record rather than permanently destroying it.** The record is marked as deleted and immediately disappears from every list, search, and detail view, but the underlying data still exists. That means a deleted record is recoverable by the Menaia team rather than gone for good.
+
+### Why deleted items disappear from your lists
+
+Every list, search, and lookup automatically excludes records that have been marked deleted. That single rule is what makes a deleted item vanish everywhere at once while the data itself is preserved behind the scenes.
+
+### "This action cannot be undone"
+
+Delete confirmation dialogs warn you to treat deletion as final — for example, *"Are you sure you want to delete this invoice? This action cannot be undone."* Even though the record is technically recoverable, you should not rely on undoing a delete yourself. There is no end-user **Restore** button in these flows; recovery is handled by the Menaia team on request.
+
+## When Delete is blocked
+
+Some records are protected. If deleting one would corrupt money, history, or other in-use data, Delete is rejected with a specific message that tells you why and what to do instead.
+
 <Note>
-  This page is coming soon.
+The general pattern: a record that holds financial state, that other records still depend on, or that the system created automatically cannot be deleted. Resolve, reassign, or deactivate it instead.
 </Note>
+
+### Estimates — sold or signed estimates cannot be deleted
+
+- A **sold** estimate cannot be deleted: *"Sold estimates cannot be deleted."*
+- When an estimate's proposal has been **signed**, the Delete button is disabled (greyed out, with a not-allowed cursor) and its tooltip reads *"This estimate was signed and cannot be deleted."*
+- Deleting an estimate moves it to a **Deleted** status rather than erasing it.
+
+See [/reference/estimates/lifecycle](/reference/estimates/lifecycle) for the full estimate status flow.
+
+### Invoices — only draft invoices can be deleted
+
+- Only a **draft** invoice can be deleted: *"Only draft invoices can be deleted."* An invoice that is open, partially paid, paid, or voided cannot be deleted — void it or otherwise resolve it instead.
+- Related rules on the same record: only **draft** invoices can be edited, and only **open** invoices can be voided.
+
+### Payments — cannot delete an already-deleted payment
+
+- Deleting a payment that has already been deleted is rejected: *"This payment has already been deleted."*
+- Deleting a payment also removes its allocations, clears its ledger entries, and recalculates the balance on each affected invoice — so the payment and everything it touched come undone together.
+
+### Expense types — in use by project expenses
+
+- An expense type that is still used by project expenses cannot be deleted: *"Cannot delete: N project expense(s) use this type. Deactivate it instead."*
+- The alternative is to **deactivate** the type, which keeps it and its history intact but removes it from new use.
+
+### Items — linked to work orders or invoices
+
+- An item that is linked to work orders or invoices cannot be deleted: *"Cannot delete item that has linked work orders or invoices."*
+
+### Equipment and vehicles — has schedules
+
+- Equipment that is scheduled cannot be deleted: *"Cannot delete equipment that has schedules. Remove all schedules first."*
+- The same rule applies to vehicles: *"Cannot delete vehicle that has schedules. Remove all schedules first."*
+
+### Equipment types and vehicle types — system type, or in use
+
+- A **system** equipment or vehicle type cannot be deleted: *"System equipment types cannot be deleted."* / *"System vehicle types cannot be deleted."*
+- A type that is in use cannot be deleted until you reassign what uses it: *"Cannot delete an equipment type that is in use by equipment. Reassign that equipment first."* (and the equivalent for vehicle types).
+
+### Lead statuses and lead sources — system status, or has leads assigned
+
+- A **system** lead status cannot be deleted: *"System statuses cannot be deleted."*
+- A lead status or lead source that still has leads assigned cannot be deleted: *"Cannot delete a status that has leads assigned to it. Reassign leads first."* (and the equivalent for lead sources).
+
+See [/reference/leads/status-lifecycle](/reference/leads/status-lifecycle) for how lead statuses work.
+
+### Task types — the default is protected
+
+- The default task type cannot be deleted: the message names the default task type and states it cannot be deleted.
+
+## Price-book deletes that warn but are not blocked
+
+Price-book building blocks — factors, work areas, item categories, and additional costs — behave differently. You **can** delete one even when it is in use, but the confirmation dialog first checks where it is used and spells out exactly what unlinking will happen. The dialog stays disabled until that usage check finishes (you'll briefly see *"Checking where this is in use…"*).
+
+A typical warning: *"This is currently used by [items]. Deleting will remove it from all of them and it will no longer be applied on new estimates. Existing proposals are unaffected. This action cannot be undone."*
+
+<Note>
+The key reassurance shared by all price-book deletes: **"Existing proposals are unaffected."** Deleting a price-book element only changes future estimates — it never alters proposals you have already issued.
+</Note>
+
+You manage these under **Settings → Price book**.
+
+## How a deleted item is restored
+
+There is no end-user **Restore** button in these flows. A hidden record is brought back by reversing the deletion mark, which makes it pass the standard list filter and reappear everywhere. In practice, ask the Menaia team to recover a deleted record. Comments are the one place where a deletion is reflected to other people in real time, so a comment that is deleted disappears live for everyone viewing it.
+
+## Messages you may see
+
+- *"This invoice has been deleted."* and a success toast: *"Invoice deleted — [invoice] has been deleted."*
+- *"Failed to delete invoice."* / *"Failed to delete payment."* when a delete does not complete.
+- *"[Record] not found."* when the record is missing or was already deleted.
+
+## Quick reference
+
+- **Most records are hidden, not erased** — deleted items leave every list and view but remain recoverable by the Menaia team.
+- **Treat Delete as final** — there is no self-service Restore button; dialogs warn "This action cannot be undone."
+- **Blocked deletes:** sold/signed estimates, non-draft invoices, already-deleted payments, system or default config types, and anything still in use (expense types, items with work orders/invoices, equipment/vehicles with schedules, lead statuses/sources with leads).
+- **Deactivate instead of delete** when a record is in use but you want to retire it.
+- **Price-book deletes warn but proceed** — and never affect proposals you've already issued.
+
+## Related references
+
+- [/reference/platform/permissions-roles-matrix](/reference/platform/permissions-roles-matrix)
+- [/reference/estimates/lifecycle](/reference/estimates/lifecycle)
+- [/reference/leads/status-lifecycle](/reference/leads/status-lifecycle)
