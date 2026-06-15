@@ -1,7 +1,115 @@
 ---
 title: "Webhooks"
+description: "Send real-time event notifications from Menaia to your own systems — choose which events to subscribe to, point them at a secure URL, and verify each delivery."
+icon: "webhook"
 ---
 
+Webhooks let Menaia notify another system the moment something happens in your account — a new lead comes in, a job is completed, an invoice is paid. Instead of someone checking Menaia and copying data over by hand, Menaia sends the details automatically to a web address you choose, so your other tools stay in sync on their own.
+
+This is an advanced feature aimed at teams that want to connect Menaia to a custom system, an internal dashboard, or an automation tool.
+
 <Note>
-  This page is coming soon.
+Webhooks are an **Admin-only** feature. You'll also need someone technical — usually whoever maintains the system that will receive the events — to set up the receiving end.
 </Note>
+
+## How a webhook works
+
+A webhook is a standing subscription with three parts:
+
+- **The event** — what you want to hear about (for example, a new lead or a paid invoice).
+- **The destination** — a secure web address (URL) you own that listens for these notifications.
+- **The signing secret** — a private key Menaia uses to "sign" every message, so your system can confirm the message genuinely came from Menaia and wasn't tampered with.
+
+When the event happens, Menaia immediately sends a message (a small package of data describing what occurred) to your destination. Your system receives it and does whatever you've built it to do — create a record, send an alert, kick off a workflow.
+
+## Events you can subscribe to
+
+You set up one subscription per event you care about. The available events cover the parts of Menaia that change as work moves through your pipeline:
+
+- **Leads** — created, updated, deleted, and status changed.
+- **Jobs** — created, updated, and completed.
+- **Work orders** — created, updated, and approved.
+- **Invoices** — created, sent, and paid.
+- **Payments** — received.
+- **Proposals** — created, accepted, and rejected.
+- **Customers** — created and updated.
+
+<Tip>
+Subscribe only to the events your other system actually uses. Fewer, more focused subscriptions are easier to maintain and easier to troubleshoot.
+</Tip>
+
+## Set up a webhook
+
+<Steps>
+  <Step title="Prepare the destination URL">
+    Have your technical contact set up a web address that can receive messages. It must be a secure address (it has to start with `https://`) and use a real public hostname — Menaia won't deliver to a private or internal address, or to a raw IP address, for security reasons.
+  </Step>
+  <Step title="Choose the event">
+    Decide which event the subscription should listen for — for example, **invoice paid** or **lead created**. You'll create a separate subscription for each event you want to receive.
+  </Step>
+  <Step title="Point it at your URL">
+    Connect the event to your destination URL. From this point on, every time that event happens in your account, Menaia sends a notification to that address.
+  </Step>
+  <Step title="Save the signing secret">
+    Menaia generates a private signing secret for the subscription. Your technical contact stores it on the receiving system and uses it to verify that incoming messages are authentic. Keep this secret safe — treat it like a password.
+  </Step>
+</Steps>
+
+<Note>
+Setting up webhook subscriptions is handled with help from Menaia rather than from a self-serve Settings screen. If you want to connect Menaia to your own systems, reach out and an Admin on your team can get it configured.
+</Note>
+
+## Verifying that a message is genuine
+
+Every message Menaia sends carries a few extra pieces of information alongside the data:
+
+- A unique **message ID** for that delivery.
+- A **timestamp** showing when it was sent.
+- A **signature** generated from your signing secret.
+
+Your receiving system recreates the signature using the same secret and compares it to the one Menaia sent. If they match, the message is genuine; if not, your system should ignore it. The timestamp also lets your system reject very old messages, which protects you from replayed traffic. This follows a widely used, open webhook standard, so most off-the-shelf libraries can verify Menaia's messages with little custom work.
+
+<Tip>
+Always verify the signature before acting on a message. It's the one reliable way to confirm a request truly came from Menaia.
+</Tip>
+
+## Pausing and reliability
+
+Each subscription has a status:
+
+- **Active** — Menaia is sending notifications for this event.
+- **Paused** — the subscription is kept, but Menaia stops sending. Use this when you need to do maintenance on the receiving system without losing the subscription.
+
+If your destination is briefly unreachable when an event fires, Menaia automatically retries the delivery rather than dropping it, so a short outage on your side usually won't cost you the notification.
+
+<Note>
+If your system stops responding for a long time, deliveries can still fail. When you bring the receiving system back online, check it against Menaia to confirm nothing important was missed, then set the subscription back to **Active** if you'd paused it.
+</Note>
+
+## Troubleshooting
+
+<Steps>
+  <Step title="Confirm the subscription is Active">
+    A **Paused** subscription sends nothing. Make sure the event you expect is set to **Active**.
+  </Step>
+  <Step title="Check the destination URL">
+    The address must start with `https://` and point to a real, public hostname your system controls. Private, internal, or IP-only addresses are rejected.
+  </Step>
+  <Step title="Re-check the signing secret">
+    If your system is receiving messages but rejecting them, the signing secret on the receiving end probably doesn't match the one Menaia issued. Confirm it was copied in full.
+  </Step>
+  <Step title="Look for retries">
+    A message that didn't arrive may still be retried shortly after. If your endpoint had a brief hiccup, give it a moment before assuming the event was lost.
+  </Step>
+</Steps>
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Integrations" icon="plug" href="/guides/settings/integrations">
+    Connect Menaia to other tools and services from the Integrations area.
+  </Card>
+  <Card title="Notification rules" icon="bell" href="/guides/settings/notification-rules">
+    Decide who on your team gets notified inside Menaia when key events happen.
+  </Card>
+</CardGroup>

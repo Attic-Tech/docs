@@ -1,7 +1,81 @@
 ---
 title: "Notification rules"
+description: "Control who gets notified for each kind of event — choose the recipients by role, branch, or specific people, and turn any rule on or off."
+icon: "bell"
 ---
 
+Notification rules decide **who hears about what**. When something happens in your workspace — a time-off request is added, a new lead comes in, a customer signs a proposal — a notification rule looks at that event and works out which people should be told. Each rule pairs one kind of event with a set of recipients, so the right team members stay in the loop without everyone getting pinged about everything.
+
 <Note>
-  This page is coming soon.
+Notification rules are an **admin-only** setting. They shape notifications for your whole organization, so only administrators can view and adjust them.
 </Note>
+
+## What a rule is made of
+
+Every rule answers three questions:
+
+- **Which event triggers it?** The thing that happens — for example, *Time off added* or *Proposal signed by client*.
+- **Who should be notified?** The recipients, chosen by role, by branch, or as specific people.
+- **Is it on?** A single switch turns the whole rule on or off.
+
+A rule can also be limited to events started by certain people (for example, only fire when a salesperson is the one who acted), so you can keep notifications relevant to how your team actually works.
+
+## The events you can notify on
+
+Each rule is tied to one event. The events available today are:
+
+- **Time off added** — someone records new time off on the schedule.
+- **Lead ingested** — a new lead arrives in your workspace.
+- **Proposal signed by client** — a customer signs a proposal.
+- **Event not published (48h reminder)** — a scheduled event is still unpublished and the start time is approaching, so a reminder goes out.
+
+<Tip>
+You can have more than one rule for the same event. That lets you notify one group one way and another group a different way — for instance, alert branch managers about every new lead while only looping in a regional lead for leads in their area.
+</Tip>
+
+## Choose who gets notified
+
+When you set the recipients on a rule, you pick a **targeting mode**. The mode decides how the rule matches people:
+
+<Steps>
+  <Step title="By Roles">
+    The simplest option. Pick one or more **roles**, and everyone who holds one of those roles is notified. If the event belongs to a specific branch, the rule automatically keeps to people in that branch — so a branch-level event only reaches that branch's team.
+  </Step>
+  <Step title="Specific Criteria (Include)">
+    Build a precise list of who should be included. You can combine **branches**, **roles**, and individual **people**, and choose whether someone needs to match any one of your criteria or all of them. Use this when "by role" is too broad and you want to hand-pick the audience.
+  </Step>
+  <Step title="Specific Criteria (Exclude)">
+    Start broad and carve people out. You name the **branches**, **roles**, or **people** who should not be notified, and everyone else is. Handy when almost the whole team should hear about something except one group.
+  </Step>
+</Steps>
+
+<Note>
+In the **Include** mode, the option to require *all* criteria is what flips the rule between "match any of these" and "match every one of these." Leave it off for a wider audience; turn it on to narrow the rule to people who tick every box.
+</Note>
+
+## Limit a rule to certain triggers
+
+Each rule can also list the roles that are allowed to **trigger** it. Only events started by someone holding one of those roles will fire the rule. Leave this empty and the rule fires no matter who — or what — set the event in motion, including events the system starts on its own (like the unpublished-event reminder).
+
+This is useful when the same event should notify people only in some situations. For example, you might want a "proposal signed" alert to go out only when the proposal belongs to a salesperson, and stay quiet otherwise.
+
+## Turn a rule on or off
+
+Every rule has a single on/off switch. Turning a rule off stops it from sending notifications without deleting it, so you can pause an alert during a quiet season — or while you're fine-tuning who it reaches — and switch it back on later. This is the fastest way to stop unwanted notifications without losing the rule's setup.
+
+## How rules connect to branches and roles
+
+Because rules target people by **role** and **branch**, they stay accurate only when those are set up correctly. If a rule isn't reaching the right people, the usual cause is upstream: someone is missing a role, or a person isn't assigned to the branch the event belongs to.
+
+<CardGroup cols={2}>
+  <Card title="Manage people and access" icon="user" href="/guides/settings/users">
+    Add team members and set the roles that notification rules target.
+  </Card>
+  <Card title="Set up branches" icon="building2" href="/guides/settings/branches">
+    Define your branches so branch-scoped notifications reach the right local team.
+  </Card>
+</CardGroup>
+
+<Tip>
+If a notification didn't go where you expected, check the rule's targeting mode first, then confirm the intended recipients actually hold the role — and sit in the branch — the rule is looking for.
+</Tip>

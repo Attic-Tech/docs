@@ -1,7 +1,100 @@
 ---
 title: "Invoice content automations"
+description: "Set the footer that appears on every invoice and turn on the automations that create and send deposit invoices when a proposal is signed — per branch."
+icon: "file-text"
 ---
 
+The **Invoices** settings area lets you tailor how invoices look and behave for each branch. Two things live here that work hand in hand:
+
+- **Invoice content** — the standard footer text added to the bottom of every invoice.
+- **Invoice automations** — the rules that can create (and optionally send) a deposit invoice for you the moment a proposal is signed.
+
+Settings are saved **per branch**, so you can give each branch its own footer and its own automation rules.
+
 <Note>
-  This page is coming soon.
+The Invoices settings area is **Admin-only**. If you don't see **Settings** in the navigation, or you don't see **Invoices** inside it, your role doesn't include workspace settings access — ask an admin to make the change for you.
 </Note>
+
+## Open the Invoices settings
+
+<Steps>
+  <Step title="Go to Settings">
+    Open **Settings** from the navigation, then choose **Invoices** under the **Sales & Operations** group.
+  </Step>
+  <Step title="Pick the branch">
+    If your organization has more than one branch, use the **branch selector** in the top-right to choose which branch you're editing. Every change you make applies to the branch shown here.
+  </Step>
+  <Step title="Choose a tab">
+    The Invoices page has tabs across the top: **Overview**, **Invoice Content**, **Credit & Void Reasons**, and **Payment Terms**. Automations live on **Overview**; the footer lives on **Invoice Content**.
+  </Step>
+</Steps>
+
+<Tip>
+No branches yet? If the page shows **No branches available**, you'll need to set up a branch configuration before you can edit invoice settings. See the related guides at the bottom of this page.
+</Tip>
+
+## Set the invoice footer
+
+The footer is the standard block of text printed at the bottom of every invoice for the selected branch — a thank-you line, a return policy, payment instructions, or anything else you want on every invoice.
+
+<Steps>
+  <Step title="Open the Invoice Content tab">
+    On the Invoices page, click **Invoice Content**.
+  </Step>
+  <Step title="Type your footer">
+    In the **Invoices Footer** box, enter the text you want at the bottom of every invoice (for example, *"Thank you for your business!"*). Leave it blank if you don't want a footer.
+  </Step>
+  <Step title="Save">
+    Click **Save Changes**. The **Save Changes** button stays disabled until you've actually made an edit, and **Cancel** discards any unsaved changes and restores what was there before.
+  </Step>
+</Steps>
+
+<Note>
+The footer applies to **every** invoice for this branch, including any deposit invoices created by the automations below. If you run more than one branch, repeat this for each branch's footer.
+</Note>
+
+## Turn on deposit invoice automations
+
+Automations save your team a step: when a proposal is signed, the system can create the deposit invoice for you, and even email it to the client — no manual follow-up needed. You'll find these on the **Overview** tab under **Invoice Automations**.
+
+There are two switches, and the second one builds on the first:
+
+<Steps>
+  <Step title="Auto Create Deposit Invoice">
+    Turn this on to **automatically create a deposit invoice when a proposal is signed**. The invoice is generated for you and waiting in your invoices list, ready to review or send.
+  </Step>
+  <Step title="Auto Send Deposit Invoice">
+    Turn this on to also **automatically send the deposit invoice to the client when a proposal is signed**. This option only becomes available once **Auto Create Deposit Invoice** is on, and it needs the **client's email on file** to deliver the invoice.
+  </Step>
+</Steps>
+
+These switches save the moment you toggle them — there's no separate Save button on this tab. A confirmation appears when the change goes through.
+
+<Note>
+**Auto Send** depends on **Auto Create**. If you turn **Auto Create Deposit Invoice** off, **Auto Send** turns off automatically too — you can't send an invoice that was never created.
+</Note>
+
+<Tip>
+If a client has no email address on file, the deposit invoice will still be created (when Auto Create is on) but won't send automatically. Add the client's email, or send the invoice manually from the invoices list.
+</Tip>
+
+## Per-branch reminder
+
+Both the footer and the automation switches apply only to the **branch currently selected** at the top of the page. To configure another branch, switch branches with the selector and repeat. There's nothing to copy between branches — each one keeps its own settings.
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Payment terms" icon="calendar" href="/guides/settings/payment-terms">
+    Set the payment terms that appear on this branch's invoices.
+  </Card>
+  <Card title="Credit & void reasons" icon="ban" href="/guides/settings/credit-void-reasons">
+    Manage the reasons your team can pick when crediting or voiding an invoice.
+  </Card>
+  <Card title="Branch configuration" icon="building" href="/guides/settings/branches">
+    Set up and manage the branches whose invoice settings you're editing.
+  </Card>
+  <Card title="Proposal content" icon="file-type" href="/guides/settings/proposal-content">
+    Tailor what appears on proposals — the documents whose signing kicks off these automations.
+  </Card>
+</CardGroup>

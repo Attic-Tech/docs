@@ -1,7 +1,119 @@
 ---
 title: "Subcontractors"
+description: "Add and manage the subcontractors your branches work with — contact details, license and insurance dates, languages, pricing, and document attachments — from Settings."
+icon: "hard-hat"
 ---
 
+The **Subcontractors** area of Settings is where you keep a tidy, organization-wide list of the outside crews and contractors your branches hire. Each subcontractor record holds their contact details, the branch they belong to, license and insurance expiration dates, the languages they speak, a pricing tier, a description, and any related documents you upload (licenses, insurance certificates, contracts, receipts, and more).
+
+Once a subcontractor is on the list and marked active, they become available for scheduling, so the Job Planner and Calendar can show who is assigned and what they offer.
+
 <Note>
-  This page is coming soon.
+Settings are admin-only. You need workspace settings access to open the Subcontractors page and to create, edit, or deactivate a subcontractor. If you do not have access, the page will not appear for you.
 </Note>
+
+## Open the Subcontractors page
+
+<Steps>
+  <Step title="Go to Settings">
+    Open **Settings** from the main navigation.
+  </Step>
+  <Step title="Choose Subcontractors">
+    Select **Subcontractors**. You will see the list of every subcontractor across your organization, with their name, branch, email, phone, and status.
+  </Step>
+</Steps>
+
+The list supports a few things to help you find people quickly:
+
+- **Search** by name, email, or phone using the search box at the top of the table.
+- **Sort** by name, email, phone, or status by clicking a column header.
+- **Status** shows whether each subcontractor is **Active** or **Inactive** at a glance.
+
+## Add a subcontractor
+
+<Steps>
+  <Step title="Click Create New">
+    On the Subcontractors page, press **Create New** in the top-right corner. This opens a blank subcontractor form.
+  </Step>
+  <Step title="Fill in the details">
+    Complete the fields described below. **Name** and **Branch** are required; everything else is optional.
+  </Step>
+  <Step title="Attach any documents (optional)">
+    Drag files into the **Attachments** area, or use the picker, to add licenses, insurance certificates, contracts, receipts, and similar files.
+  </Step>
+  <Step title="Save">
+    Click **Create Subcontractor**. The new record is saved and you are returned to the list.
+  </Step>
+</Steps>
+
+### The fields
+
+- **Name** (required) — the subcontractor or company name.
+- **Branch** (required) — the branch this subcontractor belongs to. Pick one from the dropdown. The list reflects your organization's branches.
+- **Email** — used for email notifications.
+- **Phone Number** — used for text-message notifications.
+- **License Expiration Date** — when their license lapses. Pick a date from the calendar; you can jump to any month and year.
+- **Insurance Expiration Date** — when their insurance lapses, picked the same way.
+- **Languages** — the languages they speak. Choose any combination from English, Spanish, Chinese, Hindi, and Other.
+- **Pricing** — a rough cost tier: **Low ($)**, **Medium ($$)**, or **High ($$$)**. You can leave this unset.
+- **Description** — an optional note about the services they provide. This shows up in the **Job Planner** and **Calendar**, so it is a handy place to summarize what a crew is good for.
+- **Is Active** — when checked, the subcontractor is available for scheduling. New records are active by default.
+
+<Tip>
+Add the **license** and **insurance expiration dates** when you create the record. Keeping them current makes it easy to spot a subcontractor whose paperwork is about to lapse before you schedule them.
+</Tip>
+
+## Attach documents
+
+Every subcontractor record has an **Attachments** section for related files — licenses, insurance certificates, contracts, receipts, and other documents.
+
+- **On a new subcontractor**, the files you add are held with the form and uploaded the moment you save the record.
+- **On an existing subcontractor**, files upload right away as you add them, and you can remove any you no longer need.
+
+To add files, drag them onto the upload area or use **Upload Files**. Images show a thumbnail; documents such as a `PDF` show a labeled tile. Click an image or video to open it in a larger viewer, or open a document in a new tab. Use the download control on a tile to save a copy, and the remove control to delete an attachment.
+
+<Note>
+Removing an attachment is permanent — the file is deleted from that subcontractor. Save and Cancel stay disabled while an upload is still in progress, so let any uploads finish before you leave the page.
+</Note>
+
+## Edit a subcontractor
+
+<Steps>
+  <Step title="Open the record">
+    From the list, click the **edit** (pencil) control on the subcontractor's row. On a phone, open the row's menu and choose **Edit**.
+  </Step>
+  <Step title="Make your changes">
+    Update any details or attachments. The **Save Changes** button stays inactive until you actually change something.
+  </Step>
+  <Step title="Save">
+    Click **Save Changes** to keep your edits, or **Cancel** to discard them and return to the list.
+  </Step>
+</Steps>
+
+## Deactivate a subcontractor
+
+When you stop working with a subcontractor, deactivate them rather than deleting the record. Deactivating keeps their history intact while taking them out of new scheduling.
+
+<Steps>
+  <Step title="Start the deactivation">
+    On the subcontractor's row, click the **deactivate** (circle-slash) control. On a phone, open the row's menu and choose **Deactivate**. This control is unavailable for subcontractors who are already inactive.
+  </Step>
+  <Step title="Confirm">
+    A confirmation appears. Click **Deactivate** to finish.
+  </Step>
+</Steps>
+
+<Note>
+A deactivated subcontractor is marked **Inactive** and no longer appears in scheduling, but existing shift assignments are preserved. Their record stays on the list, so you can still review their details and documents — or re-activate them later by editing the record and re-checking **Is Active**.
+</Note>
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Branches" icon="building" href="/guides/settings/branches">
+    Set up the branches that subcontractors are assigned to.
+  </Card>
+  <Card title="Organization" icon="sitemap" href="/guides/settings/organization">
+    Manage organization-wide settings that shape your workspace.
+  </Card>
+</CardGroup>

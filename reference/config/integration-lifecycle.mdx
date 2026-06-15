@@ -1,7 +1,96 @@
 ---
 title: "Integration lifecycle"
+description: "How an integration connects, stays connected, and disconnects — the states a connection can be in, who can manage it, and what controls whether it shows up at all."
+keywords: ["integrations", "connect integration", "disconnect integration", "reconnect integration", "integration connection error", "integrations marketplace", "payments integration"]
 ---
 
+This reference explains the lifecycle of an integration in your workspace: the states a connection can be in, who can manage it, and what controls whether the Integrations area and individual integrations are visible to you.
+
+The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Crew Member**.
+
 <Note>
-  This page is coming soon.
+  The Integrations area today is a **marketplace** — a catalog of available integrations and a detail page for each one. The states and access rules described on this page are real and enforced. The connect, reconnect, and disconnect **flows** are still being built: the connect action on an integration's detail page is not yet wired up. Treat the flows below as the intended behavior, and the states and permissions as live today.
 </Note>
+
+## Who can manage integrations
+
+### Only Admins can reach the Integrations area
+
+The Integrations area — the marketplace catalog and any integration's detail page — is reachable only by **Admin**. The "Integrations" entry in the navigation menu is hidden for everyone else, and opening an integration page directly returns "not found" for roles that don't have access.
+
+### Connections are managed per workspace, by Admins
+
+Viewing and changing an integration's connection is limited to **Admin**, and is always scoped to your own workspace. There is no way to view or change another workspace's connections. Once a connection is created, the workspace it belongs to and the integration it's for are fixed and can't be reassigned.
+
+## What controls whether integrations show up
+
+Whether you see the Integrations area, and which integrations appear inside it, is controlled at two independent levels.
+
+<Card title="The Integrations area as a whole">
+  The Integrations area can be turned on or off for your workspace. When it's off, the "Integrations" menu entry disappears and both the marketplace and any integration detail page return "not found" — even for an Admin.
+</Card>
+
+<Card title="An individual integration">
+  Each integration in the catalog can additionally require its own availability before it appears. If an integration isn't available for your workspace, it's filtered out of the marketplace, and opening its detail page directly returns "not found."
+</Card>
+
+Because these are independent, an Admin can have the Integrations area turned on yet still see an **empty marketplace** — if every individual integration is unavailable, the page shows a "No integrations available" empty state.
+
+For the broader rules on how availability is decided, see [Feature availability](/reference/platform/feature-availability).
+
+## The states a connection can be in
+
+A workspace has at most **one connection per integration**. Connecting an integration a second time updates the existing connection rather than creating a duplicate.
+
+A connection is always in exactly one of three states:
+
+| State | What it means |
+| --- | --- |
+| **Connected** | The integration is live, authorized, and usable. |
+| **Revoked** | The connection was disconnected and its authorization withdrawn. It is no longer usable until it's reconnected. |
+| **Error** | The connection has failed — for example, its authorization broke or the integration rejected it — and needs attention before it can be used again. |
+
+There is **no "disconnected" state**. An integration your workspace has never connected simply has no connection at all. "Never connected" means there's no connection record; "was connected, now off" means a connection that's in the **Revoked** state.
+
+## Connect, reconnect, and disconnect
+
+The intended lifecycle works like this:
+
+### Connect
+
+From an integration's detail page, an Admin starts the connection flow (for example, "Connect Payments"). A successful connect creates the workspace's connection for that integration and sets its state to **Connected**.
+
+### Reconnect
+
+Because a workspace has only one connection per integration, reconnecting after a **Revoked** or **Error** state updates that same connection back to **Connected** — it does not create a second one.
+
+### Disconnect
+
+Disconnecting moves the connection to **Revoked**. The connection is kept rather than removed, so your workspace retains a record that the integration was once connected.
+
+<Note>
+  The connect, reconnect, and disconnect actions are not yet wired up: the connect action on the detail page does not yet start a flow, and there is no action that performs the state changes. The states and the access rules above are live; the transitions between them are planned.
+</Note>
+
+## What breaks when an integration is disconnected
+
+### Capabilities stop working until it's reconnected
+
+A connection in **Revoked** or **Error** is not usable. Anything that depends on that integration stops working until the connection is restored to **Connected**. For a Payments integration, that means capabilities like accepting payments, syncing payouts and fees, and reconciling against invoices are unavailable while the connection is down.
+
+### Disconnecting affects only your workspace
+
+A disconnect only ever touches the workspace that owns the connection. One workspace disconnecting an integration never affects another workspace's connection.
+
+## Quick reference
+
+- **Reach the Integrations area / manage connections:** Admin only.
+- **One connection per integration, per workspace** — reconnecting updates the same connection.
+- **States:** Connected, Revoked, Error. There is no separate "disconnected" state — a never-connected integration simply has no connection.
+- **Disconnect** moves a connection to **Revoked** and keeps the record.
+- **Two visibility controls:** the Integrations area as a whole, and each individual integration — either can hide an integration from you.
+
+## Related references
+
+- [Feature availability](/reference/platform/feature-availability)
+- [Permissions and roles matrix](/reference/platform/permissions-roles-matrix)

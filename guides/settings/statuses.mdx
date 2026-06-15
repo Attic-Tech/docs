@@ -1,7 +1,126 @@
 ---
 title: "Statuses"
+description: "Set up the lead statuses your team uses to track where every lead stands — create them, give each a category and color, control the order, and turn them on or off."
+icon: "tags"
 ---
 
+**Lead statuses** are the labels your team puts on a lead to show where it stands — for example *New*, *Needs Follow Up*, *Quoted*, or *Won*. This page is where an admin defines the full set of statuses everyone can choose from. Once a status exists here, it shows up in the status dropdowns and lead views across the app.
+
 <Note>
-  This page is coming soon.
+Managing statuses is an **admin** task. You'll find these screens under **Settings**, and only team members with permission to manage workspace settings can open them.
 </Note>
+
+## Where to find statuses
+
+<Steps>
+  <Step title="Open Settings">
+    Go to **Settings** from the main navigation.
+  </Step>
+  <Step title="Open Leads">
+    Choose **Leads**. The Leads settings area opens with two tabs at the top: **Lead Statuses** and **Lead Sources**.
+  </Step>
+  <Step title="Stay on Lead Statuses">
+    The **Lead Statuses** tab lists every status your organization has, with its name, category, display order, and whether it's active.
+  </Step>
+</Steps>
+
+## Read the statuses list
+
+Each row in the list shows you the key facts about a status at a glance:
+
+- **Name** — the label your team sees in dropdowns and lead views.
+- **Slug** — a short, behind-the-scenes identifier (lowercase letters, numbers, and hyphens).
+- **Order** — where this status sits when statuses are sorted.
+- **Category** — the broad stage this status belongs to: **New**, **In Progress**, **Done**, or **Cancelled**.
+- **Status** — an **Active** or **Inactive** badge telling you whether the status is currently available to use.
+
+Use the **search box** at the top to find a status by name, and the column headers to sort the list.
+
+<Tip>
+Some statuses are built in and can't be deleted — you'll notice they have no delete button. You can still rename them, reorder them, and change their color.
+</Tip>
+
+## Create a status
+
+<Steps>
+  <Step title="Start a new status">
+    From the Lead Statuses tab, open the **Create New** menu in the top-right corner and choose **Lead Status**. This opens the **Create New Lead Status** form.
+  </Step>
+  <Step title="Name it">
+    Fill in the **Name** — this is the display name shown in dropdowns and lead views (for example, *Needs Follow Up*).
+  </Step>
+  <Step title="Set the slug">
+    Enter a **Slug** — a unique identifier for the status. It must be lowercase letters, numbers, and hyphens only (for example, `needs-follow-up`). Each slug has to be unique within your organization.
+  </Step>
+  <Step title="Add a description (optional)">
+    Use the **Description** box to note what this status represents, so the rest of your team knows when to use it.
+  </Step>
+  <Step title="Choose the order">
+    Set the **Order** — a whole number that controls where this status appears when statuses are sorted. Lower numbers come first.
+  </Step>
+  <Step title="Pick a category">
+    Choose a **Category**: **New**, **In Progress**, **Done**, or **Cancelled**. The category tells the app what kind of stage this status represents — for example, *Done* and *Cancelled* are end-of-the-line stages.
+  </Step>
+  <Step title="Pick a color">
+    Choose a **Color** so the status stands out in lists and badges. Options include Blue, Green, Yellow, Red, Purple, Teal, Fuchsia, Brown, and Neutral.
+  </Step>
+  <Step title="Decide if it's active">
+    Leave **Is Active** checked to make the status available right away, or uncheck it to keep it out of use for now.
+  </Step>
+  <Step title="Save">
+    Press **Create Status**. The new status appears in the list and becomes selectable wherever leads are tracked.
+  </Step>
+</Steps>
+
+<Note>
+Each category has rules about how it can be used — for example, only one status can sit in the **New** category at a time. If a save is blocked because a category is already taken, the app will tell you, and you can pick a different category.
+</Note>
+
+## Edit a status
+
+<Steps>
+  <Step title="Open the status">
+    In the Lead Statuses list, click the **pencil** icon on the row you want to change (on a phone, open the row's menu and choose **Edit**).
+  </Step>
+  <Step title="Make your changes">
+    Update the **Name**, **Description**, **Order**, or **Color** as needed, then press **Save Changes**.
+  </Step>
+</Steps>
+
+<Note>
+For built-in statuses, a few fields are locked to keep your tracking consistent — the **Slug**, **Category**, and **Is Active** settings can't be changed. You can always adjust the name, description, order, and color.
+</Note>
+
+## Turn a status on or off
+
+If you want to retire a status without deleting it — say, one you no longer use but don't want to remove from past leads — edit it and uncheck **Is Active**. It will show an **Inactive** badge in the list and drop out of the status pickers, while leads that already carry it keep their label. Re-check **Is Active** any time to bring it back.
+
+<Tip>
+Turning a status **Inactive** is the gentler alternative to deleting. Reach for it when you might want the status back later, or when older leads still reference it.
+</Tip>
+
+## Delete a status
+
+<Steps>
+  <Step title="Choose the status">
+    In the list, click the **trash** icon on the status you want to remove (on a phone, open the row's menu and choose **Delete**). Built-in statuses don't offer this option.
+  </Step>
+  <Step title="Confirm">
+    A confirmation appears warning that the status will be permanently removed. Choose **Delete** to finish.
+  </Step>
+</Steps>
+
+<Note>
+Deleting is permanent and can't be undone. If a status is still in use, or you simply might want it later, turn it **Inactive** instead.
+</Note>
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Roles and branches" icon="users" href="/guides/settings/roles-branches">
+    Control who can manage workspace settings — including statuses — and how access is scoped across your branches.
+  </Card>
+  <Card title="Branches" icon="building" href="/guides/settings/branches">
+    Set up the branches your team works across, so settings and leads line up with how your business is organized.
+  </Card>
+</CardGroup>

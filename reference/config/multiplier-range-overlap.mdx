@@ -1,7 +1,106 @@
 ---
 title: "Multiplier range overlap"
+description: "How multiplier ranges map a job's cost to its pricing multipliers, and the overlap, coverage, and field rules that keep a branch's pricing unambiguous."
+keywords: ["multiplier ranges","pricing multipliers","price book","range overlap","pricing gap","cost ranges"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains how multiplier ranges work, the rules that keep a branch's set of ranges valid, and the error messages you may see when a range overlaps another, leaves a gap, or is set up incorrectly.
+
+Multiplier ranges live under **Settings → Price book → Multiplier ranges**.
+
+## What a multiplier range is
+
+A multiplier range maps a job's total cost to a pair of pricing multipliers. Each range covers a band of cost and, for any job whose cost falls in that band, supplies a lowest and highest multiplier used to price the job.
+
+### Fields on a range
+
+Each multiplier range has these fields:
+
+- **Name** — a display label, for example "$0 - $1,000". Required, up to 200 characters.
+- **Minimum cost** — the inclusive lower end of the cost band. Required, and cannot be negative.
+- **Maximum cost** — the inclusive upper end of the cost band. Optional. Leave it empty on the highest range to mean "no maximum" — that range then covers every cost at or above its minimum.
+- **Lowest multiplier** and **Highest multiplier** — the two multipliers applied to jobs in this band. Both required, and each must be between 0 and 10.
+
+### How a range is matched to a job
+
+The cost band is inclusive at both ends. When a job is priced, the first range whose band contains the job's total cost is selected, and its lowest and highest multipliers are read back. A range with no maximum matches every cost at or above its minimum.
+
+Because both ends are inclusive, your ranges must form a clean, non-overlapping cover of every possible cost. If two ranges both contain a cost, pricing is ambiguous; if no range contains a cost, that job cannot be priced.
+
+## The overlap rule
+
+<Card title="Two ranges in the same branch may not overlap">
+Within a single branch's set of multiplier ranges, no two ranges may cover the same cost. Two ranges overlap when their cost bands touch at any point.
+</Card>
+
+### Touching counts as overlapping
+
+Because both ends of a band are inclusive, a range that ends at $1,000 and a range that starts at $1,000 both match a $1,000 job. So ranges that merely touch — one ending exactly where the next begins — are treated as an overlap, not a clean hand-off. To sit next to each other without overlapping, consecutive whole-dollar ranges should leave a one-dollar step, for example `$0 - $1,000` followed by a range starting at $1,001.
+
+### The same range can't be assigned twice
+
+A branch can't list the same multiplier range more than once in its set.
+
+### Where the rule applies
+
+Overlap is checked per branch, not across your whole workspace. Your workspace can hold many ranges; the requirement is only that the set of ranges a single branch uses is internally consistent. The same range can be reused by different branches.
+
+The overlap rule is enforced at two moments:
+
+1. **When you assign ranges to a branch.** If the set you save contains any overlapping pair, the save is rejected.
+2. **When you edit a range's cost bounds.** If moving a range's minimum or maximum would make it overlap another range in a branch that already uses it, the edit is rejected. This check only runs when you actually change a cost bound.
+
+### Overlap error messages
+
+| Message | What it means |
+| --- | --- |
+| **Assigned multiplier ranges must be unique** | The same range was added to a branch more than once. Remove the duplicate. |
+| **Assigned multiplier ranges overlap: `{A}` overlaps with `{B}`** | Two ranges assigned to the branch cover the same cost. Adjust one range's bounds so their bands no longer touch. |
+| **Updating this multiplier range would create overlap in branch configuration `{branch}` (conflicts with `{other}`)** | The new cost bounds you set would collide with another range in a branch that uses this range. Pick bounds that don't touch the conflicting range. |
+
+## Coverage: no gaps, start at $0, no maximum at the top
+
+Beyond avoiding overlap, a branch's ranges should form a continuous cover with no gaps, so every possible job cost can be priced.
+
+<Card title="Coverage requirements">
+- There must be at least one range.
+- The lowest range must start at **$0**.
+- The ranges must be contiguous — no uncovered cost band between two ranges.
+- The highest range must have **no maximum cost**, so jobs above any fixed amount can still be priced.
+</Card>
+
+If a job's cost falls in a gap between ranges, or above the highest range's maximum, that job cannot be priced.
+
+### Coverage error messages
+
+| Message | What it means |
+| --- | --- |
+| **At least one multiplier range is required for pricing.** | The branch has no ranges. Add one. |
+| **Your multiplier ranges must include one that starts at $0 (your lowest currently starts at `{amount}`).** | The lowest range begins above $0, leaving cheap jobs uncovered. Lower it to $0. |
+| **Your multiplier ranges don't cover jobs between `{start}` and `{end}` (gap between "`{prev}`" and "`{next}`").** | There is an uncovered cost band between two ranges. Extend one range to close the gap. |
+| **Your multiplier ranges must include one with no maximum cost so jobs above `{amount}` can still be priced.** | The highest range has a fixed maximum. Clear its maximum cost so it covers everything above it. |
+
+Consecutive whole-dollar ranges that differ by one dollar — for example `$0 - $1,000` followed by a range starting at $1,001 — are treated as contiguous and are not flagged as a gap.
+
+## Per-range field rules
+
+Independent of overlap and coverage, each individual range must be internally well-formed. These rules are checked both as you fill in the form and again when the change is saved.
+
+<Card title="Field rules for a single range">
+- **Maximum cost** must be greater than or equal to **minimum cost** (when a maximum is set).
+- **Highest multiplier** must be greater than or equal to **lowest multiplier**.
+- Each multiplier must be between **0 and 10**.
+</Card>
+
+### Field error messages
+
+| Message | What it means |
+| --- | --- |
+| **Maximum cost must be greater than or equal to minimum cost.** | The maximum you entered is below the minimum. |
+| **Highest multiplier must be greater than or equal to lowest multiplier.** | The highest multiplier you entered is below the lowest. |
+| **Multiplier values must be between 0 and 10.** | A multiplier is outside the allowed 0–10 range. |
+
+## Related references
+
+- [Money rounding](/reference/platform/money-rounding) — how amounts are rounded once pricing produces a figure.
+- [Org branch scoping](/reference/platform/org-branch-scoping) — how branches scope the configuration each user sees.
