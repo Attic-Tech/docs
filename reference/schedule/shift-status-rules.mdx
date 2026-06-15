@@ -1,7 +1,228 @@
 ---
 title: "Shift status rules"
+description: "The four shift statuses, how a shift moves from clock-in to approval, and who can clock in, edit, approve, reset, or enter shift details."
+keywords:
+  - "what do the shift statuses mean"
+  - "why can't I clock into this shift"
+  - "how do I approve a crew member's shift"
+  - "why is the Approve button disabled"
+  - "how do I edit a shift that's pending approval"
+  - "how does a manager enter shift details for someone who never clocked in"
+  - "why can't I reset an in-progress shift"
+  - "can a crew member edit an approved shift"
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains the shift statuses, how a shift moves through them (clock in, break, clock out, edit, approve, reset), and who can do each step.
+
+The same statuses and lifecycle apply to both **job shifts** (worked against a scheduled job shift) and **task shifts** (worked against a standalone scheduled task). Differences between the two are called out where they exist.
+
+The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Crew Leader**, and **Crew Member**. For a full breakdown of who can do what, see [the permissions and roles matrix](/reference/platform/permissions-roles-matrix). Shift records are scoped to your workspace and branch — see [org and branch scoping](/reference/platform/org-branch-scoping).
+
+## The shift statuses
+
+There are four statuses a shift can show.
+
+- **Upcoming** — a scheduled shift or task that nobody has clocked into yet. There is no recorded shift behind it; it is just the scheduled slot waiting to be worked.
+- **In Progress** — someone has clocked in and is currently working (this includes time spent on break).
+- **Pending Approval** — the shift has been clocked out (or otherwise submitted) and is waiting for a manager to approve it.
+- **Approved** — a manager has approved the shift. This is the final state.
+
+Each status has its own badge color in the app: Upcoming is neutral, In Progress is blue, Pending Approval is amber, and Approved is green.
+
+A few older shifts created before time tracking existed may show without a clear status — the app treats those as **In Progress** for display purposes.
+
+## The lifecycle
+
+A shift moves through the statuses like this:
+
+- **Clock in** turns an Upcoming slot into an **In Progress** shift.
+- **Clock out** moves an In Progress shift to **Pending Approval** and records the worked hours.
+- **Approve** moves a Pending Approval shift to **Approved**.
+- A manager can **edit and approve** in one step, taking a Pending Approval (or Approved) shift straight to **Approved**.
+- A crew member can **submit changes** to their own Pending Approval shift; it stays **Pending Approval**.
+- A manager can **enter shift details** for an Upcoming slot that was never clocked into; the resulting shift is created **already Approved**.
+- A manager can **reset** a Pending Approval or Approved shift, which erases its recorded times and returns the slot to **Upcoming**.
+
+There is no forced order beyond this. Breaks happen inside an In Progress shift and do not change the status.
+
+## Clocking in
+
+### Who can clock into a shift
+
+- For a **scheduled job shift**, you must be assigned to that shift's team — unless you are a manager (Admin, Ops Manager, or Crew Leader), who can clock in on a crew member's behalf.
+  - Not assigned and not a manager → "You are not assigned to this shift."
+  - The shift has no assigned team members and you aren't assigned → "This shift has no assigned team members."
+- For a **scheduled task**, you must be the task's assignee — unless you are a manager.
+  - Not the assignee and not a manager → "You are not assigned to this task."
+  - The task isn't set up to track time → "This task is not configured for shift tracking."
+
+If no scheduled shift or task is supplied, clock-in is rejected with "Invalid clock-in request."
+
+### Clocking in for someone else
+
+A manager clocking in can target a specific assigned crew member. If they don't pick one, the shift defaults to the first assigned team member (for tasks, it defaults to the task's assignee).
+
+### One active shift at a time
+
+A person can only have one In Progress shift at a time, across both job and task shifts.
+
+- If you try to clock into the **same** scheduled slot you're already clocked into, nothing breaks — it just returns your existing shift.
+- If you already have an active shift on a **different** slot → "You already have an active shift. Please clock out first." (When switching shifts, the shorter "You already have an active shift." is shown.)
+
+On success you see "Clocked in successfully."
+
+## Breaks
+
+Breaks only apply to an **In Progress** shift, and they do not change the shift's status.
+
+- **Start break** — only on an active shift ("This shift is not currently active." otherwise), and only if you aren't already on break ("You are already on break." otherwise).
+- **End break** — only when a break is open ("No active break to end." otherwise).
+
+While on break, the only available action is **End Break**, and a live timer shows the break time. Break time is subtracted from the worked hours.
+
+## Clocking out
+
+- You must have access to the shift — be its owner, or a manager in the same workspace — or you'll see "You do not have access to this shift."
+- The shift must be **In Progress**, or you'll see "This shift is not currently active."
+- The shift must have a recorded clock-in time, or you'll see "Invalid shift data."
+
+On clock out, any still-open break is closed at the current time, the worked hours are computed (clock-out minus clock-in minus breaks, never negative), and the shift moves to **Pending Approval**. On success you see "Clocked out successfully." For how hours are totaled, see [hours calculation](/reference/schedule/hours-calculation).
+
+## Switching shifts
+
+A **switch** clocks you out of your current shift (if it's still running) and clocks you into a different scheduled slot in one step.
+
+- You must have access to the current shift (same owner-or-manager rule as clocking out).
+- The new slot goes through the same assignment checks as a normal clock-in.
+- If your current shift isn't In Progress, you must have no other active shift, or you'll see "You already have an active shift."
+
+On success you see "Switched shifts successfully."
+
+## Editing a shift
+
+### Crew member: submit changes
+
+A crew member can edit their **own** shift only while it is **Pending Approval**.
+
+- A modification note is required, or you'll see "A modification note is required when editing a shift."
+- The shift must be Pending Approval, or you'll see "Only shifts pending approval can be modified."
+- Every break must have an end time, or you'll see "All breaks must have an end time."
+
+Editing recomputes the hours and keeps the shift at **Pending Approval**. On success you see "Shift updated successfully."
+
+The **Submit Changes** button stays disabled until the form is valid. The editor enforces:
+
+- A modification note is present (crew members only — managers are exempt).
+- Clock-out is after clock-in: "Clock out time must be after clock in time."
+- Every break has an end time, starts at or after clock-in, ends at or before clock-out, and ends after it starts. Inline messages include "End time is required.", "End time must be after start time.", "Start time must be after clock in time.", and "End time must be before clock out time." for each break.
+
+### Manager: edit and approve
+
+A manager can edit and approve in one step.
+
+- The shift must not be In Progress: "This shift is still active. The crew member must clock out before it can be edited and approved."
+- No modification note is required for managers.
+- The shift's hours are recomputed and it moves to **Approved**.
+
+On success you see "Shift edited and approved."
+
+## Approving a shift
+
+Approving a shift is a manager action (Admin, Ops Manager, or Crew Leader with edit access to the shift).
+
+- You need permission to update the shift, or you'll see "You do not have permission to perform this action."
+- The shift must belong to your current workspace, or you'll see "You do not have access to this shift."
+- The shift must be **Pending Approval**, or you'll see "This shift is not pending approval."
+- The shift must have both a clock-in and a clock-out time, or you'll see "This shift has incomplete time data."
+
+On approval the hours are recomputed and the shift moves to **Approved**. For job shifts, approving also recalculates any related bonuses if the job is closed and re-evaluates shift-approval badges. On success you see "Shift approved."
+
+## Entering shift details for an upcoming slot
+
+When a crew member never clocked in, a manager can enter the clock-in, clock-out, and break times directly. The resulting shift is created **already Approved**.
+
+- The crew member the shift belongs to must be identifiable, or you'll see "Cannot determine which employee this shift belongs to. Please try again from the shifts list."
+- You need update permission, or you'll see "You do not have permission to perform this action."
+- The slot must be in your current workspace, or you'll see "You do not have access to this shift."
+- If a shift already exists for this person and slot: if it's already Approved it's simply returned; otherwise you'll see "A shift already exists for this schedule. It may have been clocked in by the employee."
+- Every submitted break must have an end time, or you'll see "All breaks must have an end time."
+- If the slot is missing its schedule information, the action is blocked: "This shift is missing required schedule information."
+
+On success you see "Shift details entered successfully."
+
+## Resetting a shift
+
+A **reset** permanently erases a recorded shift and returns the slot to **Upcoming**. It is a manager action.
+
+- You need update permission, or you'll see "You do not have permission to perform this action."
+- The shift must be in your current workspace, or you'll see "You do not have access to this shift."
+- Only **Pending Approval** or **Approved** shifts can be reset — not an In Progress one: "Only shifts that are pending approval or approved can be reset."
+
+Reset deletes the recorded shift (and, for job shifts, recalculates bonuses if the job is closed). The confirmation reads: "This will permanently erase all recorded clock-in, clock-out, and break data for this shift. The shift will return to its original unclocked state. This action cannot be undone." On success you see "Shift has been reset."
+
+## Which actions appear, by status and role
+
+Whether a button appears depends on the shift's status and whether you're a manager. On the shifts page, managers see the workspace-wide view of all employees' shifts; crew members see only their own.
+
+| Status | Crew member sees | Manager sees |
+|---|---|---|
+| Upcoming | Clock In | Clock In, Enter Shift Details |
+| In Progress (not on break) | Clock Out, Start Break, Switch Shift | same |
+| In Progress (on break) | End Break only | End Break only |
+| Pending Approval | Edit Shift (their own, with a note) | View Details, Edit Shift, Approve, Reset |
+| Approved | View Details (read-only) | View Details, Edit Shift, Reset |
+
+In short:
+
+- **Managers** can edit and approve a Pending Approval shift, edit an Approved shift, reset a Pending Approval or Approved shift, and enter details for an Upcoming slot.
+- **Crew members** can only edit their own Pending Approval shift (submitting changes with a note).
+- **Approved** shifts are read-only for crew members.
+
+Every action button is disabled while another action is still in progress.
+
+## Who can work with shift records at all
+
+Access to shift records is scoped to your workspace and branch, and gated by role:
+
+- **View** — any member of the workspace.
+- **Create and update** — Admin, Ops Manager, and Crew Leader.
+- **Delete** — Admin and Ops Manager only. A **Crew Leader** can create and update shifts but cannot delete (reset) them.
+
+### Shifts on a closed job
+
+A time-tracked shift can still be created or updated even on a **closed** job, so approvals and corrections can be finished after the job closes. Only the older statusless shifts are blocked on a closed job, with "Cannot create or update job shifts for a closed job."
+
+## Quick reference: error messages and causes
+
+| Message | Cause |
+|---|---|
+| You are not assigned to this shift. | A non-manager clocking into a scheduled shift they're not on. |
+| This shift has no assigned team members. | The scheduled shift has an empty team and you aren't assigned. |
+| You are not assigned to this task. | A non-manager clocking into a task they're not assigned. |
+| This task is not configured for shift tracking. | The task isn't set up to track time. |
+| Invalid clock-in request. | Neither a scheduled shift nor a task was supplied. |
+| You already have an active shift. Please clock out first. | You have an active shift on a different slot. |
+| You already have an active shift. | Switching shifts while you already have an active shift. |
+| This shift is not currently active. | Clocking out or starting a break on a shift that isn't In Progress. |
+| You are already on break. | Starting a break when one is already open. |
+| No active break to end. | Ending a break when none is open. |
+| Invalid shift data. | Clocking out with no recorded clock-in. |
+| A modification note is required when editing a shift. | A crew member editing without a note. |
+| Only shifts pending approval can be modified. | Editing a shift that isn't Pending Approval. |
+| All breaks must have an end time. | Editing or entering details with an open break. |
+| This shift is not pending approval. | Approving a shift that isn't Pending Approval. |
+| This shift has incomplete time data. | Approving a shift missing a clock-in or clock-out. |
+| This shift is still active. The crew member must clock out before it can be edited and approved. | Editing and approving an In Progress shift. |
+| A shift already exists for this schedule. It may have been clocked in by the employee. | A manager entering details when a non-approved shift already exists. |
+| Only shifts that are pending approval or approved can be reset. | Resetting an In Progress or Upcoming shift. |
+| You do not have access to this shift. | Accessing a shift in another workspace, or one you don't own and aren't a manager for. |
+| You do not have permission to perform this action. | Missing edit permission for approve, edit-and-approve, reset, or enter-details. |
+| Cannot create or update job shifts for a closed job. | Writing an older statusless shift on a closed job. |
+
+## Related references
+
+- [Hours calculation](/reference/schedule/hours-calculation) — how worked hours are totaled from clock-in, clock-out, and breaks.
+- [Availability and conflicts](/reference/schedule/availability-conflicts)
+- [Task, time-off, and resource rules](/reference/schedule/task-timeoff-resource-rules)
+- [Permissions and roles matrix](/reference/platform/permissions-roles-matrix)
+- [Org and branch scoping](/reference/platform/org-branch-scoping)

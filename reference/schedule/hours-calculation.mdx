@@ -1,7 +1,129 @@
 ---
 title: "Hours calculation"
+description: "How worked hours are computed for shifts: breaks deducted, rounding, when totals are saved, and where they appear across the app."
+keywords:
+  - "how are worked hours calculated for a shift"
+  - "are breaks deducted from my hours"
+  - "why are my hours different after a break"
+  - "when do shift hours get saved"
+  - "how are hours rounded on a shift"
+  - "do task shifts and job shifts count hours the same way"
+  - "does time off count as worked hours"
+  - "why can't I clock out or edit a shift"
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains how Menaia turns a clock-in, a clock-out, and any breaks into worked hours, how that number is rounded and saved, where it shows up across the app, and the rules that have to be satisfied for a shift to be clocked out, edited, or approved.
+
+It applies to both **job shifts** and **task shifts** — they use the same math. **Time off** is handled separately and carries no worked-hours figure (see the last section).
+
+## The worked-hours formula
+
+### Worked hours = time on the clock, minus completed breaks
+
+For a single shift, worked hours are the span from clock-in to clock-out, with all **completed** breaks subtracted, expressed in hours. The result can never go below zero.
+
+In plain terms:
+
+- Start with the full clock-in to clock-out span.
+- Subtract every break that has both a start and an end.
+- If breaks somehow exceed the span (or the clocks are reversed), the result is `0`, never a negative number.
+
+### Only completed breaks are deducted
+
+A break is only subtracted once it has an end time. A break that is still open (started but not yet ended) deducts **nothing** — it counts as zero until it is closed.
+
+When a crew member clocks out while still on a break, that open break is automatically closed at the clock-out moment, so it is included in the deduction.
+
+### Invalid times are rejected
+
+If a shift's clock-in or clock-out time can't be read as a valid time, the calculation does not produce a number — the action fails with **"Invalid shift time data."**
+
+## Rounding
+
+### Hours are rounded to two decimal places
+
+Before worked hours are saved, they are rounded to the nearest hundredth of an hour (two decimals) using standard rounding. For example, `7.4983` becomes `7.50` and `8.005` becomes `8.01`.
+
+The saved value is already rounded — there is no further rounding applied later. Every place that displays or sums shift hours starts from this same saved, rounded number.
+
+## When hours are calculated and saved
+
+Worked hours are saved onto the shift as a stored total. They are computed and written (or rewritten) at specific points in the shift's life, not recalculated live every time the shift is read.
+
+- **On clock-in** — a new shift starts with `0` hours. Nothing is computed yet.
+- **On clock-out** — any open break is closed at that moment, hours are computed and rounded, and the shift moves to **Pending approval**.
+- **On a crew member editing their shift** — hours are recomputed from the edited times and breaks. The shift stays **Pending approval**, and a modification note is required.
+- **On approval** — hours are recomputed from the shift's saved times and breaks, and the shift moves to **Approved**.
+- **On a manager editing and approving** — hours are recomputed from the manager's entered times and breaks, and the shift moves to **Approved**.
+- **On a manager entering a past shift** — a completed shift is created with its hours already computed and rounded.
+
+Resetting a shift does not zero out its hours — it removes the shift entirely.
+
+## Job shifts and task shifts use the same math
+
+Job shifts and task shifts are calculated identically — same clock-in to clock-out span, same break deduction, same rounding. The only difference is which kind of shift the result is saved onto. Anything described on this page applies to both.
+
+## The live "Total Time" display
+
+While a shift is being viewed, the app also shows time totals derived directly from the raw clock-in, clock-out, and breaks — independent of the saved hours figure:
+
+- **Total Time** — the clock-in to clock-out span minus completed breaks. If either clock time is missing, this shows as `0`.
+- **Total Break Time** — the sum of completed breaks. Open breaks are excluded.
+
+These display totals and the saved hours figure describe the same worked time. The display totals are recomputed each time you look at the shift, while the saved hours figure is whatever was written at the last clock-out, edit, or approval.
+
+## Where the totals appear
+
+- **Shifts table — Job Time** — for a completed shift, shows the saved worked hours as `HH:MM:SS`. For an in-progress shift, shows a live timer counting up from clock-in, already excluding completed break time.
+- **Shifts table — Break** — shows total completed break time as `HH:MM:SS`. While a break is active, shows a live timer from when the break started.
+- **Shift card, detail, and edit views — Total Time and Total Break Time** — show the live-computed totals described above.
+
+## Where hours flow downstream
+
+### Payroll export
+
+The payroll export does not emit a single hours number per shift. Instead it lists each worked **segment** — clock-in to the first break, the gaps between breaks, and the last break to clock-out — each with its own Time In and Time Out. Hours are implied by those in/out times rather than pre-summed. Shifts missing a clock-in or a clock-out are skipped.
+
+### Bonus payouts
+
+Bonus payouts add up the saved worked hours across a job's shifts to work out hours worked against budget, hours saved, money saved, and each person's share. A shift with no saved hours counts as `0`. Bonuses are recalculated when a shift is approved or edited on a job that is already closed.
+
+## Rules that must be satisfied (and the messages you'll see)
+
+These guards protect the integrity of the hours math. Each one maps to a message you may run into.
+
+- **A shift must be active to clock out** — otherwise: **"This shift is not currently active."**
+- **Clocking out requires a clock-in** — a shift with no clock-in fails with **"Invalid shift data."**
+- **Only one active shift at a time** — clocking in while you already have an active shift fails with **"You already have an active shift. Please clock out first."**
+- **You can't start a second break** — fails with **"You are already on break."**
+- **Editing your own shift requires a note** — fails with **"A modification note is required when editing a shift."**
+- **Only pending-approval shifts can be edited by the crew member** — otherwise: **"Only shifts pending approval can be modified."**
+- **Every break must have an end time before an edit or a back-filled shift is accepted** — any open break fails with **"All breaks must have an end time."** This is what guarantees every break is deductible.
+- **A manager must wait for clock-out before editing and approving** — an active shift fails with **"This shift is still active. The crew member must clock out before it can be edited and approved."**
+- **Approval requires complete time data** — a missing clock-in or clock-out fails with **"This shift has incomplete time data."**
+- **Only pending-approval or approved shifts can be reset** — otherwise: **"Only shifts that are pending approval or approved can be reset."**
+- **Shifts on a closed job can't be created or edited** — fails with **"Cannot create or update job shifts for a closed job."**
+
+### Edit-form guards (the Submit / Edit & Approve button stays disabled until…)
+
+When editing a shift, the action button stays disabled until the times make sense:
+
+- Clock-out must be strictly **after** clock-in.
+- Every break must have an end time, must start **at or after** clock-in, must end **at or before** clock-out, and its end must be **after** its start.
+- A crew member editing their own shift must enter a modification note; managers are exempt.
+
+New breaks added in the edit form default to a 15-minute block centered on the middle of the shift, which you can then adjust.
+
+## Time off has no hours calculation
+
+Time off is recorded as a dated calendar entry — a person, a reason, a start date, and an end date. It carries **no** hours or duration figure and never feeds into worked hours.
+
+- Time-off reasons are **Sick**, **Vacation**, and **Other**.
+- The only date rule is that the **end date must be after the start date** — otherwise you'll see **"End date must be after start date"**.
+- In the time-off panel, an entry is either all-day or a timed range. The "duration" there is only a convenience for pre-filling the time inputs (roughly an hour in day view, about eight hours in week or month view); it is not a worked-hours figure.
+
+## Related references
+
+- [Shifts and time tracking overview](/reference/schedule)
+- [Roles and permissions matrix](/reference/platform/permissions-roles-matrix)
+- [Org and branch scoping](/reference/platform/org-branch-scoping)

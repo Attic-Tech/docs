@@ -1,7 +1,127 @@
 ---
 title: "Availability conflicts"
+description: "How the schedule detects double-bookings and unavailability, the availability dots shown while picking people, and the Scheduling Conflict dialog."
+keywords: ["why does it say scheduling conflict","what counts as a scheduling conflict","why is a team member shown as unavailable","can I schedule someone who has time off","what do the green and red dots mean when picking people","does a draft shift cause a conflict","how do I resolve a scheduling conflict","can I double-book someone on purpose"]
 ---
 
+This reference explains how the schedule flags conflicts when you schedule a **Job shift**, **Task**, **Lead Activity**, or **Time Off** — what counts as a conflict, the availability dots shown while you pick people, and the **Scheduling Conflict** dialog you see on publish.
+
+## What gets checked
+
+Conflict detection looks across four kinds of schedule events at once for the people you're scheduling:
+
+- **Job shifts** — a shift can have more than one team member.
+- **Time Off**
+- **Tasks**
+- **Lead Activities** (for example, an estimate visit)
+
+When you schedule a new event, the schedule checks each person you're assigning against all four event types in their existing schedule.
+
+## What counts as a conflict
+
+A conflict is flagged when **all** of the following are true for an existing event:
+
+### The two events overlap in time
+
+The existing event must overlap the new event's time window. Overlap is exclusive: two events that merely **touch** — one ends exactly when the next one starts — do **not** conflict. Back-to-back scheduling is allowed.
+
+### The event belongs to a person you're scheduling
+
+Only events owned by the people you're assigning are considered. Events belonging to anyone else are ignored.
+
+### The existing event is active
+
+- **Job shifts** count only when **published**. **Draft** shifts never cause a conflict.
+- **Tasks** count only when **published**. Draft tasks never cause a conflict.
+- **Lead Activities** count only when **published**. Draft lead activities never cause a conflict.
+- **Time Off** has no draft state — it is always active and always counted, even before it's published.
+
+In everyday terms, the conflicts you'll see are:
+
+- **Double-booking on jobs** — the person is already on another published job shift at that time.
+- **Unavailable due to time off** — the person has time off covering that window (this always blocks).
+- **Task overlap** — the person already has a published task scheduled then.
+- **Lead-activity overlap** — the person already has a published lead activity (such as an estimate visit) then.
+
+### The event you're editing never conflicts with itself
+
+When you edit an existing event and re-save it, that event is excluded from the check, so it won't flag itself. For a job, **all shifts of that same job** are excluded — not just the one shift you opened.
+
 <Note>
-  This page is coming soon.
+Conflicts are checked **on publish**, not when you save a draft. Saving a task, lead activity, or job shift as a draft skips the conflict check entirely. Time Off is checked on every save because it has no draft state.
 </Note>
+
+## Availability dots while you pick people
+
+Before you save, the people pickers show a live availability signal for the date and time window you've chosen. This runs continuously as you change the time or the selected people.
+
+- A person is shown **unavailable** when they have **any** conflict in the selected window.
+- A person is shown **available** when they have none.
+- No indicator appears when the time range is invalid (start is not before end), no one is selected yet, or the availability data hasn't loaded.
+
+### How availability appears
+
+- **Dot in the people picker** — a small dot next to each name: **green** for available, **red** for unavailable.
+- **Team-member chip on a new job** — each assigned team member's chip is colored green (available) or red (unavailable). Subcontractors are never availability-checked and always appear neutral.
+
+Live availability is shown in the **Task**, **Lead Activity**, and **New Job** team picker.
+
+<Warning>
+The availability dot is **advisory only**. It does not disable anyone or block selection — you can still assign someone shown in red. The only enforcement point is the Scheduling Conflict dialog on publish, and even that can be overridden.
+</Warning>
+
+## The Scheduling Conflict dialog
+
+When you publish (or save Time Off) and conflicts are found, a dialog interrupts the save. Its title is **Scheduling Conflict** and it asks you to review the conflicts before continuing.
+
+You'll see **one entry per conflict**, each reading: the person's name, the conflicting event, and its date and time. The event named for each type is:
+
+- **Job** — the job name.
+- **Time Off** — "Time Off".
+- **Task** — the task type name (or "Task" if there isn't one).
+- **Lead Activity** — the lead name (or "Lead Activity" if there isn't one).
+
+Dates and times are shown in the schedule's timezone. Multi-day time off shows a date range; single-day events show one date and a start-to-end time.
+
+### Two choices — both are valid
+
+- **Edit Shift** — closes the dialog and returns you to the form so you can change the time or the people. Nothing is saved.
+- **Continue** — overrides the warning and saves anyway, double-booking on purpose. The conflict is not re-checked.
+
+<Note>
+Conflicts are **warnings, not hard blocks**. You can always choose **Continue** to schedule over a conflict.
+</Note>
+
+### Multi-day jobs
+
+The New Job sheet can publish several day-shifts at once. It checks each published day against that day's own team and times, then combines the results and removes duplicates so the same clash isn't listed twice. If you publish only specific days, only those days are checked.
+
+## When the check can't run
+
+If the schedule can't load conflict data — for example, a temporary outage — it fails safe rather than blocking you:
+
+- A partial data outage simply under-reports conflicts rather than failing the save.
+- If the conflict check itself errors on a single event, the save is allowed to proceed as if there were no conflicts.
+- On a multi-day job, if the check fails outright you'll see a "Failed to check scheduling conflicts" message and the publish is stopped so you can try again.
+
+## How to resolve a conflict
+
+1. **Change the time** of the new event so it no longer overlaps. Remember that touching edges don't conflict.
+2. **Remove or swap the conflicted person.** The dialog names exactly who clashes and with what, and the live red dot helps you pick someone available instead.
+3. **Select Edit Shift** to go back, adjust, and re-publish.
+4. **Select Continue** to override and schedule anyway — an intentional double-booking.
+5. For a **task or lead activity**, **save it as a draft** instead of publishing. Drafts skip the conflict check, and draft events don't cause conflicts for others either.
+
+## Quick reference
+
+- **Conflict = overlap** with a published job shift, published task, published lead activity, or any time off, for a person you're scheduling.
+- **Touching edges don't conflict** — back-to-back is fine.
+- **Drafts never conflict;** time off always does.
+- **Editing an event excludes it from its own check** (a whole job's shifts for a job).
+- **Subcontractors are never availability-checked.**
+- **The availability dot is advisory;** the dialog is overridable. Conflicts never hard-block scheduling.
+
+## Related references
+
+- [Org and branch scoping](/reference/platform/org-branch-scoping)
+- [Permissions and roles matrix](/reference/platform/permissions-roles-matrix)

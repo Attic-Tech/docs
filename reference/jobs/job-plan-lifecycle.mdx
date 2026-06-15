@@ -1,7 +1,194 @@
 ---
 title: "Job plan lifecycle"
+description: "The three job-plan statuses (Draft, Complete, Approved), how a plan is built, submitted, and approved, who can do each, and how the job's status follows along."
+keywords:
+  - "what are the job plan statuses"
+  - "how do I submit a job plan"
+  - "who can approve a job plan"
+  - "why can't I submit the plan"
+  - "why is the plan read only"
+  - "what happens to the job when the plan is approved"
+  - "how do I edit an approved plan"
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains the job plan: the crew-facing breakdown of a job into days, employees, vehicles, equipment, and work-item allocations. It covers the three statuses a plan moves through, who can build, submit, and approve it, what must be true before each step, and how the parent job's status follows along.
+
+The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Crew Member**.
+
+## The plan statuses
+
+A job has at most one plan, and that plan is always in one of exactly three statuses:
+
+- **Draft** — the plan is being built and is editable. This is the status every new plan starts in.
+- **Complete** — the plan has been submitted. ("Submit" is the action that moves a plan here.)
+- **Approved** — a manager has signed off on the submitted plan.
+
+A plan always starts as **Draft** when it is first created.
+
+### Statuses move forward, not back
+
+In normal use a plan moves Draft to Complete to Approved, one step at a time. The submission checks and the "submitted" timestamp only apply when a plan first becomes Complete; the approval stamp only applies when a plan first becomes Approved. Re-running these steps is safe and won't overwrite the original record.
+
+## Who builds, submits, and approves
+
+Building, saving a draft, submitting, and approving a plan are all the same level of access. The roles that can do all of them are:
+
+- **Admin**
+- **Ops Manager**
+- **Crew Leader**
+
+These roles can create a plan, save drafts, submit, and approve.
+
+Everyone else with access to the job can **view** the plan but not change it:
+
+- **Sales Admin** — view only
+- **Sales Member** — view only
+- **Client Coordinator** — view only
+- **Crew Member** — view only
+
+### Approving needs no special permission
+
+There is no separate "approver" role or approve permission. Approving is simply moving a submitted plan to **Approved**, and anyone who can edit the plan can do it. The person who approves is recorded automatically from who is signed in — it is not chosen from a list.
+
+For the full role-by-area breakdown, see [/reference/platform/permissions-roles-matrix](/reference/platform/permissions-roles-matrix). For how jobs and plans are limited to your organization and branch, see [/reference/platform/org-branch-scoping](/reference/platform/org-branch-scoping).
+
+### Who is recorded for each step
+
+- **Created by** — recorded when the plan is first created.
+- **Submitted** — a timestamp recorded when the plan becomes Complete. The plan card shows the plan's creator as the submitter.
+- **Approved by / approved on** — the approver and a timestamp, recorded when the plan becomes Approved.
+
+## Building and saving a draft
+
+The plan is built on the job's plan page. The job must already exist and have a work order.
+
+### Save Draft
+
+Saving a draft creates the plan as a Draft if one doesn't exist yet, then stores the plan's day-by-day breakdown.
+
+One nuance protects your work: an empty form does not clear a saved plan. Autosaving an empty form leaves an existing saved breakdown untouched. Clearing the plan is a deliberate action, not something that happens by accident.
+
+The **Save Draft** button is disabled when there are no unsaved changes, or while a save or submit is already in progress.
+
+### Each save replaces the whole breakdown
+
+When you save, the plan's day-by-day breakdown is fully replaced with what's currently on the page, all at once. It is not merged with the previous version.
+
+### "Work order has changed" (you need to reload)
+
+Before saving, the system compares what the plan allocates against the live work-order quantities. If a work item is missing or the plan now allocates more than the work order has, the save is refused and you'll see one of these messages:
+
+> "Work order items have changed since this page was loaded. Please reload the page and re-plan."
+
+> "Work order quantities have changed since this page was loaded. Please reload the page and re-plan."
+
+If the saved plan already exceeds the updated quantities, a banner appears on the builder with a **Clear Plan** button:
+
+> "The work order quantities have changed since this plan was saved. The current plan days exceed the updated quantities. Clear the plan and re-plan with the correct amounts."
+
+## Submitting (Draft to Complete)
+
+Submitting runs a set of checks, acknowledges any work-order changes, and then moves the plan to **Complete**.
+
+### When the Submit button is available
+
+The **Submit** button is only enabled when the plan is fully ready, there are unsaved changes to commit, and no save or submit is already running. "Fully ready" means all of:
+
+- crew notes have been acknowledged (if the work order has any),
+- every plan day is marked complete,
+- there is at least one plan day,
+- any important notices are completed,
+- every work-order item is fully allocated, with no remaining shortfall.
+
+You can only add days once the important notices are completed.
+
+### What makes a single day valid
+
+Each day needs at least one employee, every employee with valid hours greater than zero, and at least one work item with a quantity greater than zero. The matching messages are:
+
+> "At least one employee must be requested"
+
+> "All employees must have valid hours assigned"
+
+> "At least one work item must be selected with quantity greater than 0"
+
+### "Allocate the remaining amount" (shortfall)
+
+Before submitting, any incomplete allocation blocks submission with a message naming the item and the amount still to allocate:
+
+> "Cannot submit plan. Allocate the remaining `{amount}{unit}` for `{itemName}`."
+
+### Server-side submission checks
+
+When the plan is submitted, three final checks run. If any fails, submission is refused with the matching message:
+
+1. Crew notes not acknowledged (when the work order has crew notes) — "Crew notes must be acknowledged before submission"
+2. No employees requested — "At least one employee must be requested before submission"
+3. No items assigned — "At least one work order item must be assigned before submission"
+
+If submission is refused for another reason, you'll see:
+
+> "The plan is not ready to submit. Please review it and try again."
+
+### Acknowledging work-order changes
+
+On submit, any pending work-order changes are acknowledged before the plan flips to Complete; if that acknowledgement fails, the plan is not submitted. On a draft save, the acknowledgement happens only after the breakdown saves successfully, so a "work order has changed" reload prompt won't hide the notices banner.
+
+### After a successful submit
+
+- A successful submit can contribute to the **Plan Captain** badge, which unlocks after a user has ten distinct submitted-or-approved plans they created.
+- You're returned to the jobs list.
+- If submit fails, you'll see "Failed to submit plan".
+
+## Approving (Complete to Approved)
+
+Approving moves a submitted plan to **Approved**. When this happens, the approver and the approval date are recorded automatically from who is signed in.
+
+The stamps are recorded only the first time a plan is approved — approving again won't overwrite the original approver or date.
+
+## How the job's status follows the plan
+
+When the plan's status actually changes, the parent job's status updates in lockstep, as part of the same action, so the plan and the job can never disagree:
+
+- Plan becomes **Complete** — job moves to **Pending Review**.
+- Plan becomes **Approved** — job moves to **Requires Scheduling**.
+- Any other change — the job status is left alone.
+
+## What locks editing
+
+There is no hard freeze on a Complete or Approved plan — a manager can always re-open and edit it. Instead, "done" plans are shown read-only by default, and you step back into edit mode deliberately.
+
+### Read-only view
+
+On the project's plans view:
+
+- no plan — an empty state with **Create Plan**,
+- **Draft** — a "Plan saved as draft" state with a draft action,
+- **Complete** or **Approved** — the plan renders read-only.
+
+The read-only view shows the submitter's name and the submitted date, and only an **Edit Plan** link — no Submit or Save Draft buttons. The **Edit Plan** link returns you to the editable builder, so a manager can always re-enter edit mode. The lock is presentational, not a permanent freeze.
+
+### Other safeguards on the builder
+
+- **Save Draft** is disabled when there are no changes or while a save is running.
+- **Submit** is disabled unless the plan is ready, has changes, and isn't already processing.
+- Navigating away with unsaved edits warns you first.
+- A plan can only point at a job in your own organization; trying otherwise reports the job as not found.
+
+## The plan card on the job page
+
+The job's plan card shows status-specific copy and a call to action:
+
+- no plan — "No Plan Found" / **Create Plan**
+- **Draft** — "Draft in Progress" / **Continue Planning** (shows creator and created date)
+- **Complete** — "Plan Complete" / **View Plan** (shows creator and submitted date)
+- **Approved** — "Plan Approved" / **View Plan** (shows approver and approved date)
+
+## Quick reference
+
+- **Statuses:** Draft to Complete (submit) to Approved, moving forward one step at a time.
+- **Build / submit / approve:** Admin, Ops Manager, Crew Leader. Everyone else is view-only.
+- **Approving** records the approver automatically and needs no special permission.
+- **Submission requires** acknowledged crew notes, at least one employee, at least one assigned item, every day complete, and no allocation shortfall.
+- **Job status follows the plan:** Complete to Pending Review, Approved to Requires Scheduling.
+- **Editing isn't frozen** — non-Draft plans show read-only, and **Edit Plan** re-opens the builder.

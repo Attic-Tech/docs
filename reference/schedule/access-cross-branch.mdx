@@ -1,7 +1,105 @@
 ---
 title: "Access cross branch"
+description: "Who can open the Schedule, whose events each role sees, and how Cross-Branch Calendar Sync widens visibility across branches."
+keywords:
+  - "Who can see the Schedule?"
+  - "Why can I only see my own shifts on the calendar?"
+  - "Which roles see everyone's events on the Schedule?"
+  - "How do I see another branch's calendar?"
+  - "Why can't I edit an event from another branch?"
+  - "What does Cross-Branch Calendar Sync do?"
+  - "Who can turn on cross-branch calendar visibility?"
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains who can open the Schedule, whose events each role sees within a branch, and how the **Cross-Branch Calendar Sync** workspace setting widens visibility across branches.
+
+The user-facing roles referenced below are **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Crew Member**. All access is enforced on the server; the on-screen controls (read-only sheets, the branch filter) mirror that enforcement but are not the security boundary.
+
+## Who can open the Schedule
+
+### Every staff role can open the Schedule
+
+When the Schedule is enabled for your workspace, all staff roles can open it: Admin, Ops Manager, Sales Admin, Sales Member, Client Coordinator, Crew Leader, and Crew Member.
+
+If the Schedule feature is turned off for your workspace, no one can open it, regardless of role. When it is off, the page returns a "not found" result rather than redirecting.
+
+What differs between roles is not whether they can open the Schedule, but **whose** events they see once inside, and whether they can edit them.
+
+## Whose events each role sees
+
+Within a branch, roles fall into two visibility tiers: those who see everyone's events, and those who see only their own. There is one read-only exception for Sales Members.
+
+### Roles that see all events in the branch
+
+These roles see every event in the branch, including unpublished draft shifts:
+
+- **Admin**
+- **Ops Manager**
+- **Sales Admin**
+- **Client Coordinator**
+
+### Roles that see only their own events
+
+These roles see only the events they are assigned to, and do not see draft shifts:
+
+- **Sales Member** (plus a read-only exception, below)
+- **Crew Leader**
+- **Crew Member**
+
+A Crew Leader can create, view, update, and delete their own events but does not see other people's events. A Crew Member sees only the events they are assigned to.
+
+### Sales Member exception: read-only Job-mode events from their estimates
+
+A Sales Member also sees events tied to jobs that came from estimates they created. These appear only in **Job** calendar mode and are **read-only** — the Sales Member can see them but cannot edit them. Outside of their own assigned events and these estimate-linked job events, a Sales Member sees nothing else in the branch.
+
+### The Users filter (Day / Week views) follows the same split
+
+In the Day and Week views, the dropdown that lets you filter rows by person is populated for roles that can see everyone's events: **Admin**, **Ops Manager**, **Sales Admin**, and **Client Coordinator**. For everyone else, the dropdown contains only themselves.
+
+## Cross-branch visibility
+
+By default, the Schedule shows only your **currently selected branch**. Seeing events from other branches is opt-in and only becomes available when all of the following are true.
+
+### Three conditions must all be met
+
+1. An Admin has turned on **Cross-Branch Calendar Sync** for the workspace.
+2. You are assigned to **two or more branches**.
+3. The cross-branch view is requested (via the Branches filter).
+
+If you are assigned to only one branch, you never see other branches' events — even when the setting is on.
+
+### You can only see branches you're assigned to
+
+When cross-branch view is on, the branches you can display are limited to the branches you are assigned to. You can never widen visibility to a branch you do not belong to. If you make no branch selection, the view shows all of the branches you are assigned to.
+
+### Events from other branches are read-only
+
+An event that belongs to a branch other than your currently selected branch opens a **read-only detail view** instead of the editable one. Editing stays scoped to your own current branch. If you follow a deep link to a job, shift, or activity in a different branch, you are switched to that branch rather than shown a cross-branch edit screen.
+
+### The Branches filter only appears when cross-branch is enabled
+
+The **Branches** section of the filter only shows up when Cross-Branch Calendar Sync is on and you are assigned to more than one branch. Otherwise there is nothing to filter across, so the section is hidden.
+
+## The workspace setting that enables it
+
+**Cross-Branch Calendar Sync** is a single workspace-level checkbox found under **Settings → Calendar**. The on-screen description reads: *"When enabled, calendar display events across all branches for team members assigned to multiple branches."*
+
+### Who can change it
+
+Only an **Admin** can turn Cross-Branch Calendar Sync on or off. The Calendar settings screen is reachable only by users who can manage workspace settings; anyone else who tries to reach it is redirected back to the settings landing screen. Saving shows a "Calendar settings saved" confirmation, or "Failed to update setting" if it doesn't save.
+
+This setting has no per-user effect unless the user is assigned to two or more branches — see [Cross-branch visibility](#cross-branch-visibility) above.
+
+## Quick reference
+
+- **Open the Schedule:** every staff role, as long as the Schedule is enabled for the workspace.
+- **See all branch events (including drafts):** Admin, Ops Manager, Sales Admin, Client Coordinator.
+- **See only their own events:** Sales Member, Crew Leader, Crew Member.
+- **Sales Member extra:** read-only, Job-mode events from jobs linked to their own estimates.
+- **Turn on Cross-Branch Calendar Sync:** Admin only (Settings → Calendar).
+- **Cross-branch events are always read-only**, and limited to the branches you are assigned to.
+
+## Related references
+
+- [Organization and branch scoping](/reference/platform/org-branch-scoping)
+- [Permissions and roles matrix](/reference/platform/permissions-roles-matrix)

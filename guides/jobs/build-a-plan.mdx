@@ -1,7 +1,131 @@
 ---
 title: "Build a plan"
+description: "Use the Job Planner to turn a sold job into a day-by-day plan — review notices, lay out each day's work, assign your crew, vehicles, and equipment, then submit it for approval."
+icon: "list-checks"
 ---
 
+The **Job Planner** is where you turn a job into an actionable, day-by-day plan. You review any important notices, break the work into one or more days, and for each day decide which tasks get done, who's working, and what vehicles and equipment you need. A live **Plan Effectiveness** panel shows how your plan compares to average as you go, so you can see the impact of your choices before you submit.
+
 <Note>
-  This page is coming soon.
+You don't need to do any math. As you assign work and hours, the planner tracks quantities, totals, and effectiveness for you — your job is to lay out a realistic plan for the crew.
 </Note>
+
+## Open the Job Planner
+
+<Steps>
+  <Step title="Open the job">
+    Go to the job you're planning. From the job's page, open the **Job Planner**. (You'll need to be assigned as the crew lead — see [Open and assign a crew lead](/guides/jobs/open-and-assign-crew-lead).)
+  </Step>
+  <Step title="Check the header">
+    The top of the planner shows the **Job Planner** title and the client's name, with **Back** to return to the job. **Save Draft** and **Submit Plan** sit on the right — Submit stays disabled until the plan is complete.
+  </Step>
+</Steps>
+
+<Tip>
+You can stop any time and come back later. Use **Save Draft** to keep your progress, then reopen the planner to keep building right where you left off.
+</Tip>
+
+## Step 1 — Clear the Important Notices
+
+Before you can add any days, you have to clear the **Important Notices** section at the top. This is how the planner makes sure you've seen anything that affects the job.
+
+- **Crew Notes** — notes left for the crew about this job. Review them and check the box to acknowledge.
+- **Estimate Changes** — if the estimate changed since the plan was last saved, you'll see a list of what was added, removed, or modified. Review and check the box to acknowledge.
+
+Once you've checked every required box, click **Acknowledge**. The section collapses, its status changes to **Complete**, and the planner is ready for your first day.
+
+<Note>
+If there's nothing to review, you'll see "No important notices for this job" and the section is already done — you can go straight to building days.
+</Note>
+
+## Step 2 — Add a day
+
+In the **Build your plan** section, click **Add Day**. Each day is its own block titled **Day 1**, **Day 2**, and so on, with a status of **In Progress** until everything required is filled in. Add as many days as the job needs, and use the trash icon on a day to remove it.
+
+Inside each day you'll work through five sections in order. As you finish one, the planner opens the next for you.
+
+### 1. Work Order
+
+This is the list of tasks from the job, grouped by work area. For each task you want to tackle on this day:
+
+- **Check the task** to add it to the day.
+- Use the **minus and plus buttons** to set how much of it you're doing. A badge shows the amount as `done/total` (for example `5/12`) and how much is **% left** across all days.
+- When a task is fully covered across your days, it's marked **Fully Allocated**.
+
+Anything you don't finish on one day carries over and stays available for the next day. A task flagged **New** came from a recent estimate change — give it a closer look.
+
+<Tip>
+You don't have to fit everything into one day. Spread a task's quantity across several days — the planner keeps a running total so you never assign more than the job calls for.
+</Tip>
+
+### 2. Add Employees
+
+Choose who's working this day and for how long.
+
+<Steps>
+  <Step title="Open the picker">
+    Click **Add another employee** to open the **Request Employees** window.
+  </Step>
+  <Step title="Pick your crew">
+    Search by name and check each person you want. Each one shows their role (such as Crew Leader or Crew Member), and a **Selected** count keeps track. Click **Save Changes**.
+  </Step>
+  <Step title="Set hours">
+    Back on the day, set each person's **Hours** with the stepper. Remove anyone with the trash icon.
+  </Step>
+</Steps>
+
+### 3. Add Vehicles
+
+Pick how many vehicles of each type you need for the day. Check a vehicle type, then use the stepper to set the count. The planner only lets you go up to the number actually available.
+
+### 4. Add Heavy Equipment
+
+The same as vehicles, for equipment. Check each equipment type you need and set the quantity, up to what's available.
+
+### 5. Add Daily Notes
+
+Optional. Add any notes you'd like the team to see for the day. This section isn't required, so you can leave it blank and still complete the day.
+
+<Note>
+A day shows **Complete** once its required sections — work order, employees, vehicles, and equipment — are filled in. Daily Notes are optional and don't affect completion.
+</Note>
+
+## Watch your Plan Effectiveness
+
+As you assign hours, the **Plan Effectiveness vs. Average** panel updates live:
+
+- **Planned Hours vs. Estimate** compares the hours you've planned against the job's estimate.
+- The gauge and percentage show how your plan stacks up against the average — green means you're saving more time than average, and a message tells you where you stand.
+- **Projected Bonus Pool** estimates the bonus your plan would generate based on the time it saves.
+
+These are guides to help you build a strong, realistic plan — there's no "right" number to hit.
+
+## Step 3 — Save or submit
+
+When you're ready:
+
+- **Save Draft** keeps your progress without finalizing. Use it any time, and come back to finish later.
+- **Submit Plan** sends the finished plan on for approval. It only becomes available once the notices are cleared and every day is complete.
+
+<Note>
+If a banner warns that the work order quantities changed since the plan was saved and your days now exceed them, use **Clear Plan** to start the days over with the correct amounts, then re-plan.
+</Note>
+
+Once you submit, the plan moves into the approval flow — see [Submit and approve](/guides/jobs/submit-and-approve) for what happens next.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Open and assign a crew lead" icon="user-check" href="/guides/jobs/open-and-assign-crew-lead">
+    Make sure the right crew lead is assigned before building the plan.
+  </Card>
+  <Card title="Submit and approve" icon="circle-check" href="/guides/jobs/submit-and-approve">
+    See what happens after you submit a plan and how approvals work.
+  </Card>
+  <Card title="Add crew, equipment, and vehicles" icon="truck" href="/guides/jobs/add-crew-equipment-vehicles">
+    Manage the people, vehicles, and equipment available for your jobs.
+  </Card>
+  <Card title="Complete an inspection report" icon="clipboard-check" href="/guides/jobs/complete-inspection-report">
+    Capture the on-site details that go alongside the plan.
+  </Card>
+</CardGroup>

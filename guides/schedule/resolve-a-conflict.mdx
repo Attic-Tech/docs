@@ -1,7 +1,70 @@
 ---
 title: "Resolve a conflict"
+description: "Spot and clear scheduling conflicts when you assign a team — read the Available and Unavailable lists, review the Scheduling Conflict warning, and decide whether to edit the shift or go ahead."
+icon: "triangle-alert"
 ---
 
+A scheduling conflict means someone you're about to assign is already booked for that time — on another job, a task, a lead activity, or approved time off. Menaia checks for these as you build the schedule and warns you before anything is published, so you can fix the overlap or knowingly schedule over it.
+
 <Note>
-  This page is coming soon.
+Conflicts are based on the **date and time you've selected** for the event you're scheduling. Change the time or the people, and the availability updates right away.
 </Note>
+
+## See who's free before you assign
+
+When you pick a team for a job (or assign someone to a task, time off, or lead activity), the people list sorts itself by availability for the time you chose:
+
+- **Available** — a green dot. This person has nothing else booked during that window.
+- **Unavailable** — a red dot, grouped under an **Unavailable** heading. This person already has something on their schedule that overlaps.
+
+<Tip>
+You can still select someone from the **Unavailable** list — the dot is a heads-up, not a lock. Use it to make a deliberate call rather than discovering the clash later.
+</Tip>
+
+## Review the Scheduling Conflict warning
+
+If you go ahead and try to publish with one or more overlaps, Menaia stops and shows the **Scheduling Conflict** dialog before saving.
+
+<Steps>
+  <Step title="Read the conflict list">
+    The dialog lists every overlap it found. Each line names the **person**, **what they're already booked for** (the job, time off, task, or lead activity), and the **date and time** of that existing commitment — so you can see exactly what would collide.
+  </Step>
+  <Step title="Decide how to handle it">
+    You have two choices at the bottom of the dialog:
+
+    - **Edit Shift** — go back without publishing so you can change the time, swap the person, or remove whoever is double-booked.
+    - **Continue** — publish anyway, scheduling this person over their existing commitment. Choose this only when you mean to.
+  </Step>
+</Steps>
+
+<Note>
+**Continue** does exactly what it says — it schedules over the conflict. The other commitment stays in place, so that person now has two things booked at once. Use **Edit Shift** if that isn't what you want.
+</Note>
+
+## Common ways to clear a conflict
+
+- **Move the time.** Adjust the start or end so it no longer overlaps the existing booking. The availability dots refresh as soon as you change the time.
+- **Swap the person.** Pick someone from the **Available** list instead of the one flagged in red.
+- **Trim the team.** If you only need to drop the double-booked person, deselect them and keep the rest.
+- **Reschedule the other event.** If the existing booking is the one that should move, open it on the calendar and change its time instead.
+
+<Tip>
+Conflicts cover more than jobs. Approved **time off** and assigned **tasks** and **lead activities** all count, so a red dot might mean someone is out for the day rather than on another job.
+</Tip>
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Schedule a job" icon="calendar-plus" href="/guides/schedule/schedule-a-job">
+    Build a job, pick the day and time, and assign the team — where availability and conflicts come into play.
+  </Card>
+  <Card title="View the schedule" icon="calendar-days" href="/guides/schedule/view-the-schedule">
+    See everything that's booked on the calendar so you can spot and reschedule overlapping events.
+  </Card>
+  <Card title="Log time off" icon="umbrella-beach" href="/guides/schedule/log-time-off">
+    Record when someone is unavailable so it shows up as a conflict before they get booked.
+  </Card>
+  <Card title="Approve shifts" icon="circle-check" href="/guides/schedule/approve-shifts">
+    Review and approve the shifts your team has worked.
+  </Card>
+</CardGroup>

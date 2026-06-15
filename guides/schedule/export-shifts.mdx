@@ -1,7 +1,77 @@
 ---
 title: "Export shifts"
+description: "Download a CSV of shift records — badge ID, pay date, time in, and time out — for the shifts you select, so you can hand them off for payroll or your own records."
+icon: "file-arrow-down"
 ---
 
+When it's time to run payroll or keep a record of hours worked, you can download your shifts as a CSV file. You pick exactly which shifts to include — filter and select the ones you want, then export. The file lists each shift's **Badge Id**, **Pay Date**, **Time In**, and **Time Out**, so it drops cleanly into a payroll system or spreadsheet.
+
 <Note>
-  This page is coming soon.
+Where you find this depends on what you can see. If you only manage your own time, the page is called **My Shifts** and the export covers your shifts. If you oversee a team's hours, the page is called **Job Shifts** and you can export shifts across the people you manage.
 </Note>
+
+## Open the shifts page
+
+<Steps>
+  <Step title="Go to the shifts page">
+    Open **My Shifts** (or **Job Shifts** if you manage a team) from the main navigation. The page lists past, current, and upcoming shifts in a table.
+  </Step>
+  <Step title="Pick a tab">
+    Use the **Today**, **All**, and **Completed** tabs at the top to set which shifts you're looking at. **Completed** is the usual starting point for payroll, since it shows approved, finished shifts.
+  </Step>
+</Steps>
+
+## Narrow down to the shifts you want
+
+Before you export, trim the list to just the shifts you need. Open the filters and set any that apply:
+
+- **Shift Date** — pick a date range (for example, a single pay period).
+- **Employee** — limit to one person's shifts. (Managers only.)
+- **Client Name** — limit to shifts tied to a specific client.
+- **Shift Name** — match shifts by name.
+- **Status** — choose any of **Upcoming**, **In Progress**, **Pending Approval**, or **Approved**.
+- **Pay Structure** — choose **Salary** or **Hourly**.
+
+You can also use the search box to find shifts by client, job, or person's name.
+
+<Tip>
+For payroll, set the **Shift Date** to the pay period and the **Status** to **Approved** so you only export hours that have been signed off. If shifts still need a manager's sign-off, see [Approve shifts](/guides/schedule/approve-shifts).
+</Tip>
+
+## Select shifts and export
+
+<Steps>
+  <Step title="Select the shifts">
+    Check the box next to each shift you want, or use **Select all** to grab every shift that matches your current filters — not just the ones on the visible page. The count next to the checkbox shows how many you've picked, and **Clear selection** starts you over.
+  </Step>
+  <Step title="Click Export CSV">
+    Once at least one shift is selected, an **Export CSV** button appears in the top-right corner with the selected count in parentheses, for example **Export CSV (24)**. Click it.
+  </Step>
+  <Step title="Review the export details">
+    The **Download shifts as CSV file** window opens. It confirms the **Exported fields** (Badge Id, Pay Date, Time In, Time Out), how many **Shifts Selected** you're about to download, and the **Date Range** they cover. Check that the count and dates look right.
+  </Step>
+  <Step title="Download the file">
+    Click **Export CSV** in the window. The file downloads, ready to open in a spreadsheet or hand off to payroll. (Click **Cancel** instead if you need to adjust your selection first.)
+  </Step>
+</Steps>
+
+<Note>
+The export includes only the shifts you selected. If a shift is missing from the file, go back, clear your filters or widen the date range, re-select, and export again.
+</Note>
+
+## Tips for a clean export
+
+- **Double-check the count.** The number on the **Export CSV** button and in the download window should match how many shifts you expect for the period.
+- **Use Select all for whole periods.** Filter to the pay period first, then **Select all** to capture every matching shift in one go, even across multiple pages.
+- **Export approved shifts for payroll.** Filtering to the **Approved** status keeps unreviewed or in-progress time out of your payroll file.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Edit and submit shifts" icon="pen" href="/guides/schedule/edit-submit-shifts">
+    Fix a shift's times and submit it for review before it's ready to export.
+  </Card>
+  <Card title="Approve shifts" icon="circle-check" href="/guides/schedule/approve-shifts">
+    Sign off on submitted shifts so they're approved and payroll-ready.
+  </Card>
+</CardGroup>

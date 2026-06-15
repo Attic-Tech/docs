@@ -1,7 +1,109 @@
 ---
 title: "Crew lead eligibility"
+description: "Who can be assigned as the crew lead (Team Lead) on a job's scheduled days, and who is allowed to make that assignment."
+keywords:
+  - "who can be a crew lead on a job"
+  - "why doesn't a person show up in the Team Lead dropdown"
+  - "who can assign a crew lead"
+  - "can a crew leader assign themselves as team lead"
+  - "is the crew lead required on a job"
 ---
 
+This reference explains who can be picked as the **Team Lead** (the job's crew lead) when scheduling a job, why someone might not appear in the picker, and which roles are allowed to make the assignment.
+
+The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Crew Member**.
+
+## What the crew lead is
+
+### The crew lead is the Team Lead on a scheduled day
+
+When you schedule a job, each working day has a **Team Lead** field — this person is the job's crew lead for that day. A multi-day job can have a different Team Lead on each day.
+
+The Team Lead is chosen per day in the New Job scheduling flow. It is not a separate record; it lives on the day you schedule.
+
+### The crew lead is optional
+
+A scheduled day can have no Team Lead. The field can be left empty, and an already-chosen Team Lead can be cleared back to empty.
+
+## Who can be picked as the Team Lead
+
+The Team Lead picker only offers people who meet all of the rules below. If someone is missing from the dropdown, one of these is the reason.
+
+### Must hold the Crew Leader role
+
+The Team Lead dropdown is limited to people who have the **Crew Leader** role. Someone without that role will not appear as an option, even if they are otherwise on the team.
+
+### Must belong to the job's branch
+
+Only people assigned to the job's branch are offered. People from other branches do not appear in the Team Lead picker. See [Org and branch scoping](/reference/platform/org-branch-scoping) for how branch membership controls who is visible.
+
+### Must be an active, real team member
+
+The picker hides:
+
+- **Blocked members** — anyone whose account is blocked.
+- **Reserved/system names** — internal placeholder entries (for example, names used for warranty calls, complaints, quality-control visits, or delivery costs) are never offered as a Team Lead.
+
+### Two people stay selectable even if they'd otherwise be hidden
+
+To avoid losing an existing choice, two people remain available in the picker even if the rules above would normally exclude them:
+
+- the **default crew lead** carried over from the job's planning defaults, and
+- anyone **already assigned** as the Team Lead on one of the days you're currently scheduling.
+
+This means a previously chosen Team Lead won't silently disappear from the picker just because their role or branch changed.
+
 <Note>
-  This page is coming soon.
+The "must be a Crew Leader" rule is applied in the **scheduling picker**. The picker is where eligibility is enforced — so make the assignment through the Team Lead field rather than expecting a separate check elsewhere.
 </Note>
+
+## Who can assign a crew lead
+
+Assigning a crew lead happens when you **save or publish** a job's scheduled days. There is no separate "assign crew lead" permission — it is part of being allowed to edit the schedule.
+
+### What it takes to assign
+
+To set or change a Team Lead, you must:
+
+1. Be able to **open the Schedule** (the scheduling area must be available to your role), and
+2. Have permission to **edit the schedule** for that job, and
+3. Be acting within **your own organization** and have **access to the job's branch**.
+
+The branch check is the same scoping that governs the rest of the app — see [Org and branch scoping](/reference/platform/org-branch-scoping).
+
+### Roles that can assign a crew lead
+
+| Role | Can assign a crew lead? |
+| --- | --- |
+| Admin | Yes |
+| Ops Manager | Yes |
+| Sales Admin | Yes |
+| Client Coordinator | Yes |
+| Sales Member | Yes |
+| Crew Leader | Yes |
+| Crew Member | No |
+
+A **Crew Leader** can therefore both *be* a Team Lead and *assign* one, because the Crew Leader role can open and edit the schedule. A **Crew Member** cannot assign a crew lead.
+
+For the full role-by-permission breakdown, see the [Permissions and roles matrix](/reference/platform/permissions-roles-matrix).
+
+### Who managers can act on
+
+When a manager-level role opens the schedule, the people they can act on (including who they can set as Team Lead) span the team for that branch: Crew Member, Crew Leader, Sales Member, Ops Manager, Sales Admin, Client Coordinator, and Admin. People without a manager-level role only see themselves.
+
+## Related job behavior
+
+Setting a crew lead is part of staffing a job, which ties into the job's status:
+
+- A job with no crew assigned sits in **Requires Crew Lead**.
+- Assigning crew moves the job into **Plans In Progress**.
+- Removing all crew from a job that isn't closed sends it back to **Requires Crew Lead**.
+
+For the full set of job statuses and transitions, see [Job status lifecycle](/reference/jobs/job-status-lifecycle).
+
+## Quick reference
+
+- **The crew lead = the Team Lead on a scheduled day.** It's chosen per day and is optional.
+- **To be picked:** must hold the **Crew Leader** role, belong to the job's branch, and be an active, non-placeholder member — with the default and already-assigned Team Lead always kept selectable.
+- **To assign:** Admin, Ops Manager, Sales Admin, Client Coordinator, Sales Member, and Crew Leader can; **Crew Member** cannot.
+- **A Crew Leader can both be and assign a Team Lead.**
