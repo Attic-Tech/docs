@@ -1,7 +1,139 @@
 ---
 title: "Job status lifecycle"
+description: "The ten job statuses, how a job moves between them automatically and manually, and who can change a job's status."
+keywords: ["what are the job statuses", "how does a job move from one status to the next", "who can change a job's status", "what happens when I close a job", "what happens when I cancel a job", "why is the job status a read-only badge", "can I move a job to any status"]
+icon: "arrows-spin"
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains the statuses a job can have, how a job moves between them (automatically and manually), what happens on the important transitions, and who is allowed to change a job's status.
+
+The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Crew Member**.
+
+## What a job is
+
+A job is the unit of operational work created when an estimate is sold. Every job carries exactly one status from a fixed list of ten values. A job moves between statuses two ways:
+
+- **Automatically**, in response to upstream events (a crew lead being assigned, a plan being approved, a schedule being published, an estimate being lost, and so on).
+- **Manually**, when a user changes the status from the Jobs list.
+
+## The ten job statuses
+
+| Status | Meaning |
+|---|---|
+| **Requires Crew Lead** | The job exists but has no crew lead assigned yet. This is the starting status of every newly created job. |
+| **Plans In Progress** | A crew lead is assigned and the job plan is being built. |
+| **Pending Review** | The job plan is complete and waiting to be reviewed and approved. |
+| **Requires Scheduling** | The plan is approved; the job now needs shifts scheduled on the calendar. |
+| **Pre-Production** | Shifts have been published; the job has a scheduled date and is ready to run. |
+| **In Production** | Work is underway on site. |
+| **Production Complete** | Field work is finished. |
+| **Pending Payment** | Work is done and the job is awaiting payment. |
+| **Closed Job** | The job is finished and closed. |
+| **Cancelled** | The job was cancelled. |
+
+### Closed and Cancelled jobs can't be scheduled
+
+A job that is **Closed Job** or **Cancelled** is treated as a terminal state for scheduling: you cannot schedule new work against it. The other eight statuses can still be scheduled.
+
+## How a job moves between statuses
+
+### A job starts at Requires Crew Lead when an estimate is sold
+
+When an estimate is marked **Sold** and no job yet exists for it, the system creates the job at **Requires Crew Lead**.
+
+### Assigning a crew lead advances to Plans In Progress
+
+When a job at **Requires Crew Lead** gets a crew lead assigned, it automatically advances to **Plans In Progress**.
+
+If the crew is later cleared (no crew assigned) and the job is not closed, the job reverts to **Requires Crew Lead**.
+
+### Moving a job back to Requires Crew Lead is destructive
+
+Manually setting a job back to **Requires Crew Lead** resets the job: it clears the assigned crew and removes the job's plan, plan days, item assignments, vehicle and equipment requirements, employee requests, and shifts, and it clears the scheduled date. Use this only when you genuinely want to start the job's planning over.
+
+### Completing and approving the plan advances the job
+
+As the job's plan progresses, the job advances automatically:
+
+- When the plan is marked **complete**, the job moves to **Pending Review**.
+- When the plan is **approved**, the job moves to **Requires Scheduling**.
+
+### Publishing the schedule advances to Pre-Production
+
+When shifts are published for a job, the job advances to **Pre-Production** and its scheduled date is set to the latest published shift's start time. This advance only happens when the job is currently at **Requires Scheduling**, so publishing a schedule never overrides a status the job has already moved past.
+
+### In Production, Production Complete, and Pending Payment are manual only
+
+There is no automatic transition into **In Production**, **Production Complete**, or **Pending Payment**. A job reaches these statuses only when a user changes the status manually from the Jobs list.
+
+### Closing a job (manual)
+
+Closing a job is a manual status change. When a job moves into **Closed Job**:
+
+- The job's closed date is set (you can record a back-dated close, so historical jobs bucket their bonuses to the real date).
+- The salesperson is notified.
+- An hours-saved win may be created automatically.
+- Bonus payouts for the job are finalized.
+
+### Reopening a closed job
+
+Moving a job out of **Closed Job** reverses the close: it clears the closed date, reverts the bonus payouts, and updates the affected earnings and performance figures for that date.
+
+### Cancelling a job (manual) cascades the estimate to Lost
+
+When a job moves into **Cancelled**, the linked estimate is updated to **Lost**.
+
+The reverse also happens from the estimate side: if an estimate is marked **Lost**, its job is set to **Cancelled** — but only when the job is not already **Cancelled** and not **Closed Job**.
+
+### Re-selling an estimate resets the job to Plans In Progress
+
+If a previously sold estimate is sold again and a job already exists, the job is reset to **Plans In Progress** — but only when the job is already past **Requires Crew Lead** and not **Closed Job**.
+
+## Which transitions are allowed
+
+### There is no forced transition order
+
+A user who is allowed to change a job's status can move it to **any** of the ten statuses from **any** current status. The forward path described above is the *intended* flow, not an enforced state machine. Changing to the same status the job already has does nothing.
+
+The side effects described above (the destructive reset on **Requires Crew Lead**, the close/reopen handling, the cancel cascade) still run on the relevant transitions regardless of the order you move through statuses.
+
+## Who can change a job's status
+
+### Roles that can change job status
+
+| Role | Can change job status? |
+|---|---|
+| **Admin** | Yes |
+| **Ops Manager** | Yes |
+| **Sales Admin** | Yes |
+| **Sales Member** | Yes |
+| **Client Coordinator** | Yes |
+| **Crew Leader** | No |
+| **Crew Member** | No |
+
+A user can only change the status of jobs in a branch they have access to.
+
+### The status control becomes a read-only badge without permission
+
+In the Jobs list, the status control is interactive only for users who can change job status. For everyone else — including **Crew Leader** and **Crew Member** — the status shows as a read-only badge instead of a dropdown.
+
+### Assigning a crew lead is a separate permission
+
+Assigning a crew lead is controlled separately from changing status, because assigning a crew lead can indirectly move the job between **Requires Crew Lead** and **Plans In Progress**. **Admin**, **Ops Manager**, **Sales Admin**, and **Crew Leader** can assign a crew lead. So a **Crew Leader** can assign a crew lead (and trigger that auto-advance) even though they can't set an arbitrary status directly.
+
+## Common messages and guards
+
+| What you see | When it appears |
+|---|---|
+| "Job status set to *(status)*." | A status change succeeded. |
+| **Unable to update status** | The status change failed; the message gives the reason, or a generic error if none is available. |
+| **A new version is available** — "Please reload the page to get the latest version and try again." | The page is out of date with the server (usually after a new release). Reload and try again. |
+| "Job could not be found." | The job no longer exists. |
+| "Selected crew lead is not valid for this job." | The chosen crew lead isn't eligible for the job's branch. |
+| The status shows as a read-only badge instead of a dropdown | You don't have permission to change this job's status. |
+
+## Related references
+
+- [Lead status lifecycle](/reference/leads/status-lifecycle)
+- [Permissions and roles matrix](/reference/platform/permissions-roles-matrix)
+- [Org and branch scoping](/reference/platform/org-branch-scoping)

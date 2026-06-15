@@ -1,7 +1,106 @@
 ---
 title: "Submit and approve"
+description: "Submit a finished job plan for review, then review and approve it so the job is ready to schedule."
+icon: "circle-check"
 ---
 
+Once a plan is built, it goes through two quick steps before the job can be scheduled. First the planner **submits** the plan for review. Then a reviewer opens it, checks it over, and **approves** it. This page walks through both sides.
+
 <Note>
-  This page is coming soon.
+Submitting and approving are separate actions, often done by different people. The planner submits; a reviewer approves. If you do both yourself, just follow the page top to bottom.
 </Note>
+
+## Submit a plan for review
+
+When a plan is ready, you submit it from the **Job Planner** screen. You can get there from the job by choosing **Continue Planning** (or **Create Plan** if you're starting fresh).
+
+### Make sure the plan is complete
+
+The **Submit Plan** button only turns on once everything the plan needs is in place. Until then it stays greyed out. To make it active:
+
+<Steps>
+  <Step title="Clear the Important Notices">
+    If the job has crew notes, open the **Important Notices** section and confirm them. The plan can't be submitted while a notice is still waiting to be acknowledged.
+  </Step>
+  <Step title="Add at least one day">
+    A plan needs at least one day. Each day must be filled out completely — its sections should all be marked done.
+  </Step>
+  <Step title="Assign all the work">
+    Every work order item has to be fully allocated across your plan days. If any quantity is left over, the plan isn't ready and submitting is blocked.
+  </Step>
+  <Step title="Request your crew">
+    Make sure at least one crew member is requested for the work.
+  </Step>
+</Steps>
+
+<Tip>
+Not ready to submit? Use **Save Draft** (shown as **Save as draft** on mobile) at any time. Your work is kept and the plan stays a draft, so you can come back and finish later.
+</Tip>
+
+### Click Submit Plan
+
+When everything checks out, the **Submit Plan** button becomes active.
+
+<Steps>
+  <Step title="Press Submit Plan">
+    Press **Submit Plan**. On mobile it's the button at the bottom of the screen.
+  </Step>
+  <Step title="Confirmation">
+    The plan is saved and sent for review, and you're taken back to your jobs list.
+  </Step>
+</Steps>
+
+After submitting, the job moves to **Pending Review** and the plan shows as **Plan Complete**, along with who submitted it and when. From here it's the reviewer's turn.
+
+<Note>
+If something's still missing, submitting will tell you exactly what to fix — for example, a remaining quantity to allocate, an unconfirmed crew note, or a missing crew member. Resolve the message and try again.
+</Note>
+
+## Review and approve a plan
+
+A submitted plan waits for a reviewer to approve it. Reviewing is done from the jobs list.
+
+<Steps>
+  <Step title="Find the job">
+    In your jobs list, look for jobs in the **Pending Review** stage. You can filter to that stage using the tabs at the top of the list.
+  </Step>
+  <Step title="Open Review Plan">
+    A job that's waiting on you shows a **Review Plan** action. Choose it to open the plan.
+  </Step>
+  <Step title="Look the plan over">
+    The plan opens in a read-only view that shows **Submitted By** and the date. Read through the days, the work that's been assigned, and the requested crew. If something needs changing, choose **Edit Plan** to open it for edits.
+  </Step>
+</Steps>
+
+### Approve the plan
+
+When the plan looks good, you approve it by moving the job forward to the next stage.
+
+<Steps>
+  <Step title="Open the status selector">
+    On the job in your jobs list, open the status control next to the job (it shows the current stage, **Pending Review**).
+  </Step>
+  <Step title="Set it to Requires Scheduling">
+    Choose **Requires Scheduling**. This approves the plan and advances the job.
+  </Step>
+  <Step title="Confirmation">
+    You'll see a short confirmation that the status was updated. The plan now reads **Plan Approved**, with your name and the date.
+  </Step>
+</Steps>
+
+<Note>
+Changing a job's stage is permission-controlled. If the status control is unavailable for you, your team's setup doesn't allow you to advance this job — ask whoever handles approvals for your branch.
+</Note>
+
+Once approved, the job is ready for scheduling. Its action becomes **Schedule Job**, and the plan is locked in as the basis for the work.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Build a plan" icon="list-checks" href="/guides/jobs/build-a-plan">
+    See how a plan comes together — days, work assignments, and crew requests — before you submit it.
+  </Card>
+  <Card title="Browse the pipeline" icon="layout-list" href="/guides/jobs/browse-pipeline">
+    Track every job by stage, from Pending Review to Requires Scheduling and beyond.
+  </Card>
+</CardGroup>

@@ -1,7 +1,87 @@
 ---
 title: "Reopen or cancel"
+description: "Change a job's status from the Jobs list — cancel a job that's no longer going ahead, or reopen one that was closed or cancelled by mistake."
+icon: "rotate-ccw"
 ---
 
+Every job carries a **status** that tells your team where it stands — from `Requires Crew Lead` all the way through to `Closed Job`. Most of the time the status moves forward on its own as the job progresses. But sometimes you need to step in: a customer backs out and you want to **cancel** the job, or a job was closed or cancelled by mistake and you need to **reopen** it.
+
+You do both the same way: by changing the job's status from the **Jobs** list.
+
 <Note>
-  This page is coming soon.
+Changing a job's status is a permission. If you don't see a dropdown on the status — just a plain coloured label — your account isn't set up to change it. Ask whoever manages your branch to make the change or to grant you access.
 </Note>
+
+## Where to change a status
+
+<Steps>
+  <Step title="Open the Jobs page">
+    Go to **Jobs** from the main navigation. This is the list of every job in your branch. Use the search box (**Type a name...**) or the status tabs across the top to find the job you're after.
+  </Step>
+  <Step title="Find the Status column">
+    Each job row has a **Status** column showing a coloured label like `In Production` or `Closed Job`. If you can change statuses, that label is a dropdown — click it to open the list of statuses.
+  </Step>
+  <Step title="Pick the new status">
+    Choose the status you want from the **Change Status:** list. The label updates right away, and a confirmation appears at the corner of the screen once the change is saved.
+  </Step>
+</Steps>
+
+<Tip>
+On a phone or tablet, each job shows as a card instead of a table row. The status dropdown sits at the top of the card — tap it to open the same list.
+</Tip>
+
+## Cancel a job
+
+Cancel a job when it isn't going ahead — the customer changed their mind, the work fell through, or it was created by mistake.
+
+<Steps>
+  <Step title="Open the job's status dropdown">
+    On the **Jobs** page, click the status label on the job you want to stop.
+  </Step>
+  <Step title="Choose Cancelled">
+    Select `Cancelled` from the list. The job's label turns grey and it drops out of your active pipeline.
+  </Step>
+</Steps>
+
+A cancelled job stays in your list — it isn't deleted. You can still open it to see its details, and it's filtered into the **Cancelled** tab so it stays out of your way. Cancelled jobs are also left out of scheduling, so they won't clutter the calendar.
+
+<Note>
+Cancelling is meant for jobs that are genuinely off the table. If a job is simply paused or waiting on the customer, it's usually better to leave it in its current status rather than cancel it.
+</Note>
+
+## Reopen a job
+
+Reopen a job when it was closed or cancelled but actually needs more work — for example, the customer came back, or someone closed it too early.
+
+<Steps>
+  <Step title="Find the closed or cancelled job">
+    On the **Jobs** page, use the **Closed Job** or **Cancelled** status tab (or search by name) to find it.
+  </Step>
+  <Step title="Open its status dropdown">
+    Click the status label on the job's row or card.
+  </Step>
+  <Step title="Choose the status you want to return it to">
+    Pick the status that matches where the job should pick back up — for example `In Production` if the crew needs to get back on site, or `Requires Scheduling` if it needs a spot on the calendar again. The job rejoins your active pipeline under its new status.
+  </Step>
+</Steps>
+
+<Tip>
+Not sure which status to choose? Pick the one that describes what needs to happen next. `Requires Scheduling` puts it back in line for the calendar; `In Production` signals the work is underway again.
+</Tip>
+
+## Good to know
+
+- **Nothing is lost.** Cancelling or reopening only changes the status label. The job's plan, crew, work areas, and history all stay exactly as they were.
+- **Statuses that move on their own.** Some statuses are set automatically as a job moves through its stages. If a status in the list can't be selected, it's one the system manages for you — choose a different one.
+- **The change is immediate.** Once you pick a new status, it saves on its own. There's no separate save button, and you'll see a confirmation at the corner of the screen.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Browse pipeline" icon="list" href="/guides/jobs/browse-pipeline">
+    Use the Jobs list, search, tabs, and filters to find any job and see its status at a glance.
+  </Card>
+  <Card title="Open and assign crew lead" icon="user-plus" href="/guides/jobs/open-and-assign-crew-lead">
+    Pick up a reopened job by giving it a crew lead so the work can get moving again.
+  </Card>
+</CardGroup>

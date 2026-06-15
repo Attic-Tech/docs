@@ -1,7 +1,80 @@
 ---
 title: "Non schedulable statuses"
+description: "Which job statuses can't be scheduled, why Closed Job and Cancelled jobs never appear in the Schedule a Job picker, and how this differs from the Requires Crew Lead and lead-level scheduling rules."
+keywords:
+  - "why can't I schedule a closed job"
+  - "why doesn't my job show up in the schedule picker"
+  - "which job statuses block scheduling"
+  - "can I schedule a cancelled job"
+  - "what happens to shifts when a job is closed or cancelled"
+  - "does Requires Crew Lead stop a job from being scheduled"
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains which job statuses can be scheduled, which two cannot, and why the blocked jobs simply don't appear in the **Schedule a Job** picker.
+
+## The two non-schedulable statuses
+
+A job can be scheduled — meaning it shows up in the **Schedule a Job** picker — in **every** status **except** these two:
+
+| Status | Schedulable? |
+| --- | --- |
+| **Closed Job** | No — blocked |
+| **Cancelled** | No — blocked |
+
+Every other job status is schedulable.
+
+### The full set of job statuses
+
+For context, the complete list of job statuses is below. Every one of these **except Closed Job and Cancelled** can be scheduled:
+
+- **Requires Crew Lead**
+- **Plans In Progress**
+- **Pending Review**
+- **Requires Scheduling**
+- **Pre-Production**
+- **In Production**
+- **Production Complete**
+- **Pending Payment**
+- **Closed Job** — not schedulable
+- **Cancelled** — not schedulable
+
+## Why these two are blocked
+
+A **Closed Job** is a completed, finalized job, and a **Cancelled** job will not be worked. Neither should have new shifts scheduled against it, so both are filtered out of the **Schedule a Job** picker.
+
+There is **no error message or warning** for this. Closed and cancelled jobs simply **never appear** in the job dropdown — there's nothing to select, so there's no "you can't schedule this" message to dismiss. The job is absent, not present-but-disabled.
+
+## How the rule behaves
+
+### It blocks selection in the Schedule a Job flow
+
+The exclusion applies everywhere a job is chosen in the **Schedule a Job** flow:
+
+- **The job dropdown.** Closed and cancelled jobs are left out of the list you scroll through and search.
+- **The auto-select shortcut.** When you pick a client who has exactly one schedulable job, that job is auto-selected for you. A client whose only job is closed or cancelled will **not** trigger this auto-selection — there's no schedulable job to pick.
+
+### Already-scheduled shifts are kept
+
+If a job already has shifts and then becomes **Closed Job** or **Cancelled**, its existing shifts stay in place. This rule only controls **new** selection in the picker — it does not retroactively remove shifts that were already scheduled.
+
+## Related but distinct rules
+
+### Requires Crew Lead is still schedulable
+
+**Requires Crew Lead** is **not** one of the non-schedulable statuses — a job in this status **can** still be picked in the **Schedule a Job** flow. It does, however, have a separate effect: when a job is moved into **Requires Crew Lead**, the job's own scheduled date is cleared and its crew assignment is cleaned up. That affects the job's scheduled date, not whether the job can be picked for scheduling.
+
+Don't conflate the two: **Requires Crew Lead** remains selectable; only **Closed Job** and **Cancelled** are blocked.
+
+### Lead-level scheduling readiness is a different thing
+
+The Leads area has its own check for whether a lead is ready to be scheduled, based on that lead's scheduling requirements. That applies to **leads**, not to **job statuses**, and is unrelated to the non-schedulable-job-status rule on this page. See [/reference/leads/status-lifecycle](/reference/leads/status-lifecycle) for how leads move through their statuses.
+
+## Quick reference
+
+- **Blocked from scheduling:** Closed Job and Cancelled — they never appear in the **Schedule a Job** picker.
+- **Schedulable:** every other job status, including Requires Crew Lead.
+- **No error message:** blocked jobs are simply absent from the dropdown.
+- **Existing shifts are kept** if a job later becomes Closed Job or Cancelled.
+- **Requires Crew Lead** clears the job's scheduled date but stays schedulable — a separate rule.
+
+For related job behavior, see the other [/reference/jobs](/reference/jobs/non-schedulable-statuses) pages. Role-based access is summarized in [/reference/platform/permissions-roles-matrix](/reference/platform/permissions-roles-matrix).

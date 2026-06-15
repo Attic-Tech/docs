@@ -1,7 +1,161 @@
 ---
 title: "Task timeoff resource rules"
+description: "Who can create, assign, and delete scheduled tasks, time off, and equipment or vehicle bookings, plus the field rules and the two kinds of scheduling conflicts."
+keywords:
+  - "who can create or edit a scheduled task"
+  - "can I assign a task to someone else"
+  - "why can't I rename the default Task type"
+  - "how do I schedule time off for a crew member"
+  - "why can't I book this vehicle for these dates"
+  - "what counts as a scheduling conflict"
+  - "can two events overlap on the schedule"
+  - "why was my resource booking rejected"
 ---
 
+This reference explains the rules behind the scheduling calendar: scheduled **tasks**, **time off**, and **resource bookings** (equipment and vehicles). It covers who can create, assign, and delete each, the field rules that must be satisfied, and how the two different kinds of conflicts behave.
+
+Everything on the schedule is scoped to your **organization and branch** — you only ever see and edit records inside your own organization and branches. See [/reference/platform/org-branch-scoping](/reference/platform/org-branch-scoping) and the [/reference/platform/permissions-roles-matrix](/reference/platform/permissions-roles-matrix).
+
+The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Crew Member**. "Branch management" is shorthand for the group that can manage branch scheduling: Admin, Ops Manager, Sales Admin, and Client Coordinator.
+
+## Task types
+
+Task types are the categories you can assign to a scheduled task on the calendar (managed under Settings).
+
+### Who can manage task types
+
+- **Create, edit, or delete a task type:** Admin, Ops Manager, and Sales Admin.
+- **Everyone else** sees task types as read-only.
+
+### Every organization has a reserved default type named "Task"
+
+Each organization is set up with a built-in default task type named **Task**. It is the fallback type, and it is protected:
+
+- You **cannot create** a task type named "Task" (the check ignores case and surrounding spaces, so " Task " is also blocked). You will be told that "Task" is a reserved name and cannot be used.
+- You **cannot rename** any task type *to* "Task".
+- You **cannot rename** the default "Task" type to anything else.
+- You **cannot delete** the default "Task" type.
+
+### Deleting a custom task type never orphans tasks
+
+When you delete a custom (non-default) task type, every scheduled task that used it is automatically reassigned to your organization's default **Task** type. The delete is only blocked if no default type exists for the organization.
+
+## Scheduled tasks
+
+A scheduled task appears on the calendar, is assigned to one person, has a type, a start and end, and a status. It can optionally be linked to a client and a project, and it can create a shift.
+
+### Who can see, create, and edit tasks
+
+- **Create, update, and delete** is allowed for branch management roles (Admin, Ops Manager, Sales Admin, Client Coordinator) plus **Sales Member** and **Crew Leader**, within their own organization and branch.
+- **What you can see depends on your role.** Branch management roles see **all** tasks in their organization and branches. Everyone else sees only the tasks **assigned to them**.
+- **Draft tasks** are visible only to the person who created them and to managers. Other people see only published tasks on the calendar.
+- **Crew Member** has no ability to create or edit tasks — the schedule page is read-only for them.
+
+### Assignment rules
+
+- **If you are not a manager, you can only assign a task to yourself.** Trying to assign a task to someone else returns "You can only assign tasks to yourself."
+- **If you are not a manager, you can only publish a task that is assigned to you.** Returns "You can only publish tasks assigned to yourself."
+- **If you are not a manager, you can only delete a task that is assigned to you.** Returns "You can only delete tasks assigned to yourself."
+- **The assigned person must belong to the selected branch.** Otherwise you get "Assigned user does not belong to this branch."
+- **The task type must belong to the same organization** as the task.
+
+### Field rules for a task
+
+- **Required:** organization, branch, the assigned person, task type, start date, end date, status, and the "creates shift" choice. **Optional:** title, description, client, and project.
+- **The end must be after the start.** The calendar form shows "End must be after start."
+- **Status is either draft or published**, and a new task defaults to **draft**.
+- **Title is optional** — when left blank, the task uses the task-type name as its title.
+- **Client and project are paired.** If you select a client you must also select a project, and vice versa. The form shows "Project is required when a client is selected."
+
+### Calendar form behavior
+
+These rules govern the New Task and Edit Task panel:
+
+- **Task type, assignee, start date, end date, start time, and end time are required** to submit.
+- **Save Draft is disabled** until the form is valid, not already saving, the "creates shift" choice is answered, and (when editing) you have actually changed something.
+- **Publish is disabled** until the form is valid, not saving, and the "creates shift" choice is answered.
+- **The "creates shift" choice is required when the assignee is a Crew Member or Crew Leader.** Until you answer yes or no, the form is incomplete and shows "Creates shift selection is required."
+
+### Conflict check when publishing a task (a warning, not a block)
+
+When you publish a task, the calendar checks the assignee's other commitments in the same time window — their published job shifts, time off, other published tasks, and published lead activities. If anything overlaps, you see a conflict dialog, but you **can still proceed**. This conflict check is advisory only.
+
+- **Only published events count as conflicts** — drafts are ignored. Time off always counts (it has no draft state). Two events conflict when their time ranges actually overlap.
+
+## Time off
+
+Time off marks a person as unavailable on the calendar, with a reason and a date range.
+
+### Who can create and edit time off
+
+- **Create, update, and delete** is allowed for branch management roles only, within their organization and branch.
+- **If you are not a manager, you can only schedule time off for yourself.** Returns "You can only schedule time off for yourself."
+- **If you are not a manager, you can only update or delete your own time off.**
+
+### Field rules for time off
+
+- **Required:** organization, the person, branch, reason, start date, and end date. **Optional:** description.
+- **The reason is one of Sick, Vacation, or Other.**
+- **The end must be after the start.**
+- **The person must belong to the selected branch.**
+
+### Overlapping time off is allowed
+
+There is **no overlap block** for time off — for example, sick leave inside an existing vacation is fine. Time off is never rejected because of another event.
+
 <Note>
-  This page is coming soon.
+Time off **does** count as a conflict against tasks, jobs, and lead activities in the publish-time conflict warning above — but time off itself is never blocked by other events.
 </Note>
+
+## Resource bookings: equipment and vehicles
+
+A resource booking reserves one resource — a single vehicle **or** a single piece of equipment — for a date range, with a reason. This is how equipment and vehicle availability is tracked.
+
+### The resources themselves
+
+- **Equipment** has a name, a type (from your branch catalog), a branch, and an organization. A serial number is optional and must be unique.
+- **Vehicles** have a name, a type, a license plate (required and unique), a branch, and an organization. Make, model, year, and VIN are optional.
+- **A license plate must be 2 to 10 characters, uppercase letters and numbers only.** Otherwise you get "License plate must be 2-10 characters long and contain only uppercase letters and numbers."
+- **Vehicle year** must be between 1900 and next year.
+- **Creating, editing, and deleting equipment and vehicles** is open to any member of the organization — there is no special role gate beyond organization membership.
+
+### Who can book a resource
+
+- **Create and edit** a resource booking: Admin, Ops Manager, and Crew Leader.
+- **Delete** a resource booking: Admin and Ops Manager only. Crew Leader can create and edit bookings but **cannot delete** them.
+
+### Field rules for a resource booking
+
+- **A booking is for exactly one resource type — vehicle or equipment** — and that resource is required. The system keeps only the matching resource link set. An unknown resource type is rejected with "Invalid resource type on schedule."
+- **The reason** is one of: On a Job, Out of Order, or In Repair. (Sick, Vacation, and Other are reasons for people, not resources, so they are filtered out of the resource picker.)
+- **Required:** organization, resource type, the chosen resource, reason, start date, and end date.
+- **The end must be after the start.**
+
+### Double-booking is blocked (a hard rule)
+
+Unlike time off, **a resource cannot be double-booked.** When you create or edit a resource booking, the system checks every other booking for the same resource. If any of them overlaps the dates you requested, the booking is **rejected** — there is no override.
+
+- You will see "This date range has an existing conflict for this vehicle" (or "...for this equipment"). A resource is available only when nothing else is booked on it in that range.
+
+## The two kinds of conflict — do not confuse them
+
+The schedule has two completely different conflict behaviors:
+
+- **People** (tasks, time off, jobs, lead activities) — a conflict is an **advisory warning** shown when you publish a task. You can proceed anyway.
+- **Resources** (equipment and vehicles) — a conflict is a **hard block**. The booking is rejected and there is no override.
+
+## Quick reference
+
+- **Manage task types (create/edit/delete):** Admin, Ops Manager, Sales Admin.
+- **Create/edit/delete tasks:** branch management plus Sales Member and Crew Leader. Crew Member is read-only.
+- **Non-managers can only assign, publish, and delete tasks for themselves.**
+- **Create/edit/delete time off:** branch management only. Non-managers, only for themselves.
+- **Create/edit resource bookings:** Admin, Ops Manager, Crew Leader. **Delete:** Admin and Ops Manager only.
+- **The default "Task" type can't be renamed, deleted, or duplicated by name.**
+- **End must be after start** on every kind of schedule entry.
+- **People conflicts warn; resource conflicts hard-block.**
+
+## Related references
+
+- [/reference/platform/permissions-roles-matrix](/reference/platform/permissions-roles-matrix)
+- [/reference/platform/org-branch-scoping](/reference/platform/org-branch-scoping)

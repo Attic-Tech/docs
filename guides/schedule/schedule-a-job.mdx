@@ -1,7 +1,140 @@
 ---
 title: "Schedule a job"
+description: "Put a job on the calendar step by step — pick the client and job, set the day, time, and crew, then save it as a draft or publish it to your team."
+icon: "calendar-plus"
 ---
 
+Scheduling a job is how you tell your team who is working, where, and when. You start from the **Schedule** page, choose the job, fill in one or more days of work, assign the crew, and then either save your progress as a draft or publish it so everyone gets notified.
+
 <Note>
-  This page is coming soon.
+You can build the schedule a little at a time. Save it as a draft whenever you want and come back later — nothing is sent to your team until you publish.
 </Note>
+
+## Open the New Job form
+
+<Steps>
+  <Step title="Go to the Schedule page">
+    Open **Schedule** from the main navigation. This is the calendar where every job, task, and time-off entry for your branch lives.
+  </Step>
+  <Step title="Click Create New, then Job">
+    Press the **Create New** button in the top-right corner and choose **Job** from the menu. A panel titled **Schedule New Job** slides in from the right.
+  </Step>
+</Steps>
+
+<Tip>
+Already looking at the right day on the calendar? When you add a job, the form starts on that date — so navigate to the week you have in mind before you open it.
+</Tip>
+
+## Pick the client and job
+
+At the top of the panel you'll choose what you're scheduling.
+
+- **Client** — Start typing a name in the **Search client** box and pick the customer from the list.
+- **Job** — Choose the **Job** for that client. If the client has only one open job, it fills in automatically. Otherwise, search and select the one you want.
+- **Address** — This fills in on its own from the job and is shown for reference.
+
+<Note>
+You have to pick a **Job** before you can save or publish. The job is what ties the schedule to the right customer, address, and crew.
+</Note>
+
+## Fill in the day's details
+
+Each day of work is its own tab. You start on **Day 1**. For the selected day, fill in:
+
+- **Shift Title** — An optional label for the day, for example *Day 1 - Smith Residence*. If you leave it blank, the day is simply called "Day 1," "Day 2," and so on.
+- **Team Lead** — The crew leader running the day. Pick from the list of available leads.
+- **Job Date** — Click the date button and choose the day on the calendar.
+- **Start Time** and **End Time** — Set when the shift begins and ends.
+- **Shift Notes** — Optional notes for anything the crew should know about that day.
+
+## Assign the crew
+
+Use the **Assign To** field to choose who works the shift.
+
+<Steps>
+  <Step title="Open the team picker">
+    Click the **Assign To** box. You can browse people by role — **Crew Member**, **Crew Leader**, or **Subcontractor** — or just start typing a name in the **Type to search** box.
+  </Step>
+  <Step title="Select your people">
+    Check off everyone working that day. Each person is grouped under **Available** or **Unavailable** for the date and time you set, so you can see at a glance who has a conflict before you assign them.
+  </Step>
+  <Step title="Add a subcontractor if needed">
+    Under the **Subcontractor** list, choose **+ Add subcontractor** to create one on the spot. Enter their name (and an optional email and phone for notifications), then **Add**. They're selected for the day right away.
+  </Step>
+</Steps>
+
+<Tip>
+A person marked **Unavailable** already has a shift or time off that overlaps this one. You can still assign them, but it's worth checking the [Resolve a conflict](/guides/schedule/resolve-a-conflict) guide first.
+</Tip>
+
+## Add more days
+
+Many jobs run across several days. To add another:
+
+<Steps>
+  <Step title="Click + Add Day">
+    Press **+ Add Day** above the day's details. A new tab appears (**Day 2**, **Day 3**, and so on), pre-set to the next date.
+  </Step>
+  <Step title="Fill in the new day">
+    Switch between days using the tabs and fill in each one's time and crew, just like the first.
+  </Step>
+  <Step title="Remove a day you don't need">
+    Select the day's tab and click the trash icon next to it to remove it. Removing a day that was already saved asks you to confirm first.
+  </Step>
+</Steps>
+
+## Save a draft or publish
+
+The buttons at the bottom of the panel decide what happens next.
+
+### Save as a draft
+
+Click **Save Draft** to keep your work without notifying anyone. The day shows up on the calendar as a draft so you (and others who can see the schedule) know it's a work in progress. Come back any time to finish it.
+
+### Publish the job
+
+When the schedule is ready, click **Publish Job** and choose what to send:
+
+- **All Shifts** — publish every day at once.
+- **Publish Day 1**, **Publish Day 2**, … — publish a single day and leave the rest as drafts.
+
+<Note>
+A day can only be published once it's complete — it needs a date, a start and end time, and at least one person assigned. Until then, that day's publish option stays greyed out.
+</Note>
+
+### Choose who gets notified
+
+When you publish, a **Customize Notifications** window appears so you control who hears about it:
+
+- **Notify Assigned Team** — email the people assigned to the shift.
+- **Notify Sales Person** — email the salesperson on the job.
+- **Email Client** — email the customer. Their primary email is filled in for you, and you can add more recipients with the **Email** button.
+
+Turn each one on or off, then confirm to publish.
+
+<Tip>
+Saving a draft can still email the client if you want a heads-up sent, but it never notifies your team — only publishing does that.
+</Tip>
+
+## Edit or delete a scheduled job
+
+To change a job you've already scheduled, open it again from the calendar. The same panel reopens with its days filled in, so you can adjust times, swap crew, add days, or republish.
+
+To remove it entirely, open the job and click **Delete**. You'll be asked whether to notify the assigned team and the client about the cancellation before it's removed.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="View the schedule" icon="calendar" href="/guides/schedule/view-the-schedule">
+    See how to move around the calendar, switch between day, week, and month, and filter what you're looking at.
+  </Card>
+  <Card title="Resolve a conflict" icon="triangle-exclamation" href="/guides/schedule/resolve-a-conflict">
+    Learn what to do when someone you want to assign is already booked.
+  </Card>
+  <Card title="Book equipment and vehicles" icon="truck" href="/guides/schedule/book-equipment-vehicles">
+    Reserve the gear and vehicles a scheduled job needs.
+  </Card>
+  <Card title="Log time off" icon="calendar-xmark" href="/guides/schedule/log-time-off">
+    Record when a crew member is unavailable so they don't get double-booked.
+  </Card>
+</CardGroup>

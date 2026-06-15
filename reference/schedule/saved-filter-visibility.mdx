@@ -1,7 +1,102 @@
 ---
 title: "Saved filter visibility"
+description: "Who can see and who can manage a saved Schedule filter — private vs shared-with-branch visibility, ownership, and the rename/delete/re-share rules."
+keywords: ["who can see my saved schedule filter", "how do I share a schedule filter with my branch", "why can't I rename or delete a saved schedule filter", "what does private vs shared with branch mean for schedule filters", "why don't I see another person's saved filter", "can an admin edit someone else's saved schedule filter", "does setting a default schedule filter share it"]
 ---
 
+This reference explains how saved Schedule filters work: who can see one, who can manage it (rename, re-share, overwrite, or delete), and how the "private" and "shared with branch" visibility levels behave.
+
+The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Crew Member**.
+
+## What a saved filter is
+
+A saved Schedule filter is a named snapshot of your current Schedule page filters — the people, clients, roles, activity types, shift statuses, and branches you've selected. It belongs to a single branch and has one owner: the person who saved it.
+
+### Two visibility levels
+
+Every saved filter has exactly one of two visibility levels:
+
+- **Private** — visible only to the person who created it.
+- **Shared with branch** — visible to everyone working in the same branch.
+
+There is no organization-wide or cross-branch visibility level. A filter is always scoped to the branch it was saved in.
+
+## Saving a new filter
+
+### Filters are private by default
+
+In the **Save Current Filters** dialog, a new filter is **private unless you tick "Share with branch."** Ticking that box makes it shared with everyone in your branch; leaving it unticked keeps it private to you.
+
+### A name is required
+
+Every saved filter needs a name (up to 80 characters). The Save button won't accept an empty name.
+
+## Who can see a saved filter
+
+### You must belong to a branch
+
+To work with saved Schedule filters at all, you must currently belong to a branch. If you don't, you'll see an error telling you that you must belong to a branch to manage saved Schedule filters.
+
+### The visibility rule
+
+Within your current branch, a saved filter shows up for you when **either**:
+
+1. You own it, **or**
+2. It is shared with the branch.
+
+That means another person's **private** filter never appears in your list — and this does not change with your role. Even an Admin sees only their own filters plus the branch-shared ones in the picker. A private filter that belongs to someone else stays hidden.
+
+If you try to open a specific filter you can't see (because it's private and not yours, or it's in a different branch), the system reports that the filter can't be found, rather than confirming it exists.
+
+### Who can open Schedule and use saved filters
+
+Using saved filters is part of Schedule access. The roles that can work in Schedule — **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, and **Crew Leader** — can list the filters visible to them in their branch and save their own.
+
+## Who can manage a saved filter
+
+"Manage" means rename a filter, change its sharing, overwrite it with your current filters, or delete it.
+
+### The management rule
+
+Within your branch, you can manage a saved filter when **either**:
+
+1. You are the **owner** of that filter, **or**
+2. You are an **Admin**.
+
+For everyone except Admin, management is **owner-only**: you can manage filters you created, and no one else's. Ops Manager, Sales Admin, Sales Member, Client Coordinator, Crew Leader, and Crew Member can all see branch-shared filters, but they cannot rename, re-share, overwrite, or delete a filter someone else created.
+
+### What happens when you can't manage one
+
+- **A branch-shared filter that isn't yours (and you're not an Admin):** you can see it, but you'll get a message that you don't have permission to modify it. Rename and delete controls don't appear on it.
+- **Someone else's private filter:** the system reports it can't be found — a non-owner is never told that a private filter exists.
+
+### Changing a filter's sharing
+
+If you can manage a filter (you own it, or you're an Admin), you can flip it between **private** and **shared with branch** at any time. A filter's owner and branch, however, are fixed once it's created and can't be reassigned.
+
+## Why the rename and delete buttons sometimes don't appear
+
+In the saved-filters picker, the rename and delete controls show up only on filters you're allowed to manage — the ones you own, or (for an Admin) any filter. On a branch-shared filter created by a colleague, a non-Admin sees the filter but no rename or delete control, which matches the permission rule above.
+
+The whole filter panel can also be disabled in some states; while it's disabled, the rename, delete, and default-star controls are hidden too.
+
 <Note>
-  This page is coming soon.
+Even when a button is hidden, the permission rule is enforced when the action runs — the hidden controls are a convenience, not the boundary.
 </Note>
+
+## Setting a default filter is separate from sharing
+
+Marking a saved filter as your default (the star) is a **personal preference**. It's stored just for you, per branch, and it does **not** change who can see the filter. One person's default never affects anyone else, and the star appears on any filter you can see — there's no management permission required to set your own default.
+
+## Quick reference
+
+- **Default visibility of a new filter:** private, unless you tick **Share with branch**.
+- **See a filter:** the owner, plus everyone in the branch if it's shared with the branch. Others' private filters are always hidden.
+- **Manage a filter (rename / re-share / overwrite / delete):** the owner, or an Admin. Everyone else is owner-only.
+- **A branch-shared filter you don't own:** visible, but a non-Admin can't rename or delete it.
+- **Setting a default:** a personal, per-branch preference — it does not share the filter.
+
+## Related references
+
+- [Permissions and roles matrix](/reference/platform/permissions-roles-matrix)
+- [Organization and branch scoping](/reference/platform/org-branch-scoping)

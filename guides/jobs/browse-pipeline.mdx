@@ -1,7 +1,116 @@
 ---
 title: "Browse pipeline"
+description: "Find any job and see where it stands using the Jobs page — search, filter by status, switch between the table and map, and jump straight to the next action."
+icon: "list-checks"
 ---
 
+The **Jobs** page is your pipeline. Every job your branch is working on lives here, and each row tells you where that job stands and what it needs next. From this one screen you can search for a job, narrow the list by status or date, view jobs on a map, and click straight through to the next step.
+
 <Note>
-  This page is coming soon.
+The Jobs page opens with a short reminder right under the title: "View job info, status, and any action items." That's exactly what this page is for.
 </Note>
+
+## Open the Jobs page
+
+<Steps>
+  <Step title="Go to Jobs">
+    Choose **Jobs** from the main navigation. The page loads with your branch's jobs already listed.
+  </Step>
+  <Step title="Read the list">
+    Each job shows its **Job Name**, who it's **Assigned To**, when it was **Created**, when it was last **Updated**, its **Status**, the **Work Area** tags, and an **Actions** button that takes you to the next step for that job.
+  </Step>
+</Steps>
+
+## Find a specific job
+
+Use the **search box** at the top left. It reads "Type a name..." — start typing a job name and the list narrows as you go.
+
+<Tip>
+Search and filters work together. If you filter by status first and then search, you're searching within that filtered set.
+</Tip>
+
+## Filter by status
+
+There are two ways to focus on the jobs you care about.
+
+### Status tabs
+
+Across the top of the list you'll find a row of tabs. **All Jobs** shows everything, and each remaining tab matches one status — with a count next to it so you can see how many jobs sit in each stage at a glance. Click a tab to show only those jobs.
+
+The statuses, in the order a job moves through them, are:
+
+- **Requires Crew Lead** — the job needs a crew lead assigned before planning can start.
+- **Plans In Progress** — someone is building the plan.
+- **Pending Review** — the plan is finished and waiting to be reviewed.
+- **Requires Scheduling** — the plan is approved and the job needs to be put on the schedule.
+- **Pre-Production** — scheduled and getting ready to start.
+- **In Production** — the work is underway.
+- **Production Complete** — the work is finished.
+- **Pending Payment** — finished and awaiting payment.
+- **Closed Job** — fully wrapped up.
+- **Cancelled** — the job was called off.
+
+### Status and date filters
+
+For more control, open the filters panel on the list. It has two sections:
+
+- **Status** — pick one or more statuses at once to build a custom view (for example, everything that's *In Production* or *Pending Payment*).
+- **Date Created** — choose a date range to show only jobs created in that window. The control reads "Select date range."
+
+<Note>
+By default the list hides **Cancelled** jobs so your pipeline stays focused on active work. Choose the **Cancelled** tab, or select it in the **Status** filter, when you need to see them.
+</Note>
+
+## Change a job's status
+
+If your role lets you manage jobs, the **Status** column shows a dropdown instead of a plain label. Click it and pick a new status to move the job along the pipeline. The change shows immediately, and the job's tab count and **Actions** button update to match.
+
+<Note>
+Some status moves aren't allowed — for example, you can't skip a job ahead of a step it hasn't finished. When a move isn't available, that option simply won't be selectable. If your role is view-only, the status appears as a colored label with no dropdown.
+</Note>
+
+## Jump to the next action
+
+The **Actions** column always shows the one button that makes sense for where the job is right now. The button text changes with the status:
+
+- **Assign Crew Lead** — for a job that still needs a crew lead.
+- **Review Plan** — for a plan that's ready to be looked over.
+- **Schedule Job** — for an approved plan that needs a slot on the schedule.
+- **View Profile** — for jobs further along, to open the full job profile.
+
+Click it to go straight to that step — no need to hunt for the right screen.
+
+<Tip>
+Next to the action button, a small image icon appears when a job has a project attached. Click it to open that project's photos and media.
+</Tip>
+
+## Switch to the map
+
+In the top right of the list, a toggle lets you flip between **Table** and **Map**.
+
+Choose **Map** to see your jobs plotted by location. Click any pin to open a popup with the **Project**, **Phone**, **Email**, and **Branch**, plus a link to open the job (or its project summary). The map respects whatever search, status, and date filters you've set, so you're always looking at the same set of jobs — just on a map instead of in a list.
+
+<Tip>
+As you pan and zoom, the map reloads the pins for the area you're looking at, so you only see jobs in the current view.
+</Tip>
+
+## Sort and arrange the list
+
+Click a sortable column heading — like **Job Name**, **Created**, **Updated At**, or **Status** — to sort by it, and click again to reverse the order. Your chosen sort and column arrangement are remembered, so the list looks the way you left it next time you come back.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Build a plan" icon="clipboard-list" href="/guides/jobs/build-a-plan">
+    Open a job in **Plans In Progress** and lay out the crew, equipment, and work for the day.
+  </Card>
+  <Card title="Submit and approve a plan" icon="circle-check" href="/guides/jobs/submit-and-approve">
+    Move a **Pending Review** job forward by reviewing and approving its plan.
+  </Card>
+  <Card title="Assign a crew lead" icon="user-plus" href="/guides/jobs/open-and-assign-crew-lead">
+    Clear a **Requires Crew Lead** job by assigning the crew lead who'll own it.
+  </Card>
+  <Card title="Reopen or cancel a job" icon="rotate-ccw" href="/guides/jobs/reopen-or-cancel">
+    Bring a closed job back, or cancel one that's no longer going ahead.
+  </Card>
+</CardGroup>

@@ -1,7 +1,133 @@
 ---
 title: "Book equipment vehicles"
+description: "Add and manage the equipment and vehicles your crews use in the field, so your fleet is ready to assign to scheduled jobs."
+icon: "truck"
 ---
 
+Before you can put equipment and vehicles to work on a job, they need to live in your **Resources** list. This is where you keep your fleet of trucks, blowers, and other gear organized by branch, so the team always knows what's available.
+
+You manage all of this from **Settings**, under **Resources**.
+
 <Note>
-  This page is coming soon.
+Resources are organized into two parts: the individual items themselves (your specific trucks and machines) and the **types** that group them (for example, "Box Truck" or "Insulation Blower"). You set up a type once, then add as many items of that type as you need.
 </Note>
+
+## Open Resources
+
+<Steps>
+  <Step title="Go to Settings">
+    Open **Settings** from the main navigation.
+  </Step>
+  <Step title="Open Resources">
+    Select **Resources**. The page header reads **Resources** with the note "Manage vehicles, equipment, and other field resources."
+  </Step>
+  <Step title="Pick a tab">
+    Across the top you'll see four tabs:
+
+    - **Equipment** — your individual machines and gear
+    - **Equipment Types** — the categories equipment is grouped under
+    - **Vehicles** — your individual trucks and vans
+    - **Vehicle Types** — the categories vehicles are grouped under
+  </Step>
+</Steps>
+
+<Tip>
+If it's your first time setting things up, create your **types** first (under **Equipment Types** and **Vehicle Types**). Every piece of equipment and every vehicle has to be assigned a type, so having those ready makes adding the actual items quicker.
+</Tip>
+
+## Add a piece of equipment
+
+<Steps>
+  <Step title="Open the Equipment tab">
+    On the **Resources** page, choose the **Equipment** tab.
+  </Step>
+  <Step title="Click Create New">
+    Press the **Create New** button at the top right of the list.
+  </Step>
+  <Step title="Fill in the details">
+    - **Name** (required) — what you call this piece of equipment.
+    - **Branch** (required) — the branch it belongs to. Pick this first, because it determines which types you can choose.
+    - **Type** (required) — the equipment type. Until you pick a branch, this field shows "Select branch first."
+    - **Serial number** (optional) — a unique identifier for the item.
+    - **Notes** (optional) — any relevant details for this resource.
+  </Step>
+  <Step title="Save it">
+    Click **Create Equipment**. You'll see a confirmation and land back on the equipment list, with the new item included.
+  </Step>
+</Steps>
+
+The equipment list shows each item's **Name**, **Type**, **Branch**, and **Serial Number**, and you can search it by name.
+
+## Add a vehicle
+
+<Steps>
+  <Step title="Open the Vehicles tab">
+    On the **Resources** page, choose the **Vehicles** tab.
+  </Step>
+  <Step title="Click Create New">
+    Press the **Create New** button at the top right of the list.
+  </Step>
+  <Step title="Fill in the details">
+    - **Name** (required) — what you call this vehicle.
+    - **Branch** (required) — the branch it belongs to. Pick this first so the right types appear.
+    - **Type** (required) — the vehicle type. Until you pick a branch, this shows "Select branch first."
+    - **License Plate** (required) — the plate number.
+    - **Make** and **Model** (optional) — the manufacturer and model.
+    - **Year** (optional) — the model year.
+    - **VIN** (optional) — the vehicle identification number.
+    - **Notes** (optional) — any relevant details for this resource.
+  </Step>
+  <Step title="Save it">
+    Click **Create Vehicle**. You'll get a confirmation and return to the vehicles list.
+  </Step>
+</Steps>
+
+The vehicles list shows **Name**, **Type**, **Branch**, **License Plate**, and **Make / Model**.
+
+## Set up types
+
+Types are the categories your equipment and vehicles fall into. You create them on the **Equipment Types** and **Vehicle Types** tabs, and the steps are the same for both.
+
+<Steps>
+  <Step title="Open the right tab">
+    Choose **Equipment Types** or **Vehicle Types**, then press **Create New**.
+  </Step>
+  <Step title="Fill in the type">
+    - **Branch** (required) — the branch this type belongs to.
+    - **Name** (required) — the display name, like "Box Truck" or "Insulation Blower."
+    - **Slug** (required) — a short, unique tag for the type.
+    - **Sort Order** (required) — a number that controls where this type appears in lists. Lower numbers come first.
+    - **Active** — leave this checked to keep the type available. Uncheck it to hide a type you no longer use.
+  </Step>
+  <Step title="Save it">
+    Click **Create** to add the type.
+  </Step>
+</Steps>
+
+<Note>
+Some types are built in. For those, the **Branch** and **Slug** fields are locked, but you can still adjust the name, sort order, and whether they're active.
+</Note>
+
+## Edit or remove an item
+
+Every list — equipment, vehicles, and their types — works the same way.
+
+- **Edit** — click the **pencil** icon on a row (or **Edit** from the row's menu on a smaller screen) to reopen it. Make your changes and click **Save Changes**.
+- **Delete** — click the **trash** icon (or **Delete** from the row's menu). You'll be asked to confirm. Deleting is permanent and can't be undone.
+
+<Tip>
+Use the **Search by name** box at the top of any list to jump straight to the item you're after instead of scrolling.
+</Tip>
+
+## What's next
+
+Once your fleet is set up here, you're ready to put it to work on the calendar.
+
+<CardGroup cols={2}>
+  <Card title="Schedule a job" icon="calendar-plus" href="/guides/schedule/schedule-a-job">
+    Create a job on the calendar and assign your team to it.
+  </Card>
+  <Card title="View the schedule" icon="calendar-days" href="/guides/schedule/view-the-schedule">
+    See what's booked across your team, day by day or week by week.
+  </Card>
+</CardGroup>

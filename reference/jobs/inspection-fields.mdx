@@ -1,7 +1,159 @@
 ---
 title: "Inspection fields"
+description: "The inspection report on an estimate: the sections and fields it captures, which fields are required, who can fill it in, and when it locks."
+keywords:
+  - "what does the inspection report capture"
+  - "which inspection fields are required"
+  - "who can fill in an inspection report"
+  - "why can't I edit the inspection report"
+  - "how do I make an inspection report read-only"
+  - "can I add roof and HVAC photos to an inspection report"
 ---
 
+This reference explains the inspection report that a salesperson completes for an estimate: what it records, which fields are required, who can create or change it, and the rules that govern when it can be saved or edited.
+
+The user-facing roles referenced below are **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Crew Member**. For the full breakdown of what each role can do, see [/reference/platform/permissions-roles-matrix](/reference/platform/permissions-roles-matrix).
+
+## What the inspection report is
+
+The inspection report is a structured record the salesperson completes for an estimate. It captures what they observed during the in-person walkthrough so the install crew can work confidently, avoid mistakes, and deliver a consistent customer experience.
+
+There is exactly **one inspection report per estimate**. The report is tied to a single estimate and the link is one-to-one — there is never more than one report for the same estimate.
+
+The report is organized into themed sections:
+
+- Scheduling & Job Setup
+- Customer Profile
+- Property Details
+- Walkthrough Notes
+- Roof Information
+- HVAC Information
+- Crew Notes
+
+## When the inspection report is available
+
+The inspection report only appears when your workspace has the inspection-report feature turned on.
+
+- **If the feature is off**, the report step is skipped in the estimate wizard, and any attempt to open the report view sends the user back to the estimate breakdown.
+- **If the feature is on**, the report is the final step of the estimate wizard, reached after the last work area. The button to advance into it from the items step reads **Proceed to Report**.
+
+## Who can create or change a report
+
 <Note>
-  This page is coming soon.
+  Inspection-report access follows your workspace's role permissions. See [/reference/platform/permissions-roles-matrix](/reference/platform/permissions-roles-matrix) for the authoritative breakdown, and [/reference/platform/org-branch-scoping](/reference/platform/org-branch-scoping) for how visibility is scoped to your organization.
 </Note>
+
+- **Create and edit:** limited to sales roles within the workspace — Admin, Sales Admin, and Sales Member.
+- **View:** scoped to the user's own organization; most staff roles can read a report, and some roles are read-only.
+- **Delete:** inspection reports are not deletable through the product; they are removed only by Menaia platform staff.
+
+## What the report records
+
+The lists below note which fields are **required** before the report can be left. A few fields are required by the form even though the saved record itself would accept them empty — those are called out as "required in the form."
+
+### Scheduling & Job Setup
+
+- Whether the customer is flexible on scheduling — **required**.
+- An estimated number of days of work — **required**. This value lives on the estimate and is shown here. It is hidden when every selected item is a sub-contracted item.
+- Whether scheduling depends on outside factors (for example, other vendors or client limitations) — optional free-text explanation.
+- Whether the job needs special materials — optional free-text explanation.
+
+### Customer Profile
+
+- A description of the customer's demeanor (for example, calm, detail-oriented, emotional) — **required**. Submitting it empty is rejected with "Customer demeanor is required."
+- What matters most to the customer (for example, cleanliness, air seal, rodents) — **required in the form** ("Customer concerns is required"). The saved record treats this as optional, so the requirement is enforced by the form rather than the stored data.
+
+### Property Details
+
+This section mixes property-level questions (stored on the property) with one report field.
+
+- Number of stories — **required**.
+- Whether the property is occupied — **required**.
+- Estimated parking distance from the front door — **required**.
+- Whether there are pet concerns the crew must know about — **required**.
+- Known obstacles or hazards (for example, low ceilings, tight access, fragile items, pets) — **required** free text ("Hazards is required").
+- Special instructions for box-truck parking or property access (for example, gate code, lockbox) — **required** free text ("Special instructions is required").
+- Unique structural features that could impact the installation — **required in the form** ("Installation impacts is required"); optional on the saved record.
+
+### Walkthrough Notes
+
+- Any visible damage seen during the walkthrough — **required** multi-select. The choices are: no pre-existing damage, ceiling drywall cracks, wall cracks or chips, baseboard chips, floor scratching, light-fixture damage, driveway stains, broken attic lid, broken attic ladder, front-yard damage, and other.
+- A free-text description of any damage selected above — optional.
+
+### Roof Information
+
+All six roof questions are **required**:
+
+- **Roof material** — asphalt shingles, clay tiles, cement tiles, woodshaker, metal, torch down, rubber, or other.
+- **Roof age** (consult with client) — under 5 years, 5–10, 11–20, over 20, or client unsure.
+- **Roof condition** — good, fair, or needs replacement.
+- **Roof decking type** — plywood, slates, or none.
+- **Whether the roof is walkable** — yes or no.
+- **Whether the customer wants a full roof inspection** — yes or no.
+
+Roofing photos and videos can be attached in this section. The upload controls are hidden when the report is read-only.
+
+### HVAC Information
+
+- **Customer comfort level** — **required**; high, moderate, or low comfort.
+- **HVAC age** — optional; same age choices as roof age.
+- **HVAC system condition** — optional; good, fair, or needs replacement.
+- **Air-ducts condition** — optional; good, fair, or needs replacement.
+- **Whether the customer wants a full HVAC or furnace inspection** — **required**; yes or no.
+
+HVAC photos and videos can be attached in this section. The upload controls are hidden when the report is read-only.
+
+### Crew Notes
+
+- Free-text notes to help the crew deliver a five-star job — optional, but capped at a maximum length. Exceeding the cap is rejected with "Crew notes must be N characters or fewer."
+- Crew notes have an optional AI assist:
+  - **Enhance with AI** appears when notes already exist.
+  - **Suggest with AI** appears when notes are empty but other context is present (demeanor, concerns, hazards, special instructions).
+  - The AI control is unavailable when there is neither notes nor context, and it is hidden entirely in read-only view.
+- If AI enhancement fails, an "Enhancement failed" message appears and the notes are left as they were. An applied AI suggestion can be undone.
+
+## Completion and submission rules
+
+<Card title="Required-field gate" icon="list-check">
+  To advance past the report, the required fields must be filled. If validation fails, the named error messages above appear and navigation is blocked. Required-but-empty selections and free-text fields each surface their own specific message.
+</Card>
+
+<Card title="The report saves with the estimate" icon="floppy-disk">
+  The report is not submitted on its own — it is saved as part of saving the estimate, and only when the inspection-report feature is enabled. If the report save fails, the whole save fails with "Failed to save inspection report."
+</Card>
+
+<Card title="One report per estimate" icon="link">
+  Saving creates the report the first time and updates the same one thereafter. Because it is keyed to the estimate, there is never more than one.
+</Card>
+
+<Card title="Locked once the estimate is Sold" icon="lock">
+  An existing report cannot be updated once its estimate is in the **Sold** state. The save is rejected with "Cannot update a report with a Sold estimate."
+</Card>
+
+<Card title="The estimate must exist" icon="circle-exclamation">
+  Saving a report for an estimate that cannot be found (or that is not in the user's organization) is rejected with "Job estimate not found."
+</Card>
+
+## Read-only viewing
+
+- An existing estimate that is **not In Progress**, or the dedicated report-viewer mode, opens the report **read-only**: a print-style summary (job name, salesperson, date, client info, work details) with a Print button, every field disabled, and the photo-upload controls hidden.
+- In read-only mode, the wizard deliberately skips required-field validation when paging through, so an older report saved before a field became required can still be viewed.
+- To make changes to a read-only estimate's report, set the estimate back to **In Progress** from the estimates list. Attempting to edit while read-only shows "This estimate is read-only. Change its status to In Progress from the estimates list to make changes."
+
+## Related AI estimate review
+
+When the AI-calculator feature is enabled, the inspection report's contents are fed into an automated estimate-quality review that can surface info, warning, or error notes and item suggestions. It returns no warnings when the estimate looks fine. This review is **advisory only** and does not block submission.
+
+## Quick reference
+
+- **One inspection report per estimate**, captured by the salesperson during the walkthrough.
+- **Create or edit:** Admin, Sales Admin, Sales Member. Reports are not deletable in the product.
+- **Available only when the inspection-report feature is on**; it is the final step of the estimate wizard.
+- **Saved with the estimate**, never on its own; required fields are enforced by the form before the report can be left.
+- **Locked once the estimate is Sold**; opens **read-only** for any estimate that is not In Progress.
+- Roof and HVAC sections accept **photos and videos**, hidden in read-only view.
+
+## Related references
+
+- [/reference/platform/permissions-roles-matrix](/reference/platform/permissions-roles-matrix)
+- [/reference/platform/org-branch-scoping](/reference/platform/org-branch-scoping)

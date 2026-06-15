@@ -1,7 +1,112 @@
 ---
 title: "Approve shifts"
+description: "Review the time your crew logged, fix any mistakes, and approve each shift so it's ready for payroll — all from the Job Shifts page."
+icon: "circle-check"
 ---
 
+When someone on your crew clocks out, their shift lands in **Pending Approval**. As a manager, your job is to look it over, correct anything that's off, and approve it. Approving a shift confirms the recorded times are right and marks the shift as final.
+
 <Note>
-  This page is coming soon.
+Approving shifts is a manager task. If you only see your own shifts, you won't see the approval buttons — that's expected.
 </Note>
+
+## Find shifts waiting for approval
+
+<Steps>
+  <Step title="Open Job Shifts">
+    Go to **Job Shifts** from the main navigation. This page lists past, current, and upcoming shifts for your crew, with a **Status** badge on each one.
+  </Step>
+  <Step title="Switch to the right view">
+    Use the tabs at the top right — **Today**, **All**, or **Completed** — to choose which shifts you're looking at. **Today** is the quickest place to catch shifts that just finished.
+  </Step>
+  <Step title="Filter down to Pending Approval">
+    Open the filters and, under **Status**, check **Pending Approval**. The list narrows to just the shifts that need your review. You can also filter by **Employee**, **Client Name**, **Shift Name**, **Shift Date**, or **Pay Structure** to find a specific one.
+  </Step>
+</Steps>
+
+<Tip>
+A shift's badge tells you where it stands at a glance: **Upcoming**, **In Progress**, **Pending Approval**, or **Approved**.
+</Tip>
+
+## Review and approve a shift
+
+<Steps>
+  <Step title="Open the shift">
+    Click a shift in the list (or **View Details**) to open its details panel. You'll see the recorded **start** and **end** times, the **total time**, and any breaks the crew member logged.
+  </Step>
+  <Step title="Check the times">
+    Compare the recorded start, end, and break times against what actually happened. If everything looks correct, you're ready to approve.
+  </Step>
+  <Step title="Approve the shift">
+    Click **Approve Shift**. The status changes to **Approved**, and the shift is locked in as final.
+  </Step>
+</Steps>
+
+## Fix the times before approving
+
+If the recorded times need a correction, you can edit and approve in one step.
+
+<Steps>
+  <Step title="Open the shift and choose Edit Shift">
+    In the shift details panel, click **Edit Shift**.
+  </Step>
+  <Step title="Adjust the start, end, and breaks">
+    Tap the **START** or **END** time to set a new clock-in or clock-out time. Under **Shift Breaks**, use **Add** to log a break, the trash icon to remove one, or tap a break's time to adjust it. The **Total Time** updates as you go.
+  </Step>
+  <Step title="Approve with your changes">
+    Click **Approve Shift**. Your edits are saved and the shift is approved at the same time.
+  </Step>
+</Steps>
+
+<Note>
+If a time doesn't add up — for example, an end time before a start time, or a break that falls outside the shift — a message explains what to fix, and the approve button stays disabled until it's resolved.
+</Note>
+
+## Approve an upcoming shift with no recorded times
+
+Sometimes a crew member works a shift but never clocks in. For an **Upcoming** shift, you can enter the times yourself.
+
+<Steps>
+  <Step title="Open the shift and choose Enter Shift Details">
+    In the details panel, click **Enter Shift Details**.
+  </Step>
+  <Step title="Fill in the times and breaks">
+    Set the **START** and **END** times, and add any breaks.
+  </Step>
+  <Step title="Save and approve">
+    Click **Approve Shift Details** to record the times and approve the shift in one step.
+  </Step>
+</Steps>
+
+## Undo an approval or clear a shift
+
+Made a mistake, or need to start over? Open the shift and click **Reset Shift**.
+
+<Note>
+**Reset Shift** permanently erases all recorded clock-in, clock-out, and break data and returns the shift to its original unclocked state. This can't be undone. After a reset, the times can be entered again from scratch.
+</Note>
+
+## When a crew member requests a change
+
+Crew members can't approve their own shifts, but they can ask for a correction. When a shift is in **Pending Approval**, they can edit the times and submit the change with a required **Shift change note** explaining why. That note shows up on the shift (look for the **View Note** link or **Shift Change Note** column) so you have the context before you approve.
+
+<Tip>
+After you've reviewed the note and the requested times, approve the shift as usual — edit further first if you need to.
+</Tip>
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Edit and submit shifts" icon="pen-to-square" href="/guides/schedule/edit-submit-shifts">
+    See how crew members record and submit their own shift times for approval.
+  </Card>
+  <Card title="Clock in and out" icon="clock" href="/guides/schedule/clock-in-out">
+    Learn how shifts start and end on the crew side, before they reach approval.
+  </Card>
+  <Card title="Export shifts" icon="file-export" href="/guides/schedule/export-shifts">
+    Pull approved shift times into a CSV for payroll and recordkeeping.
+  </Card>
+  <Card title="View the schedule" icon="calendar" href="/guides/schedule/view-the-schedule">
+    See where shifts are planned and assigned across your crew.
+  </Card>
+</CardGroup>

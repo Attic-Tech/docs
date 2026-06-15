@@ -1,7 +1,106 @@
 ---
 title: "Edit submit shifts"
+description: "Fix the clock-in, clock-out, and break times on a shift that's waiting for approval, add a note explaining the change, and send it for sign-off."
+icon: "pencil"
 ---
 
+After you clock out, your shift moves to **Pending Approval** and waits for a manager to sign off on it. While it's in that state, you can still correct it — fix a clock-in or clock-out time you got wrong, add or remove a break, and explain what changed. This guide walks through editing one of your own shifts and submitting the corrected version.
+
 <Note>
-  This page is coming soon.
+You can only edit a shift while its status is **Pending Approval**. Once a manager marks it **Approved**, it's locked. If an approved shift needs a fix, ask your manager — they can reopen and adjust it for you.
 </Note>
+
+## Find the shift to edit
+
+<Steps>
+  <Step title="Open My Shifts">
+    Go to **My Shifts** from the main navigation. Every shift you've worked or have coming up lives here, each with a status badge: **Upcoming**, **In Progress**, **Pending Approval**, or **Approved**.
+  </Step>
+  <Step title="Locate the Pending Approval shift">
+    Use the **Today**, **All**, and **Completed** tabs at the top to narrow the list, or type a client or job name into the search box. Look for the shift with the **Pending Approval** badge — that's the one you can still change.
+  </Step>
+  <Step title="Open the editor">
+    On the shift you want to fix, choose **Edit Shift**. The card opens in edit mode with your recorded start time, end time, and breaks ready to adjust.
+  </Step>
+</Steps>
+
+<Tip>
+Each shift card shows the date, the time range, and a **Total Time** figure so you can sanity-check the hours before you start editing.
+</Tip>
+
+## Adjust the times
+
+In edit mode, the shift shows two time boxes — **START** (your clock-in) and **END** (your clock-out).
+
+<Steps>
+  <Step title="Tap a time to change it">
+    Tap the **START** or **END** time. A **Select Time** picker opens.
+  </Step>
+  <Step title="Set the new time">
+    Use the up and down arrows to set the hour and minute, then choose **AM** or **PM**. For common values, the **Quick Select** row lets you jump straight to `:00`, `:15`, `:30`, or `:45`.
+  </Step>
+  <Step title="Apply it">
+    Choose **Apply** to keep the new time, or **Cancel** to leave it as it was. The **Total Time** updates automatically as you go.
+  </Step>
+</Steps>
+
+<Note>
+Your end time has to be later than your start time. If it isn't, the shift won't let you submit until you fix it.
+</Note>
+
+## Add, edit, or remove breaks
+
+The **Shift Breaks** section lists every break on the shift and a running **Total Break Time**.
+
+- **Add a break** — choose **Add**. A new break appears with a start and end time you can set the same way as your clock-in and clock-out, using the **Select Time** picker.
+- **Edit a break** — tap a break's start or end time to open the picker and change it.
+- **Remove a break** — use the trash icon on the break you want to delete.
+
+<Note>
+Every break needs both a start and an end time, and each break has to fall inside your shift — its start can't be before you clocked in, and its end can't be after you clocked out. The shift checks this for you and won't let you submit until the breaks line up.
+</Note>
+
+## Explain the change
+
+Before you can submit, you have to say why you're editing the shift.
+
+<Steps>
+  <Step title="Write a shift change note">
+    Fill in the **Shift change note** field — for example, "Forgot to clock out, actually finished at 4:30" or "Took a longer lunch than logged." This note is required, and it's what tells your manager what changed and why.
+  </Step>
+</Steps>
+
+<Tip>
+A clear, specific note gets your shift approved faster — your manager can see at a glance that the edit is legitimate instead of having to follow up.
+</Tip>
+
+## Submit for approval
+
+When the times look right and you've written your note, choose **Submit Changes**. Your corrected shift goes back to your manager as **Pending Approval**, now with your updated times and your note attached.
+
+If you change your mind partway through, choose **Cancel** to discard your edits and leave the shift exactly as it was.
+
+<Note>
+**Submit Changes** stays unavailable until everything checks out — your end time is after your start time, every break is complete and inside the shift, and your shift change note isn't empty. If the button won't activate, work back through those three.
+</Note>
+
+## What happens next
+
+Once you submit, your manager reviews the shift and either approves it or sends it back. You'll see the badge change to **Approved** on your **My Shifts** list when it's signed off. Until then, you can reopen and edit it again as many times as you need.
+
+## Related guides
+
+<CardGroup cols={2}>
+  <Card title="Clock in and out" icon="clock" href="/guides/schedule/clock-in-out">
+    Start, pause, and end your shift so the times are recorded in the first place.
+  </Card>
+  <Card title="Approve shifts" icon="circle-check" href="/guides/schedule/approve-shifts">
+    For managers — review the shifts your team submits and sign them off.
+  </Card>
+  <Card title="Export shifts" icon="download" href="/guides/schedule/export-shifts">
+    Pull a spreadsheet of shift hours for payroll or your own records.
+  </Card>
+  <Card title="View the schedule" icon="calendar" href="/guides/schedule/view-the-schedule">
+    See the full schedule of jobs and shifts across your team.
+  </Card>
+</CardGroup>
