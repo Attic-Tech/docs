@@ -1,7 +1,127 @@
 ---
 title: "Auto deposit"
+description: "How a deposit invoice is created automatically when a client signs a proposal, the settings that control it, and when it is emailed."
+keywords: ["auto deposit", "deposit invoice", "proposal signed", "deposit percent", "invoice automations"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains how a deposit invoice can be created automatically the moment a client signs a proposal, which settings control whether (and how much) it creates, what the resulting invoice looks like, and when it is emailed to the client.
+
+The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, and **Client Coordinator**.
+
+## What auto-deposit does
+
+When a client signs a proposal, the workspace can automatically create a deposit invoice for a configurable percentage of the estimate total, optionally capped at a fixed dollar amount, and optionally email it to the client. This only happens when the deposit automation is turned on and the workspace has invoicing enabled.
+
+The deposit is created as a side effect of recording the signature. It is non-blocking: if the deposit cannot be created for any reason, the signature itself still succeeds and the proposal is still recorded as signed.
+
+## When a deposit invoice is created automatically
+
+A deposit invoice is created on signing only when **all** of the conditions below hold. If any one fails, no deposit invoice is created and signing proceeds normally.
+
+<Card title="Invoicing must be enabled for the workspace">
+  The workspace must have invoicing turned on. Workspaces without invoicing never auto-create a deposit. See [Feature availability](/reference/platform/feature-availability).
+</Card>
+
+<Card title="No invoice can already exist for the estimate">
+  The signed estimate must not already have an invoice of any kind (deposit, main, or otherwise). If any non-deleted invoice already exists for that estimate, no auto-deposit is created. This is what prevents a duplicate deposit when a proposal is re-signed.
+</Card>
+
+<Card title="The deposit automation must be turned on for the branch">
+  The branch must have **Auto Create Deposit Invoice** enabled under its invoice automations (see below). It is off by default.
+</Card>
+
+<Card title="The estimate total must be greater than zero">
+  The estimate subtotal must be a positive amount, and the calculated deposit amount must come out greater than zero, for an invoice to be created.
+</Card>
+
+<Card title="The estimate must resolve to a workspace and a salesperson">
+  The estimate must belong to a workspace and have an assigned salesperson on file, and the branch must have at least one payment term configured. If these are missing, the deposit cannot be created.
+</Card>
+
+## Settings that control auto-deposit
+
+Four settings govern auto-deposit. Two control **how much** the deposit is; two control **whether** it is created and emailed. They are edited in two different places in Settings.
+
+| Setting | Default | What it does |
+|---|---|---|
+| **Deposit Percent** | 10% | Percentage of the estimate total taken as the deposit (for example, 10 means 10%). Allowed range is 0 to 100. |
+| **Max Deposit Amount** | 0 (no cap) | Dollar cap on the deposit. 0 means no cap. When set above 0, the deposit is never larger than this amount. |
+| **Auto Create Deposit Invoice** | Off | Master switch. When on, a deposit invoice is created automatically when a proposal is signed. |
+| **Auto Send Deposit Invoice** | Off | When on, the deposit invoice is also emailed to the client on signing. Requires Auto Create Deposit Invoice to be on and a client email on file. |
+
+### Where each setting lives
+
+- **Deposit Percent** and **Max Deposit Amount** are edited in the branch's **Costs & Production** settings section.
+  - Deposit Percent — "Percentage of total price required as deposit (e.g. 10 = 10%)."
+  - Max Deposit Amount — "Maximum deposit in dollars. 0 means no cap."
+- **Auto Create Deposit Invoice** and **Auto Send Deposit Invoice** are edited under **Settings -> Invoices -> Invoice Automations**, as two checkboxes that save immediately when toggled.
+
+### Automation toggle behavior
+
+<Card title="Auto Send depends on Auto Create">
+  The Auto Send Deposit Invoice checkbox is disabled whenever Auto Create Deposit Invoice is unchecked. Turning Auto Create off also forces Auto Send off in the same save.
+</Card>
+
+<Card title="Toggles save immediately, with a confirmation">
+  Changing either checkbox saves right away. On success you see "Invoice automations updated successfully." If the save fails, the toggle rolls back to its previous state and you see "Failed to update invoice automations."
+</Card>
+
+## How the deposit amount is calculated
+
+The deposit is the estimate total multiplied by the Deposit Percent, then capped at the Max Deposit Amount if a cap is set.
+
+- The raw deposit is the estimate subtotal times the deposit percentage.
+- If Max Deposit Amount is greater than 0, the deposit is the smaller of the raw amount and the cap. Otherwise the raw amount is used as-is.
+- The final amount is rounded to the nearest cent. See [Money rounding](/reference/platform/money-rounding).
+
+The deposit is always computed from the estimate's own subtotal, independent of any separately authored main or final invoice.
+
+## What the created invoice looks like
+
+- It has a single line item: description **"Project Deposit"**, quantity 1, with the rounded deposit amount as the unit price.
+- It is created in **Draft** status, dated the day of signing, and tied to the signed estimate and its project. The salesperson on the estimate is recorded as the creator, and the branch's first payment term sets the due date. See [Invoice status and actions](/reference/billing/invoice-status-and-actions).
+- Tax is calculated against a billing address built from the client, falling back to the project property. If the tax engine cannot calculate tax, the invoice is still created without tax — but in that case the deposit is **not** auto-emailed (see below). See [Sales tax](/reference/billing/sales-tax).
+
+## When the deposit is emailed to the client
+
+After the draft is created, the deposit invoice is emailed to the client only when **all** of the following hold:
+
+<Card title="Auto Send is on">
+  Auto Send Deposit Invoice must be enabled for the branch.
+</Card>
+
+<Card title="The client has an email on file">
+  The client must have a non-empty email address.
+</Card>
+
+<Card title="A billing address was available">
+  A billing address must have been resolved for the invoice.
+</Card>
+
+<Card title="Tax calculation did not fail">
+  If tax could not be calculated, the deposit invoice is left as a draft and is not emailed automatically.
+</Card>
+
+When all four hold, the invoice moves from **Draft** to **Open** and an email is queued to the client. The email subject is "Deposit Invoice From [your workspace name]," and the body greets the client by name and states the deposit total and the due date in the branch's time zone.
+
+If the email itself fails to send, the invoice stays **Open** — the failure does not undo the already-created invoice. The email runs in the background; see [Background processing](/reference/platform/background-processing).
+
+## Interaction with the main invoice
+
+The deposit invoice is a separate record from a project's main or final invoice, but both are governed by the same per-estimate rule:
+
+<Card title="One invoice per estimate suppresses auto-deposit">
+  The check before creating a deposit looks for **any** non-deleted invoice on the same estimate — not just deposit invoices. If an invoice of any kind already exists (created manually or automatically), no auto-deposit is created.
+</Card>
+
+<Card title="Re-signing never creates a second deposit">
+  Because the first invoice suppresses the automation, signing the same proposal again will not create a duplicate deposit.
+</Card>
+
+## Quick reference
+
+- **Auto-deposit fires only when:** invoicing is enabled, Auto Create Deposit Invoice is on for the branch, the estimate has no existing invoice, and the deposit amount is greater than zero.
+- **Amount =** estimate total times Deposit Percent, capped at Max Deposit Amount when that cap is above 0.
+- **Created invoice:** a single "Project Deposit" line item, in Draft, tied to the estimate and project.
+- **Emailed automatically only when:** Auto Send is on, the client has an email, a billing address exists, and tax calculation did not fail — at which point the invoice becomes Open.
+- **No duplicate deposits:** any existing invoice on the estimate suppresses the automation, including on re-sign.

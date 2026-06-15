@@ -1,7 +1,147 @@
 ---
 title: "Performance periods"
+description: "How performance periods are bucketed by timeframe and level, what feeds their metrics, when they recompute, and who can read or regenerate them."
+keywords: ["performance periods", "leaderboard metrics", "production per hour", "regenerate performance periods", "weekly monthly quarterly"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains how performance periods are organized, what data feeds their metrics, when those metrics recompute, and who can view or rebuild them.
+
+Performance periods are the pre-aggregated numbers behind your leaderboards and the home dashboard. They roll up closed-job production, bonus, and customer-review metrics, grouped by timeframe and by level. They are never edited by hand — they are rebuilt ("regenerated") from the underlying jobs, bonus payouts, and reviews.
+
+The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Crew Leader**, and **Crew Member**.
+
+## How a period is organized
+
+### Every period has a level and a timeframe
+
+Each period row is identified by the combination of a **level**, a **timeframe**, its time bucket, and the scope it covers (a person, a branch, or the whole workspace).
+
+The **level** is one of:
+
+- **Personal** — one person's numbers.
+- **Branch** — one branch's numbers.
+- **Company** — the whole workspace's numbers.
+
+The **timeframe** is one of: **weekly**, **monthly**, **quarterly**, or **yearly**.
+
+<Card title="Rule: scope follows the level">
+Personal periods cover one person within a branch. Branch periods cover a branch (no individual person). Company periods cover the whole workspace (no branch, no person). Every period belongs to exactly one workspace.
+</Card>
+
+### Buckets use local calendar time
+
+A closed job lands in a bucket based on its **closed date**, read in local wall-clock time so bucketing follows the location's calendar rather than any server clock.
+
+- Personal and Branch periods bucket by the **branch's** time zone.
+- Company periods bucket by the **workspace's** time zone.
+
+<Card title="Rule: the week is a week-of-month, 1 to 5">
+The "week" inside a monthly view is a week-of-month number (the 1st through 7th of the month is week 1, the 8th through 14th is week 2, and so on), not a calendar week-of-year. Weeks range 1 to 5 and quarters range 1 to 4.
+</Card>
+
+If a branch or the workspace is missing its time zone, the recompute for that scope cannot run until the time zone is set.
+
+## What feeds a period
+
+### Only closed jobs count
+
+A job contributes to performance periods only when it is in the **Closed Job** status, belongs to a branch, and has a closed date. Jobs that are not closed, are unassigned to a branch, or have no closed date are ignored.
+
+For a job to produce period rows, it must also have a bonus payout recorded — only jobs with a bonus payout are rolled into performance periods.
+
+### Per-job inputs
+
+Each qualifying closed job contributes:
+
+- **Job value** — derived from the job's estimate (final price net of sub-service costs and discount, with a fallback to retail cost net of discount and sub-services, otherwise zero).
+- **Estimated labor hours** — from the job's estimate.
+- **Total job hours** — the sum of hours worked across everyone on the job.
+- **Bonus and hours saved** — from the job's bonus payout, per person.
+- **Reviews** — customer-review star ratings tied to the job.
+
+### Stored metrics are computed once, at rebuild time
+
+These figures are calculated when a period is rebuilt and saved on the period — they are not recomputed each time someone reads the page:
+
+- **Production per hour** — total job value divided by total job hours (zero when there are no hours).
+- **Bonus per hour** — total bonus divided by total hours worked (zero when there are no hours).
+- **Average time savings** — hours saved as a percentage of estimated labor hours (zero when there are no labor hours).
+- **Average jobs per user** — for Branch and Company periods, total jobs divided by the number of people; Personal periods are per-person, so this is just that person's jobs.
+
+<Card title="Rule: shared jobs are not double-counted">
+When several people work the same job, Branch and Company job totals count that job once. Personal periods instead sum each person's own jobs.
+</Card>
+
+## When metrics recompute
+
+There are two ways a period rebuilds. Both **delete the affected period rows and re-insert them** — there is no in-place editing of a metric.
+
+### Automatic, after a job or review changes
+
+When a customer review is recorded on a job, the affected periods recompute in the background. The rebuild targets **only the buckets that contain that job's closed date** — the weekly, monthly, quarterly, and yearly rows for the job's branch (in the branch's time zone) and for the workspace (in the workspace's time zone). A job with no closed date is skipped.
+
+Because this runs in the background, updated numbers appear a short time after the change rather than in the same instant, and during busy periods rebuilds complete one after another. See [Background processing](/reference/platform/background-processing) for the timing and retry behavior.
+
+### Manual bulk regeneration
+
+A regeneration control lets an authorized user rebuild periods in bulk. The rebuild can be scoped by **date range**, by **level**, and by **timeframe**, and can be run as a **dry run**:
+
+- **Dry run** returns an estimate only — how many periods, roughly how long, and how many jobs and payouts are affected. Nothing is written.
+- **Live run** deletes the matching periods (by level, timeframe, optional date range, and optional workspace), re-inserts them from the job and bonus data, links the bonus payouts and reviews, then runs the follow-up passes below. It reports how many periods were deleted and rebuilt and how long it took.
+
+Leaving the date range empty rebuilds the entire history.
+
+### Follow-up passes (both ways)
+
+After the base rebuild, two passes update the new rows:
+
+- **People counts** — for Branch and Company periods, the number of people and the average jobs per user are set by counting the **distinct eligible people** in that bucket.
+- **Review metrics** — the number of reviews, the total stars, and the average customer review are filled in from the customer reviews matched to that bucket.
+
+<Card title="Rule: who counts toward personal and branch metrics">
+Only **Crew Member** and **Crew Leader** roles count toward personal performance metrics. Blocked users and a small set of reserved utility names (used for things like warranty calls, complaints, QC visits, and delivery costs) are excluded from the counts.
+</Card>
+
+## Rollover
+
+There is no scheduled "close the period, open the next one" step. Periods are not stateful windows that flip over at a boundary.
+
+Instead, a job's closed date deterministically maps it to its bucket, and that bucket is (re)built whenever the job — or a review on it — changes. A new week, month, quarter, or year row simply comes into existence the first time a qualifying closed job falls into it.
+
+To correct history — for example after a back-dated job or a fixed time zone — re-run the manual regeneration over the affected date range. That deletes and rebuilds those buckets from current data.
+
+## Reading periods
+
+Periods are scoped to your workspace and can be filtered by level, timeframe, time bucket, person, and branch. Results are returned newest-timeframe first.
+
+For Personal periods, blocked users, the reserved utility names, and people without a qualifying role are filtered out of results.
+
+## Who can view and regenerate
+
+Performance periods are available to signed-in employees and are governed by role.
+
+<Card title="Rule: viewing your own vs. others' data">
+A person who can read performance data but not all of it is limited to their **own** Personal rows. Requesting another person's Personal data returns "You do not have permission to view other users' performance data." A request that isn't from an employee account returns "Performance periods require an employee principal."
+</Card>
+
+<Card title="Rule: branch access is enforced on filters">
+Filtering by a branch you don't have access to returns "You do not have access to this branch."
+</Card>
+
+- **Admin** — full access, including manual regeneration.
+- **Ops Manager** — can create, read, update, and delete performance data across the workspace.
+- **Crew Leader** — can read performance data, including others' (for leaderboards).
+- **Crew Member** — can read their own Personal data only.
+
+Bulk regeneration requires the manage-level permission, which Admin and Ops Manager hold. See [Roles and permissions matrix](/reference/platform/permissions-roles-matrix) for the full breakdown, and [Org and branch scoping](/reference/platform/org-branch-scoping) for how workspace and branch filters apply.
+
+## Quick reference
+
+- **Levels:** Personal, Branch, Company. **Timeframes:** weekly, monthly, quarterly, yearly.
+- **Only Closed Jobs with a branch, a closed date, and a bonus payout feed periods.**
+- **Buckets use local calendar time** — branch time zone for Personal and Branch, workspace time zone for Company. The "week" is a week-of-month (1 to 5).
+- **Stored metrics** (production per hour, bonus per hour, average time savings, average jobs per user) are computed at rebuild time, not on read.
+- **Two rebuild paths:** automatic (after a review or job change, targeted to that job's buckets) and manual bulk regeneration (scopable, with a dry-run option).
+- **No scheduled rollover** — buckets materialize when a qualifying closed job falls into them.
+- **Only Crew Member and Crew Leader count toward personal metrics.**
+- **Regenerate:** Admin and Ops Manager. **Read others' data:** Admin, Ops Manager, Crew Leader. **Read own data:** Crew Member.

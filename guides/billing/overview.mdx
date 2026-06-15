@@ -1,7 +1,123 @@
 ---
 title: "Overview"
+description: "Get oriented with billing in Menaia — what the Invoices page shows you, how an invoice moves from draft to paid, and where to set up payment terms, payment methods, and automatic deposit invoices."
+icon: "receipt"
 ---
 
+Billing is where you turn finished work into invoices, send them to customers, and keep track of what's been paid and what's still owed. This page gives you the lay of the land: what each screen does, the journey an invoice takes, and where the related settings live. From here you can jump to a step-by-step guide for any task.
+
 <Note>
-  This page is coming soon.
+You don't need to be an accountant to use billing. Menaia does the math — totals, balances, and overdue flags update on their own as you send invoices and record payments.
 </Note>
+
+## The Invoices page
+
+**Invoices** in the main navigation is your home base for billing. It lists every invoice across all your projects, with a search box, filters, and a row of summary cards at the top.
+
+### Summary cards
+
+Four cards sit above the list and give you the financial picture at a glance. Click any card to filter the list down to just those invoices.
+
+- **Total Invoiced** — the full amount you've billed.
+- **Outstanding** — money that's been invoiced but not yet collected.
+- **Total Collected** — payments you've received.
+- **Overdue** — invoices that are past their due date and still owe a balance.
+
+### The invoice list
+
+Each row shows the **Invoice #**, **Client Name**, **Project Name**, **Status**, **Total**, **Balance**, and the key dates (**Issue Date**, **Sent Date**, **Due Date**, **Created Date**). Click an invoice number to open its full detail page. An overdue invoice flags its **Due Date** in red.
+
+Use the filters panel to narrow the list by client, invoice ID, status, who created it, or any of the date ranges.
+
+<Tip>
+The quickest way to find one invoice is to type its number into the **Invoice ID** filter. To see everything for one customer, filter by **Client Name** instead.
+</Tip>
+
+## How an invoice moves along
+
+Every invoice carries a **Status** that tells you exactly where it stands. Understanding the flow makes the rest of billing easy to follow.
+
+<Steps>
+  <Step title="Draft">
+    A new invoice starts as a **Draft**. It isn't visible to the customer yet, so this is your chance to adjust line items, dates, payment terms, and the description of work. Drafts can be edited freely or deleted.
+  </Step>
+  <Step title="Open">
+    When you send the invoice, it becomes **Open** — the customer has it and it's awaiting payment. You can resend it at any time.
+  </Step>
+  <Step title="Partially Paid">
+    Once you record a payment that covers part of the balance, the status becomes **Partially Paid**. The remaining balance keeps showing on the invoice.
+  </Step>
+  <Step title="Paid">
+    When the full balance is collected, the invoice is marked **Paid** and the balance drops to zero.
+  </Step>
+</Steps>
+
+<Note>
+An invoice you no longer want to collect on can be set to **Voided**. Voiding keeps a record of the invoice without counting it toward what's owed — unlike deleting, which only applies to drafts and removes them entirely.
+</Note>
+
+## Working with a single invoice
+
+Open any invoice to see its detail page. Across the top you'll find the invoice number, its status badge, and the main actions:
+
+- **Send Invoice** (this becomes **Resend Invoice** once it's already open) emails the invoice to the customer.
+- **Record Payment** logs a payment against the balance.
+- The **more options** menu (the three-dot button) holds the rest: **View PDF**, **Record Payment**, **Add Credit**, **Void Invoice** or **Delete Invoice**, plus quick links to the related estimate or proposal.
+
+Below the actions, the **Invoice Details** card shows the client, project, dates, payment terms, total, and balance remaining. A **Transaction History** section records every payment and credit applied to the invoice.
+
+<Tip>
+While an invoice is still a **Draft**, you can edit its details and line items right on the detail page and click **Save Changes**. Once it's been sent, the line items lock in so the customer's copy stays accurate.
+</Tip>
+
+## Billing settings
+
+A few one-time setup choices make day-to-day billing faster. You'll find these under **Settings**, and each one applies to the branch you select at the top of the settings screen.
+
+### Payment terms
+
+Payment terms decide how long a customer has to pay — they set the due date automatically based on the issue date. Set these up under **Settings → Invoices → Payment Terms** so the right due date is filled in for you on every invoice.
+
+### Payment methods
+
+Payment methods are the ways you accept payment (for example, the options a customer sees on a proposal, and the methods you choose from when recording a payment). Manage them under **Settings → Proposals → Payment Methods**.
+
+<Note>
+Recording a payment requires at least one payment method to exist. If the **Record Payment** option is missing, add a payment method first.
+</Note>
+
+### Automatic deposit invoices
+
+Menaia can create a deposit invoice for you the moment a proposal is signed, so you don't have to remember to bill for it. Under **Settings → Invoices → Overview** you'll find two options:
+
+- **Auto Create Deposit Invoice** — automatically create a deposit invoice when a proposal is signed.
+- **Auto Send Deposit Invoice** — automatically email that deposit invoice to the customer when the proposal is signed. This one requires Auto Create Deposit Invoice to be on and a customer email on file.
+
+## Where to go next
+
+<CardGroup cols={2}>
+  <Card title="Create an invoice" icon="file-plus" href="/guides/billing/create-an-invoice">
+    Start a new invoice from an estimate or from scratch.
+  </Card>
+  <Card title="Browse invoices" icon="list" href="/guides/billing/browse-invoices">
+    Search, filter, and find any invoice across your projects.
+  </Card>
+  <Card title="Send and resend" icon="paper-plane" href="/guides/billing/send-and-resend">
+    Email an invoice to your customer, then resend it if needed.
+  </Card>
+  <Card title="Record and allocate a payment" icon="wallet" href="/guides/billing/record-allocate-payment">
+    Log a payment against a balance and apply it where it belongs.
+  </Card>
+  <Card title="Add a credit" icon="coins" href="/guides/billing/add-a-credit">
+    Apply a credit to an invoice's balance.
+  </Card>
+  <Card title="Void an invoice" icon="ban" href="/guides/billing/void-an-invoice">
+    Cancel an invoice you no longer intend to collect on.
+  </Card>
+  <Card title="Preview and download a PDF" icon="file-pdf" href="/guides/billing/preview-download-pdf">
+    See and save the customer-facing copy of any invoice.
+  </Card>
+  <Card title="Automatic deposit invoices" icon="bolt" href="/guides/billing/auto-deposit-invoices">
+    Bill the deposit automatically when a proposal is signed.
+  </Card>
+</CardGroup>

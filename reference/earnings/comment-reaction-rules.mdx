@@ -1,7 +1,168 @@
 ---
 title: "Comment reaction rules"
+description: "Who can comment and react, what they can edit or delete, the limits on comment content, and how replies and notifications work."
+keywords: ["comments", "reactions", "emoji reactions", "comment replies", "comment mentions", "delete a comment"]
 ---
 
+This reference explains who can post comments and react to them, what each role can edit or delete, the limits the app puts on comment content, and how replies and notifications behave.
+
+The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Crew Member**.
+
+## Where comments live
+
+Comments appear in two places today: on a **project's discussion** and on **group feed posts**. Reactions attach to any comment, no matter which of those two places it lives in.
+
+## Who can comment and react
+
+### Every staff role can post and react
+
+<Card title="Posting and reacting is open to all staff roles">
+  Admin, Ops Manager, Sales Admin, Sales Member, Client Coordinator, Crew Leader, and Crew Member can all post comments, reply, and add or remove reactions. Adding a reaction and posting a comment require the same permission, so any role that can comment can also react.
+</Card>
+
+### Reading comments and reactions
+
+<Card title="Reading is open to all staff roles">
+  Listing comments, listing replies, searching for people to mention, and seeing reaction summaries and who-reacted lists are all available to every staff role.
+</Card>
+
+## Editing and deleting
+
+### You can edit or delete your own comments
+
+<Card title="Own comments: anyone who posted can edit or delete it">
+  Every staff role can edit and delete the comments they posted themselves. The app checks authorship on each edit or delete and blocks anyone who is not the author (unless they are an Admin — see below).
+</Card>
+
+### Admins can edit or delete anyone's comment
+
+<Card title="Others' comments: Admin only">
+  An Admin can edit or delete any comment, regardless of who posted it. All other roles are limited to their own comments and are blocked with a permission error if they try to edit or delete someone else's.
+</Card>
+
+### Delete keeps the record
+
+<Card title="Delete is reversible behind the scenes">
+  Deleting a comment hides it rather than erasing it. The comment is removed from the discussion but the underlying record is retained. See the platform reference on [soft delete](/reference/platform/soft-delete) for the general behavior.
+</Card>
+
+## What you can comment or react on
+
+A staff role having permission to comment is not enough on its own — you also have to be able to see the thing you are commenting on.
+
+### Project comments require access to the project's branch
+
+<Card title="You must belong to the project's branch">
+  To comment or react on a project, you must belong to that project's branch. A project with no branch, or one outside your branches, returns "You do not have access to this project." A project that does not exist (or belongs to another workspace) returns a not-found error.
+</Card>
+
+### Post comments require access to the group
+
+<Card title="You must be able to see the group">
+  To comment or react on a group feed post, you must be able to view that group. If you cannot, the app returns "You do not have access to this group." Group visibility is filtered by your active branch (this applies even to Admins), then by the group's allowed roles and allowed people. Anyone who can manage groups bypasses the role and people filters.
+</Card>
+
 <Note>
-  This page is coming soon.
+  This access check runs on every comment and reaction action — posting, editing, deleting, listing comments, listing replies, toggling a reaction, and viewing reaction summaries or who-reacted lists. If you lose access to a project's branch or to a group, you also lose the ability to react and to read its comments.
 </Note>
+
+## Reactions
+
+### Reacting again with the same emoji removes it
+
+<Card title="Reactions toggle">
+  A reaction is tied to you, the comment, and the specific emoji. Tapping a reaction you have not used adds it; tapping the same emoji again removes it. You always react as yourself — there is no "react on behalf of" someone else.
+</Card>
+
+### The available emoji
+
+<Card title="Eight reaction emoji">
+  Reactions are limited to a fixed set: thumbs up, heart, smiley, party, clap, fire, eyes, and check mark. No other emoji can be used as a reaction.
+</Card>
+
+### The who-reacted list is capped
+
+<Card title="Up to 10 names shown">
+  When you view who reacted to a comment, the list shows at most 10 people. Reacting to a comment that does not exist (or belongs to another workspace) returns a not-found error.
+</Card>
+
+## Comment content limits
+
+These limits apply when you post a comment and when you edit one.
+
+<Card title="A comment can't be empty">
+  Every comment must have at least one of: text, a GIF, or media. An empty comment is rejected with "Comment must have text, a GIF, or media."
+</Card>
+
+<Card title="GIFs are only allowed on group posts">
+  You can add a GIF to a group feed post comment, but not to a project comment. A GIF on a project comment is rejected with "GIFs are not allowed on project comments."
+</Card>
+
+<Card title="GIFs must come from a supported source">
+  A GIF has to be served over a secure connection from one of the app's supported GIF providers. Anything else is rejected with "Unsupported GIF host."
+</Card>
+
+<Card title="At most 25 mentions">
+  A single comment can mention at most 25 people. Going over returns "A comment may mention at most 25 users." This limit is enforced even if extra mentions are hidden in the comment's formatting.
+</Card>
+
+<Card title="Body length is capped">
+  A comment's body is limited to 10,000 characters.
+</Card>
+
+<Card title="At most 8 attachments">
+  A comment can carry at most 8 media attachments, and the same attachment can't be added twice.
+</Card>
+
+<Note>
+  Comment text is cleaned of any embedded markup before it is saved, so only the plain content you intended is stored.
+</Note>
+
+## Replies
+
+### Replies are one level deep
+
+<Card title="No nested replies">
+  A reply can only target a top-level comment. You cannot reply to a reply — doing so returns "Nested replies are not allowed. You can only reply to top-level comments."
+</Card>
+
+### A reply stays with its parent
+
+<Card title="Replies match their parent">
+  A reply has to belong to the same project or post as the comment it answers. A mismatch is rejected with "Reply entity does not match the parent comment."
+</Card>
+
+### Marking a win is a group-post feature
+
+<Card title="Posting a win is group-posts only">
+  Tagging a comment as a posted win is only supported on group feed posts, not on project comments.
+</Card>
+
+## Notifications
+
+### Mentions notify the people you tag
+
+<Card title="Mentioned people are notified">
+  When you mention someone in a comment, they get notified — except you don't notify yourself by mentioning yourself. When you edit a comment, only people you newly added are notified; people who were already mentioned aren't notified again.
+</Card>
+
+### Replies notify the parent author
+
+<Card title="The original author is notified of a reply">
+  When you reply to a comment, its author is notified — unless that author is you, or you already mentioned them in the reply (they won't be notified twice).
+</Card>
+
+## Quick reference
+
+- **Post, reply, react, read:** every staff role.
+- **Edit or delete your own comment:** every staff role.
+- **Edit or delete someone else's comment:** Admin only.
+- **GIFs:** group feed posts only, from a supported provider, over a secure connection.
+- **Limits:** at most 25 mentions, 10,000 characters, 8 attachments, and a fixed set of eight reaction emoji.
+- **Replies:** one level deep, and must stay with their parent project or post.
+
+## Related references
+
+- [Permissions and roles matrix](/reference/platform/permissions-roles-matrix) — the full role-by-role permission breakdown, including comments.
+- [Soft delete](/reference/platform/soft-delete) — what Delete does across the app.
+- [Workspaces and branches](/reference/platform/org-branch-scoping) — how branch access gates what you can see.

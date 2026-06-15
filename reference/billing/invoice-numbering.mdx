@@ -1,7 +1,72 @@
 ---
 title: "Invoice numbering"
+description: "How invoice numbers are formed, sequenced, and kept unique per branch within your workspace."
+keywords: ["invoice number", "invoice prefix", "invoice sequence", "branch invoice numbering", "duplicate invoice number"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains how an invoice's number is created, how the running sequence works, and why two branches can both have an invoice that looks the same.
+
+## The number format
+
+### Every invoice number is `PREFIX-N`
+
+When you create an invoice, its number is generated automatically. It always has two parts joined by a hyphen:
+
+- **A prefix** — short letters derived from the branch the invoice belongs to.
+- **A number** — a running count, starting at 1.
+
+So a branch's first invoice might be `SD-1`, its second `SD-2`, and so on.
+
+### The prefix comes from the branch name
+
+The prefix is built from the branch's name by taking the first letter of each word and capitalizing it:
+
+- "San Diego" gives `SD`
+- "Los Angeles" gives `LA`
+- "New York City" gives `NYC`
+
+<Card title="Rule: the branch name must produce a prefix">
+  If a branch's name has no usable letters to form initials, an invoice number can't be generated for it. Give the branch a normal name with at least one word before creating invoices for it.
+</Card>
+
+### The number is assigned for you and can't be edited
+
+The invoice number is filled in automatically the moment an invoice is created. It is shown as read-only on the invoice — you don't type it in, and you can't change it afterward. If a number is already present when an invoice is created (for example on imported data), it is kept as-is rather than regenerated.
+
+## How the sequence works
+
+### The count is per branch within your workspace
+
+Each branch keeps its **own independent running count**. The next number for a branch is one higher than the highest number that branch has used so far. If a branch has never had an invoice, its first one is `-1`.
+
+Because the count is tracked per branch, two different branches can each have their own `SD-1`. Numbers are only unique **within a single branch**, not across your whole workspace.
+
+<Card title="Rule: same-prefix branches still count separately">
+  Two branches whose names happen to produce the same prefix — for example "San Diego" and "Santo Domingo" both giving `SD` — still keep separate counts. They are tracked by branch, not by the prefix text, so both can have an `SD-1`.
+</Card>
+
+### Numbers aren't reused
+
+The count only ever moves forward. Deleting or voiding an invoice does not free up its number for the next invoice — the sequence keeps climbing from the highest number ever used in that branch.
+
+## Uniqueness and duplicates
+
+### No two invoices in the same branch can share a number
+
+Within a single branch in your workspace, an invoice number is guaranteed unique. The system will not let two invoices in the same branch end up with the same number.
+
+<Card title="Rule: a rare collision is rejected, not silently accepted">
+  If two invoices are created for the same branch at the very same instant, they could briefly aim for the same next number. When that happens, one of the two is rejected rather than both being saved with a duplicate number. Simply create the invoice again and it picks up the next free number.
+</Card>
+
+## Quick reference
+
+- **Format:** every invoice number is `PREFIX-N` — a branch prefix plus a running number.
+- **Prefix:** the capitalized initials of the branch name (for example "San Diego" gives `SD`).
+- **Sequence:** each branch counts independently, starting at 1, and only ever moves forward.
+- **Read-only:** the number is assigned automatically on creation and can't be edited.
+- **Uniqueness:** unique per branch within your workspace, so two branches can each have an `SD-1`.
+
+## Related references
+
+- [Workspace and branch scoping](/reference/platform/org-branch-scoping)

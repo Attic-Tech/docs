@@ -1,7 +1,176 @@
 ---
 title: "Leaderboard ranking"
+description: "How the Sales and Crew leaderboards rank people — the metric, the scope, tie-breaks, and who can see whose numbers."
+keywords: ["leaderboard", "sales leaderboard", "crew leaderboard", "ranking", "revenue per lead", "time savings", "leaderboard scope"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference explains how the two leaderboards rank people, what each one measures, how scope and time period work, how ties are broken, and who is allowed to see another person's standing.
+
+The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Crew Member**.
+
+## The two leaderboards
+
+There are two separate leaderboards. Each has its own ranking metric, but both share the same logic for ordering people and for deciding which slice of the board you see.
+
+| Leaderboard | What it ranks by |
+| --- | --- |
+| **Sales** | Revenue per lead, highest first |
+| **Crew** | Average time savings, highest first |
+
+## What each leaderboard measures
+
+### Sales leaderboard — revenue per lead
+
+The Sales leaderboard sorts by **revenue per lead**: a person's total sold revenue for the period divided by their number of leads (opportunities).
+
+<Card title="Rule — revenue per lead">
+Revenue per lead is total sold revenue divided by lead count, rounded to two decimals. If a person has no leads in the period, their revenue per lead is treated as zero.
+</Card>
+
+People are sorted by revenue per lead from highest to lowest, and ranks are assigned 1, 2, 3, and so on down the list.
+
+Each row also shows extra figures that are displayed but do **not** affect the ranking: closing ratio, average sale amount, total sold revenue, average return per lead, the count of sold and non-sold estimates, and the total estimate count.
+
+<Card title="Rule — what counts toward sold revenue">
+Only estimates in the **Sold** status count toward revenue and the sold count, dated by when they were sold. Estimates whose status is excluded from the closing ratio are left out. Depending on the workspace setting, revenue can be counted net of sub-services.
+</Card>
+
+<Card title="Rule — closing ratio on a row">
+The closing ratio on each row is the person's sold count divided by their lead count, shown as a percentage. It is zero when the person has no leads.
+</Card>
+
+### Crew leaderboard — time savings
+
+The Crew leaderboard sorts by **average time savings**, highest first. Production-per-hour and bonus-per-hour are shown on each row but do **not** affect the ranking.
+
+Crew rows are ordered by the database and then numbered 1, 2, 3, and so on.
+
+## Who is eligible to appear
+
+### Sales
+
+A person appears on the Sales leaderboard only if **all** of the following are true:
+
+- They had at least one sold or created estimate during the period.
+- Their account is not blocked.
+- They are not on the workspace's leaderboard exclusion list.
+
+### Crew
+
+A person appears on the Crew leaderboard only if **all** of the following are true:
+
+- They have a personal performance period for the timeframe.
+- Their account is not blocked.
+- They hold a **Crew Member** or **Crew Leader** role.
+- They are not on the workspace's leaderboard exclusion list.
+
+<Card title="Rule — reserved names never appear on the Crew board">
+Certain reserved bookkeeping names are always excluded from the Crew leaderboard: Warranty Call, SUB - Complaint, QC VISIT, and Delivery cost. These are not real people and never rank.
+</Card>
+
+<Card title="Rule — being excluded removes your personal standing">
+If you are on a leaderboard exclusion list, you do not receive a personal rank — you see only the public top of the board.
+</Card>
+
+## Scope: company vs branch
+
+Both leaderboards can be viewed at one of two scopes:
+
+- **Company scope** ranks everyone in your current workspace.
+- **Branch scope** ranks only the people in one chosen branch, and requires you to pick that branch.
+
+<Card title="Rule — branch scope needs a branch">
+If you ask for branch scope without choosing a branch, the request is rejected with `branchId is required for branch scope`.
+</Card>
+
+For more on how company and branch scoping works across the product, see [organization and branch scoping](/reference/platform/org-branch-scoping).
+
+### Time period
+
+The leaderboard is calculated for a time period:
+
+- **Sales** can be viewed monthly, quarterly, or yearly.
+- **Crew** can be viewed weekly, monthly, quarterly, or yearly.
+
+The reference month or quarter comes from an optional date, defaulting to now.
+
+<Card title="Rule — the date must be valid">
+If the supplied date can't be read, the request is rejected with `Invalid date`.
+</Card>
+
+<Card title="Rule — a time zone is required">
+Sales figures are bucketed in the relevant time zone — the workspace time zone for company scope, the branch time zone for branch scope. If that time zone is missing, the request is rejected with `Organization timezone is required` or `Branch timezone is required`.
+</Card>
+
+## Tie-breaking
+
+Ranking is fully deterministic: when two people have the same primary metric, the order falls through to secondary keys, so two people never share the same rank.
+
+<Card title="Rule — Sales tie-break order">
+Sales rows are ordered by revenue per lead (highest first), then by total sold revenue (highest first), then by a stable per-person ordering.
+</Card>
+
+<Card title="Rule — Crew tie-break order">
+Crew rows are ordered by average time savings (highest first), then by a stable insertion order.
+</Card>
+
+## Who can see whose numbers
+
+### You must be a signed-in employee
+
+Both leaderboards are available only to signed-in employees of the workspace. External or anonymous visitors are turned away.
+
+<Card title="Rule — employees only">
+A non-employee request is rejected with `Sales leaderboard requires an employee principal` or `Crew leaderboard requires an employee principal`.
+</Card>
+
+### Branch visibility
+
+Whether you can view a particular branch's numbers depends on your sales-metrics permission. You may view a branch's leaderboard only if **either**:
+
+1. you have permission to see all branches' sales metrics, **or**
+2. the branch you're asking for is one of your own branches.
+
+<Card title="Rule — branch you can't see is blocked">
+If neither condition holds, the request is rejected with `You do not have permission to access this branch`.
+</Card>
+
+Roles such as **Ops Manager** and **Sales Admin** can see sales metrics across all branches, while a **Sales Member** can see only their own branch. The full breakdown is in the [permissions roles matrix](/reference/platform/permissions-roles-matrix).
+
+### What you see in the list
+
+The leaderboard does not hand the entire ranking to ordinary viewers. Instead you get a windowed view — the top of the board plus the people immediately around you.
+
+<Card title="Rule — paging shows everyone">
+When a viewer pages through the board, they get a flat page of 10 rows at a time, plus a real total page count. This is the "see everyone" path, used by viewers with the right access.
+</Card>
+
+<Card title="Rule — the default view is a window">
+By default you see the **top 5** ranks plus a window around your own rank:
+
+- Sales: your rank plus the two people just above and below you, combined with the top 5.
+- Crew: the top 5 plus four people on either side of you, de-duplicated and re-sorted.
+</Card>
+
+<Card title="Rule — no personal anchor means top 10">
+If you have no personal standing — you didn't identify yourself, or you're on the exclusion list — you simply see the **top 10**, with no personal rank.
+</Card>
+
+Your own rank is returned separately from the visible rows. A workspace-wide or branch-wide average — average revenue per lead for Sales, or average production-per-hour and average time savings for Crew — is calculated over the **entire** eligible group, not just the rows you can see.
+
+### Snapshot rankings
+
+A separate snapshot view produces **company-wide** rankings for the current period — for Sales, the current month by revenue per lead; for Crew, the current year's weekly time savings, top 10. These power the leaderboard snapshot notifications and are never limited to a single branch.
+
+## Empty state
+
+If nobody qualifies for the chosen period and scope, the leaderboard comes back empty with zeroed counts and averages, rather than returning an error.
+
+## Quick reference
+
+- **Sales ranks by revenue per lead; Crew ranks by average time savings.** Highest first.
+- **Sales eligibility:** at least one sold or created estimate in the period, not blocked, not excluded.
+- **Crew eligibility:** a personal performance period, a Crew Member or Crew Leader role, not blocked, not excluded.
+- **Scope is company or branch.** Branch scope requires choosing a branch, and you can only view branches you're allowed to see.
+- **Ties never share a rank** — secondary keys break every tie.
+- **Default view = top 5 plus a window around you;** paging shows everyone; no personal anchor = top 10.

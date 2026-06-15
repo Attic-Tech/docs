@@ -1,7 +1,218 @@
 ---
 title: "Metrics glossary"
+description: "Every sales and crew-performance metric the app reports — what each one counts, the time window it falls into, and the scope it can be viewed at."
+keywords: ["metrics glossary", "closing ratio", "return per lead", "production per hour", "sold revenue", "performance period", "sales overview", "leaderboard"]
 ---
 
-<Note>
-  This page is coming soon.
-</Note>
+This reference defines every sales and crew-performance metric the app reports, in plain language: what each one counts, the time window it falls into, and the scope (personal, branch, or company) it can be sliced by.
+
+The metrics live in three places in the app, each answering a different question:
+
+| Where you see it | What it measures |
+| --- | --- |
+| **Performance periods** | Crew production, bonuses, hours saved, and customer reviews |
+| **Sales overview** | Closing ratio, pipeline, sold and paid revenue, average sale |
+| **Sales leaderboard** | Per-salesperson ranking — return per lead, closing ratio, counts |
+
+For how performance periods are built and refreshed, see [Performance periods](/reference/earnings/performance-periods). For how the leaderboard is ordered, see [Leaderboard ranking](/reference/earnings/leaderboard-ranking).
+
+## Shared concepts
+
+These ideas apply across all three metric families.
+
+### Scope
+
+Most metrics can be viewed at one of three scopes.
+
+<Card title="Scope">
+- **Personal** — one person (a crew member or a salesperson).
+- **Branch** — all activity in one branch.
+- **Company** — all activity across the whole workspace, branch-agnostic.
+</Card>
+
+Who can view another person's personal data, or a branch they don't belong to, is governed by the sales-metrics view permission. See the [Permissions roles matrix](/reference/platform/permissions-roles-matrix) and [Org and branch scoping](/reference/platform/org-branch-scoping).
+
+### Timeframe
+
+Every metric is bucketed into one of four windows: **weekly, monthly, quarterly, or yearly**.
+
+<Card title="Weekly means week-of-month, not calendar week">
+A "week" is a slice of the calendar month, not an ISO calendar week. Days 1–7 are week 1, days 8–14 are week 2, and so on — so each month has four or five weeks. This is intentional and differs from a Monday-to-Sunday calendar week.
+</Card>
+
+### Which timezone defines the window
+
+A job or sale lands in a window based on **local wall-clock time**, not server time.
+
+<Card title="Timezone rule">
+- **Branch** and **personal** metrics use the **branch's** timezone.
+- **Company** metrics use the **workspace's** timezone.
+
+A metric request is rejected if the relevant timezone hasn't been set.
+</Card>
+
+### Which date a job or sale falls into
+
+<Card title="Date rule">
+- **Performance periods** place a job in a window by its **close date**. Only jobs with the status **Closed Job** count, and a job with no branch or no close date is excluded.
+- **Sales metrics** place a sale in a window by different dates depending on the metric — created date, sold date, or last-payment date (called out in each definition below). A project's "sold date" is the earliest date any of its estimates was marked sold.
+</Card>
+
+### Who counts as crew toward branch and company averages
+
+Branch and company crew counts (and the per-user averages built on them) only include people who are **active** (not blocked), hold a crew role (**Crew Leader** or **Crew Member**), and are not on the built-in exclusion list of placeholder accounts (such as warranty-call, complaint, quality-control-visit, and delivery-cost entries).
+
+---
+
+## Performance period metrics
+
+A performance period aggregates the **closed jobs** that fall into one window, at one scope. Personal totals are per person; branch and company totals cover the whole branch or workspace and are summed once so no job is double-counted across people.
+
+### Job value
+
+The revenue value of each closed job, summed over the window. Per job, the app takes the job's priced total **net of any subcontracted (sub-service) cost**, after applying the discount. At personal scope this counts only the jobs the person was paid a bonus on; at branch or company scope it counts every closed job in range.
+
+### Total number of jobs
+
+Count of distinct closed jobs in the window. Personal scope counts the jobs the person earned a bonus on; branch and company scope count all closed jobs in range.
+
+### Total job hours
+
+Sum of the hours logged on the closed jobs in the window. Branch and company scope add up every shift on those jobs; personal scope counts only the person's own shifts (see **Total hours worked**).
+
+### Total estimated labor hours
+
+Sum of the estimated labor hours for the closed jobs in the window (treated as zero when an estimate has none).
+
+### Total hours saved
+
+How many hours under the estimate the crew actually finished in, summed over the window's bonus payouts.
+
+### Total hours worked
+
+The person's own logged shift hours on the closed jobs in the window. This is the personal-scope counterpart of total job hours.
+
+### Total bonus
+
+The total bonus dollars paid out over the window.
+
+### Production per hour
+
+Job value divided by total job hours — dollars of job value produced per hour worked on those jobs. Shown as zero when there were no job hours.
+
+### Bonus per hour
+
+Total bonus divided by total hours worked — average bonus dollars earned per hour worked. Shown as zero when no hours were worked.
+
+### Average time savings
+
+Total hours saved divided by total estimated labor hours, as a percentage — the share of estimated labor the crew came in under. Shown as zero when there were no estimated hours.
+
+### Number of users
+
+Always **1** for a personal period. For branch and company periods, the count of distinct eligible crew (see **Who counts as crew** above) who had a personal period in the same window.
+
+### Average jobs per user
+
+For branch and company periods, total number of jobs divided by number of users. For a personal period it equals the person's job count. Shown as zero when there are no users.
+
+### Customer review metrics
+
+Computed from the customer reviews tied to the closed jobs in the window.
+
+<Card title="Review metrics">
+- **Number of reviews** — count of distinct reviewed jobs in scope. At personal scope, only jobs the person actually worked a shift on, in their branch.
+- **Total review stars** — the sum of all review star ratings.
+- **Average customer review** — the average star rating across those reviews (zero when there are none).
+</Card>
+
+---
+
+## Sales overview metrics
+
+The sales overview shows a **current** window, the **previous** comparable window for comparison, and a per-segment chart. For an explicit date range, "previous" is the immediately preceding range of equal length; for a named period (monthly, quarterly, yearly) it's the prior period.
+
+<Card title="Window rules and limits">
+- A custom date range may not exceed **366 days**, and the start must come before the end — otherwise the request is rejected.
+- Personal scope resolves to the requested person (or the viewer); branch scope to the viewer's branch; company scope ignores branch.
+- Viewing another person's personal data, or a branch the viewer doesn't belong to, requires the sales-metrics view permission.
+</Card>
+
+### Counted (opportunities)
+
+The number of distinct projects whose **most recent opportunity activity** falls in the window (and is dated at or before now). Each project counts once. Can be filtered by salesperson and branch.
+
+### Sold (count)
+
+The number of distinct projects that **became sold** in the window, limited to projects that also had an opportunity. A project's sold date is the earliest date any of its estimates was marked sold.
+
+### Closing ratio
+
+Sold divided by counted, as a percentage — the share of opportunities that closed. Shown as **no data** (rather than 0%) when there were no opportunities in the window.
+
+### Pending pipeline value
+
+The total net revenue of estimates still **in the pipeline** (in progress or released), placed in the window by the estimate's **created date**. "Net revenue" is the estimate's priced total plus tax, with subcontracted (sub-service) cost removed — unless the branch's **include sub-services in sales performance** setting (or an explicit toggle on the request) says to keep them. See [Money rounding](/reference/platform/money-rounding) for how these amounts are rounded.
+
+### Total sold revenue
+
+The same net-revenue figure, summed over estimates that are **sold**, placed in the window by sold date. Deleted and secondary estimates are excluded.
+
+### Average sale amount
+
+Total sold revenue divided by the number of sold estimates in the window. Shown as zero when there are no sold estimates.
+
+### Closed-paid revenue
+
+Revenue from projects that are **fully paid** — where the amount collected on countable invoices (open, partially paid, or paid) is at least the project's sold value — placed in the window by the project's **most recent payment date**. The amount attributed depends on the scope and the sub-services setting (the person's share, the netted value, or the collected amount).
+
+### Contributor counts
+
+Alongside the pipeline, sold, and fully-paid figures, the overview reports how many distinct salespeople contributed to each.
+
+---
+
+## Sales leaderboard metrics
+
+The leaderboard ranks salespeople for one named period (monthly, quarterly, or yearly) at branch or company scope. Each salesperson's estimates are bucketed in the relevant branch or workspace timezone. People who are blocked, or on the **exclude from sales leaderboard** list, are dropped.
+
+### Sold count
+
+The count of the person's estimates that are **sold** with a sold date in the window. Deleted and secondary estimates are excluded.
+
+### Estimate count and non-sold count
+
+<Card title="Estimate counts">
+- **Estimate count** — the person's estimates **created** in the window (deleted and secondary estimates excluded).
+- **Non-sold count** — the estimate count minus the sold count, never below zero.
+</Card>
+
+### Total sold revenue
+
+The same net-of-sub-services revenue figure used in the sales overview, summed over the person's sold estimates in the window.
+
+### Average sale amount
+
+Total sold revenue divided by sold count, rounded to cents. Shown as zero when there are no sold estimates.
+
+### Closing ratio percent
+
+Opportunities sold divided by opportunities counted, as a percentage, for that person — built from **opportunities** (distinct projects from the person's most recent opportunity activity versus those that sold), not raw estimate counts. Shown as zero when the person had no opportunities.
+
+### Average return per lead (RPL)
+
+Total sold revenue divided by opportunities counted, rounded to cents — sold revenue earned per opportunity. This is the leaderboard's **primary ranking key**; ties break by total sold revenue. Shown as zero when the person had no opportunities. See [Leaderboard ranking](/reference/earnings/leaderboard-ranking) for the full ordering.
+
+### Average revenue per lead (board level)
+
+The average return per lead across all ranked people on the board, used for relative color-coding, rounded to cents.
+
+---
+
+## Related references
+
+- [Performance periods](/reference/earnings/performance-periods)
+- [Leaderboard ranking](/reference/earnings/leaderboard-ranking)
+- [Org and branch scoping](/reference/platform/org-branch-scoping)
+- [Money rounding](/reference/platform/money-rounding)
+- [Permissions roles matrix](/reference/platform/permissions-roles-matrix)

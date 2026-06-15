@@ -1,7 +1,67 @@
 ---
 title: "Bonus report"
+description: "Generate a downloadable monthly bonus report for your branch — pick a date range and export every team member's total bonus to a spreadsheet."
+icon: "award"
 ---
 
+The **Bonus Report** is a quick way for managers to pull a branch-wide summary of bonuses earned. You choose a start and end month, generate the report, and it downloads as a spreadsheet listing each team member and their total bonus for that period. It's built for payroll prep, month-end reviews, and any time you need the numbers in one place.
+
 <Note>
-  This page is coming soon.
+The Bonus Report lives under the **Admin** section of the main navigation and is available to managers. If you don't see it, your role doesn't have access — that's expected for most team members. Individuals can always see their own bonuses on their **Wallet**.
 </Note>
+
+The report always covers the branch you're currently working in, and the file is named with your branch and date range so it's easy to find later.
+
+## Generate a report
+
+<Steps>
+  <Step title="Open the Bonus Report page">
+    Go to **Bonus Report** under **Admin** in the main navigation. You'll land on the **Generate Monthly Bonus Report** card.
+  </Step>
+  <Step title="Set the Start Month">
+    Under **Start Month**, pick the month and year your report should begin. This is the first month included in the totals.
+  </Step>
+  <Step title="Set the End Month">
+    Under **End Month**, pick the month and year your report should end. To report on a single month, set the start and end to the same month and year.
+  </Step>
+  <Step title="Click Generate Report">
+    Press **Generate Report**. The button shows **Generating...** while it works, then your spreadsheet downloads automatically.
+  </Step>
+</Steps>
+
+<Tip>
+The downloaded file is named after your branch and the date range — for example, a report for January through March downloads with those months in the filename — so you can save several reports without overwriting each other.
+</Tip>
+
+## What's in the report
+
+The spreadsheet has one row per team member, sorted by name, with three columns:
+
+- **User ID** — the team member's unique identifier.
+- **User Name** — the team member's name.
+- **Total Bonus** — their combined bonus across every month in the range you selected.
+
+Open it in any spreadsheet program to sort, filter, or hand it off for payroll.
+
+## Tips and troubleshooting
+
+<Tip>
+The **Start Month** must be the same as or earlier than the **End Month**. If it isn't, you'll see a reminder that the start date must come before or match the end date, and the **Generate Report** button stays disabled until you fix it.
+</Tip>
+
+<Note>
+If there's no bonus activity for the months you picked, the report lets you know that no data was found for that period instead of downloading an empty file. Try widening the date range or confirming you're in the right branch.
+</Note>
+
+The totals here reflect the same bonus figures your team sees on their own **Wallet**. If a team member's number looks off, their Wallet breaks the bonus down job by job, which is the best place to investigate a single person's earnings.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="See your own bonuses" icon="wallet" href="/guides/earnings/wallet">
+    Every team member can track their projected bonus, job by job, on their Wallet.
+  </Card>
+  <Card title="Check the performance dashboard" icon="chart-line" href="/guides/earnings/performance-dashboard">
+    Get the bigger picture on how the team is tracking against goals.
+  </Card>
+</CardGroup>

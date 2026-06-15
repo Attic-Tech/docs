@@ -1,7 +1,95 @@
 ---
 title: "Add a credit"
+description: "Apply a credit to an invoice to lower the amount a customer owes — set a fixed or percentage amount, pick a reason, and add a note for your records."
+icon: "badge-percent"
 ---
 
+A **credit** lowers the balance a customer owes on an invoice — for a goodwill adjustment, a price correction, or anything else you've agreed to take off the bill. You add it right from the invoice, choose how much, and record why. The credit shows up in the invoice's history so your team always knows what changed and on whose say-so.
+
 <Note>
-  This page is coming soon.
+You can add a credit to an invoice that's **Open** or **Partially paid** and still has an outstanding balance. A credit can never be larger than what's still owed.
 </Note>
+
+## Before you start
+
+Credits use a list of **reasons** that your branch sets up ahead of time — things like "Goodwill adjustment" or "Price correction." If no reasons have been added for the invoice's branch yet, the Add Credit option won't be available, and the credit form will tell you to set one up first.
+
+If you need to add a reason, see [Set up credit and void reasons](#set-up-credit-and-void-reasons) below.
+
+## Add a credit to an invoice
+
+<Steps>
+  <Step title="Open the invoice">
+    Go to **Invoices**, find the one you want, and open it. The invoice needs to be **Open** or **Partially paid** with a balance still owed.
+  </Step>
+  <Step title="Open the actions menu">
+    In the top-right of the invoice, click the **actions menu** (the three-dots button) and choose **Add Credit**.
+  </Step>
+  <Step title="Choose the credit type">
+    In the **Add Credit Note** window, pick a **Credit Type**:
+
+    - **Fixed Amount ($)** — take a specific dollar amount off the balance.
+    - **Percentage (%)** — take a share of the remaining balance off. The system works out the dollar amount for you.
+  </Step>
+  <Step title="Enter the amount">
+    Fill in the **Credit Amount**. For a percentage, enter a number up to 100. Either way, the credit can't be more than the balance still owed — the form will stop you if it is.
+  </Step>
+  <Step title="Pick a reason">
+    Choose a **Reason** from the list. This is required, and it's how your team and your records make sense of the adjustment later.
+  </Step>
+  <Step title="Add notes">
+    Write a short note in **Notes** explaining the credit. This is required too — a sentence of context is usually enough.
+  </Step>
+  <Step title="Apply the credit">
+    Click **Apply Credit**. The balance updates and you'll see a confirmation that the credit was applied.
+  </Step>
+</Steps>
+
+<Tip>
+Not sure whether to use a dollar amount or a percentage? Use **Fixed Amount** when you've agreed on an exact figure, and **Percentage** when you've promised something like "10% off." The result is the same — a lower balance.
+</Tip>
+
+## See the credit on the invoice
+
+Once applied, the credit appears in the invoice's **Transaction History** as a **Credit Note**, alongside any payments. Each row shows the amount, the date, and the **Credit Reason** you picked, so the full story of the invoice stays in one place.
+
+## Edit or remove a credit
+
+Made a mistake, or need to back out an adjustment? You can do both from the same history.
+
+<Steps>
+  <Step title="Find the credit in Transaction History">
+    Scroll to **Transaction History** on the invoice and locate the **Credit Note** row.
+  </Step>
+  <Step title="Open its actions">
+    Click the **actions menu** (the three-dots button) at the end of that row.
+  </Step>
+  <Step title="Edit or void it">
+    - Choose **Edit Credit** to change the amount, reason, or notes.
+    - Choose **Void Credit** to reverse it. Voiding asks you to pick a reason, and it puts the credited amount back onto the balance.
+  </Step>
+</Steps>
+
+<Note>
+Voiding doesn't erase the record — the original credit and the void both stay in the history, so the trail of what happened is always intact.
+</Note>
+
+## Set up credit and void reasons
+
+Reasons are managed once per branch, in settings, and then everyone reuses them.
+
+<Steps>
+  <Step title="Open invoice settings">
+    Go to **Settings**, then **Invoices**, and open the **Credit & Void Reasons** tab.
+  </Step>
+  <Step title="Create a reason">
+    Add a new reason and give it a clear **Name** (for example, "Goodwill adjustment"). Choose its category, add an optional **Description** to guide your team on when to use it, and leave it **enabled** so it shows up when someone adds a credit.
+  </Step>
+  <Step title="Save">
+    Save the reason. It's now available in the **Reason** list the next time anyone adds a credit on that branch.
+  </Step>
+</Steps>
+
+<Tip>
+Keep your reason list short and meaningful. A handful of clear options makes credits faster to record and your reporting much easier to read later.
+</Tip>
