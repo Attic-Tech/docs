@@ -109,15 +109,15 @@ Every time an estimate's status changes, the system records when the status last
 
 The date an estimate was first sold is recorded the first time it becomes Sold (or at creation, if it is created already Sold). It never changes afterward — not even if the estimate is later re-sold. It captures the original sale date for sales reporting and is permanent.
 
-### The effective sold date defaults to the first sold date and can be adjusted by Branch Management
+### The effective sold date defaults to the first sold date and can be adjusted by management-level roles
 
-The effective sold date is the date used for sales reporting. It starts out equal to the first sold date. It can later be adjusted, but only by Branch Management roles (Sales Admin and above), and only while the estimate is Sold. Adjusting it on an estimate that is not Sold is rejected.
+The effective sold date is the date used for sales reporting. It starts out equal to the first sold date. It can later be adjusted, but only by Admin, Ops Manager, or Sales Admin, and only while the estimate is Sold. Adjusting it on an estimate that is not Sold is rejected.
 
 ### Crew notes stay editable in any status except Deleted
 
 Crew notes are an annotation, not part of pricing or scope, so they can be updated in any status except Deleted — even when the estimate is otherwise read-only (such as Sold). This is the one exception to the "only In Progress is editable" rule. Crew notes are limited to 5,000 characters.
 
-Crew notes can be edited by Sales Member, Crew Leader, Ops Manager, Sales Admin, and Admin. Note that Crew Leader can edit crew notes even though they cannot otherwise edit estimates.
+Crew notes can be edited by Sales Member, Client Coordinator, Crew Leader, Ops Manager, Sales Admin, and Admin. Note that Crew Leader can edit crew notes even though they cannot otherwise edit estimates.
 
 ### Each estimate keeps an immutable snapshot of its pricing
 
@@ -158,5 +158,5 @@ Underneath the per-status rules above, baseline access to estimates is scoped to
 ## Notes on edge cases
 
 - **Sold to Lost / Closed-job check.** The "job is already Closed" check that blocks a Sold-to-Lost move is applied on the normal flow. It is worth being aware that it depends on the job information being available at the time of the check.
-- **Effective sold date permissions.** The effective sold date is governed both at the field level (Branch Management) and at the action level (management-level permissions). These role sets are intended to line up (Sales Admin and above); keep them aligned if roles are ever added.
+- **Effective sold date permissions.** Editing the effective sold date requires management-level permissions: Admin, Ops Manager, or Sales Admin. The same role set governs both whether the field is editable and whether the save is accepted.
 - **No fixed transition graph.** There is no single fixed map of "legal" transitions. Allowed moves are the combined result of the per-role allowed-status rules plus the special "leaving Sold needs management-level permissions" rule plus the per-transition side effects. A move is allowed as long as the actor is permitted to set the target status — there is no restriction based on the starting status except the special Sold rule.

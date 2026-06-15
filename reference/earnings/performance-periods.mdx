@@ -133,7 +133,7 @@ Filtering by a branch you don't have access to returns "You do not have access t
 - **Crew Leader** — can read performance data, including others' (for leaderboards).
 - **Crew Member** — can read their own Personal data only.
 
-Bulk regeneration requires the manage-level permission, which Admin and Ops Manager hold. See [Roles and permissions matrix](/reference/platform/permissions-roles-matrix) for the full breakdown, and [Org and branch scoping](/reference/platform/org-branch-scoping) for how workspace and branch filters apply.
+Bulk regeneration is restricted to **Admin** only. Ops Manager can create, read, update, and delete performance data but cannot bulk-regenerate it. See [Roles and permissions matrix](/reference/platform/permissions-roles-matrix) for the full breakdown, and [Org and branch scoping](/reference/platform/org-branch-scoping) for how workspace and branch filters apply.
 
 ## Quick reference
 
@@ -144,4 +144,4 @@ Bulk regeneration requires the manage-level permission, which Admin and Ops Mana
 - **Two rebuild paths:** automatic (after a review or job change, targeted to that job's buckets) and manual bulk regeneration (scopable, with a dry-run option).
 - **No scheduled rollover** — buckets materialize when a qualifying closed job falls into them.
 - **Only Crew Member and Crew Leader count toward personal metrics.**
-- **Regenerate:** Admin and Ops Manager. **Read others' data:** Admin, Ops Manager, Crew Leader. **Read own data:** Crew Member.
+- **Regenerate:** Admin only. **Read others' data:** Admin, Ops Manager, Crew Leader. **Read own data:** Crew Member.
