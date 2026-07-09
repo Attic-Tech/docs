@@ -178,14 +178,6 @@ This page covers every rule in the estimate Calculator flow that blocks, disable
 
 ---
 
-### What does the "AI: Check for issues" review tell me? (advisory, non-blocking)
-
-- **Symptom:** An "AI: Check for issues" button. After running, it shows warnings ("AI Review (N issues)"), "Estimate looks good," or "Could not validate estimate."
-- **Cause:** This is an AI-powered advisory check. It returns up to five warnings and is purely advisory — it never blocks save or continue. The feature is only available when it's enabled for your workspace and the branch has a linked configuration ("This feature is not available" if it's off).
-- **Resolution:** Treat the warnings as suggestions — dismiss them individually or re-check. Even items flagged as errors never prevent saving. If you see "Could not validate estimate," the check couldn't run, and you can still proceed.
-
----
-
 ### Why did my status change fail with a generic error toast?
 
 - **Symptom:** A toast reading "Unable to update status" with a server message, or "A network error occurred. Please check your connection and try again."
