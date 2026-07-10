@@ -1,7 +1,7 @@
 ---
 title: "Ledger"
-description: "What the billing ledger records, how invoice, payment, and credit events are logged, how it differs from the balances shown on a project, and who can see it."
-keywords: ["billing ledger", "ledger entry", "audit trail", "where do balances come from", "totalCollected outstanding", "voided invoice ledger", "who can see the ledger"]
+description: "What the billing ledger records, how invoice, payment, credit, and refund events are logged, how it differs from the balances shown on a project, and who can see it."
+keywords: ["billing ledger", "ledger entry", "audit trail", "where do balances come from", "total collected outstanding", "voided invoice ledger", "refund ledger entry", "who can see the ledger"]
 ---
 
 This reference explains what the billing ledger is, what events it records, how it relates to the balances shown on invoices and projects, and who can access it.
@@ -12,7 +12,7 @@ The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales 
 
 ### The ledger is an append-style audit trail
 
-The ledger is a running accounting record of billing events. Each entry logs one event — an invoice being issued, a payment being recorded, or a credit being issued — and is scoped to a workspace, a branch, a client, and a project.
+The ledger is a running accounting record of billing events. Each entry logs one event — an invoice being issued, a payment being recorded, a credit being issued, or a refund being processed — and is scoped to a workspace, a branch, a client, and a project.
 
 Entries are added as events happen; the ledger is not edited the way a spreadsheet is. It exists as a parallel audit trail.
 
@@ -22,13 +22,13 @@ This is the key thing to understand: the running balance you see on a client or 
 
 ### What an entry records
 
-Every ledger entry carries the workspace, branch, client, and project it belongs to, the kind of event (its entry type), a link to the exact thing that caused it (the invoice, payment, or credit), an amount, and the date the event actually took place.
+Every ledger entry carries the workspace, branch, client, and project it belongs to, the kind of event (its entry type), a link to the exact thing that caused it (the invoice, payment, credit, or refund), an amount, and the date the event actually took place.
 
 Amounts on the ledger are always recorded as a non-negative number. Whether an entry represents money owed or money received is determined by the entry type, not by a positive or negative sign.
 
 ## Entry types
 
-There are three kinds of ledger entry, each tied to the event that creates it:
+There are four kinds of ledger entry, each tied to the event that creates it:
 
 <Card title="Invoice issued" icon="file-invoice">
   Logged when an invoice becomes a live (issued) invoice. The amount recorded is the invoice total, dated to the invoice's issue date. A draft invoice records nothing — the entry is created only when the invoice is issued.
@@ -42,9 +42,13 @@ There are three kinds of ledger entry, each tied to the event that creates it:
   Logged after a credit and its allocations are saved and balances are recalculated. The amount recorded is the credit amount, dated to when the credit was issued.
 </Card>
 
+<Card title="Refund recorded" icon="rotate-left">
+  Logged when a refund of an online payment is processed. The amount recorded is the refund amount, dated to when the refund was posted, and the entry links back to the refund, the original payment, and the affected invoice.
+</Card>
+
 ### Each entry must match its source event
 
-An entry's type must agree with the thing it links to. A payment entry must point at a payment, a credit entry at a credit, and an invoice entry at an invoice. If they don't match, the action is rejected with a clear message — for example, "A payment-type ledger entry must reference a payment."
+An entry's type must agree with the thing it links to. A payment entry must point at a payment, a credit entry at a credit, a refund entry at a refund, and an invoice entry at an invoice. If they don't match, the action is rejected with a clear message — for example, "A payment-type ledger entry must reference a payment."
 
 ## What the ledger records
 
@@ -64,6 +68,10 @@ The ledger never double-logs the same event. Before adding an entry, the system 
 
 <Card title="Issuing a credit" icon="circle-check">
   An entry is recorded once the credit is saved, its allocations applied, and balances recalculated.
+</Card>
+
+<Card title="Processing a refund" icon="circle-check">
+  An entry is recorded once a refund of an online payment is confirmed. Refunds are issued from your Stripe Dashboard and flow back automatically — the entry is logged when the refund comes through, and it is not logged twice for the same refund.
 </Card>
 
 ### Reversals zero out the entry — they don't erase it
@@ -92,13 +100,13 @@ Balances are calculated from invoices, not from the ledger.
 
 ### An invoice's balance
 
-An invoice's balance is its total minus everything applied to it — payments and credits — rounded to the cent. It is recalculated whenever a payment or credit changes, and the invoice's status is re-derived from the result:
+An invoice's balance is its total, minus everything applied to it — payments and credits — plus anything refunded, rounded to the cent. It is recalculated whenever a payment, credit, or refund changes, and the invoice's status is re-derived from the result:
 
 - Balance at or below zero → **Paid**
 - Balance below the total but above zero → **Partially paid**
 - Otherwise → **Open**
 
-Draft and Voided invoices are left as they are. For the full rounding behavior, see [Money rounding](/reference/platform/money-rounding).
+Because a refund raises the balance back up, refunding a paid invoice can move it back to **Partially paid** or **Open**. Draft and Voided invoices are left as they are. For the full rounding behavior, see [Money rounding](/reference/platform/money-rounding).
 
 ### Project and financial-summary totals
 
@@ -112,7 +120,7 @@ The financial summary on a project (and the roll-ups for a branch or workspace) 
 
 ### The transaction list
 
-The list of transactions shown in the financial summary is also built from the underlying payments and credits — not from the ledger — and it leaves out deleted payments and voided credits.
+The list of transactions shown in the financial summary is also built from the underlying payments, credits, and refunds — not from the ledger — and it leaves out deleted payments and voided credits.
 
 ## Access and visibility
 
@@ -125,8 +133,8 @@ Workspace isolation here is a hard boundary — one workspace can never see anot
 ## Quick reference
 
 - **The ledger is an audit trail**, not the source of your balances.
-- **Balances come from invoices** — total minus applied payments and credits.
-- **Three event types are logged:** invoice issued, payment recorded, credit issued. Drafts are never logged.
+- **Balances come from invoices** — total minus applied payments and credits, plus refunds.
+- **Four event types are logged:** invoice issued, payment recorded, credit issued, refund recorded. Drafts are never logged.
 - **Each event is logged once** — no duplicates.
 - **Reversals zero out the entry** (void invoice, delete payment, void credit) rather than deleting it.
 - **Editing a payment or credit** updates its existing entry in place.

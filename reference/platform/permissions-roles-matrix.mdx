@@ -94,7 +94,7 @@ What pricing detail you can see inside the Calculator depends on your role:
 |---|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Leads | Manage | Manage | Manage | No access | Manage | No access | No access |
 | Lead activities | Manage | Manage | Manage | Own only | Manage | No access | No access |
-| Lead statuses & sources | View | View | View | No access | View | No access | No access |
+| Lead statuses & sources | View | View | View | View | View | View | View |
 
 - A **Sales Member** can't create or own leads. They can only work on **lead activities assigned to themselves** — if they try to edit or delete someone else's activity, they're told "You can only update lead activities assigned to yourself."
 - Branch Management roles see all lead activity in the branch; a Sales Member sees only their own.
@@ -107,7 +107,7 @@ See also: [/reference/leads/status-lifecycle](/reference/leads/status-lifecycle)
 |---|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Clients | Manage | View all + edit + delete | View all + edit + delete | View all + edit | View all + edit | View + edit | No access |
 | Contacts | Manage | Manage | Manage | Create/view/edit | Create/view/edit | No access | No access |
-| Projects | Manage | View + edit | Manage | Manage | View + edit | No access | No access |
+| Projects | Manage | View + edit | Manage | Manage | View + edit | View | No access |
 | Project media | Manage | Manage | Manage | Manage | Manage | Manage | No access |
 | Properties | Manage | Edit | Edit | Edit | Edit | Edit | No access |
 
@@ -119,7 +119,7 @@ See also: [/reference/leads/status-lifecycle](/reference/leads/status-lifecycle)
 | Area | Admin | Ops Manager | Sales Admin | Sales Member | Client Coordinator | Crew Leader | Crew Member |
 |---|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Estimates | Manage | Manage (with status limits) | Manage | Create/view/edit + status + crew notes | Create/view/edit + status + crew notes | Crew notes only | No access |
-| Proposals | Manage | Manage | Manage | Manage | Manage | No access | No access |
+| Proposals | Manage | Manage | Manage | Manage | Manage | View | No access |
 | Proposal media | Manage | Manage | Manage | Manage | Manage | Manage | No access |
 | Inspection reports | Manage | Manage | Manage | Manage | Manage | View | No access |
 
@@ -137,7 +137,7 @@ See also: [/reference/leads/status-lifecycle](/reference/leads/status-lifecycle)
 | Jobs | Manage | Manage | View all + edit + status + assign | View all + status | View all + status | View + edit + assign | View |
 | Job plans | Manage | Manage | View | View | View | Manage | View |
 | Job shifts | Manage | Manage | View | View | View | View | View |
-| Schedule | Manage | Manage | Manage | Own items: create/view/edit/delete | Manage | Create/view/edit/delete | No access |
+| Schedule | Manage | Manage | Manage | Own items: create/view/edit/delete | Manage | Create/view/edit/delete | View own published items |
 | Saved schedule filters | Manage | | | | | | |
 | Ride-alongs | Manage | Manage | Manage | Create + view | No access | No access | No access |
 
@@ -184,7 +184,7 @@ Other roles can **read** certain settings entities so the rest of the app works 
 
 - **User administration** (adding or editing people) is **Admin** only. Other roles can see the list of users to fill in dropdowns, but can't create or edit them.
 - **Managing groups** is **Admin** only.
-- **Branches, vehicles, equipment, and employees** can be managed by **Admin and Ops Manager**; **Crew Leader** can also manage vehicles, equipment, employees, and subcontractors.
+- **Branches, vehicles, equipment, employees, and subcontractors** can be changed by **Admin** only. Other roles can read them where the rest of the app needs them (for example, to fill in pickers), but can't create, edit, or delete them.
 
 If the workspace settings feature is turned off, all settings changes are closed at once.
 

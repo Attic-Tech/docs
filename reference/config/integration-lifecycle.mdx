@@ -9,7 +9,7 @@ This reference explains the lifecycle of an integration in your workspace: the s
 The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Crew Member**.
 
 <Note>
-  The Integrations area today is a **marketplace** — a catalog of available integrations and a detail page for each one. The states and access rules described on this page are real and enforced. The connect, reconnect, and disconnect **flows** are still being built: the connect action on an integration's detail page is not yet wired up. Treat the flows below as the intended behavior, and the states and permissions as live today.
+  The Integrations area is a **marketplace** — a catalog of available integrations and a detail page for each one, where an Admin connects and manages each integration for the workspace.
 </Note>
 
 ## Who can manage integrations
@@ -54,23 +54,22 @@ There is **no "disconnected" state**. An integration your workspace has never co
 
 ## Connect, reconnect, and disconnect
 
-The intended lifecycle works like this:
-
 ### Connect
 
-From an integration's detail page, an Admin starts the connection flow (for example, "Connect Payments"). A successful connect creates the workspace's connection for that integration and sets its state to **Connected**.
+From an integration's detail page, an Admin starts the connection flow with the integration's connect button. What happens next depends on the integration:
+
+- **Menaia Pay** — **Connect Stripe** sends you to Stripe's onboarding flow to set up the payments account, then returns you to the integration page when you're done.
+- **QuickBooks** — **Connect QuickBooks** opens a sign-in window where you authorize the connection. Once it completes, the page shows a **Connected** badge and the connected company's details. Finalizing the connection can take a moment after the window closes; if the page hasn't caught up yet, use **Refresh status** to check again.
+
+A successful connect creates the workspace's connection for that integration and sets its state to **Connected**.
 
 ### Reconnect
 
-Because a workspace has only one connection per integration, reconnecting after a **Revoked** or **Error** state updates that same connection back to **Connected** — it does not create a second one.
+Because a workspace has only one connection per integration, connecting again after a **Revoked** or **Error** state updates that same connection back to **Connected** — it does not create a second one.
 
 ### Disconnect
 
-Disconnecting moves the connection to **Revoked**. The connection is kept rather than removed, so your workspace retains a record that the integration was once connected.
-
-<Note>
-  The connect, reconnect, and disconnect actions are not yet wired up: the connect action on the detail page does not yet start a flow, and there is no action that performs the state changes. The states and the access rules above are live; the transitions between them are planned.
-</Note>
+Disconnecting moves the connection to **Revoked**. The connection is kept rather than removed, so your workspace retains a record that the integration was once connected. A connection can also land in **Error** without anyone disconnecting it — for example, when re-authorizing an existing QuickBooks connection fails — and it stays unusable until it's reconnected.
 
 ## What breaks when an integration is disconnected
 

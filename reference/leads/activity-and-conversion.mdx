@@ -101,9 +101,9 @@ Whether a given viewer can see drafts at all is also governed by their permissio
 - When you **edit** a Draft activity and change it to Published, it converts.
 - Re-saving an activity that is **already** Published does **not** re-trigger conversion.
 
-Any role that can create or edit an activity and set it to Published can trigger conversion. Sales Members can publish their own assigned activities.
+Because a first-time conversion creates a project, publishing an activity for a lead that has **not yet been converted** additionally requires a role that can create projects: **Admin**, **Sales Admin**, or **Sales Member**. Sales Members can publish their own assigned activities. **Ops Manager** and **Client Coordinator** can create and edit activities, but they can only publish for leads that are **already converted** — publishing an unconverted lead fails for them because it would need to create a project.
 
-Important: if conversion fails for any reason, the failure is logged but the **activity publish still succeeds** from your point of view. In that case the client/project may not have been created (see Return behavior).
+Important: publishing and conversion are **all-or-nothing**. They run together as a single save — if any conversion step fails, the whole publish fails and nothing is saved. There is no state where the activity published but the client or project wasn't created; fix the reported problem and publish again.
 
 ## What conversion does
 
@@ -148,7 +148,7 @@ The lead page only attempts to surface client information if the viewer has perm
 
 When a publish converts a lead, the save reports the newly created client and project so the app can jump you straight to the new project.
 
-Because conversion errors are swallowed (see Publishing converts the lead), a publish can report no created project even though the activity itself was published. The app handles this case gracefully.
+Because publishing and conversion succeed or fail together (see Publishing converts the lead), a successful publish of an unconverted lead always means the client and project exist.
 
 ## Address is saved even without publishing
 

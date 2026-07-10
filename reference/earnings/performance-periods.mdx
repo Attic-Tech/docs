@@ -99,7 +99,7 @@ After the base rebuild, two passes update the new rows:
 - **Review metrics** — the number of reviews, the total stars, and the average customer review are filled in from the customer reviews matched to that bucket.
 
 <Card title="Rule: who counts toward personal and branch metrics">
-Only **Crew Member** and **Crew Leader** roles count toward personal performance metrics. Blocked users and a small set of reserved utility names (used for things like warranty calls, complaints, QC visits, and delivery costs) are excluded from the counts.
+Only **Crew Member** and **Crew Leader** roles count toward personal performance metrics. Blocked users are excluded from the counts.
 </Card>
 
 ## Rollover
@@ -114,7 +114,7 @@ To correct history — for example after a back-dated job or a fixed time zone �
 
 Periods are scoped to your workspace and can be filtered by level, timeframe, time bucket, person, and branch. Results are returned newest-timeframe first.
 
-For Personal periods, blocked users, the reserved utility names, and people without a qualifying role are filtered out of results.
+For Personal periods, blocked users and people without a qualifying role are filtered out of results.
 
 ## Who can view and regenerate
 

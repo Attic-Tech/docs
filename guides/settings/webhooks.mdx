@@ -4,7 +4,7 @@ description: "Send real-time event notifications from Menaia to your own systems
 icon: "webhook"
 ---
 
-Webhooks let Menaia notify another system the moment something happens in your account — a new lead comes in, a job is completed, an invoice is paid. Instead of someone checking Menaia and copying data over by hand, Menaia sends the details automatically to a web address you choose, so your other tools stay in sync on their own.
+Webhooks let Menaia notify another system the moment something happens in your account — a new lead comes in, a lead changes, a new customer is created. Instead of someone checking Menaia and copying data over by hand, Menaia sends the details automatically to a web address you choose, so your other tools stay in sync on their own.
 
 This is an advanced feature aimed at teams that want to connect Menaia to a custom system, an internal dashboard, or an automation tool.
 
@@ -16,7 +16,7 @@ Webhooks are an **Admin-only** feature. You'll also need someone technical — u
 
 A webhook is a standing subscription with three parts:
 
-- **The event** — what you want to hear about (for example, a new lead or a paid invoice).
+- **The event** — what you want to hear about (for example, a new lead or a new customer).
 - **The destination** — a secure web address (URL) you own that listens for these notifications.
 - **The signing secret** — a private key Menaia uses to "sign" every message, so your system can confirm the message genuinely came from Menaia and wasn't tampered with.
 
@@ -24,15 +24,12 @@ When the event happens, Menaia immediately sends a message (a small package of d
 
 ## Events you can subscribe to
 
-You set up one subscription per event you care about. The available events cover the parts of Menaia that change as work moves through your pipeline:
+You set up one subscription per event you care about. The events that fire today are:
 
-- **Leads** — created, updated, deleted, and status changed.
-- **Jobs** — created, updated, and completed.
-- **Work orders** — created, updated, and approved.
-- **Invoices** — created, sent, and paid.
-- **Payments** — received.
-- **Proposals** — created, accepted, and rejected.
-- **Customers** — created and updated.
+- **Lead created** (`lead.created`) — a new lead arrives in your workspace.
+- **Lead updated** (`lead.updated`) — an existing lead's details change.
+- **Customer created** (`customer.created`) — a new customer record is created.
+- **Bug report created** (`bugReport.created`) — someone on your team files a bug report from inside the app.
 
 <Tip>
 Subscribe only to the events your other system actually uses. Fewer, more focused subscriptions are easier to maintain and easier to troubleshoot.
@@ -45,7 +42,7 @@ Subscribe only to the events your other system actually uses. Fewer, more focuse
     Have your technical contact set up a web address that can receive messages. It must be a secure address (it has to start with `https://`) and use a real public hostname — Menaia won't deliver to a private or internal address, or to a raw IP address, for security reasons.
   </Step>
   <Step title="Choose the event">
-    Decide which event the subscription should listen for — for example, **invoice paid** or **lead created**. You'll create a separate subscription for each event you want to receive.
+    Decide which event the subscription should listen for — for example, **lead created** or **customer created**. You'll create a separate subscription for each event you want to receive.
   </Step>
   <Step title="Point it at your URL">
     Connect the event to your destination URL. From this point on, every time that event happens in your account, Menaia sends a notification to that address.

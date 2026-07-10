@@ -23,7 +23,7 @@
           { "group": "Estimates & Proposals", "pages": [
             "guides/estimates/overview",
             "guides/estimates/create",
-            { "group": "AI estimating", "pages": ["guides/estimates/ai-builder", "guides/estimates/photo-estimate", "guides/estimates/enhance-crew-notes", "guides/estimates/ride-along", "guides/estimates/validation-warnings"] },
+            { "group": "AI estimating", "pages": ["guides/estimates/enhance-crew-notes", "guides/estimates/ride-along"] },
             { "group": "Estimate pipeline", "pages": ["guides/estimates/browse-filter", "guides/estimates/change-status", "guides/estimates/history"] },
             { "group": "Proposals", "pages": ["guides/proposals/generate", "guides/proposals/edit-notes-price-display", "guides/proposals/send", "guides/proposals/client-view", "guides/proposals/client-response"] }
           ]},

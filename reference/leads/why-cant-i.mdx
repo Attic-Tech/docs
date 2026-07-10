@@ -46,7 +46,7 @@ User-facing roles referenced below: **Admin, Ops Manager, Sales Admin, Sales Mem
 - **Symptom:** An error toast appears after you submit the Create Lead form.
 - **Cause:** Common reasons, in order:
   1. **The Leads feature is off** for your workspace → "This feature is not available."
-  2. **Your session has no current branch** → "Branch not found." Creating a lead requires you to have a current branch.
+  2. **Your session has no current branch** → "A branch must be assigned before creating a lead." Creating a lead requires you to have a current branch.
   3. **Validation:** last name and phone are required contact fields; the postal code must be exactly 5 digits ("ZIP code must be 5 digits"); a lead source, if provided, must be a valid selection.
   4. **Role/organization:** you must have a lead-management role and belong to the organization.
 - **Who can (by role):** The same lead-management roles as B1, and you must have a current branch.
@@ -68,20 +68,20 @@ User-facing roles referenced below: **Admin, Ops Manager, Sales Admin, Sales Mem
 
 ### B5. "Why can't I assign a particular Client Coordinator to a lead?"
 - **Symptom:** Save fails with a validation message.
-- **Cause:** The selected user must exist ("The selected client coordinator does not exist."), belong to the organization ("…does not belong to this organization."), and **hold the Client Coordinator role** ("The selected user does not have the required role to be a client coordinator."). Also, the **lead must already have a branch**, or you'll see: *"A branch must be assigned to the lead before setting a client coordinator."*
+- **Cause:** The selected user must exist, belong to the organization, and **hold the Client Coordinator role** — otherwise the save is rejected with "clientCoordinator must be a client coordinator in this organization". Also, the **lead must already have a branch**, or you'll see: *"A branch must be assigned to the lead before setting a client coordinator."*
 - **Resolution:** Assign a branch to the lead first, then pick a user who has the Client Coordinator role and belongs to the organization.
 
 ### B6. "Why can't I assign a particular Sales Person / referrer to a lead?"
-- **Symptom:** Save fails: "The selected user does not have the required role to be a sales person."
+- **Symptom:** Save fails: "salesPerson must be a sales person in this organization" (or, for the referrer field, "salesPersonReferrer must be a sales person in this organization").
 - **Cause:** The selected user must hold the **Sales Admin** or **Sales Member** role (and exist and belong to the organization).
 - **Resolution:** Choose a user with the Sales Admin or Sales Member role.
 
 ### B7. "Why can't I delete a lead? (no Delete option in the ⋯ menu)"
 - **Symptom:** The "Delete Lead" menu item is missing, or delete fails.
 - **Cause:** Deleting a lead requires a lead-management role, and if the lead has a branch you must be a member of that branch.
-- **Who can (by role):** Reliably **Admin** and **Ops Manager** (Branch Management). Sales Admin and Client Coordinator can manage leads in general, but lead deletion is restricted to management roles, so use Admin or Ops Manager to be certain.
+- **Who can (by role):** **Admin, Ops Manager, Sales Admin, Client Coordinator** — the same lead-management roles as B1. If the lead has a branch, you must also be a member of that branch.
 - **Side-effect:** The lead is soft-deleted (it stops appearing in lists but isn't permanently erased).
-- **Resolution:** Use a management-level role (Admin or Ops Manager), and be a member of the lead's branch.
+- **Resolution:** Use a lead-management role, and be a member of the lead's branch.
 
 ### B8. "Why is the 'Schedule Lead Activity' button disabled?"
 - **Symptom:** The button is greyed out with the tooltip: *"Please complete all required fields (First Name, Last Name, Address, and either Phone Number or Email) before scheduling a lead activity."*
@@ -189,11 +189,11 @@ User-facing roles referenced below: **Admin, Ops Manager, Sales Admin, Sales Mem
 | Open Leads page | ✓ | ✓ | ✓ | ✗ | ✗ | ✓ |
 | Open Clients page | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Create / edit lead | ✓ | ✓ | ✓ | ✗ | ✗ | ✓ |
-| Delete lead | ✓ | ✓ | restricted | ✗ | ✗ | restricted |
+| Delete lead | ✓ | ✓ | ✓ | ✗ | ✗ | ✓ |
 | Edit client | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Delete client | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
 | Remove existing contact | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
 | Create project | ✓ | ✗ | ✓ | ✓ | ✗ | ✗ |
 | Update project | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ |
 
-Note: lead and client **deletion** is reliably available to management roles (Admin, Ops Manager). For Sales Admin and Client Coordinator, deletion may be more restricted than other actions, so use a management role when you need to delete with certainty.
+Note: **lead deletion** is available to all four lead-management roles (Admin, Ops Manager, Sales Admin, Client Coordinator), subject to branch membership. **Client deletion** is narrower: Admin, Ops Manager, and Sales Admin only.

@@ -1,7 +1,7 @@
 ---
 title: "Ai features and limits"
 description: "What Menaia's AI helpers do, the length and size limits on each one, and how every AI suggestion is reviewed before it's used."
-keywords: ["AI estimate builder", "photos to estimate", "AI crew notes", "AI proposal email", "AI win post", "ride along insights", "AI character limits", "why is AI feature not available", "AI rate limit", "does AI send automatically"]
+keywords: ["AI crew notes", "AI proposal email", "AI win post", "ride along insights", "AI character limits", "why is AI feature not available", "does AI send automatically"]
 ---
 
 This reference explains Menaia's AI-assisted features, the limits on what you can submit to each one, and the rules that keep AI output a draft you review rather than something applied automatically.
@@ -10,7 +10,7 @@ This reference explains Menaia's AI-assisted features, the limits on what you ca
 
 Menaia's AI helpers fall into two groups:
 
-- **Drafting and writing helpers** that propose text or a starting estimate you then review and edit — the estimate builder, crew notes, the proposal email, and win celebration posts.
+- **Drafting and writing helpers** that propose text you then review and edit — crew notes, the proposal email, and win celebration posts.
 - **Analysis helpers** that summarize a recorded sales conversation — ride-along insights.
 
 ### Nothing the AI produces is applied automatically
@@ -18,26 +18,6 @@ Menaia's AI helpers fall into two groups:
 Every AI feature returns a **suggestion**. The result is never sent, saved, or applied on its own. The screen always drops the output into an editable field, an undo-able replacement, or a review step first. See [Always review AI output](#always-review-ai-output) below.
 
 ## What each feature does
-
-### AI Estimate Builder
-
-In the calculator wizard you can describe a job in plain language (typed or spoken) or upload photos, and the AI generates a starting estimate.
-
-- The builder is a chat panel with a **Describe** tab and a **Photos** tab, opening with "Describe the job and I'll generate an estimate for you."
-- Voice input ("dictate the job scope") is offered only when your browser supports speech recognition.
-- Suggestion prompts are provided as examples, such as "2500 sqft attic, blow in R-38 cellulose" or "Crawl space vapor barrier and insulation."
-- The generated estimate is **not** applied silently. After the AI produces an estimate you must press **Accept & Review Breakdown** before continuing.
-- You can always skip the AI and build the estimate yourself with **Start manually**.
-
-### Photos to estimate
-
-- Upload property photos and the AI returns a plain-language scope description — for example existing insulation type and condition, recessed lights, vents, visible damage, and an estimated square footage — that pre-fills the chat input.
-- The AI is instructed to describe **only what is actually visible** and to flag low confidence when a photo is unclear.
-
-### Estimate quality check
-
-- A separate AI pass reviews a built estimate and surfaces warnings and suggestions — for example missing companion items like baffles or air-sealing, quantity mismatches, or a number of days that looks too low or too high. Each item is marked info, warning, or error. If the estimate looks good, no warnings are returned.
-- It only suggests items that exist in the branch's catalog.
 
 ### Crew notes (Enhance / Suggest)
 
@@ -79,13 +59,7 @@ The **AI Ride Along** recorder captures an in-person sales conversation. After y
 | Proposal email body | Up to 6,000 characters (input capped, output held to the same limit) |
 | Proposal email subject context | Up to 300 characters |
 | Win-post note | Up to 500 characters |
-| Photos to estimate | Between 1 and 10 photos per analysis (the uploader stops accepting photos once 10 are selected) |
-| Extra context with photos | Up to 1,000 characters |
 | Ride-along recording | Auto-stops at 2 hours |
-
-### Rate limiting
-
-If you send too many AI requests in a short window, the estimate builder shows **"Too many requests — please wait a moment and retry."** with a **Retry** button. Wait a moment, then retry.
 
 ### Processing time for ride-alongs
 
@@ -97,7 +71,7 @@ If you send too many AI requests in a short window, the estimate builder shows *
 
 AI features are turned on per workspace and, in some cases, depend on your role, so not every workspace or user sees them.
 
-- **AI Estimate Builder, photo analysis, and the estimate quality check** require your workspace to have the AI calculator turned on. If it's off, you'll see "This feature is not available." The estimate builder is also only shown when you can edit the estimate.
+- **Crew notes and the proposal email helper** appear where you can edit the underlying record — the inspection-report step and the proposal email, respectively.
 - **Ride-Alongs** must be turned on for your workspace. The voice tone analysis depends on an additional voice-analysis setting being turned on for your workspace.
 - **AI win posts** require win channels to be turned on. With them off, you'll see "This feature is not available for your organization."
 
@@ -106,10 +80,6 @@ If an AI feature you expect is missing, it's almost always because the feature i
 ## Always review AI output
 
 AI output is a draft to check, not a finished artifact — and this is enforced by the interface, not just advised.
-
-### Estimates require explicit acceptance
-
-A generated estimate doesn't flow into the breakdown until you press **Accept & Review Breakdown**, and **Start manually** is always available.
 
 ### Text replacements are undo-able
 
@@ -123,8 +93,6 @@ A win post opens in an editor on a dedicated **Review & Post** step (with **Rege
 
 - Proposal emails must **not invent pricing, dates, guarantees, or legal terms**.
 - Win posts must **not invent details** that weren't provided.
-- Photo analysis must **describe only what's visible** and flag low confidence.
-- The estimate quality check only suggests items already in your catalog.
 
 ### Customer-typed text is treated as untrusted
 

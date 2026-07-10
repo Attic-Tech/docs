@@ -17,7 +17,7 @@ All viewing and editing of clients, properties, and projects is bounded by the o
 - A user who belongs to no organization sees nothing and can edit nothing.
 - If a user has selected a specific organization (tenant) and has access to it, results are narrowed to exactly that organization. Otherwise, results span all of the user's organizations.
 
-**Branch is not an access boundary.** Projects carry a branch, but access is scoped by organization only. Belonging to a particular branch does not widen or narrow what a user can view or edit for these records.
+**Organization membership is the hard boundary.** Belonging to the organization is what determines whether a user can access these records at all. On top of that, some screens are additionally scoped to your **active branch**: the Clients list shows the clients of the branch you're currently working in, and opening a project that belongs to a different branch prompts a branch switch (or shows "not found" if you don't have access to that branch).
 
 ## Clients
 
@@ -101,4 +101,4 @@ Deleting a project requires one of: **Admin**, **Sales Admin**, or **Sales Membe
 - **Viewing and editing** clients and properties are open to all roles (within the user's organization), but **creating** and **deleting** are tightly role-gated as shown above.
 - **Creating clients and properties** is reserved for **Admin** — and clients in practice are created by converting a lead, not through a standalone create action.
 - **Project deletion** is the sales roles (Admin, Sales Admin, Sales Member); Ops Manager and Client Coordinator can edit projects but cannot delete them.
-- **Branch is never an access boundary** for clients, properties, or projects — only organization membership determines what a user can view and edit.
+- **Organization membership is the hard access boundary** for clients, properties, and projects — but client lists and project pages are additionally scoped to your active branch, so switch branches to see another branch's records.

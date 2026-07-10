@@ -48,7 +48,7 @@ Everyone else with access to the job can **view** the plan but not change it:
 
 ### Approving needs no special permission
 
-There is no separate "approver" role or approve permission. Approving is simply moving a submitted plan to **Approved**, and anyone who can edit the plan can do it. The person who approves is recorded automatically from who is signed in — it is not chosen from a list.
+There is no separate "approver" role or approve permission. Approving a plan requires the same access as editing it. The person who approves is recorded automatically from who is signed in — it is not chosen from a list. Note, though, that there is currently no approve action in the app itself — see [Approving](#approving-complete-to-approved) below.
 
 For the full role-by-area breakdown, see [/reference/platform/permissions-roles-matrix](/reference/platform/permissions-roles-matrix). For how jobs and plans are limited to your organization and branch, see [/reference/platform/org-branch-scoping](/reference/platform/org-branch-scoping).
 
@@ -60,7 +60,7 @@ For the full role-by-area breakdown, see [/reference/platform/permissions-roles-
 
 ## Building and saving a draft
 
-The plan is built on the job's plan page. The job must already exist and have a work order.
+The plan is built from the **Job Plan** tab on the job's project page. The job must already exist and have a work order.
 
 ### Save Draft
 
@@ -104,7 +104,7 @@ You can only add days once the important notices are completed.
 
 ### What makes a single day valid
 
-Each day needs at least one employee, every employee with valid hours greater than zero, and at least one work item with a quantity greater than zero. The matching messages are:
+Each day needs at least one employee, every employee with valid hours, and at least one work item with a quantity greater than zero. Hours are validated strictly on save and submit: each employee's hours must be between 0.5 and 24, in half-hour steps — any other value is rejected. (The hour stepper in the planner offers 1 through 12.) The matching messages are:
 
 > "At least one employee must be requested"
 
@@ -146,6 +146,8 @@ Approving moves a submitted plan to **Approved**. When this happens, the approve
 
 The stamps are recorded only the first time a plan is approved — approving again won't overwrite the original approver or date.
 
+**There is currently no approve action in the app.** Nothing on the plan or the job moves a plan from **Complete** to **Approved**. In practice a reviewer signs off by advancing the job's status from **Pending Review** to **Requires Scheduling** on the jobs list — that advances the job, but the plan itself stays **Complete**. The **Approved** status and its stamps remain part of the lifecycle and behave as described here whenever a plan does reach it.
+
 ## How the job's status follows the plan
 
 When the plan's status actually changes, the parent job's status updates in lockstep, as part of the same action, so the plan and the job can never disagree:
@@ -154,13 +156,15 @@ When the plan's status actually changes, the parent job's status updates in lock
 - Plan becomes **Approved** — job moves to **Requires Scheduling**.
 - Any other change — the job status is left alone.
 
+The link runs one way. Changing the job's status directly — for example, a reviewer setting a **Pending Review** job to **Requires Scheduling** — does not change the plan; it stays **Complete**.
+
 ## What locks editing
 
 There is no hard freeze on a Complete or Approved plan — a manager can always re-open and edit it. Instead, "done" plans are shown read-only by default, and you step back into edit mode deliberately.
 
 ### Read-only view
 
-On the project's plans view:
+On the project's **Job Plan** tab:
 
 - no plan — an empty state with **Create Plan**,
 - **Draft** — a "Plan saved as draft" state with a draft action,
@@ -175,20 +179,21 @@ The read-only view shows the submitter's name and the submitted date, and only a
 - Navigating away with unsaved edits warns you first.
 - A plan can only point at a job in your own organization; trying otherwise reports the job as not found.
 
-## The plan card on the job page
+## The plan card on the Job Plan tab
 
-The job's plan card shows status-specific copy and a call to action:
+The plan card, on the **Job Plan** tab of the job's project page, shows status-specific copy and a call to action:
 
 - no plan — "No Plan Found" / **Create Plan**
 - **Draft** — "Draft in Progress" / **Continue Planning** (shows creator and created date)
 - **Complete** — "Plan Complete" / **View Plan** (shows creator and submitted date)
-- **Approved** — "Plan Approved" / **View Plan** (shows approver and approved date)
+- **Approved** — "Plan Approved" / **View Plan** (shows approver and approved date; since there's currently no in-app approve action, plans normally stop at "Plan Complete")
 
 ## Quick reference
 
 - **Statuses:** Draft to Complete (submit) to Approved, moving forward one step at a time.
 - **Build / submit / approve:** Admin, Ops Manager, Crew Leader. Everyone else is view-only.
-- **Approving** records the approver automatically and needs no special permission.
+- **Approving** records the approver automatically and needs no special permission — but there is currently no in-app approve action; reviewers advance the job's status and the plan stays Complete.
 - **Submission requires** acknowledged crew notes, at least one employee, at least one assigned item, every day complete, and no allocation shortfall.
+- **Employee hours** must be between 0.5 and 24 per day, in half-hour steps.
 - **Job status follows the plan:** Complete to Pending Review, Approved to Requires Scheduling.
 - **Editing isn't frozen** — non-Draft plans show read-only, and **Edit Plan** re-opens the builder.
