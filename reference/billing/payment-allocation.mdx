@@ -1,10 +1,10 @@
 ---
 title: "Payment allocation"
-description: "How a recorded payment is split across one or more invoices, how over- and under-payment behave, and how credits use the same balance math."
-keywords: ["payment allocation","record payment","split payment","invoice balance","partial payment","overpayment","credit note","apply credit"]
+description: "How a recorded payment is split across one or more invoices, how over- and under-payment behave, how refunds raise a balance back, and how credits use the same balance math."
+keywords: ["payment allocation","record payment","split payment","invoice balance","partial payment","overpayment","refund","credit note","apply credit"]
 ---
 
-This reference explains how a payment you record is distributed across invoices, the rules a valid allocation must satisfy, what happens to an invoice's balance and status afterward, and how credits reduce a balance through the same math.
+This reference explains how a payment you record is distributed across invoices, the rules a valid allocation must satisfy, what happens to an invoice's balance and status afterward, how refunds add an amount back, and how credits reduce a balance through the same math.
 
 The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, and **Crew Leader**.
 
@@ -46,7 +46,7 @@ Each individual allocation amount, and the payment total itself, must be a posit
 
 When allocations are written, edited, or removed, every affected invoice has its balance recalculated. This is a full recompute, not an adjustment: the system re-reads all live payments and all live credits on the invoice and recalculates the balance from the invoice total. Deleting a payment recalculates the same invoices.
 
-The balance is: **invoice total minus the sum of all payment allocations and all credit allocations**, rounded to the cent. For how rounding is applied, see [Money rounding](/reference/platform/money-rounding).
+The balance is: **invoice total, minus the sum of all payment allocations and all credit allocations, plus the sum of any refund allocations**, rounded to the cent. For how rounding is applied, see [Money rounding](/reference/platform/money-rounding).
 
 ### The invoice status follows the new balance
 
@@ -79,6 +79,10 @@ Keep the distinction in mind:
 
 ## Editing a payment's allocations
 
+<Card title="Only manually recorded payments can be edited or deleted">
+A payment processed online through Stripe is managed by Stripe — its edit and delete actions are disabled in the product, and the row's menu points you to your Stripe Dashboard, where refunds are issued instead. Everything in this section and the next applies to manually recorded payments.
+</Card>
+
 When you edit a payment, the system compares the new allocations against the existing ones, invoice by invoice:
 
 - An invoice dropped from the payment has its allocation removed, and its balance is restored.
@@ -90,6 +94,16 @@ Every invoice touched before or after the edit is recalculated, so an invoice th
 ## Deleting a payment
 
 Deleting a payment reverses its effect. The payment is removed, its allocations are removed, and every invoice it had touched is recalculated — balances rise back up and statuses revert from **Paid** or **Partially paid** as appropriate. A payment that was already deleted cannot be deleted again. Deletion is a recoverable removal; see [Soft delete](/reference/platform/soft-delete).
+
+## Refunds raise the balance back
+
+A refund is the mirror image of a payment: where a payment allocation lowers an invoice's balance, a **refund allocation adds that amount back**. Refund allocations enter the same balance formula above — subtracted from what was applied — so the recomputed balance rises by the refunded amount.
+
+<Card title="A refund can reopen a paid invoice">
+After a refund, the invoice's status is re-derived from the new balance just like any other change: an invoice that was **Paid** can move back to **Partially paid**, or all the way back to **Open** if the balance returns to the full total.
+</Card>
+
+Refunds apply to payments taken online. You issue them from your Stripe Dashboard rather than in the product, and they flow back automatically: the refund is recorded against the original payment, allocated to the invoices that payment covered, and every affected invoice is recalculated. The refund appears in the invoice's Transaction History as its own row with a negative amount.
 
 ## Credits use the same balance math
 
@@ -122,7 +136,7 @@ Credits reduce an invoice's balance through the **same allocation math** as paym
 
 - Recording, editing, and deleting a payment are **all-or-nothing**: the allocations, the recalculated invoice balances, and the financial record either all save together or none do.
 - While a payment is being applied, the targeted invoices are held so two payments to the same invoice cannot both read a stale balance and over-apply.
-- Each payment posts one financial-record entry equal to the payment total; each credit posts one entry equal to the credit amount. For how these entries are kept, see [Ledger](/reference/billing/ledger).
+- Each payment posts one financial-record entry equal to the payment total; each credit posts one entry equal to the credit amount; each refund posts one entry equal to the refund amount. For how these entries are kept, see [Ledger](/reference/billing/ledger).
 
 ## Quick reference
 
@@ -130,6 +144,8 @@ Credits reduce an invoice's balance through the **same allocation math** as paym
 - **Allocations must sum to the payment total** (rejected if not) and **target eligible invoices** (Open or Partially paid for a new payment; also Paid when editing).
 - **Balance and status are recomputed from scratch** after every change. Zero or below = Paid; above zero but below total = Partially paid.
 - **Under-payment is normal.** **Over-payment is not blocked** on the payment path (only the screen steers you); the **credit** path blocks it.
+- **Refunds add the amount back.** A refund allocation raises the invoice balance, so a **Paid** invoice can move back to **Partially paid** or **Open**.
+- **Online (Stripe) payments can't be edited or deleted in the product** — refunds for them are issued from your Stripe Dashboard and recorded back automatically.
 - **Credits reuse the same math** but cannot exceed the remaining balance, are voided rather than deleted, and cannot have invoices added, removed, or reassigned on edit.
 
 ## Related references

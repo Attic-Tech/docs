@@ -15,7 +15,7 @@ Tax is calculated in two places, each driven off its own address and amount:
 - **Estimates and proposals** — tax is calculated on the estimate's final (post-discount) price and saved with the estimate, so the proposal can show a tax breakdown and an after-tax total.
 - **Invoices** — tax is recalculated from the invoice's line items against the billing address whenever a draft invoice is created, edited, or scaled.
 
-Both paths use the same tax engine, but they have **independent rules for when tax applies** (covered below).
+Both paths use the same tax engine and the same core rule: **tax is charged only for Washington addresses** (covered below).
 
 ## How a tax rate is chosen
 
@@ -56,7 +56,11 @@ On the proposal:
 
 ## How tax is calculated and applied on an invoice
 
-Invoice tax is computed **per line item**, then summarized into a tax breakdown.
+<Card title="Invoices are taxed only for Washington billing addresses">
+Invoice tax is requested **only when the resolved billing address is in Washington state** — the same rule estimates follow. For an address in any other state, every invoice tax path (creating from an estimate, creating manually, editing or scaling a draft, and the auto-created deposit invoice) skips tax entirely, so a non-Washington invoice total always matches the estimate the customer agreed to.
+</Card>
+
+For a Washington billing address, invoice tax is computed **per line item**, then summarized into a tax breakdown.
 
 1. Each line item is sent to the tax engine with its quantity, unit price, line discount, and a product tax category. Today every line uses the **same "taxable services" tax category**.
 2. The tax engine returns the collectable tax for each line. Each line stores its own tax amount, and the invoice total is the subtotal plus the total tax.
@@ -76,13 +80,14 @@ Invoice tax computation returns **zero tax, with no error**, in any of these cas
 
 - The invoice has no line items.
 - No valid billing address could be resolved (street, city, state, or ZIP is missing or empty).
+- The billing address is **outside Washington state**.
 - The net taxable amount is zero or negative.
 
 <Card title="There is no per-client tax-exempt toggle">
-There is no explicit "tax exempt" flag on a client or invoice. In practice an order ends up untaxed when the estimate property is outside Washington, when no usable address is available, or when the tax engine returns nothing collectable for that address.
+There is no explicit "tax exempt" flag on a client or invoice. In practice an order ends up untaxed when the address is outside Washington, when no usable address is available, or when the tax engine returns nothing collectable for that address.
 </Card>
 
-Note the difference between the two paths: the **estimate path only requests tax for Washington properties**, but the **invoice path is not limited to Washington** — it will request tax for any valid billing address and rely on the tax engine to return the correct (possibly zero) amount.
+The two paths now follow the same rule: **estimates request tax only for Washington properties**, and **invoices request tax only for Washington billing addresses**. A non-Washington order carries no tax on either the proposal or the invoice.
 
 ## Errors and guards
 
@@ -103,9 +108,9 @@ When tax can't be calculated for an invoice, the invoice is **still created and 
 - **Rates are never stored locally.** Every calculation asks the tax engine for the rate at the given address.
 - **Displayed tax is grouped** into Local Tax (city + county + special district) and State Tax. The total is the tax engine's collectable amount.
 - **Estimates are taxed only for Washington properties.** Non-Washington estimates carry no tax.
-- **Invoices are taxed for any valid billing address** (client billing address first, otherwise the property address).
+- **Invoices are taxed only for Washington billing addresses** (client billing address first, otherwise the property address). Like estimates, non-Washington invoices carry no tax.
 - **Tax is always recomputed** from the current line items and amount (for example on scaling) — never carried forward.
-- **An order ends up untaxed** when there are no line items, no usable address, a non-positive amount, or the tax engine returns nothing. There is no per-client tax-exempt toggle.
+- **An order ends up untaxed** when the address is outside Washington, there are no line items, no usable address, a non-positive amount, or the tax engine returns nothing. There is no per-client tax-exempt toggle.
 
 ## Related references
 

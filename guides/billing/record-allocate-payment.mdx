@@ -50,13 +50,19 @@ When the full balance is paid, the invoice marks itself as paid automatically �
 
 ## See recorded payments
 
-Every payment, credit, and adjustment for an invoice is listed in the **Transaction History** section on the invoice, with the amount, method, date, and reference for each one. This is your running record of what's been collected and when.
+Every payment, credit, and refund for an invoice is listed in the **Transaction History** section on the invoice. Each row shows the **Date**, the **Type** (Payment, Refund, or Credit Note), the **Method** (payments taken online show the card or payment type with a **Stripe** badge), a **Status** badge, the **Credit Reason** for credits, a **View Note** link when there's an internal note, the **Amount**, and the **Invoice** it applies to. Refund and credit amounts are shown as negative. This is your running record of what's been collected and when.
 
-To take action on a single entry, use the **More options** (three-dots) button on that row.
+Refund rows appear automatically when an online payment is refunded — they're a record only, with no actions menu of their own.
+
+To take action on a payment or credit, use the **More options** (three-dots) button on that row.
 
 ## Edit a payment
 
 Made a typo in the amount, picked the wrong method, or need to move a payment to a different date? You can correct a payment after it's recorded.
+
+<Note>
+Editing only applies to payments you recorded manually. A payment taken online is managed by Stripe — its **Edit Payment** and **Delete Payment** options are disabled, and the row's menu explains: "Managed by Stripe — edit &amp; delete are disabled. Refund in your Stripe Dashboard instead," with a link that opens your Stripe Dashboard.
+</Note>
 
 <Steps>
   <Step title="Find the payment in Transaction History">
@@ -72,7 +78,7 @@ Made a typo in the amount, picked the wrong method, or need to move a payment to
 
 ## Delete a payment
 
-If a payment was entered by mistake, you can remove it.
+If a manually recorded payment was entered by mistake, you can remove it. (Online payments can't be deleted here — refund them from your Stripe Dashboard using the link in the row's menu instead.)
 
 <Steps>
   <Step title="Open Delete Payment">

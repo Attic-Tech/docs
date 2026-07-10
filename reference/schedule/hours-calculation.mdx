@@ -26,6 +26,7 @@ In plain terms:
 
 - Start with the full clock-in to clock-out span.
 - Subtract every break that has both a start and an end.
+- Before a break is subtracted, its start and end times are each truncated to the whole minute — the seconds are dropped. The clock-in and clock-out boundaries themselves are **not** truncated.
 - If breaks somehow exceed the span (or the clocks are reversed), the result is `0`, never a negative number.
 
 ### Only completed breaks are deducted
@@ -74,8 +75,8 @@ These display totals and the saved hours figure describe the same worked time. T
 
 ## Where the totals appear
 
-- **Shifts table — Job Time** — for a completed shift, shows the saved worked hours as `HH:MM:SS`. For an in-progress shift, shows a live timer counting up from clock-in, already excluding completed break time.
-- **Shifts table — Break** — shows total completed break time as `HH:MM:SS`. While a break is active, shows a live timer from when the break started.
+- **Shifts table — Job Time** — for a completed or approved shift, shows the saved worked hours as `HH:MM`, with any leftover seconds truncated (never rounded up). A shift with no hours shows `--:--`. For an in-progress shift, shows a live timer — including seconds — counting up from clock-in, already excluding completed break time.
+- **Shifts table — Break Time** — for a completed or approved shift, shows total completed break time as `HH:MM` with seconds truncated, or `--:--` when there is none. While a break is active, shows a live timer — including seconds — from when the break started.
 - **Shift card, detail, and edit views — Total Time and Total Break Time** — show the live-computed totals described above.
 
 ## Where hours flow downstream

@@ -1,18 +1,17 @@
 ---
 title: "Task timeoff resource rules"
-description: "Who can create, assign, and delete scheduled tasks, time off, and equipment or vehicle bookings, plus the field rules and the two kinds of scheduling conflicts."
+description: "Who can create, assign, and delete scheduled tasks and time off, plus the field rules for tasks, time off, and the equipment and vehicle catalog, and how scheduling conflicts behave."
 keywords:
   - "who can create or edit a scheduled task"
   - "can I assign a task to someone else"
   - "why can't I rename the default Task type"
   - "how do I schedule time off for a crew member"
-  - "why can't I book this vehicle for these dates"
+  - "who can add equipment or vehicles"
   - "what counts as a scheduling conflict"
   - "can two events overlap on the schedule"
-  - "why was my resource booking rejected"
 ---
 
-This reference explains the rules behind the scheduling calendar: scheduled **tasks**, **time off**, and **resource bookings** (equipment and vehicles). It covers who can create, assign, and delete each, the field rules that must be satisfied, and how the two different kinds of conflicts behave.
+This reference explains the rules behind the scheduling calendar: scheduled **tasks** and **time off**. It covers who can create, assign, and delete each, the field rules that must be satisfied, and how scheduling conflicts behave. It also covers the field rules for the **equipment and vehicle** catalog managed under Settings.
 
 Everything on the schedule is scoped to your **organization and branch** — you only ever see and edit records inside your own organization and branches. See [/reference/platform/org-branch-scoping](/reference/platform/org-branch-scoping) and the [/reference/platform/permissions-roles-matrix](/reference/platform/permissions-roles-matrix).
 
@@ -24,7 +23,7 @@ Task types are the categories you can assign to a scheduled task on the calendar
 
 ### Who can manage task types
 
-- **Create, edit, or delete a task type:** Admin, Ops Manager, and Sales Admin.
+- **Create, edit, or delete a task type:** Admin only (under Settings).
 - **Everyone else** sees task types as read-only.
 
 ### Every organization has a reserved default type named "Task"
@@ -107,53 +106,32 @@ There is **no overlap block** for time off — for example, sick leave inside an
 Time off **does** count as a conflict against tasks, jobs, and lead activities in the publish-time conflict warning above — but time off itself is never blocked by other events.
 </Note>
 
-## Resource bookings: equipment and vehicles
+## Equipment and vehicles
 
-A resource booking reserves one resource — a single vehicle **or** a single piece of equipment — for a date range, with a reason. This is how equipment and vehicle availability is tracked.
+Equipment and vehicles are catalog records kept under **Settings → Resources** — the inventory of what your branches own. They are not booked or reserved on the calendar.
 
-### The resources themselves
+### Who can manage the catalog
+
+- **Create, edit, or delete equipment, vehicles, and their types:** Admin only (under Settings).
+- **Everyone else** sees the catalog as read-only.
+
+### Field rules for the catalog
 
 - **Equipment** has a name, a type (from your branch catalog), a branch, and an organization. A serial number is optional and must be unique.
 - **Vehicles** have a name, a type, a license plate (required and unique), a branch, and an organization. Make, model, year, and VIN are optional.
 - **A license plate must be 2 to 10 characters, uppercase letters and numbers only.** Otherwise you get "License plate must be 2-10 characters long and contain only uppercase letters and numbers."
 - **Vehicle year** must be between 1900 and next year.
-- **Creating, editing, and deleting equipment and vehicles** is open to any member of the organization — there is no special role gate beyond organization membership.
-
-### Who can book a resource
-
-- **Create and edit** a resource booking: Admin, Ops Manager, and Crew Leader.
-- **Delete** a resource booking: Admin and Ops Manager only. Crew Leader can create and edit bookings but **cannot delete** them.
-
-### Field rules for a resource booking
-
-- **A booking is for exactly one resource type — vehicle or equipment** — and that resource is required. The system keeps only the matching resource link set. An unknown resource type is rejected with "Invalid resource type on schedule."
-- **The reason** is one of: On a Job, Out of Order, or In Repair. (Sick, Vacation, and Other are reasons for people, not resources, so they are filtered out of the resource picker.)
-- **Required:** organization, resource type, the chosen resource, reason, start date, and end date.
-- **The end must be after the start.**
-
-### Double-booking is blocked (a hard rule)
-
-Unlike time off, **a resource cannot be double-booked.** When you create or edit a resource booking, the system checks every other booking for the same resource. If any of them overlaps the dates you requested, the booking is **rejected** — there is no override.
-
-- You will see "This date range has an existing conflict for this vehicle" (or "...for this equipment"). A resource is available only when nothing else is booked on it in that range.
-
-## The two kinds of conflict — do not confuse them
-
-The schedule has two completely different conflict behaviors:
-
-- **People** (tasks, time off, jobs, lead activities) — a conflict is an **advisory warning** shown when you publish a task. You can proceed anyway.
-- **Resources** (equipment and vehicles) — a conflict is a **hard block**. The booking is rejected and there is no override.
 
 ## Quick reference
 
-- **Manage task types (create/edit/delete):** Admin, Ops Manager, Sales Admin.
+- **Manage task types (create/edit/delete):** Admin only.
 - **Create/edit/delete tasks:** branch management plus Sales Member and Crew Leader. Crew Member is read-only.
 - **Non-managers can only assign, publish, and delete tasks for themselves.**
 - **Create/edit/delete time off:** branch management only. Non-managers, only for themselves.
-- **Create/edit resource bookings:** Admin, Ops Manager, Crew Leader. **Delete:** Admin and Ops Manager only.
+- **Manage equipment, vehicles, and their types:** Admin only, under Settings. Everyone else read-only.
 - **The default "Task" type can't be renamed, deleted, or duplicated by name.**
 - **End must be after start** on every kind of schedule entry.
-- **People conflicts warn; resource conflicts hard-block.**
+- **Publish-time conflicts are a warning, not a block** — you can always proceed.
 
 ## Related references
 

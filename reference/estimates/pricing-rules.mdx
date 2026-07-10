@@ -170,7 +170,7 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
 ### Tax (Washington only, applied to the final price)
 
 - **What it governs:** The sales tax amount and rate breakdown for the estimate.
-- **How it works:** Tax is calculated only when the property address is in Washington state. When it applies, the tax service computes tax on the **final price** (the discounted price), using the property address. The tax amount is whatever the tax service returns to collect.
+- **How it works:** Tax is calculated only when the property address is in Washington state. When it applies, the tax service computes tax on the **final price** (the discounted price), using the property address. The total tax amount is the **sum of the state and local components** — state plus city, county, and special-district tax — computed for that address.
 - **Notes:** Non-Washington addresses incur no tax (saved as 0). A missing ZIP or state prevents tax calculation. If the street or city is missing, the system falls back to ZIP-level rates and still computes tax. Tax is applied to the discounted final price, not to retail.
 
 ---
@@ -181,7 +181,7 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
 - **How it works:**
   - **Local tax rate** = city + special-district + county rates; **local tax amount** = the corresponding city, county, and special-district amounts.
   - **State tax rate** and **state tax amount** come from the state component.
-  - **Total tax** is the full amount to collect.
+  - **Total tax** = the state tax amount + the local tax amount — it always equals the sum of the breakdown lines shown on the estimate.
 - **Notes:** When no tax is calculated, the estimate simply has no tax breakdown. Each component defaults to 0.
 
 ---

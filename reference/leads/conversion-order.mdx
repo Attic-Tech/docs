@@ -15,7 +15,9 @@ Saving the appointment as a **draft** does not convert anything. A draft only sa
 
 ## Who can convert a lead
 
-Conversion runs when someone with permission to create a lead activity publishes one. These roles can create and publish lead activities: **Admin**, **Ops Manager**, **Sales Admin**, **Client Coordinator**, and **Sales Member**. **Crew Leader** cannot.
+Because a first-time conversion **creates a project**, converting a lead requires a role that can create projects: **Admin**, **Sales Admin**, or **Sales Member**.
+
+**Ops Manager** and **Client Coordinator** can create and edit lead activities, but they cannot create projects — so publishing an appointment for a not-yet-converted lead fails for them. They can still publish appointments for leads that are **already converted**. **Crew Leader** cannot work with lead activities at all.
 
 Access is also limited by organization and branch. Users who are not managers can only create or update appointments that are assigned to themselves.
 
@@ -77,11 +79,11 @@ When a new project is created:
 - The project name is the name you provided, or a fallback of `{First Last} - {date}`.
 - The project's primary contact comes from the client's primary contact, along with the organization, client, property, branch, and lead.
 
-## Rule 8 — If conversion fails, the appointment still publishes
+## Rule 8 — Publishing and conversion are all-or-nothing
 
-Conversion runs after the appointment is published. If conversion fails, the **appointment stays published** and the failure is recorded for the team — the publish itself is not rolled back. In other words, publishing and conversion are not all-or-nothing.
+Conversion runs as part of the same save that publishes the appointment. If any conversion step fails, the **whole publish fails** — the appointment is not published, and no client, property, or project is left behind. A failed conversion surfaces to you as a failed publish.
 
-**Worth knowing:** Because there is no automatic retry, a one-off failure can leave a published appointment without a client or project. If a lead shows a published appointment but never converted, re-publishing or recreating the appointment is the path to retry.
+**Worth knowing:** Because the two can't get out of sync, a published appointment on a previously unconverted lead always means the client and project exist. If a publish fails, fix the reported problem (for example, a missing first name on the primary contact) and publish again.
 
 ## Rule 9 — After conversion, the lead shows a "converted to client" banner
 
