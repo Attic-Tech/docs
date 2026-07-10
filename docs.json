@@ -59,7 +59,7 @@
             { "group": "Price book", "pages": ["guides/settings/price-book/items", "guides/settings/price-book/item-categories", "guides/settings/price-book/factors-additional-costs", "guides/settings/price-book/multiplier-ranges", "guides/settings/price-book/work-areas"] },
             { "group": "Proposal & invoice setup", "pages": ["guides/settings/proposal-content", "guides/settings/payment-methods-financing", "guides/settings/invoice-content-automations", "guides/settings/payment-terms", "guides/settings/credit-void-reasons"] },
             { "group": "Lists & lifecycles", "pages": ["guides/settings/statuses", "guides/settings/tags", "guides/settings/subcontractors", "guides/settings/task-types", "guides/settings/equipment-vehicles"] },
-            { "group": "Integrations", "pages": ["guides/settings/integrations", "guides/settings/menaia-pay", "guides/settings/webhooks"] },
+            { "group": "Integrations", "pages": ["guides/settings/integrations", "guides/settings/menaia-pay"] },
             { "group": "Notifications", "pages": ["guides/settings/notification-rules", "guides/settings/ai-bi"] }
           ]}
         ]
@@ -73,7 +73,7 @@
           { "group": "Schedule & Time", "pages": ["reference/schedule/availability-conflicts", "reference/schedule/access-cross-branch", "reference/schedule/saved-filter-visibility", "reference/schedule/shift-status-rules", "reference/schedule/task-timeoff-resource-rules", "reference/schedule/hours-calculation"] },
           { "group": "Billing & Payments", "pages": ["reference/billing/invoice-status-and-actions", "reference/billing/sales-tax", "reference/billing/payment-allocation", "reference/billing/reason-codes", "reference/billing/ledger", "reference/billing/invoice-numbering", "reference/billing/auto-deposit"] },
           { "group": "Earnings & Recognition", "pages": ["reference/earnings/metrics-glossary", "reference/earnings/performance-periods", "reference/earnings/badge-catalog", "reference/earnings/win-badge-feed", "reference/earnings/comment-reaction-rules", "reference/earnings/leaderboard-ranking"] },
-          { "group": "Settings & Config", "pages": ["reference/config/branch-invariants", "reference/config/multiplier-range-overlap", "reference/config/status-config-vs-usage", "reference/config/notification-rules", "reference/config/integration-lifecycle", "reference/config/webhooks"] },
+          { "group": "Settings & Config", "pages": ["reference/config/branch-invariants", "reference/config/multiplier-range-overlap", "reference/config/status-config-vs-usage", "reference/config/notification-rules", "reference/config/integration-lifecycle"] },
           { "group": "Platform Rules", "pages": ["reference/platform/permissions-roles-matrix", "reference/platform/org-branch-scoping", "reference/platform/feature-availability", "reference/platform/find-or-create-dedup", "reference/platform/soft-delete", "reference/platform/geocoding-zip", "reference/platform/money-rounding", "reference/platform/background-processing", "reference/platform/ai-features-and-limits"] }
         ]
       }
