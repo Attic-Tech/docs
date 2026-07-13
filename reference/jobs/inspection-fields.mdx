@@ -55,8 +55,7 @@ The lists below note which fields are **required** before the report can be left
 
 - Whether the customer is flexible on scheduling — **required**.
 - An estimated number of days of work — **required**. This value lives on the estimate and is shown here. It is hidden when every selected item is a sub-contracted item.
-- Whether scheduling depends on outside factors (for example, other vendors or client limitations) — optional free-text explanation.
-- Whether the job needs special materials — optional free-text explanation.
+- Whether anything needs to happen before the crews arrive (for example, sprinklers, abatement, or roof work) — **required** free text.
 
 ### Customer Profile
 
@@ -65,15 +64,16 @@ The lists below note which fields are **required** before the report can be left
 
 ### Property Details
 
-This section mixes property-level questions (stored on the property) with one report field.
+This section mixes property-level questions (stored on the property) with several report fields.
 
 - Number of stories — **required**.
-- Whether the property is occupied — **required**.
+- The home's total square footage — **required**; a whole number greater than zero.
+- The attic's square footage — **required**; a whole number greater than zero.
+- The crawlspace's square footage — **required**; a whole number greater than zero.
+- An explanation of why the square footage differs between the total home area and each individual space (for example, vaults, two-story layouts, flat roofs, or half crawlspaces) — **required** free text.
 - Estimated parking distance from the front door — **required**.
 - Whether there are pet concerns the crew must know about — **required**.
-- Known obstacles or hazards (for example, low ceilings, tight access, fragile items, pets) — **required** free text ("Hazards is required").
 - Special instructions for box-truck parking or property access (for example, gate code, lockbox) — **required** free text ("Special instructions is required").
-- Unique structural features that could impact the installation — **required in the form** ("Installation impacts is required"); optional on the saved record.
 
 ### Walkthrough Notes
 
@@ -82,7 +82,7 @@ This section mixes property-level questions (stored on the property) with one re
 
 ### Roof Information
 
-All six roof questions are **required**:
+The roof questions are all **optional** — fill in the ones that apply:
 
 - **Roof material** — asphalt shingles, clay tiles, cement tiles, woodshaker, metal, torch down, rubber, or other.
 - **Roof age** (consult with client) — under 5 years, 5–10, 11–20, over 20, or client unsure.
@@ -95,20 +95,20 @@ Roofing photos and videos can be attached in this section. The upload controls a
 
 ### HVAC Information
 
-- **Customer comfort level** — **required**; high, moderate, or low comfort.
+- **Customer comfort level** — optional; high, moderate, or low comfort.
 - **HVAC age** — optional; same age choices as roof age.
 - **HVAC system condition** — optional; good, fair, or needs replacement.
 - **Air-ducts condition** — optional; good, fair, or needs replacement.
-- **Whether the customer wants a full HVAC or furnace inspection** — **required**; yes or no.
+- **Whether the customer wants a full HVAC or furnace inspection** — optional; yes or no.
 
 HVAC photos and videos can be attached in this section. The upload controls are hidden when the report is read-only.
 
 ### Crew Notes
 
-- Free-text notes to help the crew deliver a five-star job — optional, but capped at a maximum length. Exceeding the cap is rejected with "Crew notes must be N characters or fewer."
+- Free-text notes about what is unique about the job or home (for example, the home layout, tight spaces, hidden attics, or a detail-oriented homeowner) — **required**, and capped at a maximum length. Leaving it empty is rejected with "This field is required," and exceeding the cap with "Crew notes must be N characters or fewer."
 - Crew notes have an optional AI assist:
   - **Enhance with AI** appears when notes already exist.
-  - **Suggest with AI** appears when notes are empty but other context is present (demeanor, concerns, hazards, special instructions).
+  - **Suggest with AI** appears when notes are empty but other context is present (demeanor, concerns, special instructions).
   - The AI control is unavailable when there is neither notes nor context, and it is hidden entirely in read-only view.
 - If AI enhancement fails, an "Enhancement failed" message appears and the notes are left as they were. An applied AI suggestion can be undone.
 
@@ -138,6 +138,8 @@ HVAC photos and videos can be attached in this section. The upload controls are 
 
 - An existing estimate that is **not In Progress**, or the dedicated report-viewer mode, opens the report **read-only**: a print-style summary (job name, salesperson, date, client info, work details) with a Print button, every field disabled, and the photo-upload controls hidden.
 - In read-only mode, the wizard deliberately skips required-field validation when paging through, so an older report saved before a field became required can still be viewed.
+- Reports saved before the July 2026 question revision keep showing their original question set when viewed read-only (including the earlier questions about scheduling factors, special materials, occupancy, obstacles or hazards, and structural features). Opening such a report to edit switches it to the current questions, and saving upgrades it to the current version.
+- On a read-only report, the Roof Information and HVAC Information sections are hidden when they hold no answers, so an older report that skipped them is not shown padded with empty sections.
 - To make changes to a read-only estimate's report, set the estimate back to **In Progress** from the estimates list. Attempting to edit while read-only shows "This estimate is read-only. Change its status to In Progress from the estimates list to make changes."
 
 ## Related AI estimate review
