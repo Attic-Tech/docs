@@ -13,7 +13,13 @@
       {
         "tab": "Guides",
         "groups": [
-          { "group": "Getting Started", "pages": ["guides/start/welcome", "guides/start/core-concepts", "guides/start/how-work-flows", "guides/start/roles-at-a-glance", "guides/start/finding-your-way-around"] },
+          {
+            "group": "Getting Started",
+            "pages": [
+              "guides/start/welcome",
+              "guides/start/core-concepts",
+              "guides/start/how-work-flows",
+              "guides/start/roles-at-a-glance""] },
           { "group": "Leads & Clients", "pages": [
             "guides/leads/overview",
             { "group": "Leads", "pages": ["guides/leads/create-a-lead", "guides/leads/edit-and-contacts", "guides/leads/source-confidence-referral", "guides/leads/browse-filter-map", "guides/leads/qualify-a-lead", "guides/leads/schedule-a-site-visit", "guides/leads/turn-lead-into-client"] },
