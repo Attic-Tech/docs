@@ -1,0 +1,50 @@
+---
+title: "Browse & review calls"
+description: "Find any call your team has made or taken, listen to the recording, read the transcript, and make sure it's linked to the right client, lead, and project."
+icon: "list"
+---
+
+Every call on your connected Aircall lines is logged in Menaia automatically. The **Calls** page is where you find them — filter by who, when, and how the call went, then open a call to hear the recording, read the transcript, and check what it's linked to.
+
+<Note>
+The Calls page appears once Calls is enabled for your workspace and [Aircall is connected](/guides/settings/aircall). Admins, Ops Managers, Sales Admins, Sales Members, and Client Coordinators can view calls; re-linking a call is Admin-only.
+</Note>
+
+## The calls list
+
+Open **Calls** from the main navigation. Each row shows:
+
+| Column | What it shows |
+| --- | --- |
+| **Caller** | The matched client (linked), lead, or contact — or the raw phone number when nobody matched. |
+| **Direction** | **Inbound** or **Outbound**. |
+| **Status** | How the call went — see below. |
+| **Started** | When the call began. |
+| **Duration** | Talk time, from answer to hang-up. |
+
+**Statuses** follow the life of a call: **Initial**, **Ringing**, **Answered**, and **In progress** while it's live; then **Completed**, **Missed**, **Voicemail**, or **Failed** once it's over.
+
+**Filters.** Search by phone number, or narrow by **Direction**, **Status**, a **Started** date range, **Client**, or **Project**. Combine them to answer questions like "which inbound calls did we miss last week?"
+
+## The call page
+
+Click a call to open it. What you'll find:
+
+- **Call Recording** — an inline player with a **Download** button. Menaia streams the recording from Aircall; the audio itself stays stored with Aircall.
+- **Transcript** — the conversation turn by turn, with speaker and timing. If you see *"No transcript available for this call"*, transcripts require **Aircall Conversation Intelligence**, which isn't enabled for that workspace.
+- **Call Details** — direction, both phone numbers, your line, and start / end / duration (duration is talk time).
+- **Linked Records** — the client, lead, and project this call belongs to.
+- **Call Context** — the agent and team who handled it, missed-call reason, caller country, tags, and cost from Aircall.
+- **Aircall Details** — the call's identifiers and links back to Aircall, including voicemail when one was left.
+
+## How callers are matched
+
+Menaia matches each call's outside number against your contacts' phone numbers. A clean single match links the call to that contact's client, lead, and project automatically. If the number matches nobody — or matches more than one contact — the call stays unlinked rather than guessing.
+
+<Tip>
+**Fixing a mismatch is an Admin action:** on the call page, use the **Linked Records** card to pick the right lead or project. A manual re-link sticks — automatic matching never overwrites it.
+</Tip>
+
+## Privacy at a glance
+
+Menaia stores the facts of the call (numbers, timing, outcome, links to your records) plus **references** to the recording and transcript — never the audio file or transcript text themselves, which remain in your Aircall workspace and follow its policies. Disconnecting Aircall stops new calls from logging but keeps your existing call history.

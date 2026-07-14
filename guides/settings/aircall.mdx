@@ -1,0 +1,61 @@
+---
+title: "Aircall"
+description: "Connect your Aircall phone workspace to Menaia so calls are logged automatically, callers are matched to your clients and leads, and your team can take calls without leaving the app."
+icon: "phone"
+---
+
+**Aircall** brings your business phone into Menaia. Once your Aircall workspace is connected, incoming and outgoing calls are logged automatically, callers are matched to the right client or lead by their phone number, and your team gets a built-in phone panel so they can handle calls right where they work.
+
+<Note>
+Connecting Aircall is an **Admin** task, done from the **Integrations** area. Calls features are rolling out gradually — you'll see the Aircall app in the marketplace once **Calls** is enabled for your workspace. You'll also need an Aircall account with a phone number; if you don't have one yet, start at aircall.io.
+</Note>
+
+## What connecting Aircall does for you
+
+- **Automatic call logging** — every call on your Aircall lines shows up in Menaia's [Calls page](/guides/calls/browse-and-review-calls), with direction, timing, and outcome.
+- **Callers matched to your records** — when a caller's number matches a contact, the call links to their client, lead, and project automatically.
+- **Answer with context** — agents see who's calling before they pick up, both inside Menaia and in Aircall itself.
+- **A phone that lives in Menaia** — the built-in [dialer panel](/guides/calls/use-the-dialer) lets your team make and take calls without switching apps.
+- **Recordings and transcripts at hand** — listen to call recordings and read transcripts from the call's page in Menaia.
+
+## Connect your Aircall workspace
+
+<Steps>
+  <Step title="Go to Integrations">
+    From the main navigation, open **Integrations** and find the **Aircall** card — it's under the **Online Phone / VoIP** category, or type "Aircall" into the **Search apps** box. Click the card to open its detail page.
+  </Step>
+  <Step title="Start the connection">
+    Click **Connect Aircall** in the **Get Started** panel. A secure **Link Aircall (OAuth) Account** window opens — click **Connect** there to continue.
+  </Step>
+  <Step title="Sign in to Aircall">
+    Log in with your Aircall account and complete the authorization. As part of Aircall's flow you'll also choose which of your phone numbers to share with Menaia.
+  </Step>
+  <Step title="Finish and confirm">
+    Click **Finish**. Back in Menaia, the panel shows a **Connected** badge with your Aircall workspace name — this can take a few moments; use **Refresh status** if it hasn't appeared yet.
+  </Step>
+</Steps>
+
+Once connected, calls start logging on their own — there's nothing to sync manually, and calls are still captured even if the connection hiccups briefly.
+
+## Disconnect
+
+Click **Disconnect** on the Aircall page and confirm. Menaia stops receiving calls from the workspace and the phone panel disappears for everyone in your organization. You can reconnect at any time — **previously logged calls stay in your call history**.
+
+## Who can do what
+
+| Action | Who |
+| --- | --- |
+| Connect / disconnect Aircall | Admin |
+| See the Calls page and call details | Admin, Ops Manager, Sales Admin, Sales Member, Client Coordinator |
+| Re-link a call to a different lead or project | Admin |
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Use the phone dialer" icon="phone-volume" href="/guides/calls/use-the-dialer">
+    Take and place calls from the built-in phone panel, and see who's calling before you answer.
+  </Card>
+  <Card title="Browse & review calls" icon="list" href="/guides/calls/browse-and-review-calls">
+    Find any call, listen to its recording, read the transcript, and fix a mismatched caller.
+  </Card>
+</CardGroup>

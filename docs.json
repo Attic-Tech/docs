@@ -20,6 +20,7 @@
             { "group": "Clients & Properties", "pages": ["guides/clients/manage-clients", "guides/clients/properties", "guides/clients/contacts"] },
             { "group": "Projects", "pages": ["guides/projects/work-a-project", "guides/projects/edit-details", "guides/projects/media"] }
           ]},
+          { "group": "Calls", "pages": ["guides/calls/use-the-dialer", "guides/calls/browse-and-review-calls"] },
           { "group": "Estimates & Proposals", "pages": [
             "guides/estimates/overview",
             "guides/estimates/create",
@@ -59,7 +60,7 @@
             { "group": "Price book", "pages": ["guides/settings/price-book/items", "guides/settings/price-book/item-categories", "guides/settings/price-book/factors-additional-costs", "guides/settings/price-book/multiplier-ranges", "guides/settings/price-book/work-areas"] },
             { "group": "Proposal & invoice setup", "pages": ["guides/settings/proposal-content", "guides/settings/payment-methods-financing", "guides/settings/invoice-content-automations", "guides/settings/payment-terms", "guides/settings/credit-void-reasons"] },
             { "group": "Lists & lifecycles", "pages": ["guides/settings/statuses", "guides/settings/tags", "guides/settings/subcontractors", "guides/settings/task-types", "guides/settings/equipment-vehicles"] },
-            { "group": "Integrations", "pages": ["guides/settings/integrations", "guides/settings/menaia-pay"] },
+            { "group": "Integrations", "pages": ["guides/settings/integrations", "guides/settings/menaia-pay", "guides/settings/aircall"] },
             { "group": "Notifications", "pages": ["guides/settings/notification-rules", "guides/settings/ai-bi"] }
           ]}
         ]
