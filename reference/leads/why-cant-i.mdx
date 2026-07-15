@@ -138,8 +138,8 @@ User-facing roles referenced below: **Admin, Ops Manager, Sales Admin, Sales Mem
 ### D1. "Why can't I create a project? / convert a lead to a client-project?"
 - **Symptom:** Project creation fails.
 - **Cause:** Creating a project requires a sales role, and the client must exist in the organization and have a **primary contact** — otherwise you'll see "Client does not have a primary contact." or "Client not found."
-- **Who can (by role):** **Admin, Sales Admin, Sales Member** can create projects. **Ops Manager and Client Coordinator** can view and update projects but **cannot create** them. Crew Leader cannot.
-- **Resolution:** Use a sales role (Admin, Sales Admin, or Sales Member), and make sure the client has a primary contact.
+- **Who can (by role):** **Admin, Sales Admin, Sales Member, Client Coordinator** can create projects. **Ops Manager** can view and update projects but **cannot create** them. Crew Leader cannot.
+- **Resolution:** Use a role that can create projects (Admin, Sales Admin, Sales Member, or Client Coordinator), and make sure the client has a primary contact.
 
 ### D2. "Why can't I edit project details / contacts even though I can view the project?"
 - **Symptom:** Edit buttons are hidden, or the update fails.
@@ -193,7 +193,7 @@ User-facing roles referenced below: **Admin, Ops Manager, Sales Admin, Sales Mem
 | Edit client | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Delete client | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
 | Remove existing contact | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
-| Create project | ✓ | ✗ | ✓ | ✓ | ✗ | ✗ |
+| Create project | ✓ | ✗ | ✓ | ✓ | ✗ | ✓ |
 | Update project | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ |
 
 Note: **lead deletion** is available to all four lead-management roles (Admin, Ops Manager, Sales Admin, Client Coordinator), subject to branch membership. **Client deletion** is narrower: Admin, Ops Manager, and Sales Admin only.
