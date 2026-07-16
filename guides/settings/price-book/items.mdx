@@ -29,13 +29,18 @@ An item can belong to more than one category. When it does, the list shows the f
 
 ## Create an item
 
+When you start a new item you first choose what **type** of item to create:
+
+- **Calculator Item** — the full item, with labor hours and material overhead, for better reports and customization. This is the item estimators build with in the Calculator, and it's what the rest of this section walks through.
+- **Quick Item** — a lightweight item you can add to a proposal fast, with no labor hours or overhead. See [Quick items](#quick-items) below.
+
 <Note>
-**Set up at least one Item Category first.** Every item must belong to at least one category, so you can't save an item until a category exists to put it in. If you haven't created any yet, head to the [Item Categories](/guides/settings/price-book/item-categories) tab and add one, then come back here.
+**For a Calculator Item, set up at least one Item Category first.** A calculator item must belong to at least one category, so you can't save one until a category exists to put it in. If you haven't created any yet, head to the [Item Categories](/guides/settings/price-book/item-categories) tab and add one, then come back here. (Quick items don't need a category — they're filed automatically.)
 </Note>
 
 <Steps>
   <Step title="Start a new item">
-    On the **Items** tab, click **Create Item** in the top-right. This opens the **Create New Item** form.
+    On the **Items** tab, click **Create Item** in the top-right. In the **Create Item** dialog, pick **Calculator Item**, then click **Continue** to open the **Create New Item** form. (To create a Quick Item instead, see [Quick items](#quick-items).)
   </Step>
   <Step title="Fill in the basics">
     In the first card, set:
@@ -52,6 +57,29 @@ An item can belong to more than one category. When it does, the list shows the f
   </Step>
   <Step title="Save">
     Click **Create Item**. The item is saved and you're returned to the list, where it's ready for estimators to use right away.
+  </Step>
+</Steps>
+
+### Quick items
+
+A **Quick Item** is a stripped-down item for adding to a proposal quickly, without the labor hours, overhead, factors, or categories a Calculator Item carries. It's a good fit for one-off or simple line items.
+
+<Steps>
+  <Step title="Start a Quick Item">
+    On the **Items** tab, click **Create Item**, choose **Quick Item** in the dialog, then click **Continue**.
+  </Step>
+  <Step title="Fill in the fields">
+    The Quick Item form asks for just the essentials:
+
+    - **Item Name** — required.
+    - **Unit Type** — the unit the item is measured and sold in. Required.
+    - **Description** — optional text that shows up in the Calculator and on client proposals.
+    - **Costs** — the cost for one unit. Required.
+    - **Taxable Item** — turn on to mark the item as taxable when it's added to a proposal or estimate.
+    - **Image** — optionally upload a picture of the item.
+  </Step>
+  <Step title="Save">
+    Click **Create Item**. The item is filed automatically (no category to pick) and you're returned to the list.
   </Step>
 </Steps>
 
@@ -85,10 +113,11 @@ Some items automatically bring along a second item — for example, a material t
 
 ### Item behavior
 
-Two optional checkboxes change how the item shows up and behaves on a job:
+These optional checkboxes change how the item shows up and behaves on a job:
 
 - **Sub Item** — lists the item under **Sub Services** in the job breakdown instead of with the main itemized costs. Use it for supporting items you want grouped separately.
 - **Requires Info** — prompts estimators to enter extra details (such as a measurement or a note) on this item whenever they add it to a job.
+- **Taxable Item** — marks the item as taxable when it's added to a proposal or estimate.
 
 ## Edit an item
 
