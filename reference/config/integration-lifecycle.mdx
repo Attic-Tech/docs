@@ -1,7 +1,7 @@
 ---
 title: "Integration lifecycle"
 description: "How an integration connects, stays connected, and disconnects — the states a connection can be in, who can manage it, and what controls whether it shows up at all."
-keywords: ["integrations", "connect integration", "disconnect integration", "reconnect integration", "integration connection error", "integrations marketplace", "payments integration"]
+keywords: ["integrations", "connect integration", "disconnect integration", "reconnect integration", "integration connection error", "quickbooks expired", "reconnect quickbooks", "integrations marketplace", "payments integration"]
 ---
 
 This reference explains the lifecycle of an integration in your workspace: the states a connection can be in, who can manage it, and what controls whether the Integrations area and individual integrations are visible to you.
@@ -48,7 +48,7 @@ A connection is always in exactly one of three states:
 | --- | --- |
 | **Connected** | The integration is live, authorized, and usable. |
 | **Revoked** | The connection was disconnected and its authorization withdrawn. It is no longer usable until it's reconnected. |
-| **Error** | The connection has failed — for example, its authorization broke or the integration rejected it — and needs attention before it can be used again. |
+| **Error** | The connection has failed — for example, its authorization broke or the integration rejected it — and needs attention before it can be used again. For QuickBooks, this is shown to you as **Expired**. |
 
 There is **no "disconnected" state**. An integration your workspace has never connected simply has no connection at all. "Never connected" means there's no connection record; "was connected, now off" means a connection that's in the **Revoked** state.
 
@@ -67,9 +67,13 @@ A successful connect creates the workspace's connection for that integration and
 
 Because a workspace has only one connection per integration, connecting again after a **Revoked** or **Error** state updates that same connection back to **Connected** — it does not create a second one.
 
+#### When a QuickBooks connection expires
+
+A QuickBooks connection can stop working on its own — for example, when its authorization expires or is withdrawn on the QuickBooks side. When that happens, the integration page marks the connection **Expired**: it shows an **Expired** badge, a banner explaining that the connection has expired, and a **Reconnect** button to restore it. Your sync preferences and branch-to-class mappings are kept while the connection is expired and are restored as soon as you reconnect, so reconnecting picks up where it left off instead of starting over. If you'd rather not reconnect, you can still **Disconnect** the integration from here.
+
 ### Disconnect
 
-Disconnecting moves the connection to **Revoked**. The connection is kept rather than removed, so your workspace retains a record that the integration was once connected. A connection can also land in **Error** without anyone disconnecting it — for example, when re-authorizing an existing QuickBooks connection fails — and it stays unusable until it's reconnected.
+Disconnecting moves the connection to **Revoked**. The connection is kept rather than removed, so your workspace retains a record that the integration was once connected. A connection can also land in **Error** without anyone disconnecting it — for example, when re-authorizing an existing QuickBooks connection fails. QuickBooks surfaces this as an **Expired** connection that stays unusable until it's reconnected (see *When a QuickBooks connection expires* above).
 
 ## What breaks when an integration is disconnected
 
@@ -85,7 +89,7 @@ A disconnect only ever touches the workspace that owns the connection. One works
 
 - **Reach the Integrations area / manage connections:** Admin only.
 - **One connection per integration, per workspace** — reconnecting updates the same connection.
-- **States:** Connected, Revoked, Error. There is no separate "disconnected" state — a never-connected integration simply has no connection.
+- **States:** Connected, Revoked, Error. There is no separate "disconnected" state — a never-connected integration simply has no connection. QuickBooks shows the **Error** state to you as **Expired**, with a **Reconnect** prompt and your settings preserved.
 - **Disconnect** moves a connection to **Revoked** and keeps the record.
 - **Two visibility controls:** the Integrations area as a whole, and each individual integration — either can hide an integration from you.
 
