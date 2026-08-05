@@ -7,7 +7,7 @@ icon: "bell"
 Notification rules decide **who hears about what**. When something happens in your workspace — a time-off request is added, a new lead comes in, a customer signs a proposal — a notification rule looks at that event and works out which people should be told. Each rule pairs one kind of event with a set of recipients, so the right team members stay in the loop without everyone getting pinged about everything.
 
 <Note>
-Notification rules are **configured for you by the Menaia team** — there's no self-serve screen for them in Settings. This page explains how they work so you can tell us exactly who should be notified for each event. To add a rule, change recipients, or turn one off, reach out to your Menaia contact with what you need.
+Notification rules live under **Settings → Notifications → Rules**, where workspace admins manage them directly. Open a rule to change its recipients, adjust who can trigger it, or turn it on or off, then save. If you don't see the Notifications area in Settings, you don't have the workspace-admin access it requires — ask an admin to make the change. The Rules tab sits alongside the **Notifications** tab (per-channel email, SMS, and in-app preferences) and the **Shift Reminders** tab.
 </Note>
 
 ## What a rule is made of
@@ -38,33 +38,33 @@ You can have more than one rule for the same event. That lets you notify one gro
 
 ## Choose who gets notified
 
-Each rule's recipients are set using a **targeting mode**. The mode decides how the rule matches people — tell us which approach fits, and we'll configure it:
+Each rule's recipients are set using a **targeting mode**, chosen from the **Who gets notified** dropdown when you open a rule. The mode decides how the rule matches people:
 
 <Steps>
-  <Step title="By Roles">
-    The simplest option. Pick one or more **roles**, and everyone who holds one of those roles is notified. If the event belongs to a specific branch, the rule automatically keeps to people in that branch — so a branch-level event only reaches that branch's team.
+  <Step title="By role">
+    The simplest option. Pick one or more **roles** under *Notify these roles*, and everyone who holds one of those roles is notified. If the event belongs to a specific branch, the rule automatically keeps to people in that branch — so a branch-level event only reaches that branch's team.
   </Step>
-  <Step title="Specific Criteria (Include)">
-    Build a precise list of who should be included. You can combine **branches**, **roles**, and individual **people**, and choose whether someone needs to match any one of your criteria or all of them. Use this when "by role" is too broad and you want to hand-pick the audience.
+  <Step title="Specific people">
+    Build a precise list of who should be included. You can combine **roles**, individual **people**, and **branches**, and choose whether someone needs to match any one of your criteria or all of them. Use this when "by role" is too broad and you want to hand-pick the audience.
   </Step>
-  <Step title="Specific Criteria (Exclude)">
-    Start broad and carve people out. You name the **branches**, **roles**, or **people** who should not be notified, and everyone else is. Handy when almost the whole team should hear about something except one group.
+  <Step title="Everyone except">
+    Start broad and carve people out. You name the **roles**, **people**, or **branches** who should not be notified, and everyone else in the event's branch is. Handy when almost the whole team should hear about something except one group.
   </Step>
 </Steps>
 
 <Note>
-In the **Include** mode, the option to require *all* criteria is what flips the rule between "match any of these" and "match every one of these." Leave it off for a wider audience; turn it on to narrow the rule to people who tick every box.
+In **Specific people** mode, the *Recipient must match ALL of the above* toggle is what flips the rule between "match any of these" and "match every one of these." Leave it off for a wider audience; turn it on to narrow the rule to people who tick every box.
 </Note>
 
 ## Limit a rule to certain triggers
 
-Each rule can also list the roles that are allowed to **trigger** it. Only events started by someone holding one of those roles will fire the rule. Leave this empty and the rule fires no matter who — or what — set the event in motion, including events the system starts on its own (like the unpublished-event reminder).
+Each rule can also list, under **Only when triggered by**, the roles that are allowed to **trigger** it. Only events started by someone holding one of those roles will fire the rule. Leave this empty and the rule fires no matter who — or what — set the event in motion, including events the system starts on its own (like the unpublished-event reminder).
 
 This is useful when the same event should notify people only in some situations. For example, you might want a "proposal signed" alert to go out only when the proposal belongs to a salesperson, and stay quiet otherwise.
 
 ## Turn a rule on or off
 
-Every rule has a single on/off switch. Turning a rule off stops it from sending notifications without removing it, so an alert can be paused during a quiet season — or while you're fine-tuning who it reaches — and switched back on later. This is the quickest way to stop unwanted notifications without losing the rule's setup; just let us know which rule to pause.
+Every rule has a single on/off switch. Turning a rule off stops it from sending notifications without removing it, so an alert can be paused during a quiet season — or while you're fine-tuning who it reaches — and switched back on later. This is the quickest way to stop unwanted notifications without losing the rule's setup; open the rule, flip the switch, and save.
 
 ## How rules connect to branches and roles
 
