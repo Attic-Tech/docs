@@ -78,6 +78,8 @@ The actions offered on an invoice depend entirely on its current status. The act
 
 Sending a Draft invoice moves it from **Draft** to **Open**, records the send date, and adds it to the workspace ledger. An invoice that is already **Open** can be re-sent without changing anything. Sending is rejected in any other status with the message **"This invoice cannot be sent."**
 
+An invoice must have at least one line item to be sent — an empty invoice cannot go out. Sending one with no line items is rejected with **"At least one line item is required."** On the invoice screen the **Send** button is disabled until an item is present, and also while the line-items editor holds unsaved changes, so the copy that ships always matches what's saved.
+
 ### Edit
 
 Only **Draft** invoices can be edited. Editing any other status is rejected with **"Only draft invoices can be edited."** Line items can only be edited on invoices created from scratch or from an estimate; attempting it elsewhere returns **"Line items can only be edited on invoices created from scratch or from estimates."** The due date must be on or after the issue date, otherwise you'll see **"Due date must be the same as or after the issue date."**
