@@ -82,6 +82,8 @@ Sending a Draft invoice moves it from **Draft** to **Open**, records the send da
 
 Only **Draft** invoices can be edited. Editing any other status is rejected with **"Only draft invoices can be edited."** Line items can only be edited on invoices created from scratch or from an estimate; attempting it elsewhere returns **"Line items can only be edited on invoices created from scratch or from estimates."** The due date must be on or after the issue date, otherwise you'll see **"Due date must be the same as or after the issue date."**
 
+On a draft you built **from scratch**, editing also lets you **change the tax rate** applied to the invoice; the invoice re-rates its line items and its total from the rate you pick. On a draft **imported from an estimate**, the tax comes from the estimate and can't be changed on the invoice — change it on the source estimate instead. Trying to change the tax on an estimate-based invoice is rejected with **"Tax on an estimate-based invoice is changed on the estimate."**
+
 ### Record Payment
 
 Recording a payment is available on **Open** and **Partially Paid** invoices. The payment is applied to the invoice, the balance is reduced, and the status is recalculated, which may move the invoice toward **Partially Paid** or **Paid**. You can optionally send a receipt. A recorded payment can later be deleted from the transaction row on the invoice (not from the invoice's own action menu).
