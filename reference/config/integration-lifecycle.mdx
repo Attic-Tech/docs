@@ -61,6 +61,8 @@ From an integration's detail page, an Admin starts the connection flow with the 
 - **Menaia Pay** — **Connect Stripe** sends you to Stripe's onboarding flow to set up the payments account, then returns you to the integration page when you're done.
 - **QuickBooks** — **Connect QuickBooks** opens a sign-in window where you authorize the connection. Once it completes, the page shows a **Connected** badge and the connected company's details. Finalizing the connection can take a moment after the window closes; if the page hasn't caught up yet, use **Refresh status** to check again.
 
+Connecting QuickBooks also starts a one-time import of your customers in the background. When that initial import finishes, every **Admin** in the workspace receives a notification — in-app and by email — confirming it's done. The notification shows when the sync started (in your workspace's time zone) and includes a **View Settings** button that opens the QuickBooks integration page. It's sent once per import; if the workspace has no Admins, no notification is sent.
+
 A successful connect creates the workspace's connection for that integration and sets its state to **Connected**.
 
 ### Reconnect
