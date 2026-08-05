@@ -59,7 +59,7 @@ There is **no "disconnected" state**. An integration your workspace has never co
 From an integration's detail page, an Admin starts the connection flow with the integration's connect button. What happens next depends on the integration:
 
 - **Menaia Pay** — **Connect Stripe** sends you to Stripe's onboarding flow to set up the payments account, then returns you to the integration page when you're done.
-- **QuickBooks** — **Connect QuickBooks** opens a sign-in window where you authorize the connection. Once it completes, the page shows a **Connected** badge and the connected company's details. Finalizing the connection can take a moment after the window closes; if the page hasn't caught up yet, use **Refresh status** to check again.
+- **QuickBooks** — **Connect QuickBooks** opens a sign-in window where you authorize the connection. Once it completes, the page shows a **Connected** badge and the connected company's details. Finalizing the connection can take a moment after the window closes; if the page hasn't caught up yet, use **Refresh status** to check again. Once connected, invoices can sync to QuickBooks based on your sync settings — you choose whether to sync invoices and when (as they're created, sent, or marked paid), and credit notes and invoice voids carry over automatically.
 
 A successful connect creates the workspace's connection for that integration and sets its state to **Connected**.
 
@@ -75,7 +75,7 @@ Disconnecting moves the connection to **Revoked**. The connection is kept rather
 
 ### Capabilities stop working until it's reconnected
 
-A connection in **Revoked** or **Error** is not usable. Anything that depends on that integration stops working until the connection is restored to **Connected**. For a Payments integration, that means capabilities like accepting payments, syncing payouts and fees, and reconciling against invoices are unavailable while the connection is down.
+A connection in **Revoked** or **Error** is not usable. Anything that depends on that integration stops working until the connection is restored to **Connected**. For a Payments integration, that means capabilities like accepting payments, syncing payouts and fees, and reconciling against invoices are unavailable while the connection is down. For **QuickBooks**, it means invoices stop syncing to QuickBooks — including the credit notes and invoice voids that normally follow them — until the connection is restored.
 
 ### Disconnecting affects only your workspace
 
