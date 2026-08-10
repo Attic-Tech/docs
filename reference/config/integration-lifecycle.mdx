@@ -67,6 +67,19 @@ A successful connect creates the workspace's connection for that integration and
 
 Because a workspace has only one connection per integration, connecting again after a **Revoked** or **Error** state updates that same connection back to **Connected** — it does not create a second one.
 
+### Reconnecting QuickBooks to a different company
+
+If you reconnect QuickBooks to a **different** company than the one your workspace was synced with before, Menaia detects the mismatch and asks you to confirm before going any further. You have two choices:
+
+- **Continue with new company** — Menaia clears the previous company's mappings and sync history and starts fresh with the new one. This can't be undone.
+- **Cancel and reconnect the original company** — disconnects the company you just connected so you can reconnect the one you were using before, with its mappings and history intact.
+
+After you choose **Continue with new company**, syncing is paused while Menaia clears the previous company's data — the QuickBooks page shows a **Clearing…** status during this time, and you can't change your sync settings until it finishes. Once it's done, a **Finish setup** prompt appears so you can choose what syncs between Menaia and the new company.
+
+<Note>
+The **Finish setup** prompt also appears any time QuickBooks is connected but you haven't finished choosing your sync preferences yet — for example, if you dismissed the setup step after first connecting. It stays on the QuickBooks page so you can complete setup whenever you're ready.
+</Note>
+
 ### Disconnect
 
 Disconnecting moves the connection to **Revoked**. The connection is kept rather than removed, so your workspace retains a record that the integration was once connected. A connection can also land in **Error** without anyone disconnecting it — for example, when re-authorizing an existing QuickBooks connection fails — and it stays unusable until it's reconnected.
@@ -85,6 +98,7 @@ A disconnect only ever touches the workspace that owns the connection. One works
 
 - **Reach the Integrations area / manage connections:** Admin only.
 - **One connection per integration, per workspace** — reconnecting updates the same connection.
+- **Reconnecting QuickBooks to a different company** clears the previous company's mappings and sync history (after you confirm), pauses syncing while it clears, and then prompts you to finish setup again.
 - **States:** Connected, Revoked, Error. There is no separate "disconnected" state — a never-connected integration simply has no connection.
 - **Disconnect** moves a connection to **Revoked** and keeps the record.
 - **Two visibility controls:** the Integrations area as a whole, and each individual integration — either can hide an integration from you.
