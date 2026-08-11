@@ -2,7 +2,7 @@
 title: "Troubleshooting: why can't I…? (reference)"
 description: "Why an estimate action is blocked, disabled, or failing — cause and resolution for each case."
 icon: "circle-question"
-keywords: ["why is blocked", "why disabled", "greyed out", "button disabled", "permission denied", "cannot delete estimate", "cannot save estimate", "void", "sold estimate", "signed proposal", "roles", "permissions", "read only"]
+keywords: ["why is blocked", "why disabled", "greyed out", "button disabled", "permission denied", "cannot delete estimate", "cannot save estimate", "void", "sold estimate", "signed proposal", "roles", "permissions", "read only", "one sold estimate per project", "cannot mark sold", "send proposal disabled"]
 ---
 
 This page covers every rule in the estimate Calculator flow that blocks, disables, warns, or requires permission — what you see, why it happens, and how to resolve it.
@@ -135,6 +135,22 @@ This page covers every rule in the estimate Calculator flow that blocks, disable
 - **Symptom:** As an Ops Manager you can edit estimates, but the status dropdown won't let you set **Released**, **Sold**, **Lost**, **Secondary Estimate**, or **Deleted**.
 - **Cause:** Ops Manager can manage estimates but can only set their status to **In Progress**. The other status transitions are reserved for Sales roles.
 - **Resolution:** A Sales role — Sales Member, Sales Admin, or Client Coordinator — must perform sale, loss, release, and secondary transitions.
+
+---
+
+### Why can't I mark this estimate Sold? ("project already has a sold estimate")
+
+- **Symptom:** The **Sold** option is greyed out in the status menu, or the change is rejected with a message like "This project already has a sold estimate ("…"). Only one estimate per project can be sold — change that estimate's status first."
+- **Cause:** A project can have several estimates, but only one can be Sold at a time — the winner. Another estimate in the same project is already Sold, so this one can't also be sold. The same block applies when a customer tries to sign this estimate's proposal, and it closes the proposal-send path for the project's other estimates (see the next card).
+- **Resolution:** Decide which estimate is the winner. To make this one the sold estimate, first move the currently sold estimate in the project out of **Sold** (which needs management-level permissions), then mark this one **Sold**.
+
+---
+
+### Why is "Send Proposal" disabled? ("another estimate is already sold")
+
+- **Symptom:** On the proposal preview, the **Send Proposal** button is disabled, and hovering it shows "Another estimate in this project is already sold, so this proposal can no longer be sent."
+- **Cause:** Once one estimate in a project is Sold, that project's proposal cycle is closed. The other estimates in the project can no longer send their proposals — the send is blocked up front rather than failing after the fact.
+- **Resolution:** If this estimate should be the winner instead, move the currently sold estimate in the project out of **Sold** first (which needs management-level permissions); the send then becomes available again.
 
 ---
 
