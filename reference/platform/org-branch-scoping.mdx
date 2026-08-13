@@ -87,6 +87,10 @@ The **Schedule** can show shifts across **all the branches you belong to** at on
 
 Otherwise the Schedule shows only your active branch. Even with cross-branch calendar sync on, the view is limited to the branches you belong to — you never see branches you aren't a member of.
 
+### Viewing another branch's clients
+
+The **Clients** list has a **Branch** filter. It defaults to your active branch, but you can switch it to any other branch you belong to and review that branch's clients in place — without changing your active branch first, and without any special permission. Users who can see all clients also get an **Unassigned** option for clients not tied to any branch. Opening a client's summary while the filter points at another branch switches your active branch to that branch first, since the summary itself follows your active branch.
+
 ### You can't be assigned to a branch you don't belong to
 
 Whenever an action targets a specific branch — assigning a record's branch, filtering a report — the branch must be one you belong to. A branch you don't belong to is refused with **"You do not have access to this branch."**, and a missing or invalid branch returns **"Invalid branch specified."**
@@ -120,7 +124,7 @@ Whenever an action targets a specific branch — assigning a record's branch, fi
 - **Branch = soft filter.** It scopes most lists and stamps new records, but isn't a security wall.
 - **One active workspace and one active branch** at a time; both are remembered between sessions.
 - **A stale branch falls back to a default** instead of erroring.
-- **Cross-branch visibility is the exception** — granted by the cross-branch sales-reporting permission on Sales Overview, and by cross-branch calendar sync on the Schedule for multi-branch users — and only ever across branches you belong to.
+- **Cross-branch visibility is the exception** — granted by the cross-branch sales-reporting permission on Sales Overview, by cross-branch calendar sync on the Schedule for multi-branch users, and by the **Branch** filter on the Clients list — and only ever across branches you belong to.
 
 ## Related references
 
