@@ -48,7 +48,7 @@ The actions offered on an invoice depend entirely on its current status. The act
 
 | Action | Available when status is |
 | --- | --- |
-| **Send** | Draft or Open |
+| **Send** | Draft, Open, Partially Paid, or Paid (anything but Voided) |
 | **Record Payment** | Open or Partially Paid |
 | **Add Credit** | Open or Partially Paid |
 | **Void** | Open only |
@@ -65,10 +65,13 @@ The actions offered on an invoice depend entirely on its current status. The act
     Can **Send** (re-send), **Record Payment**, **Add Credit**, **Void**. Cannot edit or delete.
   </Card>
   <Card title="Partially Paid" icon="circle-half-stroke">
-    Can **Record Payment**, **Add Credit**. Cannot send, void, edit, or delete.
+    Can **Send** (re-send), **Record Payment**, **Add Credit**. Cannot void, edit, or delete.
   </Card>
-  <Card title="Paid / Voided" icon="circle-check">
-    No actions beyond viewing and downloading the PDF. Both are end states.
+  <Card title="Paid" icon="circle-check">
+    Can **Send** (re-send) — clients often ask for a copy of the record. No money actions remain; the balance is settled.
+  </Card>
+  <Card title="Voided" icon="ban">
+    No actions beyond viewing and downloading the PDF. This is an end state.
   </Card>
 </CardGroup>
 
@@ -76,7 +79,7 @@ The actions offered on an invoice depend entirely on its current status. The act
 
 ### Send
 
-Sending a Draft invoice moves it from **Draft** to **Open**, records the send date, and adds it to the workspace ledger. An invoice that is already **Open** can be re-sent without changing anything. Sending is rejected in any other status with the message **"This invoice cannot be sent."**
+Sending a Draft invoice moves it from **Draft** to **Open**, records the send date, and adds it to the workspace ledger. An invoice that has already been sent — **Open**, **Partially Paid**, or **Paid** — can be re-sent without changing anything, so a client who asks for another copy or a paid receipt can get one. Only a **Voided** invoice can't be sent; the attempt is rejected with the message **"This invoice cannot be sent."**
 
 ### Edit
 
@@ -122,8 +125,8 @@ The **Invoices** page can be turned off for a workspace as a capability. When in
 
 - **Five statuses:** Draft, Open, Partially Paid, Paid, Voided. Status is always derived, never chosen by hand.
 - **Overdue** is a flag (Open or Partially Paid, past due date), not a sixth status.
-- **Send:** Draft or Open. **Record Payment / Add Credit:** Open or Partially Paid. **Void:** Open only. **Edit / Delete:** Draft only.
-- **Paid and Voided** are end states with no further actions.
+- **Send:** Draft, or re-send while Open, Partially Paid, or Paid — everything but Voided. **Record Payment / Add Credit:** Open or Partially Paid. **Void:** Open only. **Edit / Delete:** Draft only.
+- **Paid** can still be re-sent (for a copy of the record) but takes no money actions; **Voided** is an end state with no further actions.
 - **Only Admins** can perform any invoice action, and only within branches they belong to.
 
 ## Related references
