@@ -49,7 +49,7 @@ When client or project edits add or update contacts:
 
 - Editing an existing contact merges your incoming values over the stored ones.
 - An edit that would leave a contact with neither email nor phone is rejected with **"Either email or phone number is required."**
-- **You can't hijack someone else's contact by guessing an ID.** When editing a client's or project's contacts, a contact reference that doesn't actually belong to that record is treated as a **new** contact rather than an edit to an unrelated one. This prevents one user from altering arbitrary contacts.
+- **You can't hijack someone else's contact by guessing an ID.** When editing a client's or project's contacts, a contact reference is only treated as an edit to an existing contact when that contact belongs to the record's scope — a client's own contacts, or, for a project, the project's contacts **plus** those of its client (so you can link one of the client's people to the project without duplicating them). A reference to any other contact is treated as a **new** contact rather than an edit to an unrelated one, so one user can't alter arbitrary contacts by guessing IDs.
 
 ## Properties — matched by exact address within the same client
 
