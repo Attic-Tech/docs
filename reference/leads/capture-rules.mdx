@@ -100,7 +100,7 @@ Referral requirements are configured by **Admin** on each lead source; the requi
 
 ## How a referral contact is stored
 
-A referral is saved as its own contact, marked as a company referrer, with an optional company name. It's only saved when at least one of first name, last name, phone, or email is provided. If the referral points at an existing contact, that contact is reused and updated in place (referrals are matched only by their existing record, not re-matched by name, email, or phone the way primary and secondary contacts are).
+A referral is saved as its own contact, marked as a company referrer, with an optional company name. It's only saved when the referral actually has something in it — at least one of first name, last name, phone, email, or company name is filled in, or you've pulled in an existing contact. (A company-only referral, or one that just points at an existing contact, is enough on its own.) If the referral points at an existing contact, that contact is reused and updated in place (referrals are matched only by their existing record, not re-matched by name, email, or phone the way primary and secondary contacts are).
 
 ---
 
