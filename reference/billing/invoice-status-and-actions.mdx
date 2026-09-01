@@ -28,7 +28,8 @@ You never pick an invoice's status directly. It is derived from whether the invo
 
 After a payment or credit changes the balance, the status is recomputed automatically:
 
-- A **Draft** or **Voided** invoice never changes status from a payment or credit. Recording a payment or adding a credit cannot move a Draft or a Voided invoice.
+- A **Voided** invoice never changes status from a payment or credit. Recording a payment or adding a credit cannot move a Voided invoice.
+- A **Draft** is *finalized* by a payment or credit: recording a payment or adding a credit on a draft moves it out of Draft, and its status is then recomputed from the balance like any sent invoice. See [Recording a payment or credit on a draft](#recording-a-payment-or-credit-on-a-draft) below.
 - If the remaining balance reaches zero or below, the invoice becomes **Paid**.
 - If part of the balance is still outstanding but some has been collected, the invoice is **Partially Paid**.
 - Otherwise the invoice is **Open**.
@@ -49,17 +50,19 @@ The actions offered on an invoice depend entirely on its current status. The act
 | Action | Available when status is |
 | --- | --- |
 | **Send** | Draft or Open |
-| **Record Payment** | Open or Partially Paid |
-| **Add Credit** | Open or Partially Paid |
+| **Record Payment** | Draft, Open, or Partially Paid |
+| **Add Credit** | Draft, Open, or Partially Paid |
 | **Void** | Open only |
 | **Edit** | Draft only |
 | **Delete** | Draft only |
+
+On a **Draft**, Record Payment and Add Credit **finalize** the invoice — they move it out of Draft and it can no longer be edited or deleted. Both stay disabled on a draft until it has been saved (no unsaved changes) and has at least one line item, and both ask you to confirm first. See [Recording a payment or credit on a draft](#recording-a-payment-or-credit-on-a-draft).
 
 ### Per-status summary
 
 <CardGroup>
   <Card title="Draft" icon="pen-ruler">
-    Can **Send**, **Edit**, **Delete**. Cannot record a payment, add a credit, or void.
+    Can **Send**, **Edit**, **Delete**, and — once it is saved and has line items — **Record Payment** or **Add Credit**, either of which finalizes the draft. Cannot void.
   </Card>
   <Card title="Open" icon="envelope-open">
     Can **Send** (re-send), **Record Payment**, **Add Credit**, **Void**. Cannot edit or delete.
@@ -84,17 +87,26 @@ Only **Draft** invoices can be edited. Editing any other status is rejected with
 
 ### Record Payment
 
-Recording a payment is available on **Open** and **Partially Paid** invoices. The payment is applied to the invoice, the balance is reduced, and the status is recalculated, which may move the invoice toward **Partially Paid** or **Paid**. You can optionally send a receipt. A recorded payment can later be deleted from the transaction row on the invoice (not from the invoice's own action menu).
+Recording a payment is available on **Draft**, **Open**, and **Partially Paid** invoices. The payment is applied to the invoice, the balance is reduced, and the status is recalculated, which may move the invoice toward **Partially Paid** or **Paid**. You can optionally send a receipt. A recorded payment can later be deleted from the transaction row on the invoice (not from the invoice's own action menu). On a Draft, recording a payment first finalizes the invoice — see [Recording a payment or credit on a draft](#recording-a-payment-or-credit-on-a-draft).
 
 ### Add Credit
 
-Adding a credit is available on **Open** and **Partially Paid** invoices. The credit is applied to the invoice and reduces its balance. The amount must be a positive number, otherwise you'll see **"Credit amount must be a positive number."**
+Adding a credit is available on **Draft**, **Open**, and **Partially Paid** invoices. The credit is applied to the invoice and reduces its balance. The amount must be a positive number, otherwise you'll see **"Credit amount must be a positive number."** On a Draft, adding a credit first finalizes the invoice — see [Recording a payment or credit on a draft](#recording-a-payment-or-credit-on-a-draft).
 
 A credit can later be voided or edited from its transaction row, with these limits:
 
 - A credit that has already been voided cannot be voided again: **"This credit note has already been voided."**
 - A voided credit cannot be edited: **"Cannot edit a voided credit note."**
 - When editing a credit, you cannot change which invoices it applies to: **"Cannot add or remove invoice allocations when editing a credit note."** and **"Cannot assign the credit note to a different invoice."**
+
+### Recording a payment or credit on a draft
+
+You can record a payment or add a credit directly on a **Draft**, but either one **finalizes** the invoice: the draft moves out of Draft, its status is recomputed from the balance to **Partially Paid** or **Paid**, and from then on it can no longer be edited or deleted. Because this is a one-way step, two things apply on a draft that don't apply to a sent invoice:
+
+- **Both actions ask you to confirm first.** Selecting Record Payment or Add Credit on a draft opens a **"Finalize this draft?"** confirmation before the payment or credit window. Confirm to continue, or cancel to leave the draft untouched.
+- **Both are held until the draft is ready to freeze.** They stay disabled — with a note explaining why — while the draft has unsaved changes (**"Save your changes before recording a payment."**) or no line items yet (**"Add at least one line item before recording a payment."**). The credit action shows the equivalent messages.
+
+Finalizing this way does **not** email the customer or count as sending the invoice; it only records the money and takes the invoice out of Draft. When you split one payment across several invoices, drafts are not offered as targets — you can only finalize a draft by recording the payment on that draft itself.
 
 ### Void
 
@@ -122,7 +134,7 @@ The **Invoices** page can be turned off for a workspace as a capability. When in
 
 - **Five statuses:** Draft, Open, Partially Paid, Paid, Voided. Status is always derived, never chosen by hand.
 - **Overdue** is a flag (Open or Partially Paid, past due date), not a sixth status.
-- **Send:** Draft or Open. **Record Payment / Add Credit:** Open or Partially Paid. **Void:** Open only. **Edit / Delete:** Draft only.
+- **Send:** Draft or Open. **Record Payment / Add Credit:** Draft, Open, or Partially Paid — on a Draft both finalize the invoice, after a confirmation. **Void:** Open only. **Edit / Delete:** Draft only.
 - **Paid and Voided** are end states with no further actions.
 - **Only Admins** can perform any invoice action, and only within branches they belong to.
 
