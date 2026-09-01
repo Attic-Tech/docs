@@ -59,7 +59,7 @@ The ledger never double-logs the same event. Before adding an entry, the system 
 ### When each event is logged
 
 <Card title="Issuing an invoice" icon="circle-check">
-  An entry is recorded only when an invoice becomes live — either at creation, if it is issued immediately, or when an edit moves a draft to issued. Drafts are not logged.
+  An entry is recorded only when an invoice becomes live — at creation, if it is issued immediately; when an edit moves a draft to issued; or when recording a payment on a draft promotes it out of Draft. A draft that stays a draft is not logged.
 </Card>
 
 <Card title="Recording a payment" icon="circle-check">
