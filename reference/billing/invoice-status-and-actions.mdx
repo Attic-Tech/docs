@@ -1,10 +1,10 @@
 ---
 title: "Invoice status and actions"
 description: "The five invoice statuses, how each is derived, which actions are available in each, and who can perform them."
-keywords: ["invoice status", "void invoice", "record payment", "send invoice", "draft invoice", "invoice overdue", "add credit"]
+keywords: ["invoice status", "void invoice", "record payment", "send invoice", "draft invoice", "invoice overdue", "add credit", "change due date", "custom due date"]
 ---
 
-This reference explains the invoice statuses, how an invoice's status is set, which actions (send, record payment, add credit, void, edit, delete) are available in each status, and who can perform them.
+This reference explains the invoice statuses, how an invoice's status is set, which actions (send, record payment, add credit, void, edit, delete, change due date) are available in each status, and who can perform them.
 
 The user-facing roles referenced below are **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Crew Member**.
 
@@ -54,6 +54,7 @@ The actions offered on an invoice depend entirely on its current status. The act
 | **Void** | Open only |
 | **Edit** | Draft only |
 | **Delete** | Draft only |
+| **Change due date** | Any status except Voided (Draft, Open, Partially Paid, or Paid) |
 
 ### Per-status summary
 
@@ -62,13 +63,16 @@ The actions offered on an invoice depend entirely on its current status. The act
     Can **Send**, **Edit**, **Delete**. Cannot record a payment, add a credit, or void.
   </Card>
   <Card title="Open" icon="envelope-open">
-    Can **Send** (re-send), **Record Payment**, **Add Credit**, **Void**. Cannot edit or delete.
+    Can **Send** (re-send), **Record Payment**, **Add Credit**, **Void**, **Change due date**. Cannot edit line items or amounts, or delete.
   </Card>
   <Card title="Partially Paid" icon="circle-half-stroke">
-    Can **Record Payment**, **Add Credit**. Cannot send, void, edit, or delete.
+    Can **Record Payment**, **Add Credit**, **Change due date**. Cannot send, void, edit line items or amounts, or delete.
   </Card>
-  <Card title="Paid / Voided" icon="circle-check">
-    No actions beyond viewing and downloading the PDF. Both are end states.
+  <Card title="Paid" icon="circle-check">
+    An end state for collection: no payments, credits, or voids. The **due date** can still be changed, since it only affects when the invoice comes due, not what's owed.
+  </Card>
+  <Card title="Voided" icon="ban">
+    A full end state. No actions beyond viewing and downloading the PDF — not even a due-date change.
   </Card>
 </CardGroup>
 
@@ -81,6 +85,16 @@ Sending a Draft invoice moves it from **Draft** to **Open**, records the send da
 ### Edit
 
 Only **Draft** invoices can be edited. Editing any other status is rejected with **"Only draft invoices can be edited."** Line items can only be edited on invoices created from scratch or from an estimate; attempting it elsewhere returns **"Line items can only be edited on invoices created from scratch or from estimates."** The due date must be on or after the issue date, otherwise you'll see **"Due date must be the same as or after the issue date."**
+
+The one detail that stays editable past Draft is the **due date** — see [Change due date](#change-due-date) below.
+
+### Change due date
+
+An invoice's **due date** can be changed in any status except **Voided**, including after it has been sent and even after it is fully **Paid**. The due date is a collection term, not a posted amount, so moving it changes nothing about the balance, the payments already applied, or the accounting period — only when the invoice ages into overdue. A **Voided** invoice has nothing left to collect, so its due date is fixed.
+
+You change it on the **Invoice Details** card rather than from the three-dot action menu: adjust the **Payment Terms**, or choose **Custom date** and pick a **Due Date**, then click **Save**. The new due date can't be earlier than the issue date. After it saves, you're offered the chance to **resend** the invoice so the customer sees the updated date.
+
+Everything else stays locked once an invoice leaves Draft — the line items, the amounts, and the issue date can only be changed while the invoice is a Draft.
 
 ### Record Payment
 
@@ -122,8 +136,8 @@ The **Invoices** page can be turned off for a workspace as a capability. When in
 
 - **Five statuses:** Draft, Open, Partially Paid, Paid, Voided. Status is always derived, never chosen by hand.
 - **Overdue** is a flag (Open or Partially Paid, past due date), not a sixth status.
-- **Send:** Draft or Open. **Record Payment / Add Credit:** Open or Partially Paid. **Void:** Open only. **Edit / Delete:** Draft only.
-- **Paid and Voided** are end states with no further actions.
+- **Send:** Draft or Open. **Record Payment / Add Credit:** Open or Partially Paid. **Void:** Open only. **Edit / Delete:** Draft only. **Change due date:** any status except Voided.
+- **Voided** is a full end state with no further actions. **Paid** is closed for collection, but its due date can still be changed.
 - **Only Admins** can perform any invoice action, and only within branches they belong to.
 
 ## Related references
