@@ -7,12 +7,13 @@ keywords: ["lead required fields","duplicate lead","referral required","create a
 
 This page explains everything that has to be true for a lead to be created, plus how addresses, duplicates, and referrals are handled.
 
-There are **two** ways a lead gets created, and a few rules differ between them:
+There are **three** ways a lead gets created, and a few rules differ between them:
 
 - **Manual creation** — a signed-in team member fills out the **Create Lead** form.
 - **Automated creation** — a lead is created for you from an inbound web form or phone call. There is no acting user in this case.
+- **Converting an inbox conversation** — a signed-in team member turns a message thread from a connected messaging integration (such as Thumbtack) into a lead with **Convert to Lead**. This follows the same rules as manual creation, with the contact difference noted below.
 
-Where the two differ, each rule below says so.
+Where these differ, each rule below says so.
 
 ---
 
@@ -126,6 +127,19 @@ The first match wins. If nothing matches:
 - Otherwise a **new** lead source is created automatically, named after the first key tried, set active and not default, with no referral requirements.
 
 If there's nothing to match on at all, the lead is created with no source. Any problem during this step is handled quietly and the lead is still created.
+
+---
+
+## Converting an inbox conversation to a lead
+
+When a message thread comes in from a connected messaging integration (such as Thumbtack), you can turn it into a lead directly from the conversation with **Convert to Lead** in the message header. This is a manual action, so the same roles as manual creation apply (**Admin, Sales Admin, Ops Manager, and Client Coordinator**), and — like manual creation — the lead is assigned to your branch, so you must have a branch assigned.
+
+Because these platforms usually hide the customer's real contact details, the **Convert to Lead** form asks you to fill them in:
+
+- A **last name** is required; the first name is optional.
+- **At least one** of a phone number or an email is required. Unlike the **Create Lead** form — where a phone number is required — an email on its own is enough here.
+
+When the conversation already carries extra details (such as the request category and the customer's location), they're copied into the new lead's notes, and the lead's source is set to the matching integration source when your workspace has one. Once a conversation has been converted, the **Convert to Lead** button disappears and the header instead links to the lead it became — converting the same conversation twice won't create a duplicate lead.
 
 ---
 
