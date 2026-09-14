@@ -45,7 +45,7 @@ The table below shows the allowed moves between statuses, the condition for each
 | Released | Sold | Anyone allowed to set Sold. Because the estimate was previously released, the existing job (if any) is reactivated. |
 | Sold | any other status | Requires management-level permissions: Sales Admin, Ops Manager, or Admin. |
 | Sold | Lost | As above, plus an extra rule: blocked if the related job is already Closed. On success the related job is cancelled. |
-| Sold | In Progress (to re-edit) | Management-level permissions only. If the proposal is signed, the user must explicitly confirm that re-editing will remove the signature. |
+| Sold | In Progress (to re-edit) | Management-level permissions only. If the proposal is signed, the user must explicitly confirm the reopen and enter a required change order note; re-editing then removes the signature. |
 | any (except Sold) | Deleted | Through the delete action only. Blocked if the estimate is Sold, or if its proposal is signed. |
 | Sold | Sold (re-sale) | When the estimate was previously In Progress or Released and a job already exists, re-selling reactivates and re-syncs that job. |
 
@@ -131,9 +131,9 @@ Saving edits and rebuilding the snapshot from the current catalog at the same ti
 
 Deleting an estimate is a soft delete — the estimate is hidden from lists and project lookups, and its proposal is preserved in case it needs to be restored. Deletion is blocked if the estimate's proposal is signed, and blocked if the estimate is Sold. Deletion is available to management-level roles.
 
-### Re-editing a signed estimate requires confirming signature removal
+### Re-editing a signed estimate reopens it for a change order
 
-If an estimate's proposal is signed and someone wants to move it back to In Progress (the only status that requires removing the signature), the system asks for explicit confirmation first instead of making the change. Confirming the change also requires management-level permissions. When confirmed, the signature is cleared and the status changes together as a single step. Moving a signed estimate to other read-only statuses (Lost, Released, Secondary Estimate) keeps the signature as audit evidence.
+If an estimate's proposal is signed and someone wants to move it back to In Progress (the only status that requires removing the signature), the system asks for explicit confirmation first instead of making the change, and requires a **change order note**. The note is mandatory — an empty or blank note is rejected — and is visible to the customer. Confirming the change also requires management-level permissions. When confirmed, the signature is cleared and the status changes together as a single step; the signed proposal is preserved as a read-only earlier version, and the proposal's earlier sent, opened, and expiry state is reset so the next send starts fresh. Moving a signed estimate to other read-only statuses (Lost, Released, Secondary Estimate) keeps the signature as audit evidence and does not require a note.
 
 ### Selling an estimate can award badges
 
