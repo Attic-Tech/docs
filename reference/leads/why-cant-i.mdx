@@ -39,7 +39,7 @@ User-facing roles referenced below: **Admin, Ops Manager, Sales Admin, Sales Mem
 ### B1. "Why can't I create a new lead? (the 'New Lead' button is missing)"
 - **Symptom:** No "New Lead" button on the Leads page.
 - **Cause:** The button only appears for roles that can manage leads.
-- **Who can (by role):** **Admin, Ops Manager, Sales Admin, Client Coordinator.** **Sales Member and Crew Leader** have no lead permissions and see no button.
+- **Who can (by role):** **Admin, Ops Manager, Sales Admin, Client Coordinator.** **Sales Member and Crew Leader** can't create leads, so they see no button. (A Sales Member can view their own leads read-only — but can't create, edit, or delete them; a Crew Leader has no lead access at all.)
 - **Resolution:** Use a role that can manage leads.
 
 ### B2. "Why does creating a lead fail server-side even though I clicked the button?"
