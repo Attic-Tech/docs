@@ -17,7 +17,7 @@ Integrations are an admin area. You'll need an **Admin** role to open the Integr
     Choose **Integrations** from the main navigation. This opens the marketplace — a grid of every app that's available to your workspace.
   </Step>
   <Step title="Find the app you want">
-    Use the **Search apps** box to find an integration by name or description, or use the **All Categories** dropdown to narrow the list to a single category (such as **Payments** or **Accounting**).
+    Use the **Search apps** box to find an integration by name or description, or use the **All Categories** dropdown to narrow the list to a single category (such as **Payments**, **Accounting**, or **Automations**).
   </Step>
   <Step title="Open an app's page">
     Click any app card to open its detail page, where you can read the full description and connect it.
@@ -30,11 +30,11 @@ If the marketplace looks empty or your search comes up short, you'll see a short
 
 ## Read an app's detail page
 
-Every integration's page is laid out the same way, so you always know where to look.
+Most integration pages are laid out the same way, so you always know where to look. (A few apps, such as **Zapier**, use a slightly different page — see below.)
 
 - **About this app** describes what the integration does and the key benefits — both for your team and for your customers.
 - The **Get Started** panel on the right is where you connect the app. It includes a short summary and a connect button.
-- The quick facts under the panel tell you the **Pricing**, the typical **Setup Time**, and the **Support** availability at a glance.
+- The quick facts under the panel tell you the app's **Developer**, its **Support** availability, and its **Pricing** at a glance.
 
 To return to the full list at any time, click **Back to Marketplace** at the top of the page.
 
@@ -70,6 +70,47 @@ Some integrations only appear for workspaces where the feature has been enabled.
 
 **QuickBooks** is the marketplace's accounting integration — you'll find it under the **Accounting** category. Open its card to read what it offers and connect it from its **Get Started** panel, the same way as any other app.
 
+### Set up how your data syncs
+
+Once QuickBooks is connected, a confirmation appears inviting you to **Set up sync preferences** — or you can choose **I'll do this later** and come back to it from the **Finish setup** banner on the QuickBooks page. Setting up opens a guided **QuickBooks Setup** wizard that walks you step by step through what should sync between Menaia and QuickBooks:
+
+- **Branch Setup** — whether your Menaia branches map to Classes in QuickBooks, so you can track income and expenses per branch.
+- **Client Sync** — whether client details in Menaia update when they change in QuickBooks, and whether to import your existing QuickBooks customers as clients when you finish setup.
+- **Item Sync** — whether your items are created in QuickBooks when they're first used on an invoice.
+- **Invoice Sync** — whether invoices sync, and when: when they're created, when they're sent, or when they're marked as paid. Credit notes sync as credit memos, and voided invoices are voided in QuickBooks automatically.
+- **Payment Sync** — whether payments sync, and which QuickBooks bank account your Stripe payouts are deposited to. Payments are matched to their invoices so balances stay accurate in both systems, and processing fees and bank deposits are recorded too.
+- **Expense Sync** — whether expenses logged to a project sync, and which QuickBooks bank or credit card account they're paid from.
+
+A **Review** step lets you confirm every choice before you select **Finish setup**. The initial sync can take from 30 minutes up to 48 hours depending on how much data you have — you can keep working in the meantime. If you chose to import your existing customers, every Admin gets a notification (in-app and by email) when the import finishes.
+
+<Tip>
+You can change any of these choices later from the **Settings** tab on the QuickBooks page, where each option has its own **Edit** button.
+</Tip>
+
+### Sync errors
+
+Menaia keeps track of records that fail to sync to QuickBooks. Whenever there are outstanding sync errors, Admins see a **QuickBooks Sync Errors** badge in the top navigation bar. Select it to jump straight to the **Sync Log** tab on the QuickBooks page, where you can review what didn't sync. The badge clears on its own once the errors are resolved, and it goes away if you disconnect QuickBooks.
+
+For what happens when you reconnect QuickBooks, switch companies, or your connection expires, see [Integration lifecycle](/reference/config/integration-lifecycle).
+
+## Acorn Finance
+
+**Acorn Finance** is the marketplace's financing integration — you'll find it under the **Financing** category. It lets you offer customers no-obligation financing options on the proposals they're already looking at, at no cost to you.
+
+Open its card to read what it offers, then connect it from the **Get Started** panel with **Connect Acorn Finance**. Unlike Menaia Pay or QuickBooks, there's no separate account to set up and no sign-in window — connecting turns it on right away, and the panel shows a **Connected** badge.
+
+To turn it off later, open the page again and click **Disconnect**. You'll be asked to confirm, because disconnecting removes the financing option from your client-facing proposals. You can reconnect at any time.
+
+## Zapier
+
+**Zapier** is the marketplace's automation integration — you'll find it under the **Automations** category. It links Menaia to over 10,000 apps so you can automate the busywork around your leads and clients: capture new leads automatically, keep client records in sync across your other tools, and cut out manual copy-and-paste. Set up an automation (a "Zap") once and it keeps running on its own.
+
+Connecting Zapier only needs a free Zapier account — there's no plan upgrade on the Menaia side.
+
+<Note>
+The Zapier page works a little differently from the other apps. Instead of a **Get Started** panel, you manage your Menaia Zaps and browse ready-made automations right on the page. Set Zapier up on a computer — on a small screen you'll be prompted to open Menaia on your computer to finish connecting.
+</Note>
+
 ## Data Sources
 
 **Data Sources** connects the tools your business already runs on — QuickBooks, Stripe, Salesforce, Google Sheets and hundreds more — so Meni can answer questions that span all of your business data. You'll find it under the **Data** category.
@@ -81,7 +122,7 @@ Unlike a single-app integration, its detail page is a hub with two parts: **Conn
     From the marketplace, open the **Data Sources** card. If you haven't linked anything yet, click **Browse connectors** to jump to the catalog.
   </Step>
   <Step title="Pick a connector">
-    Search the **Add a source** catalog by name, then click **Connect** on the source you want. Menaia opens a secure window where you authorize the connection — Menaia never stores your source's credentials.
+    Search the **Add a source** catalog, then click **Connect** on the source you want. Menaia takes you to a secure page where you authorize the connection, then brings you back to Data Sources. Menaia never stores your source's credentials.
   </Step>
   <Step title="Wait for the first sync">
     After you authorize, the source appears under **Connected sources** and starts syncing in the background. It shows a **Syncing** badge during its first sync, then **Connected** along with when it was last synced.
@@ -90,10 +131,10 @@ Unlike a single-app integration, its detail page is a hub with two parts: **Conn
 
 Each connected source shows its current status and lets you manage it:
 
-- **Connected** — live and syncing on a schedule. **Syncing** means its first sync is still running.
+- **Connected** — live and syncing. **Syncing** means its first sync is still running.
 - **Incomplete** — authorization didn't finish; use **Finish setup** to complete it.
 - **Needs attention** — the connection broke; use **Reconnect** to fix it.
-- Use the refresh control to re-check a source's status, or remove a source with the trash icon. Removing it stops syncing and Meni can no longer answer questions from it — you can reconnect it later.
+- Use the refresh icon to re-check a source's status, or remove a source with the trash icon. Removing it stops syncing and Meni can no longer answer questions from it — you can reconnect it later.
 
 <Tip>
 Once your sources have finished their first sync, use **Ask Meni** to ask questions that span everything you've connected — for example, comparing figures across your accounting, payments, CRM, and spreadsheets in one place.
