@@ -1,10 +1,10 @@
 ---
 title: "Organization"
-description: "Set your company name, time zone, logo, and payroll ID — the core details that appear across your account and on customer-facing documents."
+description: "Set your company name, time zone, email, logo, and payroll ID — the core details that appear across your account and on customer-facing documents and emails."
 icon: "building"
 ---
 
-The **Organization** page is where you set the core details for your company — its name, time zone, logo, and payroll ID. These settings shape how your company appears across the app and on the documents you send to customers, so it's worth getting them right.
+The **Organization** page is where you set the core details for your company — its name, time zone, email, logo, and payroll ID. These settings shape how your company appears across the app and on the documents you send to customers, so it's worth getting them right.
 
 <Note>
 The Organization page is an admin setting. If you don't see **Settings** in the navigation, or the **Organization** item isn't listed, your role doesn't include managing company settings. Ask an administrator to make changes for you.
@@ -23,13 +23,27 @@ The Organization page is an admin setting. If you don't see **Settings** in the 
 
 ## Company Details
 
-The **Company Details** section holds the two settings that identify your company throughout the app.
+The **Company Details** section holds the settings that identify your company throughout the app and to your clients.
 
 - **Company Name** — Your company's name as you want it to appear. This is the name shown across the app and on customer-facing documents, so enter it exactly as you'd like customers to see it. It's required.
 - **Timezone** — The time zone your company operates in. This keeps dates, times, and scheduling consistent for everyone on your team. Choose from Los Angeles (Pacific), Denver (Mountain), Chicago (Central), or New York (Eastern). It's required.
+- **Email** — Your company's shared email address, such as an office inbox. The page describes it as the address "used for client-facing correspondences, including as the reply to address for event communications." It's optional.
 
 <Tip>
 Setting the right time zone up front keeps your calendar, scheduling, and timestamps accurate. If your team works across regions, pick the zone your main office runs on.
+</Tip>
+
+### Who client replies go to
+
+Every email Menaia sends to a client shows your **Company Name** as the sender. Where the client's reply goes depends on who sent the email:
+
+| Kind of email | Examples | A client's reply goes to |
+| --- | --- | --- |
+| **Sent by a person** on your team | Proposals, invoices, lead follow-up emails, and client portal invites | The person who sent it. If there's no sender address, it goes to your organization **Email**. |
+| **Sent automatically** | Payment receipts, and notices when a visit is scheduled, changed, or canceled | Your organization **Email**. If it's blank, the reply goes to the person behind the email, when there is one. |
+
+<Tip>
+Use an inbox someone on your team checks every day for **Email**. Replies to automated notices, like schedule changes, land there.
 </Tip>
 
 ## Payroll
@@ -60,7 +74,7 @@ For the sharpest result, use a square image at the recommended size of 256 by 25
 
 ## Save your changes
 
-When you edit the **Company Name**, **Timezone**, or **Organization Payroll ID**, click **Save Changes** at the bottom of the page to apply them.
+When you edit the **Company Name**, **Timezone**, **Email**, or **Organization Payroll ID**, click **Save Changes** at the bottom of the page to apply them.
 
 <Note>
 The **Save Changes** button stays inactive until you've actually changed something. Once you make an edit, it turns on. If a required field is empty — like the company name — you'll see a prompt to fill it in before the page will save.

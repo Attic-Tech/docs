@@ -44,7 +44,7 @@ This is the goal. When the customer signs and approves:
 </Steps>
 
 <Note>
-A signed proposal is a record. Re-editing the underlying estimate reopens it for a **change order** and removes the signature, so a **Start a change order?** dialog asks you to fill in **Change order notes** describing what's changing first — they're required and visible to your client. The signed proposal is preserved as a read-only earlier version, so you don't lose the record. Don't reopen a signed estimate unless you truly need to change the scope.
+A signed proposal is a record. Re-editing the underlying estimate reopens it for a **change order** and removes the signature, so a **Start a change order?** dialog asks you to fill in **Change order notes** describing what's changing first — they're required and visible to your client. The signed proposal is preserved as a read-only earlier version, so you don't lose the record — see [Version history and change details](#version-history-and-change-details). Don't reopen a signed estimate unless you truly need to change the scope.
 </Note>
 
 ## The customer requested changes
@@ -59,7 +59,7 @@ If the customer wants something adjusted, they choose **Request Changes** and wr
     Open the proposal and read exactly what they asked for.
   </Step>
   <Step title="Make the updates">
-    Adjust the estimate or proposal as needed — revise scope or pricing in the Calculator, tweak the note, or update the payment options.
+    Adjust the estimate or proposal as needed — revise scope or pricing in the Calculator (or on the proposal itself, for an estimate built from scratch), tweak the note, or update the payment options.
   </Step>
   <Step title="Resend">
     Click **Resend Proposal** to send a fresh secure link with the updated version. Resending clears the earlier "changes requested" state so the customer is looking at the current proposal.
@@ -93,6 +93,65 @@ You can also just click **Resend Proposal** to send a fresh link yourself. Expir
 <Note>
 While the customer hasn't responded yet, the action bar on their proposal stays open with **Approve**, **Request Changes**, and **Reject** available. Once they pick one, the proposal reflects that state.
 </Note>
+
+## Version history and change details
+
+Every time a proposal is signed or its estimate is marked **Sold**, Menaia saves a read-only copy of it as a numbered **version**. If the scope later changes through a change order, you and the customer can look back at what was agreed before and see exactly what changed.
+
+<Note>
+If you don't see version history on a proposal that's been through a change order, it isn't turned on for your workspace.
+</Note>
+
+### When a version is saved
+
+A version is saved automatically when:
+
+- **The customer signs the proposal.** The version records who signed and when.
+- **The estimate is marked Sold** without a signed proposal, for example when you sell it by hand or re-sell it after a change order. The version shows as **Marked sold**.
+
+Versions are never edited after they're saved. If a proposal was signed before version history was available, reopening it for a change order saves its signed state as **Version 1** first.
+
+### Open the Version History panel
+
+The **Version History** panel appears once a proposal has more than one version to compare — typically after its first change order. Open or close it with the **version history** button (a calendar-and-clock icon) at the top of the proposal. On a phone, the button is labeled **Version history**.
+
+The panel lists versions newest first. The top card is the **Current** version, and what it says depends on where the proposal is:
+
+| Current card shows | What it means |
+| --- | --- |
+| **In progress** | A change order is underway. "Edits made in the estimate apply to this version." It becomes a saved version once it's signed or sold. |
+| **Awaiting client signature** | You've sent the updated proposal and the customer hasn't signed it yet. |
+| **Signed** or **Sold** | The newest saved version is the active proposal. |
+
+Every earlier version has a **Signed** or **Sold** badge, who signed it (or "Marked sold") and when, and "View only — editing disabled."
+
+### View an earlier version
+
+Click an earlier version's card to open it in place of the live proposal. A banner names the version and the date it was signed, followed by "It was replaced by an updated proposal and can't be approved or changed." Nothing on an earlier version can be edited or sent. Click **Go to current version**, or the Current card, to return.
+
+### See what changed
+
+Each version that followed an earlier one has a **Change order history** section on its card, and so does the Current card while a change order is in progress or awaiting signature — once there's at least one change. It lists:
+
+- The **change order notes** entered when the estimate was reopened (on saved versions).
+- Each change, marked **Added**, **Changed**, or **Removed** — line items and work areas (including quantity changes), tax, attachments, **Notes to client**, and **Project allowances** — with the dollar difference where there is one.
+- The **Total** before and after, with the difference.
+
+These summaries are generated for you. For more detail, click **View full change details**. The panel switches to **What changed in Version 2** (for example), with every field change, the total difference, and a **View Version 1** button to open the version it's compared with. Click **Done**, or the back arrow, to return to the version list. For a pending version, the details show what's changed so far and update as you edit.
+
+### What the customer sees
+
+The customer gets the same **Version History** panel on their proposal page. Their Current card reads **Awaiting your signature** until they sign the updated proposal. They can open earlier versions read-only, and use **View full change details** on a version's change history — including the version they're being asked to sign — to review the changes before they approve.
+
+### The change order banner
+
+While a signed estimate is reopened for a change order, the top of the proposal shows a banner: "Signature removed — this estimate was reopened for a change order." It names who signed the earlier version and when, the version number it was saved as, and your change order notes.
+
+On the **Estimates** list, an estimate with saved versions shows how many under its status, for example "2 signed versions."
+
+<Tip>
+Photos and videos used by a saved version stay available to that version. If you delete one from the project's media, it's removed from the gallery, but earlier versions that include it still show it.
+</Tip>
 
 ## Response states at a glance
 

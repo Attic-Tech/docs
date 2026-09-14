@@ -1,0 +1,114 @@
+---
+title: "Notification preferences"
+description: "Choose which notifications each branch sends by email, SMS, and in-app, and set up shift reminders for breaks and forgotten clock-outs."
+icon: "bell"
+keywords: ["notification preferences", "notification channels", "email notifications", "sms notifications", "in-app notifications", "turn off notifications", "shift reminders", "break reminder", "forgot to clock out"]
+---
+
+Notification preferences decide **how** your team hears about things. For each branch, you choose which notifications go out by **email**, **SMS**, and **in-app**. You also set up **shift reminders** — the texts that nudge crew members to take a break, end a break, or clock out.
+
+<Note>
+Notifications is part of Settings, which only **Admins** can open. These settings live under **Settings → Notifications**, on the **Notifications** and **Shift Reminders** tabs. The **Rules** tab, which decides *who* gets notified, is covered in [Notification rules](/guides/settings/notification-rules).
+</Note>
+
+## Open notification settings
+
+<Steps>
+  <Step title="Go to Settings">
+    Open **Settings** from the main navigation.
+  </Step>
+  <Step title="Choose Notifications">
+    Under **System Configuration**, select **Notifications**. The page opens on the **Notifications** tab.
+  </Step>
+  <Step title="Pick a branch">
+    Both the **Notifications** and **Shift Reminders** tabs are set per branch. If your workspace has more than one branch, use the branch selector in the top-right to choose the one you're editing. Your choice carries over when you switch between these tabs.
+  </Step>
+</Steps>
+
+<Note>
+If your workspace has no branches yet, you'll see **No branches available**. Create a branch first — see [Branch configuration](/guides/settings/branches).
+</Note>
+
+## Notifications tab
+
+### Notification Channels
+
+The **Notification Channels** card has one switch per channel:
+
+- **Email notifications** — send notifications by email.
+- **SMS notifications** — send notifications by text message.
+- **In-app** — send notifications inside Menaia.
+
+Each switch is a shortcut for the grid below it. Turning one off unticks that channel for every notification in the grid. Turning it on ticks it for every notification that can use that channel. A switch shows as on while at least one notification still uses the channel.
+
+### Notification Preferences
+
+The **Notification Preferences** grid lists every notification, grouped by area, with a column for **Email**, **SMS**, and **In-App**. Tick or untick a box to turn that channel on or off for that notification.
+
+Not every notification can be sent every way. A box that's greyed out means that notification isn't available on that channel.
+
+The groups you may see are:
+
+- **Leads** — **New Lead**.
+- **Proposals** — **Proposal client opened**, **Proposal requested changes**, **Proposal client rejected**, and **Proposal client signed**.
+- **Calendar** — **Task Published**, **Lead Activity Published**, **Shift Published**, **Shift Published for Your Client**, **Time Off Saved**, **Time Off Published**, **Event Cancelled**, **Event Updated**, **Event Not Published (48 Hour Warning)**, and the three shift reminders: **Break Reminder**, **Break End Reminder**, and **Forgot To Clock Out**.
+- **Jobs** — **New Job Assigned**, **Job Closed**, **Job Plan Changes Required**, **Job Plan Submitted For Review**, and **Job Plan Missing (2HR Reminder)**.
+- **Comments** — **Feed post mention** and **Feed post reply**.
+- **My Wallet** — **Wallet Change (Daily Update)**.
+- **Badges** — **Badge Earned**.
+- **Integrations** — **QuickBooks Sync Error** and **QuickBooks Sync Warning**. This group only appears if QuickBooks is turned on for your workspace.
+- **Meni** — **Meni daily insight**. See [Meni daily insight](/guides/meni/automations#meni-daily-insight).
+
+Each row includes a short description of when the notification is sent.
+
+### Save your changes
+
+Changes aren't applied until you click **Save Changes** at the bottom of the tab. **Cancel** throws away anything you haven't saved. Both buttons stay inactive until you change something.
+
+<Tip>
+Until you save this tab for a branch, every channel a notification supports is on. Start by turning off what your team doesn't need, instead of turning things on.
+</Tip>
+
+### How branch settings apply
+
+- **Notifications about a record** — a lead, proposal, calendar event, or job — follow the settings of the branch that record belongs to.
+- **Personal notifications** — mentions and replies, wallet updates, shift reminders, QuickBooks sync alerts, and Meni daily insights — follow the settings of the person's own branch. If someone belongs to more than one branch, a channel that's on in any of their branches stays on for them.
+
+## Shift Reminders tab
+
+The **Shift Reminders** tab sets up the reminders crew members get while they're on the clock. Each reminder goes to the person on the shift, by text message.
+
+| Reminder | When it's sent | Threshold setting | Starting threshold |
+| --- | --- | --- | --- |
+| **Break Reminder** | When someone has been working without a break for the set time. The timer starts when they clock in and restarts when they end a break. | **Break Reminder Threshold Minutes** | 240 minutes |
+| **Break End Reminder** | When someone's break has lasted the set time. | **Break End Reminder Threshold Minutes** | 30 minutes |
+| **Forgot Clock Out** | When someone is still clocked in the set time after their shift was scheduled to end. | **Forgot Clock Out Threshold Minutes** | 60 minutes |
+
+<Steps>
+  <Step title="Turn on a reminder">
+    Tick the box next to the reminder. Its threshold field appears below it.
+  </Step>
+  <Step title="Set the threshold">
+    Enter the number of minutes as a whole number of 0 or more.
+  </Step>
+  <Step title="Save">
+    Click **Save Changes**. You'll see **Shift reminders updated**.
+  </Step>
+</Steps>
+
+A pending reminder is canceled if the person acts first. For example, starting a break cancels a pending break reminder, and clocking out cancels a pending forgot-clock-out reminder.
+
+<Note>
+All three reminders start turned off for each branch. **Forgot Clock Out** only works for shifts that have a scheduled end time. Reminders also follow the **SMS** boxes for **Break Reminder**, **Break End Reminder**, and **Forgot To Clock Out** in the **Calendar** group on the **Notifications** tab. If you untick those, the texts won't go out.
+</Note>
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Notification rules" icon="bell" href="/guides/settings/notification-rules">
+    Decide who gets notified for each kind of event.
+  </Card>
+  <Card title="Branch configuration" icon="building-2" href="/guides/settings/branches">
+    Set up the branches these preferences apply to.
+  </Card>
+</CardGroup>

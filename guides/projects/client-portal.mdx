@@ -1,0 +1,117 @@
+---
+title: "Share the Client Portal"
+description: "Activate a secure portal for a project, invite the customer by email or text, copy or resend their link, and see exactly what they see — job status, their team, photos, proposals, invoices, and visits."
+icon: "globe"
+---
+
+The **Client Portal** gives your customer a private, always-up-to-date view of their project. Instead of calling the office to ask when the crew is coming or whether the photos are in, they sign in and see it for themselves. You turn the portal on from the project's **Client Portal** tab, and the customer gets a secure sign-in link — no password needed.
+
+<Note>
+If you don't see a **Client Portal** tab on your projects, the client portal isn't turned on for your workspace. See [Feature availability](/reference/platform/feature-availability).
+</Note>
+
+## Before you start
+
+The portal belongs to the project's **primary contact**, and that contact needs an **email address**. The customer signs in through links sent to that email, so without one the portal can't be activated. If the primary contact has no email yet, add one first — see [Edit project details & contacts](/guides/projects/edit-details).
+
+<Tip>
+What the customer can see is set once for your whole workspace in [Client Portal settings](/guides/settings/client-portal) — which tabs appear, and which media folders are shared. Check those before you send your first invite.
+</Tip>
+
+## Activate the portal and send the invite
+
+<Steps>
+  <Step title="Open the Client Portal tab">
+    Open the project and click the **Client Portal** tab. A portal that hasn't been shared yet shows **Not activated** next to the heading, with an **Activate the client portal** card over a blurred preview.
+  </Step>
+  <Step title="Start the invite">
+    Click **Activate & send invite**. The **Customize Notifications** window opens, showing the phone number and email on file for the primary contact.
+  </Step>
+  <Step title="Choose how to send it">
+    Use the **Email Client** and **Text Client** switches to pick how the invite goes out. Both are on by default. A switch is unavailable when there's no email or phone on file for it.
+  </Step>
+  <Step title="Send it">
+    Click **Send Invite**. You'll see **Portal activated**, and the heading's status changes to **Active**.
+  </Step>
+</Steps>
+
+<Warning>
+If the contact has no email, the window shows **An email address is required** and **Send Invite** stays disabled — even if they have a phone number. Add an email to the contact, then try again.
+</Warning>
+
+The invite tells the customer who shared the portal and gives them a button to open it.
+
+## Keep track of the invite
+
+Once the portal is active, a line under the preview shows when the latest invite went out and to which email — for example **Invite sent Sep 3, 2:15 PM to jane@example.com** — followed by **Opened** and the time the customer last opened the link, or **Not opened yet**.
+
+## Preview what the customer sees
+
+While the portal is active, the tab shows a live preview labelled with the contact's name — for example **Live preview — this is what Jane sees**. It's the real portal for this project, so you can click through its tabs and folders to check what's shared before the customer does. Buttons that would act for the customer, like signing a proposal or paying an invoice, are inactive in the preview.
+
+## Copy, resend, or deactivate
+
+When the portal is active, three buttons appear above the preview.
+
+| Button | What it does |
+| --- | --- |
+| **Copy portal link** | Copies a sign-in link to your clipboard so you can share it yourself, for example in a text thread you already have going. Nothing is sent. The link is valid for **48 hours**. |
+| **Resend invite** | Opens the same **Customize Notifications** window so you can send a fresh invite by email, text, or both. |
+| **Deactivate** | Turns the portal off for this project right away. The customer loses access to this project, even if they're signed in. |
+
+<Warning>
+A copied portal link signs whoever opens it in as your customer. Share it only with the customer, and don't post it anywhere public.
+</Warning>
+
+<Note>
+If you send an invite and then try again within about a minute, you'll see a message that a portal link was just sent. Wait a minute and resend — this keeps customers from getting a pile of duplicate emails.
+</Note>
+
+If the project's primary contact changes, resend the invite. Sending an invite always gives access to the current primary contact and removes it from the previous one.
+
+To reopen a deactivated portal, click **Activate & send invite** again.
+
+## What the customer sees
+
+### Signing in
+
+The customer opens the portal from the link in their invite. It takes them to **Your projects**, a list of every project you've shared with them — each card shows the project name, address, and start date. They click **View project** to open one.
+
+When a link has expired, the customer lands on your portal's sign-in page instead, which reads **Sign in to your project** and shows your company name and logo. They enter the email you have on file and click **Email me a sign-in link**, and a new link arrives in their inbox. The page answers the same way whatever email is entered, so it never reveals who your customers are.
+
+<Tip>
+Customers don't need an account or password. If they tell you their link stopped working, point them to the link in any earlier invite — it takes them to the sign-in page where they can request a fresh one.
+</Tip>
+
+### The portal tabs
+
+Every project in the portal shows your company name and logo, the branch, and the project name, with tabs along the top. **Overview** is always there; the others appear only when your workspace has turned them on in [Client Portal settings](/guides/settings/client-portal).
+
+| Tab | What the customer sees |
+| --- | --- |
+| **Overview** | A **Job status** tracker (**Proposal accepted**, **Scheduled**, **In progress**, **Completed**), **Your team** with the project manager and crew lead, their contact and property details, the date work is scheduled, a few **Recent photos**, and a **Contact us** card with your branch's phone, address, and license number. |
+| **Media** | A read-only photo and video gallery, organized by folder. Only folders you've marked as visible to clients appear. Customers can view files but can't upload, download, or delete them. |
+| **Proposals** | Every proposal you've sent, with its status (such as **Awaiting signature** or **Signed**), a version history showing what changed between versions, and the current scope and total. A proposal waiting on them has a **Review & sign** button that opens the same secure proposal page they'd get by email — see [What the customer sees](/guides/proposals/client-view). |
+| **Invoices** | Totals for invoiced, outstanding, collected, and overdue amounts, the payment schedule when there is one, and each issued invoice with the payments and credits applied. Draft invoices never appear. When your branch accepts online payments, open invoices show a **Pay online** button; otherwise the tab tells the customer how to pay you directly. |
+| **Calendar** | A month calendar and an upcoming list of published visits. Job visits appear as **Service Visit** and site visits from the lead as **Inspection**, each with the date, time, and address. Crew members aren't named, and draft schedules stay hidden until you publish them. |
+
+<Note>
+**Recent photos** on Overview only come from folders shared with clients, too. If your workspace turns the Media tab off, Overview still shows a few recent photos, but the customer can't open the full gallery.
+</Note>
+
+## Who can do what
+
+- **Admin, Ops Manager, Sales Admin, Sales Member, and Client Coordinator** can activate the portal, send and resend invites, copy the portal link, and deactivate it.
+- **Crew Leaders** can open the tab and see the live preview of an active portal, but can't activate, share, or deactivate it.
+- Choosing which tabs customers see and which media folders are shared is an **Admin** task in Settings.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Client Portal settings" icon="sliders" href="/guides/settings/client-portal">
+    Pick which tabs customers see and open the portal automatically when a proposal is signed.
+  </Card>
+  <Card title="Add & manage project media" icon="images" href="/guides/projects/media">
+    Put photos in the right folders so the customer sees what you mean to share.
+  </Card>
+</CardGroup>

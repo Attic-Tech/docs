@@ -14,7 +14,7 @@ Money is rounded to the nearest cent at the invoice boundary, not at every inter
 
 ### Subtotal, tax, and total each round once
 
-The invoice sums every line's net amount and every line's tax at full precision, then rounds the subtotal once, rounds the tax once, and rounds the total once. There is no per-line rounding inside that calculation.
+The invoice sums every line's net amount and every line's tax, then rounds the subtotal once, rounds the tax once, and rounds the total once. Line net amounts are summed at full precision; each line's tax is already rounded to the cent when it's calculated (see [Taxes](#taxes)).
 
 A single line's contribution to the subtotal is `quantity × unit price − discount`, kept unrounded so that the invoice-level round is the only one that fires. Each line stores this as its amount, and the subtotal is the rounded sum of those amounts.
 
@@ -56,17 +56,21 @@ Credit limits are compared in whole cents, so a sub-cent rounding artifact never
 
 ## Taxes
 
-### The taxable amount is cent-rounded before tax is calculated
+### Each taxable line's tax is rounded to the cent
 
-The taxable amount (the sum of the line net amounts) is rounded to the cent before tax is calculated, so tax is computed against a clean dollar figure even when individual lines carry full-precision unit prices.
+On an invoice with a tax rate, each taxable line is taxed at the rate on its own net amount (`quantity × unit price − discount`), and that line's tax is rounded to the cent. Lines that aren't taxable get no tax. The invoice's tax is the sum of the line taxes, rounded once more. Because each line's tax is rounded on its own, the invoice tax can differ by a penny from the rate applied to the whole subtotal.
 
-### Every returned tax amount is rounded to the cent
+### An estimate's tax is rounded once
 
-City, county, and special taxes are merged into a single "City Tax" line, and state tax becomes a "State Tax" line. Each line amount and the grand total tax are rounded to the cent.
+On an estimate, tax is the taxable amount multiplied by the rate, rounded to the cent. The estimate's pricing math stays at full precision until that point.
+
+### One tax line, named after the rate
+
+Tax shows as a single line named after the rate, for example "Tax · King County (10.1%)" — there are no separate city, county, or state tax lines. The exception is older estimates taxed before tax rates existed: their invoices show the stored tax as one "Tax" line, spread across the taxable lines, and their read-only proposals keep the original **Local Tax** and **State Tax** lines. See [Sales tax](/reference/billing/sales-tax).
 
 ### Tax is skipped when there is nothing to tax
 
-No tax line is produced when there are no line items, when the billing address is incomplete, or when the taxable amount is zero or less. A complete billing address requires street, city, state, and zip. A City or State line only appears when its amount is greater than zero.
+No tax is added when there are no line items, when none of the lines are taxable, or when no tax rate is selected (apart from the older estimates described above, which carry their stored tax). No tax line appears when the tax comes to zero. An address isn't needed to calculate tax — only a TaxJar rate is looked up from the property address.
 
 ### Tax rate display
 
@@ -128,11 +132,13 @@ Full precision is kept on purpose in these places, and only becomes cent-rounded
 ## Quick reference
 
 - **Rounding happens at the invoice boundary**, to the nearest cent, with half-cents rounding up.
-- **Subtotal, tax, and total each round once and independently** after full-precision summing.
+- **Subtotal, tax, and total each round once and independently.** Each line's tax is rounded to the cent before it's added up.
+- **Tax is one line named after the chosen rate**, and only taxable lines are taxed.
 - **A penny gap** can come from rounding subtotal and tax separately, from per-line display rounding, or from line-total edits that round up.
 - **All limits and equality checks** (allocations, credits, maximum amount) are compared in whole cents to neutralize floating-point dust.
 - **Estimate and breakdown math stays at full precision** until it becomes an invoice subtotal.
 
 ## Related references
 
+- [Sales tax](/reference/billing/sales-tax)
 - [Permissions and roles matrix](/reference/platform/permissions-roles-matrix)

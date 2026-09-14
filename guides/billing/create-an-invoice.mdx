@@ -88,6 +88,46 @@ You also set the tax here. The **Tax** row in the breakdown has a selector, and 
 
 The same **Client View Settings** switches — **Unit Price** and **Total Price** — sit at the top of the Line Items card here too. Turn either off to hide those columns on the customer's copy for a simpler, total-only invoice.
 
+## Invoice a scheduled payment
+
+If you built a [payment schedule](/guides/proposals/generate#set-up-a-payment-schedule) on the proposal, you can bill each payment on its own invoice — for example, the deposit now and the final payment when the work is done.
+
+<Note>
+If you don't see a **Payment Schedule** on the project's **Invoices** tab, payment schedules aren't turned on for your workspace, or the project doesn't have a proposal yet.
+</Note>
+
+<Steps>
+  <Step title="Open the project's Invoices tab">
+    Open the project and go to its **Invoices** tab. The **Payment Schedule** appears above the project's invoice list, with each payment's **Invoice #**, **Description**, and **Total**, and a **Total Scheduled** line at the bottom.
+  </Step>
+  <Step title="Pick the proposal (if there's more than one)">
+    A project can have more than one proposal, and each has its own schedule. When it does, use **Payment Schedule From** to choose which proposal's schedule to show. The proposal of the project's sold estimate is selected by default.
+  </Step>
+  <Step title="Click Create Invoice on a payment">
+    Each payment that hasn't been billed yet has a **Create Invoice** button. Click it to open the invoice builder, with the client, project, and line items already filled in for that payment.
+  </Step>
+  <Step title="Review, then save or send">
+    Set the dates and terms, then **Save as Draft** or **Save and Send**, as described in [Save or send](#save-or-send).
+  </Step>
+</Steps>
+
+### What the invoice includes
+
+The invoice total matches the payment's amount on the schedule, tax included.
+
+- **Line items.** If you attached services to the payment, the invoice lists those services, with their prices scaled so they add up to the payment. If you didn't, it has a single line named after the payment. When the estimate mixes taxable and non-taxable work, that line is split into a "(taxable)" and a "(non-taxable)" line.
+- **Tax.** Tax comes from the estimate's saved rate and only applies to the taxable lines. Like any invoice created from an estimate, the line items and tax are read-only here — to change them, change the estimate or the schedule. See [Sales tax](/reference/billing/sales-tax#tax-on-invoices).
+
+### Each payment can be invoiced once
+
+Once a payment has an invoice, its **Create Invoice** button is replaced by a link to that invoice's number, with the invoice's status underneath. A payment can't be invoiced twice. If you try — for example, from an old link — the builder shows "This payment has already been invoiced." and won't let you save.
+
+If you void or delete that invoice, the payment is freed up and **Create Invoice** comes back.
+
+<Warning>
+If the schedule or its estimate was deleted, or you no longer have access to it, the builder shows "Unable to load payment schedule data for this payment." and won't let you save. Go back and try again, or create a regular invoice instead.
+</Warning>
+
 ## Add a disclaimer
 
 The **Disclaimer** card holds any terms or notes you want printed on the invoice — warranty language, payment instructions, anything standard for your work. It comes pre-filled with your workspace's default text, and you can edit it for this one invoice.

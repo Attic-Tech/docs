@@ -1,0 +1,328 @@
+---
+title: "Communications"
+description: "Set up your workspace's phone lines: apply for or port a number, choose who each line rings and in what order, mask personal numbers, and configure greetings, voicemail, forwarding, queues, and call recording."
+icon: "phone"
+keywords: ["phone settings", "phone lines", "business phone number", "apply for number", "toll-free number", "local number", "port a number", "transfer my number", "ring order", "who gets calls", "call masking", "hide personal number", "voicemail settings", "call forwarding", "call queue", "call recording", "phone menu", "IVR", "missed call text", "blocked numbers"]
+---
+
+**Communications** is where you set up your business phone in Menaia. You get a phone number (or bring one you already own), decide who each line rings, and choose what callers hear when they call in. Your team then calls and texts from the [inbox](/guides/calls/inbox) and the [dialer](/guides/calls/use-the-dialer).
+
+<Note>
+Communications is part of Settings, which only **Admins** can open. To find it, open **Settings** from the main navigation and choose **Communications** under **General**.
+</Note>
+
+The page has three parts, from top to bottom:
+
+1. **Lines**: every number your workspace has. Click a line to open its own settings.
+2. **Port a number**: bring a number over from another carrier.
+3. **Workspace call settings**: greeting, phone menu, business hours, voicemail, forwarding, ringing, recording, and after-hours handling. These apply to every call your workspace receives.
+
+## Lines
+
+The **Lines** card lists every number your workspace has, along with its branch and who answers it. Each row shows:
+
+| Part of the row | What it tells you |
+| --- | --- |
+| Name | The line's **Inbox name**. If it has none, you see the number instead. |
+| Number | Shown next to the name when the line has an inbox name. |
+| **Local** or **Toll-free** | The type of number. |
+| **Primary** | This is the main number for its branch. |
+| Status | **Provisioning**, **Active**, **Error**, or **Released** (see below). |
+| People | Up to four names, then "+N more". If nobody is listed, you see "No one is on this line yet". |
+| Branch | The branch the line belongs to. Hidden if the line has no branch. |
+
+Line statuses:
+
+| Status | Meaning |
+| --- | --- |
+| **Provisioning** | The number is still being set up. |
+| **Active** | The number is working and can take and make calls. |
+| **Error** | Something went wrong while setting the number up. |
+| **Released** | The number no longer belongs to your workspace. You can't choose a released line for masking or add people to it. |
+
+Click anywhere on a row to open that line's settings.
+
+### Apply for a number
+
+<Steps>
+  <Step title="Start the application">
+    On the **Lines** card, click **Add number**. The **Apply for number** window opens.
+  </Step>
+  <Step title="Pick a number type">
+    - **Toll-free** ("Faster to set up"). Toll-free verification usually clears in a few days.
+    - **Local number** ("Area code, higher answer rates"). Local numbers need full carrier registration, and carrier review can take 10 to 15 days.
+  </Step>
+  <Step title="For a local number, choose the number">
+    Under **Choose your local number**, type an area code and click **Search**, then pick a number from the results. Numbers are held for you for 15 minutes. If nothing comes back, you see "No available numbers found. Try a different search."
+  </Step>
+  <Step title="Fill in your business details">
+    Fill in the fields listed in the table below. Only **Business name** is required.
+  </Step>
+  <Step title="Submit">
+    Click **Submit Details**. You see "Number application submitted". Once the number is set up, it appears on the **Lines** card.
+  </Step>
+</Steps>
+
+| Field | Toll-free | Local number |
+| --- | --- | --- |
+| Business name, Business website | ✓ | ✓ |
+| Business type, Industry | | ✓ |
+| Business registration number or EIN | ✓ | ✓. Labeled **EIN or tax ID** and required unless you're a sole proprietor. |
+| Registration country | ✓ | ✓ |
+| Business address, City, State, ZIP | | ✓ |
+| Contact name, Phone number, Email | ✓ | ✓ |
+| Estimated monthly message volume | ✓ | ✓ |
+| Use case and description | ✓ | ✓ |
+| How do customers agree to be texted? | ✓ | ✓ |
+
+<Note>
+A workspace applies for a number only once. If your workspace has already applied, submitting again fails with an error. To bring over more numbers you already own, use [Port a number](#port-a-number).
+</Note>
+
+New numbers start without a branch. The first number your workspace gets becomes **Primary** automatically. To assign a branch, open the line and go to the **General** tab.
+
+## Line settings
+
+Click a line to open its page. At the top you see the line's name with its badges, plus its number and branch. Three buttons sit next to them:
+
+- **Back to Communications** returns you to the main page.
+- **Open inbox** takes you to the [inbox](/guides/calls/inbox).
+- **Test call** calls the line from your dialer.
+
+The line page has five tabs: **General**, **People**, **Business hours**, **Call flow**, and **Call handling**.
+
+### General
+
+Each change saves when you leave the field, and a message confirms it saved.
+
+| Setting | What it does |
+| --- | --- |
+| **Inbox name** | What your team sees in the inbox for this line, for example "Front desk". Leave it blank to show the number. |
+| **Branch** | The branch this line belongs to. Only people in this branch can be added on the **People** tab. Choose **No branch** to unassign. |
+| **Caller ID name** | What customers see when you call them. |
+| **Primary number of the branch** | New conversations start from this number. When you turn it on for one line, it turns off on any other line in the same branch, because each branch has one primary number. |
+
+### People
+
+**People on this number** lists who works this line. Every setting on this tab saves as soon as you change it.
+
+To add someone, click **Add person or role** and pick from either list:
+
+- **Roles**: every person in that role is on the line, and anyone added to the role later is included too. Each role shows how many people in the branch have it.
+- **People**: only people in the line's branch appear. If everyone is already on the line, you see "Everyone in *branch* is already on this number".
+
+Tick what each person or role can do on this number. Each row has these columns:
+
+| Column | Meaning |
+| --- | --- |
+| **Answer** | This person can answer calls to the line. |
+| **Calls** | This person can take and place calls on the line. |
+| **Text** | This person can text from the line. |
+| **Voicemail** | This person can see the line's voicemail. |
+| **Recordings** | Marks this person for access to the line's call recordings. Recordings are kept, but there's no place to play them back in Menaia yet. |
+| **Masked** | This person's personal number stays hidden, in both directions (see below). |
+| **Ring order** | This row's place in line when a call comes in. |
+| **Remove** | Takes this person or role off the line. |
+
+**Masked** hides personal numbers both ways. When a masked person calls a client from a job, the client sees the line's masking number instead of the person's cell, and the masked person never sees the client's cell either. Turn it on for a role and everyone in that role is masked. A masked person has no inbox, so **Answer**, **Calls**, **Text**, and **Voicemail** switch off and lock. Only **Recordings** stays available. You also can't set a ring order for a masked row. To choose which number clients see and whether masked calls are recorded, go to [Call handling](#call-handling).
+
+#### How ringing works
+
+When someone calls a line that has people on it, Menaia rings down the **Ring order**:
+
+- **One slot at a time.** Each row is one slot. If nobody picks up, the call moves to the next slot. The ring time for each slot is **Wait before forwarding**, found under [Ring behaviour](#ring-behaviour).
+- **A role rings as a group.** A role's slot rings everyone in that role at the same time. If the line has a branch, only people in that branch are rung.
+- **Only some rows ring.** A row rings only if **Answer** and **Calls** are both on and **Masked** is off.
+- **Some people are skipped.** Anyone who has set themselves unavailable is skipped. Nobody is rung twice, even if they're on the line both by name and through a role. At most 10 people are rung per call.
+- **Nobody answers.** The call goes to your queue (if **Hold callers in a queue** is on) or to voicemail.
+- **Nobody is available.** If the line has people who could ring but none of them are available, Menaia doesn't fall back to anyone else. The caller is held in the queue if the queue is on. Otherwise they hear that no one is available and the call ends.
+
+<Note>
+If a line has nobody who can ring (no people at all, or no row with **Answer** and **Calls** on and **Masked** off), calls ring your workspace's **Client Coordinators** instead. The line's branch coordinators ring first, and if the branch has none, coordinators across the workspace ring. The names on the **Lines** card come from this same group.
+</Note>
+
+### Business hours
+
+Set **Opens** and **Closes** for each day, or tick **Closed**. Then click **Save Changes**. This schedule belongs to the line and is separate from your workspace business hours.
+
+### Call flow
+
+This tab shows **Call flow is coming soon**. It's where visual call routing (phone menus, greetings, and after-hours handling) will live for each line.
+
+### Call handling
+
+This tab has three cards.
+
+**Call masking** applies to everyone marked **Masked** on the **People** tab. These settings save as soon as you change them.
+
+| Setting | What it does |
+| --- | --- |
+| **What the client sees** | The number that shows on the client's phone instead of a personal one. You can choose any of your workspace's numbers that isn't released. It starts as the line's own number. |
+| **Record masked calls** | Calls placed by masked people on this line are recorded automatically. |
+| **Masked texts** | Texts between a masked person and a client run through the same number. |
+
+**Greeting** holds the message callers hear when they first reach the line. Type it into **Greeting message** and click **Save Changes**.
+
+**Blocked Numbers** has a switch that turns number blocking on or off for the line. The list below it is shared across your whole workspace, so a number you add here also appears on the Communications page. See [Blocked numbers](#blocked-numbers).
+
+<Note>
+Right now, incoming calls follow your **workspace** greeting, business hours, and blocked-number switch, not the ones on a line's tabs. The same goes for masked texts: the per-line setting is saved but texting doesn't use it yet. The line-level versions are saved and are meant to work with **Call flow** once it arrives. **What the client sees** and **Record masked calls** already apply to outgoing calls.
+</Note>
+
+## Workspace call settings
+
+Below the **Port a number** card, a set of cards controls how your workspace handles calls. Change what you need, then click **Save Changes** at the bottom. The **Blocked Numbers** switch and list are the exception, since they save immediately.
+
+The cards appear in this order.
+
+### Greeting
+
+**Greeting message** is what callers hear when they first reach you. It plays together with the phone menu, so callers hear it when the phone menu is on.
+
+### Blocked numbers
+
+Use this to block specific numbers from calling your business. Blocked callers hear a busy signal.
+
+- Use the switch in the card header to turn blocking on or off.
+- To block a number, click **Add Number**, enter the **Phone number** and an optional **Label/reason** (for example "Telemarketer"), then click **Block Number**.
+- The list shows each **Phone Number**, its **Label/Reason**, and the **Date Added**. Click the trash icon to unblock a number.
+
+### Phone menu (IVR)
+
+A phone menu lets callers press a key to reach the right place. Tick **Enable the phone menu**, then click **Add menu option** for each key. Each option has:
+
+- **Digit**: a key from 0 to 9. Each digit can be used once.
+- **Action**: what happens when the caller presses that key. See the table below.
+- **Label**: a name for the option, for example "Sales".
+
+| Action | What happens |
+| --- | --- |
+| **Ring specific users** | Rings the people you pick in **Ring users**. From the phone menu, only Client Coordinators are rung, so pick from them. |
+| **Ring everyone** | Rings your Client Coordinators: the branch's coordinators first, or everyone in the role if the branch has none. |
+| **Send to voicemail** | Sends the caller straight to voicemail. |
+| **Play a message** | Plays the **Message** you write, then ends the call. |
+
+### Business hours
+
+Choose a **Timezone**, then set **Opens** and **Closes** for each day or tick **Closed**.
+
+<Note>
+Business hours and the **After-hours behavior** card are checked when the phone menu is on. Callers who reach you outside your hours get the after-hours treatment instead of the menu. When the phone menu is off, calls ring the same way at any hour.
+</Note>
+
+### Voicemail
+
+Tick **Enable voicemail** and write a **Voicemail greeting**. When nobody answers, callers hear the greeting and can leave a message. If voicemail is off, they hear that no one is available and the call ends.
+
+### Missed-call auto-text
+
+Turn this on to send a text back to callers you miss, so you don't lose the lead. Write the message in **Message template**. It can be up to 640 characters, and the counter shows your length against a single 160-character text. You can't save with the switch on and the message empty.
+
+<Warning>
+The template has buttons that insert **Caller first name**, **Business name**, **Booking link**, and **Missed-call time** placeholders. These placeholders aren't filled in when the text goes out yet. For now, write a message that reads well exactly as typed.
+</Warning>
+
+### Forward to phone
+
+Turn this on to send business calls to a cell phone, so calls still get answered when nobody is at a desk. Enter the number in **Forward to**. You can't save with the switch on and no number. Next to the number you'll see **Verified** once your business number is confirmed.
+
+**If the forwarded call isn't answered either** offers **Send to business voicemail** and **Hand to the AI receptionist**.
+
+<Note>
+When forwarding is on and a call doesn't go through the phone menu, it goes straight to the forwarding number. If nobody answers there, the caller goes to your queue (if it's on) or to business voicemail. That happens whichever option you pick above.
+</Note>
+
+### Ring behaviour
+
+| Setting | What it does |
+| --- | --- |
+| **Ring strategy** | Choose **Ring the app and the phone together** or **Only forward if nobody answers in the app**. |
+| **Wait before forwarding** | How long each ring attempt lasts before the call moves on, from 5 to 45 seconds. On lines with people, this is the ring time for each slot in the ring order. |
+| **Hold callers in a queue** | When everyone is busy or unavailable, callers wait on hold and are connected to the next free person instead of going straight to voicemail. |
+| **Maximum wait time** | Appears when the queue is on. Set it from 30 seconds to 30 minutes. After this long on hold, the caller goes to voicemail. |
+
+### Incoming and outgoing call recording
+
+These are two separate cards. Turn one on to record every call in that direction automatically, with no action needed from your team.
+
+It's best practice, and required in some regions, to tell people a call is recorded. Each card has a **Custom message (optional)** box for this:
+
+- **Incoming**: callers hear the message as soon as they call in.
+- **Outgoing**: the person you call hears it when they answer, before they're connected.
+
+If you leave the box blank, callers hear the default message: "This call may be recorded for quality and training purposes."
+
+### After-hours behavior
+
+This card sets what happens when someone calls outside your business hours. Under **Behavior**, choose one:
+
+- **Send to voicemail**
+- **Play a message**, which plays the **After-hours message** you write and then ends the call.
+
+## Port a number
+
+Use **Port a number** to bring a number you already own over from your current carrier. This card only appears if Communications is turned on for your workspace.
+
+<Steps>
+  <Step title="Open the port window">
+    On the **Port a number** card, click **Port a number**.
+  </Step>
+  <Step title="Check each number">
+    Under **Numbers to port**, enter a number and click **Check**.
+    - If it can be moved, you see "*number* can be ported". Click **Add to request**.
+    - If it can't, you see "*number* cannot be ported." followed by the reason. When no reason is given, you see "The current carrier does not support transfers."
+
+    Repeat for every number you want to move. Remove one with its **X** button.
+  </Step>
+  <Step title="Enter your current carrier details">
+    These must match your current carrier's records exactly.
+    - **Carrier name**, **Account number**, **Authorized contact name** (the full name on the account), and **Service address** (the address on file with the carrier) are required.
+    - **Transfer PIN** is optional unless a number's carrier requires one. In that case it's required, and the field says "Your current carrier requires a PIN to release this number".
+  </Step>
+  <Step title="Upload documents">
+    Upload a **Signed letter of authorization (LOA)** and a **Recent carrier bill**. Both are required. Each must be a PDF, JPEG, or PNG up to 10 MB.
+  </Step>
+  <Step title="Submit">
+    Click **Submit port request**. You see "Port request submitted" and the request appears on the card.
+  </Step>
+</Steps>
+
+Each request on the card shows its numbers, a status, and the date it was submitted.
+
+| Status | Meaning |
+| --- | --- |
+| **Submitted** | Your request has been sent to the carrier. |
+| **In progress** | The transfer is underway. |
+| **Completed** | The number has moved. It appears on the **Lines** card as an **Active** line. |
+| **Rejected** | The transfer was refused. The reason appears under the request as "Rejected: *reason*". |
+| **Canceled** | The request was canceled. |
+
+A ported number starts without a branch, and it becomes **Primary** if it's your workspace's first number. To assign it a branch, open the line and go to the **General** tab.
+
+## Which line outgoing calls use
+
+When someone places a call from anywhere in Menaia, the call goes out on one of your active lines. Menaia picks the line in this order:
+
+1. The line the conversation is tied to, if the caller is on that line.
+2. Otherwise, the caller's own line. If they're on several, their **Primary** line wins, and if none of those is primary, the one added first does.
+3. If the caller isn't on any line, the workspace's primary line, or the active line added first if there's no primary.
+
+Being on a line through a role counts. If the caller is **Masked** on the chosen line, the client sees the line's masking number, and the call is recorded when **Record masked calls** is on. For how your team places and takes calls, see [Make and take calls](/guides/calls/use-the-dialer).
+
+## Who can do what
+
+| Action | Who |
+| --- | --- |
+| Open Communications, manage lines, people, and call settings | Admin |
+| Port a number | Admin, when Communications is turned on for your workspace |
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Inbox" icon="inbox" href="/guides/calls/inbox">
+    Read and reply to texts and calls for the lines you're on.
+  </Card>
+  <Card title="Make and take calls" icon="phone-volume" href="/guides/calls/use-the-dialer">
+    Place and take calls from anywhere in Menaia.
+  </Card>
+</CardGroup>

@@ -127,7 +127,7 @@ Crew notes can be edited by Sales Member, Client Coordinator, Crew Leader, Ops M
 
 ### Each estimate keeps an immutable snapshot of its pricing
 
-When an estimate is created, the system saves a snapshot of the pricing and configuration it was built from — financing terms, payment methods, branding, reviews, and tax breakdown. This snapshot is permanent, with one exception: the tax breakdown is refreshed on update because it depends on the current price. The snapshot is what the work order's line items are built from when the estimate is sold.
+When an estimate is created, the system saves a snapshot of the pricing and configuration it was built from — financing terms, payment methods, branding, and reviews. The snapshot doesn't include tax: the estimate keeps its own saved copy of the applied tax rate instead (see [Sales tax](/reference/billing/sales-tax#the-saved-copy-of-the-rate)). The snapshot is what the work order's line items are built from when the estimate is sold.
 
 ### Rebuilding the snapshot requires management-level permissions
 
@@ -140,6 +140,10 @@ Deleting an estimate is a soft delete — the estimate is hidden from lists and 
 ### Re-editing a signed estimate reopens it for a change order
 
 If an estimate's proposal is signed and someone wants to move it back to In Progress (the only status that requires removing the signature), the system opens a **Start a change order?** dialog instead of making the change, and requires **Change order notes**. The notes are mandatory — empty or blank notes are rejected — and are visible to your client. **Start change order** stays disabled until you enter them. Starting the change order also requires management-level permissions. Once started, the signature is cleared and the status changes together as a single step; the signed proposal is preserved as a read-only earlier version, and the proposal's earlier sent, opened, and expiry state is reset so the next send starts fresh. Moving a signed estimate to other read-only statuses (Lost, Released, Secondary Estimate) keeps the signature as audit evidence and does not require a note.
+
+### Signing or selling saves a read-only proposal version
+
+Where version history is turned on, the estimate's proposal is saved as a new numbered, read-only version each time the customer signs it, and each time the estimate becomes Sold while its proposal is unsigned (shown as "Marked sold"). A sale that follows a signature doesn't save a second version. Saved versions never change: a change order edits the next version, which is saved in turn when it's signed or sold. If a proposal signed before version history existed is reopened for a change order, its current state is saved as Version 1 first. Each version after the first stores a summary of what changed since the previous one. Photos and videos used by a saved version are kept even if they're deleted from the project's media. See [Version history and change details](/guides/proposals/client-response#version-history-and-change-details).
 
 ### Selling an estimate can award badges
 

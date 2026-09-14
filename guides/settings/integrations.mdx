@@ -75,10 +75,12 @@ Some integrations only appear for workspaces where the feature has been enabled.
 Once QuickBooks is connected, a confirmation appears inviting you to **Set up sync preferences** — or you can choose **I'll do this later** and come back to it from the **Finish setup** banner on the QuickBooks page. Setting up opens a guided **QuickBooks Setup** wizard that walks you step by step through what should sync between Menaia and QuickBooks:
 
 - **Branch Setup** — whether your Menaia branches map to Classes in QuickBooks, so you can track income and expenses per branch.
-- **Client Sync** — whether client details in Menaia update when they change in QuickBooks, and whether to import your existing QuickBooks customers as clients when you finish setup.
-- **Item Sync** — whether your items are created in QuickBooks when they're first used on an invoice.
+- **Client Sync** — two switches:
+  - **Sync customer updates from QuickBooks** keeps a client's contact details and billing address in Menaia up to date when they change in QuickBooks. Turning it off doesn't stop clients from reaching QuickBooks: a client is still created there when one of their invoices or expenses syncs.
+  - **Import existing customers** brings your existing QuickBooks customers into Menaia as clients, once, when you finish setup. Customers without an email address or phone number are skipped.
+- **Item Sync** — whether your items are created in QuickBooks the first time they're used on an invoice. Only items created from scratch are updated back from QuickBooks; price book items stay managed in Menaia. With **Item Sync** off, every invoice line syncs under one fallback product/service in QuickBooks — an existing one from your QuickBooks catalog, or a new item called "Services" if you have none.
 - **Invoice Sync** — whether invoices sync, and when: when they're created, when they're sent, or when they're marked as paid. Credit notes sync as credit memos, and voided invoices are voided in QuickBooks automatically.
-- **Payment Sync** — whether payments sync, and which QuickBooks bank account your Stripe payouts are deposited to. Payments are matched to their invoices so balances stay accurate in both systems, and processing fees and bank deposits are recorded too.
+- **Payment Sync** — whether payments sync, and which QuickBooks bank account your Menaia Pay payouts are deposited to. Payments are matched to their invoices so balances stay accurate in both systems, and processing fees and bank deposits are recorded too. Offline payments recorded in QuickBooks also come back into Menaia — see [Payments recorded in QuickBooks](#payments-recorded-in-quickbooks).
 - **Expense Sync** — whether expenses logged to a project sync, and which QuickBooks bank or credit card account they're paid from.
 
 A **Review** step lets you confirm every choice before you select **Finish setup**. The initial sync can take from 30 minutes up to 48 hours depending on how much data you have — you can keep working in the meantime. If you chose to import your existing customers, every Admin gets a notification (in-app and by email) when the import finishes.
@@ -87,9 +89,65 @@ A **Review** step lets you confirm every choice before you select **Finish setup
 You can change any of these choices later from the **Settings** tab on the QuickBooks page, where each option has its own **Edit** button.
 </Tip>
 
-### Sync errors
+#### If your QuickBooks plan doesn't track classes
 
-Menaia keeps track of records that fail to sync to QuickBooks. Whenever there are outstanding sync errors, Admins see a **QuickBooks Sync Errors** badge in the top navigation bar. Select it to jump straight to the **Sync Log** tab on the QuickBooks page, where you can review what didn't sync. The badge clears on its own once the errors are resolved, and it goes away if you disconnect QuickBooks.
+Mapping branches to classes needs class tracking turned on in QuickBooks. When it's off for your QuickBooks company, **Branch Setup** shows this warning:
+
+> Class tracking isn't enabled for your QuickBooks plan. Turn on "Track classes" in QuickBooks under Settings > Account and settings > Advanced (available on QuickBooks Plus and Advanced) to map branches to classes.
+
+While the warning shows, the **Use QuickBooks classes for branches** switch is disabled, so you can't turn class mapping on. If class mapping was already on, you can still turn it off. Until class tracking is back on in QuickBooks, records sync without class data, no classes are created, and a **Class tracking** warning appears in the [Sync log](#sync-log).
+
+### Payments recorded in QuickBooks
+
+When **Payment Sync** and **Invoice Sync** are both on, payments also flow from QuickBooks into Menaia. If someone records an offline payment in QuickBooks — a check, cash, or a bank transfer — against an invoice that's linked to a Menaia invoice, it comes into Menaia as a payment on that invoice and the invoice balance updates. There's nothing to record twice.
+
+- **Only offline payments come in.** Card payments, payments QuickBooks collected online, and payments with no payment method set in QuickBooks are ignored.
+- **The payment method is matched by name.** Menaia looks for a payment method on the invoice's branch with the same name as the one used in QuickBooks. If there's no match, the payment comes in without a method.
+- **Changes follow the payment.** If the payment's amount, invoices, method, or reference number changes in QuickBooks, the Menaia payment updates to match. If it's voided or deleted in QuickBooks, it's removed from Menaia and the invoice balances update.
+- **Some payments can't come in.** A payment applied to invoices on more than one Menaia project, or in more than one branch, isn't imported, because a Menaia payment belongs to a single project. Neither is a payment whose invoice is still a **Draft** in Menaia.
+- **Part of a payment can be skipped.** Any amount applied to an invoice Menaia doesn't have, or to a draft or voided invoice, is left out. So is unapplied customer credit.
+
+Payments that come in, and most that can't, get an entry in the [Sync log](#sync-log) explaining what happened.
+
+### Sync log
+
+The **Sync Log** tab on the QuickBooks page lists every sync between Menaia and QuickBooks, newest first — both what went to QuickBooks and what came back. Until something syncs, it shows "No syncs yet."
+
+| Column | What it shows |
+| --- | --- |
+| **Record** | The record that synced, with a short message underneath explaining what happened or what went wrong. |
+| **Type** | Client, Invoice, Expense, Payment, Item, Credit Note, Payout, or Configuration (a problem with your setup, such as class tracking). |
+| **Status** | **Synced**, **Warning** (the sync finished but skipped something or needs your attention), or **Error** (the record didn't sync). |
+| **Synced at** | When the sync happened. |
+
+Use **Show:** at the bottom of the list to choose how many entries appear per page (10, 25, 50, or 100), and **Previous** and **Next** to move between pages.
+
+#### Retry or ignore an entry
+
+Each entry has a three-dots menu:
+
+- **Retry** runs the sync again. It only appears on entries that can be re-run:
+  - errors sending an invoice (including a void), a credit note, or a payment to QuickBooks
+  - errors bringing a client's or an item's changes in from QuickBooks, or importing your existing customers
+  - warnings about a credit memo that reached QuickBooks but wasn't applied
+
+  You'll see **Retry queued** — "We'll re-run this sync in the background." The entry leaves the list, and the new attempt adds its own entry with the result.
+- **Ignore** hides an entry you've dealt with or don't need. You're asked "Ignore this sync log entry?" first. Ignoring removes it from the sync log for everyone in your organization.
+
+#### The sync errors badge
+
+Whenever there are outstanding sync errors, Admins see a **QuickBooks Sync Errors** badge in the top navigation bar. Select it to jump straight to the **Sync Log** tab. The badge counts errors only, not warnings. An error stays counted until you retry or ignore it — a later successful sync of the same record doesn't clear it. The badge also goes away if you disconnect QuickBooks.
+
+### Sync issue notifications
+
+Admins are notified when QuickBooks syncs run into trouble, so problems don't wait for someone to open the sync log:
+
+- **QuickBooks Sync Error** — a record failed to sync to or from QuickBooks.
+- **QuickBooks Sync Warning** — a sync finished but skipped records or needs attention.
+
+Notifications are grouped rather than sent for every record. You get at most one error notification and one warning notification every 30 minutes. Each one names the problem, or says how many QuickBooks records need attention and names the most recent, with a link to the QuickBooks page.
+
+Errors and warnings have separate toggles, so you can choose different channels for each. You'll find them under **Settings → Notifications**, in the **Integrations** group — see [Notification preferences](/guides/settings/notification-preferences). If you don't see the **Integrations** group, QuickBooks isn't turned on for your workspace.
 
 For what happens when you reconnect QuickBooks, switch companies, or your connection expires, see [Integration lifecycle](/reference/config/integration-lifecycle).
 
@@ -223,8 +281,58 @@ Open the Thumbtack page and click **Disconnect**. It takes effect right away, wi
 Connecting Zapier only needs a free Zapier account — there's no plan upgrade on the Menaia side.
 
 <Note>
-The Zapier page works a little differently from the other apps. Instead of a **Get Started** panel, you manage your Menaia Zaps and browse ready-made automations right on the page. Set Zapier up on a computer — on a small screen you'll be prompted to open Menaia on your computer to finish connecting.
+The Zapier page works a little differently from the other apps. Instead of a **Get Started** panel, you manage your Menaia Zaps under **Your Menaia Zaps** and browse ready-made automations under **Connect Menaia to 10,000+ apps**, right on the page. Set Zapier up on a computer — on a small screen you'll be prompted to open Menaia on your computer to finish connecting.
 </Note>
+
+### Connect your Menaia account
+
+The first time a Zap uses Menaia, Zapier asks you to sign in to Menaia and approve the connection. If you're not already signed in, Menaia asks you to sign in first, then shows its authorization screen.
+
+<Steps>
+  <Step title="Review what Zapier can do">
+    The screen lists the permissions Zapier is asking for, each with a checkbox, all ticked. Only permissions your own role already has are listed. Leave the lead, client, and message permissions ticked for the Menaia steps you plan to use — if you untick one, Zaps can't do that. The screen also shows the email address you're connecting as.
+  </Step>
+  <Step title="Pick the organization">
+    If you belong to more than one organization, choose one under **Organization** ("Select an organization"). Your Zaps work in that organization only.
+  </Step>
+  <Step title="Approve">
+    Click **Approve** to finish and return to Zapier, or **Deny** to cancel. In Zapier, the connection is named after your organization and your email address.
+  </Step>
+</Steps>
+
+<Warning>
+Zaps act as you. Everything a Zap does in Menaia uses your own role's permissions, limited to the permissions you approved. A Zap can't do anything in Menaia that you couldn't do yourself. If a Zap step fails because of permissions, see [Why can't I…?](/reference/leads/why-cant-i)
+</Warning>
+
+If the authorization screen shows one of these messages instead, close the window and start connecting again from Zapier:
+
+- **"This authorization link is invalid"** — the link was incomplete.
+- **"This authorization request has expired"** — the request is no longer valid.
+- **"Authorization is temporarily unavailable"** — something went wrong on Menaia's side. Try again later, or contact support if it keeps happening.
+
+### What Zaps can do with Menaia
+
+**Triggers** start a Zap when something happens in Menaia:
+
+| Trigger | Starts when |
+| --- | --- |
+| **New Lead** | A new lead is created. |
+| **Updated Lead** | A lead is updated. |
+| **New Client** | A new client is created. |
+| **New Outbound Message** | A teammate replies in a **Communications** inbox conversation that came from another platform (such as Yelp or Angi), so a Zap can send the reply back to that platform. When the Thumbtack integration is connected, replies on Thumbtack conversations go through it instead. |
+
+**Actions** do something in Menaia:
+
+- **Create Lead** — creates a lead. Choose its **Branch** and enter the primary contact's **First Name** and **Last Name** (all required), plus an **Email** or **Phone** (at least one). **Notes**, **Address**, **City**, **State**, and **Postal Code** are optional.
+- **Create Client** — creates a client from a **First Name**, **Last Name**, and an **Email** or **Phone** (at least one). If a client already has that email or phone, Menaia returns that client instead of creating a duplicate.
+- **Create Inbox Message** — adds a message from another platform to your **Communications** inbox, starting a conversation if there isn't one yet. Enter the **Source Platform** (Yelp, Google Business Profile, Google Local Services Ads, Thumbtack, Angi, Facebook, or Other — the field's help text lists the exact value to use), the **External Thread ID**, and the **Message Body**. Messages with the same thread ID land in the same conversation. Optionally add an **External Message ID** (recommended — it stops the same message from being added twice), a **Sender Name**, a **Customer Name** (shown as the conversation's name), and **Sent At** (defaults to now).
+
+**Searches** look something up so later steps can use it:
+
+- **Find Lead** — finds a lead by the contact's name, email, or phone.
+- **Find Client** — finds a client by the contact's email or phone (at least one).
+
+If a **Create Lead**, **Create Client**, or **Find Client** step has neither an email nor a phone, it stops with "Provide an email or a phone for the contact."
 
 ## Data Sources
 

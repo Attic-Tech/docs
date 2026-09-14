@@ -1,0 +1,170 @@
+---
+title: "Automations"
+description: "Have Meni watch your numbers and react to business events — set up playbooks and watch rules, then approve, edit, or dismiss the drafts Meni queues for you. Admins can also shape the Meni daily insight email."
+icon: "bolt"
+keywords: ["Meni automations", "automations", "playbook", "create playbook", "watch rule", "keep an eye on", "alert me when", "approval queue", "waiting for you", "approve and send", "clear all", "pause playbook", "resume playbook", "active automations", "Meni daily insight", "daily insight email", "context for Meni", "Meni settings"]
+---
+
+On the **Automations** page, you tell Meni what to watch for and what to do about it. Meni does the research and drafts the work, and every draft waits for your approval. Nothing reaches a customer or changes a record until you say so.
+
+There are two kinds of automation:
+
+- **Playbooks** react to something that happens — a new lead, a finished ride-along, a watch rule firing — and draft the follow-up work for you.
+- **Watch rules** check your data on a schedule and tell you when something crosses a line you care about.
+
+## Who can use Automations
+
+Open **Automations** from the **Main** section of the sidebar. It's there for **Admins**, **Ops Managers**, **Crew Leaders**, and **Crew Members**.
+
+<Note>
+Automations only appear when Meni automations are turned on for your workspace. If you don't see **Automations** in your sidebar, it isn't turned on for your workspace or your role. See [Feature availability](/reference/platform/feature-availability#meni-automations-and-daily-insight).
+</Note>
+
+Playbooks and watch rules are personal. Each one runs with **your** permissions, so Meni only looks at data you're allowed to see, and only drafts changes you could make yourself.
+
+## Playbooks
+
+### Create a playbook
+
+<Steps>
+  <Step title="Describe it in plain words">
+    At the top of the page, under **What should Meni handle for you?**, type what you want — for example, "When an invoice is overdue, draft a friendly follow-up email for my approval." Then click **Create playbook**. You'll see **Meni is drafting your playbook…** while it works.
+
+    Not sure where to start? Click one of the suggested ideas under the box, or click **Use this** next to a starter such as **Re-engage quiet leads**, **Recap every ride-along**, or **Nudge stale estimates**.
+  </Step>
+  <Step title="Check the setup">
+    Meni opens **Set up your playbook** with the form filled in from your request, and shows what **You said** at the top. Review each field — see [Playbook settings](#playbook-settings) below.
+  </Step>
+  <Step title="Save it">
+    Click **Create playbook**. The playbook starts running right away.
+  </Step>
+</Steps>
+
+<Tip>
+You can also ask Meni in the chat panel — "every time a lead comes in, draft a follow-up email for me to approve." Meni shows a **Create an Autopilot playbook** card you can rename before clicking **Create playbook**. See [Ask Meni](/guides/meni/ask-meni).
+</Tip>
+
+### Playbook settings
+
+| Field | What it does |
+| --- | --- |
+| **Playbook name** | A short name so you can recognize it. |
+| **Trigger — when this happens** | What starts the playbook: **When a lead comes in**, **When a ride-along wraps up**, **When a customer review changes**, **When a comment is posted**, or **When a watch rule fires**. |
+| **Watch rule** | Only for **When a watch rule fires** — pick which of your watch rules starts it. |
+| **What Meni should do** | Your instructions, in plain words, up to 4,000 characters. |
+| **Meni is allowed to draft** | The kinds of work Meni may prepare: **Change lead status**, **Change lead statuses**, **Send follow-up email**, **Schedule lead activity**, and **Create lead**. Pick at least one. |
+| **Notify me when this playbook fires** | Get a notification each time it runs. |
+| **Daily draft cap** | The most drafts it can create in a day, from 1 to 100. The default is 20. |
+
+### What happens when a playbook runs
+
+When the trigger happens, Meni looks into it using read-only access, then drafts only the kinds of work you allowed — or nothing, if it doesn't find enough to go on. It stops once it reaches the daily draft cap. Every draft lands in [Waiting for you](#waiting-for-you).
+
+<Note>
+Meni drafts, never sends. A playbook can't send an email, change a status, or create a record by itself — each draft needs your approval first.
+</Note>
+
+## Watch rules
+
+A watch rule is a standing "keep an eye on this and tell me when…" check. Create one by asking Meni in the chat panel, for example "Tell me when we have more than 10 overdue invoices" or "Watch for new leads that mention a roof leak."
+
+Meni shows a **Create a watch rule** card:
+
+- **Name** — you can edit it before creating the rule.
+- **Watches** — the data it checks, such as leads, estimates, invoices, jobs, or the schedule.
+- **Fires when** — either a number crossing a line (for example, the count of overdue invoices is above 10), or a description in plain words that Meni matches against the records, with the number of matches needed.
+- **Cadence** — how often it checks and how long it stays quiet after firing.
+- **Notifications** — **Sends you a notification when it fires**, or **Adds a quiet signal to your home page, no notification**.
+
+Click **Create watch rule** to turn it on.
+
+- A rule checks as often as every 15 minutes or as rarely as once a week, and stays quiet for at least 15 minutes after it fires.
+- You can have up to 20 watch rules.
+- When a rule fires, it shows up in **Needs your attention** on your [Dashboard](/guides/meni/dashboard#needs-your-attention) and in the [Waiting for you](#waiting-for-you) queue here.
+
+### Turn a signal into a watch rule or a playbook
+
+- On the Dashboard, a signal Meni discovered on its own has a **Keep watching this** button. It opens a watch rule for you to review in the chat panel.
+- In the queue, a fired watch rule has an **Automate this** button. It opens **Set up your playbook** with the trigger set to **When a watch rule fires** and that rule already picked, so Meni drafts a response every time the rule fires.
+
+## Waiting for you
+
+**Waiting for you** is one queue for everything that needs you: drafts from your playbooks and watch rules that fired. The number next to the title shows how many items are waiting. When the queue is empty you'll see **All clear**, how many drafts were sent today, and what Meni checked recently — click **View checks** to see your watch rules.
+
+Switch between two layouts with the **List** / **Cards** toggle:
+
+- **List** shows every item at once.
+- **Cards** shows one item at a time with the next few under **Up next**. Swipe or drag a card right to approve it, or left to skip it for now.
+
+### Handle a draft
+
+Each draft shows what Meni wants to do, which playbook drafted it, and when.
+
+- **Edit before you approve** — for a follow-up email, you can change the **Subject** and the email body right in the card.
+- **Approve** — the button names the action, such as **Approve & send** for an email, **Apply change** for a status change, **Schedule it** for a lead activity, or **Create lead**.
+- **Dismiss** — throw the draft away. In the Cards layout, **Skip** moves on without deciding.
+
+<Warning>
+Approving a follow-up email asks you to confirm: "This will email … right away. It can't be unsent." Click **Send email** to send it, or cancel to go back.
+</Warning>
+
+### Handle a fired watch rule
+
+A fired watch rule has nothing to approve — it's telling you something.
+
+- **Got it** — clear it from the queue.
+- **Open lead** (or **Open estimate**, **Open job**, **Open invoice**, **Open client**) — jump to the record it found.
+- **Automate this** — set up a playbook that responds when this rule fires.
+
+### Clear the whole queue
+
+Click **Clear all**, then click **Really clear all?** within a few seconds to confirm. Every draft is dismissed and every fired watch rule is cleared. If some can't be cleared, you'll see how many were and the rest stay in the queue.
+
+## Manage your automations
+
+Once you have a playbook or watch rule, a slim **Automations** bar on the right edge of the page (at the top on a phone) shows how many are on. Click it — or **View all playbooks** under the text box — to open **Active Automations**.
+
+The sheet has two tabs, **Playbooks** and **On watch**. A dot shows whether each one is on, and a number shows how many drafts a playbook has waiting. Click any item to open it.
+
+**A playbook** shows whether it's **Running** or **Paused** with a switch to pause or resume it, when it last fired (or **New · waiting for first fire**), and how many drafts are waiting from it. You can change any of its settings, then click **Done**. **Delete playbook** asks you to confirm — Meni stops running it, but drafts it already made stay in your queue.
+
+**A watch rule** shows whether it's **Active** or **Paused** with a switch, when it last ran and last fired, and what it watches. You can rename it or change **Notify me when this fires**, then click **Done**. Changes apply to the next check. **Delete watch rule** asks you to confirm.
+
+<Tip>
+You can also pause, resume, rename, and delete watch rules from the **Watch rules** button in the Meni chat panel, and pause, resume, or delete playbooks from the Playbooks card on your [Dashboard](/guides/meni/dashboard#playbooks-and-on-watch).
+</Tip>
+
+## Meni daily insight
+
+When Meni automations are on, Meni emails your workspace's **Admins** a daily insight each morning: a headline, a few observations grounded in your data, a suggested action, and often a chart. Meni avoids repeating recent headlines.
+
+### Give Meni context
+
+Admins can steer what the daily insight focuses on.
+
+<Steps>
+  <Step title="Open the Meni settings page">
+    Go to **Settings** and choose **Meni** under **System Configuration**. You can also search Settings for "Meni". The page is available to anyone with access to workspace settings.
+  </Step>
+  <Step title="Describe what you care about">
+    In the **Meni daily insight** card, type into **Context for Meni** — for example, "Focus on revenue trends, crew utilization, and jobs at risk of going over budget." You can write up to 4,000 characters.
+  </Step>
+  <Step title="Save">
+    Click **Save Changes**. Meni uses your context from the next daily insight on. **Cancel** discards unsaved edits.
+  </Step>
+</Steps>
+
+### Turn the email on or off
+
+The daily insight is listed as **Meni daily insight** in the **Meni** group of your workspace's notification preferences. If email is turned off for it, the daily insight isn't sent. See [Notification preferences](/guides/settings/notification-preferences).
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Ask Meni" icon="sparkles" href="/guides/meni/ask-meni">
+    Create watch rules and playbooks by chatting with Meni.
+  </Card>
+  <Card title="Meni Dashboard" icon="table-columns" href="/guides/meni/dashboard">
+    See signals, your briefing, and pinned views in one place.
+  </Card>
+</CardGroup>

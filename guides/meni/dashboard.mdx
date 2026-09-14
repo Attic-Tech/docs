@@ -1,0 +1,160 @@
+---
+title: "Meni Dashboard"
+description: "Use the Dashboard to see what Meni flagged for your attention, read your morning briefing, approve Meni's drafts, and keep live charts you pinned from Meni."
+icon: "table-columns"
+keywords: ["Meni dashboard", "dashboard", "pinned views", "pin to dashboard", "unpin view", "rename view", "needs your attention", "signals", "morning briefing", "waiting for you", "approvals", "drill down", "time range", "granularity", "live view", "stale view", "access blocked", "get started with Meni"]
+---
+
+The **Dashboard** is Meni's home in Menaia. It brings together the things Meni noticed that need your attention, your daily briefing, drafts waiting for your approval, and the live charts and reports you've pinned from your conversations with Meni.
+
+## Who sees the Dashboard
+
+Open **Dashboard** from the **Main** section of the sidebar. It's there for **Admins**, **Ops Managers**, **Crew Leaders**, and **Crew Members**, and also for **Sales Admins** and **Sales Members** when the sales overview is turned on for your workspace. Client Coordinators don't have it.
+
+When Meni has drafts waiting for you, a number next to **Dashboard** in the sidebar shows how many.
+
+<Note>
+The Dashboard only appears when the full Meni assistant is turned on for you. The attention list, briefing, approvals, playbooks, and watch rules sections also need Meni automations to be on for your workspace — without them, the Dashboard shows just your pinned views. If you don't see something described here, it isn't turned on for your workspace. See [Feature availability](/reference/platform/feature-availability#meni-assistant).
+</Note>
+
+## The top of the page
+
+The header shows today's date and a greeting. Below it is a one-line headline from today's morning briefing, or "Here's where things stand across your workspace." if there isn't one yet.
+
+Three buttons open Meni for you:
+
+- **Ask Meni** — opens the chat panel. See [Ask Meni](/guides/meni/ask-meni).
+- **What needs my attention?** — asks Meni to pull together what needs you right now.
+- **Build a dashboard** — asks Meni to suggest a few live views it could build and pin for you, based on your data.
+
+## Needs your attention
+
+**Needs your attention** lists signals — things Meni spotted that probably need someone to act. The most urgent ones are listed first, and the count sits next to the title. The first six show by default; click **Show all** to see the rest.
+
+You only see signals about data your role can see. Built-in checks include:
+
+| Signal | What it means |
+| --- | --- |
+| Stale leads | Open leads with no activity for over 7 days |
+| Overdue invoices | Invoices past their due date |
+| Sold estimates awaiting scheduling | Sold estimates with no scheduled job after 3 days |
+| Stalled proposals | Sent proposals with no client progress for over 5 days |
+| Shifts awaiting approval | Job shifts pending approval for over 48 hours |
+| Stuck jobs | Open jobs that haven't moved for over 14 days |
+| Low-rating reviews | Customer reviews of 3 stars or less in the last 7 days |
+
+Meni also adds signals when one of your [watch rules](/guides/meni/automations#watch-rules) fires, and when it discovers something unusual in your data on its own.
+
+### Work a signal
+
+Click a signal to expand it. You'll see the details and chips for the records involved — click a chip to open that record. Then:
+
+- **Meni looked into this** — for many signals, Meni investigates in the background and writes up what it found. Click **Show more** to read the full write-up, click a suggested question to ask it in the chat, or click **Review** next to a suggested action to open it in Meni for approval. Click **Reinvestigate** to have Meni look again.
+- **Ask Meni** — opens the chat with the signal already described, so Meni can explain what's behind it.
+- **Keep watching this** — on signals Meni discovered, turns the finding into a watch rule for you to review.
+- **Snooze** — hide the signal for **1 day** or **1 week**.
+- **Dismiss** — remove it from the list.
+
+## Morning briefing
+
+When Meni has written today's briefing for you, the **Morning briefing** card shows a few short sections with links to the records they mention, marked **Written by Meni**. The briefing is personal and is refreshed each day.
+
+## Waiting for you
+
+**Waiting for you** lists drafts your [playbooks](/guides/meni/automations#playbooks) prepared for your approval. Each row shows what Meni wants to do, a short summary, and when it was drafted.
+
+- **Approve** — carry it out. Approving a follow-up email asks you to confirm first: "This will email … right away. It can't be unsent." Click **Send email** to send it.
+- **Reject** — discard the draft.
+- **Details** — open the full draft. You can edit an email before approving, and see **How Meni got here**: what set it off, what Meni looked up, and what it drafted.
+
+For more room to work through a long list, use the queue on the [Automations](/guides/meni/automations#waiting-for-you) page.
+
+## Playbooks and On watch
+
+- **Playbooks** lists your playbooks with whether each is **Active** or **Paused** and what triggers it. Use the **…** menu to **Pause**, **Resume**, or **Delete** one, or click **Manage** to go to the Automations page.
+- **On watch** lists your watch rules with their status and what makes them fire. Click **Manage** to pause, rename, or delete them.
+
+See [Automations](/guides/meni/automations) for how both work.
+
+## Pinned views
+
+Any chart, KPI, or table Meni builds in the chat has a **Pin** button. Pinned views appear under **Your dashboards**. They're personal — only you see your pins — and you can keep up to 30.
+
+<Steps>
+  <Step title="Ask Meni for a view">
+    For example: "Chart completed jobs by crew over the last month."
+  </Step>
+  <Step title="Pin it">
+    Click **Pin** on the card in the chat. The button changes to **Pinned**.
+  </Step>
+  <Step title="Find it on your Dashboard">
+    The view appears under **Your dashboards** and refreshes with fresh data when you open the Dashboard.
+  </Step>
+</Steps>
+
+On the Dashboard, each pinned card lets you:
+
+- **Reorder** — drag the handle next to the title, or use **Move up** and **Move down** in the **…** menu.
+- **Open** — click the title or the arrow to open the view's own page. Clicking a bar or slice on a chart opens the view page with the records behind it.
+- **Unpin** — from the **…** menu.
+
+### The view page
+
+The view page shows one pinned view full size, with more controls:
+
+- **Rename view** — click the pencil next to the title, type a new name, and press **Enter**.
+- **Time range** — switch between **7D**, **30D**, **90D**, and **12M**.
+- **Granularity** — group by **Day**, **Week**, **Month**, or **Quarter**.
+- **Refresh** — on a live view, reload the data now.
+- **Ask Meni** — opens the chat to walk you through the view and suggest ways to refine it.
+- **Unpin** — asks you to confirm, then removes the view. You can always rebuild and re-pin it with Meni.
+
+When you change the time range or granularity, the page shows **Previewing — not saved**. Click **Save** to keep the new settings, or **Reset** to go back. Clicking a selected option again clears it. Some views are built from summary totals, so the time controls don't apply to them.
+
+A **How this view is built** strip shows the data the view pulls from, the steps applied to it, and the charts or tables it shows.
+
+### Drill into the records
+
+On the view page, click a bar, slice, or KPI tile to open a side panel with **the records behind this number**. If nothing in the current time range adds up to that value, the panel says so.
+
+### View status
+
+Under the title, a status tells you how current the view is:
+
+| Status | What it means |
+| --- | --- |
+| **Live** | The view refreshed with fresh data. The page shows when it was last refreshed. |
+| **Snapshot** | A saved picture of the data from when it was pinned. It doesn't refresh. |
+| **Stale** | Fresh data couldn't be loaded, so you're seeing the last saved data. Click **Retry**. |
+| **Access blocked** | You no longer have access to this data — for example, your role changed. Unpin the view. |
+
+<Note>
+A live view always runs with your current permissions, so it never shows you data your role can't see.
+</Note>
+
+### Workspace data views for Admins
+
+When it's turned on for your workspace, Admins can ask Meni for charts and reports on nearly anything in the workspace — including text messages, calls, and voicemails — not just the standard lists like leads, estimates, and jobs. These views show **Workspace data** as their source. They pin and refresh like any other view, and they re-check your permissions each time they run. If you're no longer an Admin, the view shows **Access blocked**.
+
+## Getting started
+
+If you have no pinned views, no signals, and no briefing yet, the Dashboard shows **Ask Meni your first question** with a few examples to try:
+
+- **Show me leads by owner this month**
+- **Which invoices are overdue, and by how much?**
+- **Chart completed jobs by crew over the last month**
+
+Click one to ask Meni, then pin the answers you like — they become your Dashboard. A link at the bottom points to the **Automations page**, where you can have Meni watch numbers and draft follow-ups.
+
+When Meni automations aren't on for your workspace, an empty Dashboard shows **No pinned views yet** with an **Ask Meni** button instead.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Ask Meni" icon="sparkles" href="/guides/meni/ask-meni">
+    Ask questions, build charts, and approve changes in the chat.
+  </Card>
+  <Card title="Automations" icon="bolt" href="/guides/meni/automations">
+    Set up playbooks and watch rules, and work the approval queue.
+  </Card>
+</CardGroup>
