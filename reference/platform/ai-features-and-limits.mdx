@@ -1,7 +1,7 @@
 ---
 title: "Ai features and limits"
 description: "What Menaia's AI helpers do, the length and size limits on each one, and how every AI suggestion is reviewed before it's used."
-keywords: ["AI crew notes", "AI proposal email", "AI win post", "ride along insights", "AI character limits", "why is AI feature not available", "does AI send automatically"]
+keywords: ["AI crew notes", "AI proposal email", "AI win post", "AI text reply", "AI response", "draft a text reply", "ride along insights", "AI character limits", "why is AI feature not available", "does AI send automatically"]
 ---
 
 This reference explains Menaia's AI-assisted features, the limits on what you can submit to each one, and the rules that keep AI output a draft you review rather than something applied automatically.
@@ -10,7 +10,7 @@ This reference explains Menaia's AI-assisted features, the limits on what you ca
 
 Menaia's AI helpers fall into two groups:
 
-- **Drafting and writing helpers** that propose text you then review and edit — crew notes, the proposal email, and win celebration posts.
+- **Drafting and writing helpers** that propose text you then review and edit — crew notes, the proposal email, text replies in the inbox, and win celebration posts.
 - **Analysis helpers** that summarize a recorded sales conversation — ride-along insights.
 
 ### Nothing the AI produces is applied automatically
@@ -32,6 +32,15 @@ On a proposal, the email body field has an AI button that rewrites the body into
 
 - The AI is told **not to invent pricing, dates, attachments, guarantees, or legal terms**, and to keep your factual claims intact.
 - The result is undo-able — your prior body is kept before the new text is applied.
+
+### Text reply (AI response)
+
+In the inbox, when you're replying to a text conversation, the message composer has an **AI response** button. It reads the recent back-and-forth of that conversation and drafts a short reply for you to send.
+
+- While it works the button shows **Drafting…**; the generated reply is then dropped into the composer where you can edit it before sending.
+- The draft is placed in the composer as editable text — it is **never sent automatically**. Nothing goes out until you press send yourself.
+- The AI is told to use **only the names, services, addresses, dates, and times that actually appear in the conversation** — it won't invent details or leave placeholders. If the customer asked something that can't be answered from the conversation, the draft acknowledges it and says you'll confirm.
+- If any typed text is already in the composer, the draft is added at your cursor rather than replacing what you wrote.
 
 ### Win celebration post
 
@@ -58,6 +67,7 @@ The **AI Ride Along** recorder captures an in-person sales conversation. After y
 | Crew notes | Up to 5,000 characters (input is capped, and AI output is held to the same limit) |
 | Proposal email body | Up to 6,000 characters (input capped, output held to the same limit) |
 | Proposal email subject context | Up to 300 characters |
+| Text reply draft | Up to 600 characters (a long draft is trimmed to fit a text) |
 | Win-post note | Up to 500 characters |
 | Ride-along recording | Auto-stops at 2 hours |
 
@@ -72,6 +82,7 @@ The **AI Ride Along** recorder captures an in-person sales conversation. After y
 AI features are turned on per workspace and, in some cases, depend on your role, so not every workspace or user sees them.
 
 - **Crew notes and the proposal email helper** appear where you can edit the underlying record — the inspection-report step and the proposal email, respectively.
+- **The text reply helper** appears in the inbox composer for people who can send texts, and only once texting has been turned on for your workspace.
 - **Ride-Alongs** must be turned on for your workspace. The voice tone analysis depends on an additional voice-analysis setting being turned on for your workspace.
 - **AI win posts** require win channels to be turned on. With them off, you'll see "This feature is not available for your organization."
 
