@@ -11,7 +11,7 @@ There are **three** ways a lead gets created, and a few rules differ between the
 
 - **Manual creation** — a signed-in team member fills out the **Create Lead** form.
 - **Automated creation** — a lead is created for you from an inbound web form or phone call. There is no acting user in this case.
-- **Converting an inbox conversation** — a signed-in team member turns a message thread from a connected messaging integration (such as Thumbtack) into a lead with **Convert to Lead**. This follows the same rules as manual creation, with the contact difference noted below.
+- **Converting an inbox conversation** — a signed-in team member turns a message thread from a connected messaging integration (such as Thumbtack, where enabled for your workspace) into a lead with **Convert to Lead**. This follows the same rules as manual creation, with the contact difference noted below.
 
 Where these differ, each rule below says so.
 
@@ -101,7 +101,7 @@ Referral requirements are configured by **Admin** on each lead source; the requi
 
 ## How a referral contact is stored
 
-A referral is saved as its own contact, marked as a company referrer, with an optional company name. It's only saved when the referral actually has something in it — at least one of first name, last name, phone, email, or company name is filled in, or you've pulled in an existing contact. (A company-only referral, or one that just points at an existing contact, is enough on its own.) If the referral points at an existing contact, that contact is reused and updated in place (referrals are matched only by their existing record, not re-matched by name, email, or phone the way primary and secondary contacts are).
+A referral is saved as its own contact, marked as a company referrer, with an optional company name. It's only saved when the referral actually has something in it — at least one of first name, last name, phone, email, or company name is filled in, or you've pulled in an existing contact. Like every contact, a new referral still needs an email or phone number — a referral with only a company name is rejected with "Either email or phone number is required." If the referral points at an existing contact, that contact is reused and updated in place (referrals are matched only by their existing record, not re-matched by name, email, or phone the way primary and secondary contacts are).
 
 ---
 
@@ -132,20 +132,20 @@ If there's nothing to match on at all, the lead is created with no source. Any p
 
 ## Converting an inbox conversation to a lead
 
-When a message thread comes in from a connected messaging integration (such as Thumbtack), you can turn it into a lead directly from the conversation with **Convert to Lead** in the message header. This is a manual action, so the same roles as manual creation apply (**Admin, Sales Admin, Ops Manager, and Client Coordinator**), and — like manual creation — the lead is assigned to your branch, so you must have a branch assigned.
+When a message thread comes in from a connected messaging integration (such as Thumbtack, where enabled for your workspace), you can turn it into a lead directly from the conversation with **Convert to Lead** in the message header. This is a manual action, so the same roles as manual creation apply (**Admin, Sales Admin, Ops Manager, and Client Coordinator**), and — like manual creation — the lead is assigned to your branch, so you must have a branch assigned.
 
 Because these platforms usually hide the customer's real contact details, the **Convert to Lead** form asks you to fill them in:
 
 - A **last name** is required; the first name is optional.
 - **At least one** of a phone number or an email is required. Unlike the **Create Lead** form — where a phone number is required — an email on its own is enough here.
 
-When the conversation already carries extra details (such as the request category and the customer's location), they're copied into the new lead's notes, and the lead's source is set to the matching integration source when your workspace has one. Once a conversation has been converted, the **Convert to Lead** button disappears and the header instead links to the lead it became — converting the same conversation twice won't create a duplicate lead.
+When the conversation already carries extra details (such as the request category and the customer's location), they're copied into the new lead's notes, and the lead's source is set to the matching integration source when your workspace has one. Once a conversation has been converted, the **Convert to Lead** button disappears and the header instead links to the lead it became (or to the client page once that lead has a client) — converting the same conversation twice won't create a duplicate lead.
 
 ---
 
 ## Starting status
 
-On both creation paths, a new lead is automatically given your workspace's active **New** status. If you don't have a status in the "New" category configured, the lead is created with no status (this is not an error). Status is never chosen by the user at creation time.
+On every creation path, a new lead is automatically given your workspace's active **New** status. If you don't have a status in the "New" category configured, the lead is created with no status (this is not an error). Status is never chosen by the user at creation time.
 
 ---
 

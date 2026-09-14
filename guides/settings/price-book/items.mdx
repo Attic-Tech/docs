@@ -62,7 +62,7 @@ When you start a new item you first choose what **type** of item to create:
 
 ### Quick items
 
-A **Quick Item** is a stripped-down item for adding to a proposal quickly, without the labor hours, overhead, factors, or categories a Calculator Item carries. It's a good fit for one-off or simple line items.
+A **Quick Item** is a stripped-down item for adding to a proposal quickly, without the labor hours, overhead, factors, or categories a Calculator Item carries. It's a good fit for one-off or simple line items. Quick items don't appear in the Calculator — they're for proposals built from scratch.
 
 <Steps>
   <Step title="Start a Quick Item">
@@ -73,9 +73,9 @@ A **Quick Item** is a stripped-down item for adding to a proposal quickly, witho
 
     - **Item Name** — required.
     - **Unit Type** — the unit the item is measured and sold in. Required.
-    - **Description** — optional text that shows up in the Calculator and on client proposals.
+    - **Description** — optional text that shows up on client proposals.
     - **Costs** — the cost for one unit. Required.
-    - **Taxable Item** — turn on to mark the item as taxable when it's added to a proposal or estimate.
+    - **Taxable Item** — turn on to mark the item as taxable when it's added to a proposal or estimate. Off by default.
     - **Image** — optionally upload a picture of the item.
   </Step>
   <Step title="Save">
@@ -113,11 +113,11 @@ Some items automatically bring along a second item — for example, a material t
 
 ### Item behavior
 
-These optional checkboxes change how the item shows up and behaves on a job:
+A few optional settings change how the item shows up and behaves on a job:
 
 - **Sub Item** — lists the item under **Sub Services** in the job breakdown instead of with the main itemized costs. Use it for supporting items you want grouped separately.
 - **Requires Info** — prompts estimators to enter extra details (such as a measurement or a note) on this item whenever they add it to a job.
-- **Taxable Item** — marks the item as taxable when it's added to a proposal or estimate.
+- **Taxable Item** — controls whether the item is included when sales tax is worked out. It's **off by default**, so a new item isn't included in sales tax until you turn this on. When it's off, the item is left out of the tax calculation on any estimate or proposal that uses it — and on invoices billed from that estimate — so the selected tax rate applies only to the taxable items. Turn it on for items you collect sales tax on.
 
 ## Edit an item
 

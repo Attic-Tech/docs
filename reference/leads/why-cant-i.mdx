@@ -137,9 +137,9 @@ User-facing roles referenced below: **Admin, Ops Manager, Sales Admin, Sales Mem
 
 ### D1. "Why can't I create a project? / convert a lead to a client-project?"
 - **Symptom:** Project creation fails.
-- **Cause:** Creating a project requires a sales role, and the client must exist in the organization and have a **primary contact** — otherwise you'll see "Client does not have a primary contact." or "Client not found."
+- **Cause:** Creating a project requires a role that can create projects, and the client must exist in your organization. When you create a project from the client page, you pick or add its primary contact right in the form.
 - **Who can (by role):** **Admin, Sales Admin, Sales Member, Client Coordinator** can create projects. **Ops Manager** can view and update projects but **cannot create** them. Crew Leader cannot.
-- **Resolution:** Use a role that can create projects (Admin, Sales Admin, Sales Member, or Client Coordinator), and make sure the client has a primary contact.
+- **Resolution:** Use a role that can create projects (Admin, Sales Admin, Sales Member, or Client Coordinator). If **New Project** is missing from the client's **Create New** menu, your role can't create projects.
 
 ### D2. "Why can't I edit project details / contacts even though I can view the project?"
 - **Symptom:** Edit buttons are hidden, or the update fails.

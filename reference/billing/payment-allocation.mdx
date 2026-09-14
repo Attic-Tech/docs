@@ -32,7 +32,7 @@ You also see this check live in the multi-invoice screen before you submit, so m
 <Card title="Rule 2 — Every targeted invoice must be eligible to receive a payment">
 Each invoice you allocate to must belong to your workspace and be in a status that can accept a payment. If any invoice is missing, not yours, or not in an eligible status, the whole payment fails — nothing is partially applied.
 
-- **Recording a new payment:** eligible invoice statuses are **Draft**, **Open**, and **Partially paid**. Recording a payment on a **Draft finalizes it** — the draft moves out of Draft and its status is recomputed from the new balance. A draft is only offered when you record the payment on the draft itself; the split-across-invoices picker lists Open and Partially paid invoices only.
+- **Recording a new payment:** eligible invoice statuses are **Draft**, **Open**, and **Partially paid**. Recording a payment on a **Draft finalizes it** — the draft moves out of Draft and its status is recomputed from the new balance. A draft is only offered when you record the payment on the draft itself; the split-across-invoices picker never lists drafts.
 - **Editing an existing payment:** eligible statuses are **Open**, **Partially paid**, and **Paid**, so you can adjust a payment on an invoice it already settled in full. A draft is never a re-allocation target.
 
 Voided invoices can never receive a payment.
@@ -112,7 +112,7 @@ Refunds apply to payments taken online. You issue them from your Stripe Dashboar
 Credits reduce an invoice's balance through the **same allocation math** as payments — a credit carries an amount split across one or more invoices, and those credit allocations are subtracted from the invoice total exactly like payment allocations. Credits, however, carry stricter rules.
 
 <Card title="How credits differ from payments">
-- **Credits cannot exceed the remaining balance.** A credit allocation larger than the invoice's remaining balance is rejected, with a message naming the invoice and its remaining balance — the same guard payments now apply.
+- **Credits cannot exceed the remaining balance.** A credit allocation larger than the invoice's remaining balance is rejected, with a message naming the invoice and its remaining balance — the same guard payments apply.
 - A credit's allocations must add up to the credit amount — the same summing rule as payments.
 - Eligible invoice statuses for adding a credit are **Draft**, **Open**, and **Partially paid** — and, as with a payment, adding a credit to a **Draft finalizes it**.
 - A credit is never deleted; it is **voided**. Voiding restores the affected invoices' balances. A credit that was already voided cannot be voided again.

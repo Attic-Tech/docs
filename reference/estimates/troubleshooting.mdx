@@ -59,7 +59,7 @@ This page covers every rule in the estimate Calculator flow that blocks, disable
 
 ### Why can't I complete the Inspection Report step? (required report fields)
 
-- **Symptom:** The inspection report won't submit, with "required" errors on customer demeanor, customer concerns, the pre-crew requirements, the home/attic/crawlspace square footage, the square-footage explanation, special instructions, or crew notes — or a length error on crew notes.
+- **Symptom:** The inspection report won't submit, with "required" errors on customer demeanor, customer concerns, what needs to happen before the crews arrive, the home/attic/crawlspace square footage, the square-footage explanation, special instructions, or crew notes — or a length error on crew notes.
 - **Cause:** The inspection report requires customer demeanor, customer concerns, what needs to happen before the crews arrive, the home/attic/crawlspace square footage (each a whole number greater than zero), the square-footage explanation, special instructions, and crew notes. Crew notes are also limited to a maximum length, with a message like "Crew notes must be N characters or fewer."
 - **Resolution:** Fill in the required report fields and keep crew notes within the length limit.
 - **Note:** A read-only estimate lets you navigate through a report that was saved before some of these fields became required, without forcing them to be filled in. This is intentional and not a bug.
@@ -156,17 +156,17 @@ This page covers every rule in the estimate Calculator flow that blocks, disable
 
 ### Why is "Send Proposal" disabled? ("another estimate is already sold")
 
-- **Symptom:** On the proposal preview, the **Send Proposal** button is disabled, and hovering it shows "Another estimate in this project is already sold, so this proposal can no longer be sent."
+- **Symptom:** On the proposal preview, the **Send Proposal** button (or **Resend Proposal**, if it was sent before) is disabled, and hovering it shows "Another estimate in this project is already sold, so this proposal can no longer be sent."
 - **Cause:** Once one estimate in a project is Sold, that project's proposal cycle is closed. The other estimates in the project can no longer send their proposals — the send is blocked up front rather than failing after the fact.
 - **Resolution:** If this estimate should be the winner instead, move the currently sold estimate in the project out of **Sold** first (which needs management-level permissions); the send then becomes available again.
 
 ---
 
-### Why am I asked to "Remove signature to continue" when I change status?
+### Why am I asked to start a change order when I change a signed estimate's status?
 
-- **Symptom:** Changing a signed estimate's status to **In Progress** opens a red dialog: "Remove signature to continue / This estimate has an approved proposal. To make changes, remove the signature and resend the proposal." The confirm button stays disabled until a checkbox is ticked.
-- **Cause:** The proposal has been signed, and moving the estimate back to **In Progress** requires removing that signature first. Instead of applying the change immediately, the app asks you to confirm.
-- **Resolution:** Tick "I understand this will remove the customer's signature and payment details, and the proposal must be resent," then confirm. This clears the signature, payment method, and financing term together with the status change, and shows a "Signature removed" confirmation. You need management-level permissions — without them, confirming returns "You do not have permission to remove a customer signature."
+- **Symptom:** Changing a signed estimate's status to **In Progress** opens **Start a change order?**, explaining the customer's signature will be removed; **Start change order** stays disabled until you enter **Change order notes**.
+- **Cause:** The proposal has been signed, and moving the estimate back to **In Progress** requires removing that signature first. Instead of applying the change immediately, the app asks you to start a change order. The signed proposal is kept as a read-only earlier version.
+- **Resolution:** Enter change order notes (visible to your client) and click **Start change order**. This clears the signature, payment method, and financing term together with the status change, and shows a "Signature removed" confirmation. You need management-level permissions — without them you'll see "You do not have permission to remove a customer signature."
 
 ---
 
