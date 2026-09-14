@@ -93,6 +93,63 @@ Menaia keeps track of records that fail to sync to QuickBooks. Whenever there ar
 
 For what happens when you reconnect QuickBooks, switch companies, or your connection expires, see [Integration lifecycle](/reference/config/integration-lifecycle).
 
+## TaxJar
+
+**TaxJar** is the marketplace's sales tax integration — you'll find it under the **Taxes** category. When it's on, Menaia looks up the sales tax rate for a job from its property address — state, county, city, and special-district rates combined — and offers that rate in the tax selector, so you don't have to look rates up or keep them current by hand. You still make the final call on which tax applies.
+
+There's nothing to sign up for: no TaxJar account, no API key, and no sign-in window. TaxJar is free and runs on Menaia's own account.
+
+### Turn TaxJar on
+
+<Steps>
+  <Step title="Enable TaxJar">
+    From the marketplace, open the **TaxJar** card and click **Enable TaxJar** in the **Get Started** panel. It turns on right away, and the panel shows a **Connected** badge.
+  </Step>
+  <Step title="Choose the branches that use it">
+    Open **Settings** and choose **Taxes**. On the **Tax Settings** page, use the new **TaxJar** card to switch on each branch that should use TaxJar — see [Choose which branches use TaxJar](/guides/settings/taxes#choose-which-branches-use-taxjar).
+  </Step>
+</Steps>
+
+<Warning>
+Enabling TaxJar doesn't turn it on for any branch. Every branch starts switched off, and a branch that's off keeps using its saved tax rates only — the TaxJar option won't appear in its tax selector.
+</Warning>
+
+### How TaxJar tax works
+
+For a branch that uses TaxJar, the tax selector gains a **TaxJar** option at the top, above your **Saved rates** and **Tax Groups**. It shows the rate found for the property — for example "Renton, WA - 10.5%" — with **Calculated from property address** underneath. You'll find this selector in three places:
+
+- **The estimate calculator** — the **Tax** row in the job breakdown. On a new estimate, TaxJar is selected for you.
+- **The proposal's price summary** — the **Tax** row, while the estimate is still **In Progress**.
+- **Invoices you create from scratch** — the **Tax** row in the line items breakdown. On a new invoice, TaxJar is selected for you.
+
+On a branch that uses TaxJar, it replaces the branch's default rate as the tax picked automatically. That includes estimates you build from scratch. You can switch any of these to a saved rate, a tax group, or **No Tax** at any time.
+
+Some things to know about how the rate is found and applied:
+
+- **The property address drives the rate.** A ZIP code is the minimum TaxJar needs; the street, city, and state make the rate more precise. Addresses are looked up as US addresses.
+- **The rate is saved with the estimate or invoice.** Like any tax choice, it's applied to your taxable items only. It doesn't change on its own when rates change, or when you turn TaxJar off.
+- **The rate is looked up again** when you save an estimate with TaxJar selected, or refresh its pricing, so it reflects the current address and rates.
+- **Invoices created from an estimate** carry the estimate's tax — including a TaxJar rate — as a read-only line. The deposit invoice made when a proposal is signed does the same.
+- **Exemptions aren't considered.** TaxJar gives you the rate for the location. It doesn't know whether a customer or job is tax-exempt, or where your business is registered to collect tax. For an exempt job, choose **No Tax**.
+
+### When TaxJar can't find a rate
+
+If TaxJar can't return a rate — most often because the property has no ZIP code — the option shows just **TaxJar**, without a percentage. Menaia never blocks your work over it:
+
+- **Saving a new estimate** goes ahead with no tax.
+- **Saving changes to an estimate** that already has tax keeps the tax it had. Refreshing its pricing does the same.
+- **Picking TaxJar on a proposal** applies no tax.
+
+To fix it, add the missing details to the property address, or pick a saved rate instead. You might also see these messages:
+
+- **"A TaxJar rate could not be resolved for this invoice."** — you saved a draft invoice with TaxJar selected, but no rate was found for the project's property. Check the address, or choose another rate.
+- **"TaxJar is not enabled for this branch."** — you picked TaxJar on a proposal whose branch no longer uses it. Switch the branch back on in **Tax Settings**, or choose another rate.
+- **"Failed to connect TaxJar"** or **"Failed to disconnect TaxJar"** — the change didn't go through. Try again.
+
+### Turn TaxJar off
+
+Open the TaxJar page again and click **Disconnect**. It takes effect right away, with no confirmation step. The TaxJar card disappears from **Tax Settings**, and new estimates and from-scratch invoices go back to each branch's default rate. Estimates and invoices that already use a TaxJar rate keep their saved tax. Your branch choices are kept, so turning TaxJar back on picks up where you left off.
+
 ## Acorn Finance
 
 **Acorn Finance** is the marketplace's financing integration — you'll find it under the **Financing** category. It lets you offer customers no-obligation financing options on the proposals they're already looking at, at no cost to you.
@@ -100,6 +157,64 @@ For what happens when you reconnect QuickBooks, switch companies, or your connec
 Open its card to read what it offers, then connect it from the **Get Started** panel with **Connect Acorn Finance**. Unlike Menaia Pay or QuickBooks, there's no separate account to set up and no sign-in window — connecting turns it on right away, and the panel shows a **Connected** badge.
 
 To turn it off later, open the page again and click **Disconnect**. You'll be asked to confirm, because disconnecting removes the financing option from your client-facing proposals. You can reconnect at any time.
+
+## Thumbtack
+
+**Thumbtack** connects your Thumbtack Pro account to Menaia — you'll find it under the **Automations** category. Once it's connected, every new Thumbtack lead lands in your **Communications** inbox as it comes in, with the full conversation attached. Replies you send from Menaia go back through Thumbtack, so the customer sees them just as if you'd answered in the Thumbtack app. Thumbtack is free to connect.
+
+### Connect your Thumbtack Pro account
+
+You'll need to sign in with the Thumbtack Pro account that manages your business.
+
+<Steps>
+  <Step title="Start the connection">
+    From the marketplace, open the **Thumbtack** card and click **Connect Thumbtack** in the **Get Started** panel. Menaia takes you to Thumbtack in the same browser tab.
+  </Step>
+  <Step title="Sign in and approve">
+    Sign in with your Thumbtack Pro account and approve the connection. Try to finish within 15 minutes — after that the connect link expires and you'll need to start again.
+  </Step>
+  <Step title="Confirm you're connected">
+    Thumbtack sends you back to the Thumbtack page in Menaia. The button reads **Finishing connection…** for a moment, then you'll see a **Thumbtack connected** message and a **Connected** badge.
+  </Step>
+</Steps>
+
+Connecting also does some setup for you:
+
+- **All your businesses are added.** If your Pro account runs more than one business, each is listed in the **Businesses** card with its own switch. Turn a business off to stop receiving its leads. If you add a business on Thumbtack later, click **Refresh businesses** to start syncing it.
+- **Your Menaia phone numbers are registered with Thumbtack** for the first business on your account. Numbers you add to Menaia later are registered too. To also receive Thumbtack customers' phone calls in Menaia, set your business phone number in your Thumbtack profile settings to your Menaia number. Messages work either way.
+- **A ThumbTack lead source is set up**, so leads you convert from Thumbtack conversations are credited to it. If you already have a lead source named "ThumbTack", Menaia uses that one instead of creating a duplicate.
+
+<Note>
+Leads start arriving from the moment you connect. Leads you received before connecting aren't imported, but if a customer messages you on one of them, that lead's conversation and details appear in the inbox.
+</Note>
+
+### Thumbtack leads in Communications
+
+Each Thumbtack lead becomes its own conversation in the **Communications** inbox:
+
+- **The first message is a lead card.** It's titled "New Thumbtack lead" with the job category, then the customer's phone number, location, answers to Thumbtack's questions, and any photos they attached.
+- **The header shows where it came from.** Under the customer's name you'll see "via Thumbtack" and the name of the business the lead is for. When Thumbtack shares the customer's phone number, the header also has a call button.
+- **Replies go back through Thumbtack.** Type your reply as you would for a text message. Replies are text only — attachments aren't supported on Thumbtack conversations. Replies you type in the Thumbtack app also show up in the conversation.
+- **A reply Thumbtack won't accept is marked Failed** — for example, when the lead was closed on Thumbtack, or the connection stopped working as the reply was being sent.
+- **Canceled requests are flagged.** Menaia checks about once an hour for leads the customer canceled on Thumbtack. When it finds one, the conversation gets a **Canceled** badge and a note such as "Jane Doe canceled this request on Thumbtack." You can't message it anymore: the reply box says "This lead was canceled on Thumbtack — you can no longer message it."
+
+Thumbtack conversations don't create leads on their own. When a conversation is worth pursuing, click **Convert to Lead** in its header and fill in the customer's contact details. The request category, location, and Thumbtack's answers are copied into the lead's notes, and the lead is credited to your ThumbTack lead source. After you convert, the header links to **View Lead** — or **View Client Page** once the lead has a client. For who can convert, which branch the lead lands in, and the required fields, see [Lead capture rules](/reference/leads/capture-rules#converting-an-inbox-conversation-to-a-lead).
+
+Once a converted lead turns into a job, Menaia keeps Thumbtack updated on the job's progress: not yet scheduled, scheduled, complete (when the job is closed), or canceled.
+
+### Disconnect Thumbtack
+
+Open the Thumbtack page and click **Disconnect**. It takes effect right away, with no confirmation step. Menaia stops receiving leads and messages from all of your businesses, and replies are no longer sent through Thumbtack. Your existing Thumbtack conversations, and any leads you converted from them, stay in Menaia. To connect again, click **Connect Thumbtack** and sign in. Your businesses are listed again, all switched on.
+
+### If something goes wrong
+
+- **Reconnect needed** — the connection to your Thumbtack account stopped working, for example because access was withdrawn on Thumbtack's side. The page shows "Thumbtack connection expired — reconnect to keep receiving leads and sending replies." Until you reconnect, new leads don't arrive and replies aren't delivered to Thumbtack. Click **Reconnect Thumbtack** and sign in again.
+- **"Connected, but part of the setup needs attention"** — a step such as registering a business or your phone numbers didn't finish. Reconnecting usually fixes this. A business that couldn't be registered shows switched off in the **Businesses** card.
+- **"The Thumbtack account you signed in with has no business profile…"** — the account you signed in with doesn't manage a Thumbtack business. Sign in with the Thumbtack Pro account that manages your business, then connect again.
+- **"OAuth state expired — retry the connect"** or **"Unknown or expired OAuth state"** — the connect link was too old or had already been used. Click **Connect Thumbtack** again.
+- **"This connect link belongs to a different workspace"** — you started connecting in one workspace and finished in another. Switch to the workspace you want to connect, then start again.
+- **"Thumbtack did not complete the authorization. Try again."** — you canceled on Thumbtack, or Thumbtack didn't approve the connection.
+- **"Could not start Thumbtack connect"**, **"Could not refresh businesses"**, **"Could not update business"**, or **"Failed to disconnect Thumbtack"** — the action didn't go through. Try again.
 
 ## Zapier
 

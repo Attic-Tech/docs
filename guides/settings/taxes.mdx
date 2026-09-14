@@ -1,0 +1,100 @@
+---
+title: "Taxes"
+description: "Set up the sales tax rates and tax groups your branches charge, choose each branch's default rate, and pick which branches use TaxJar."
+icon: "percent"
+---
+
+The **Tax Settings** page is where you set up the sales tax your team can apply to estimates, proposals, and invoices. You create **tax rates** (a single percentage, such as a state or city rate) and, when a location charges several at once, **tax groups** that add rates together. Each rate and group is made available to the branches you choose, and each branch can have one default rate that's applied automatically.
+
+<Note>
+Tax Settings is part of Settings, which only **Admins** can open. Other roles still use these rates every day in the tax selector. Admins, Ops Managers, Sales Admins, and Sales Members can also add a rate on the spot with **Create new** in that selector.
+</Note>
+
+## Open Tax Settings
+
+Open **Settings** from the main navigation, then choose **Taxes** under **System Configuration**. The page has two tabs:
+
+- **Tax Rate** — every individual rate, with its **Branches**, **Rate (%)**, and **Status**.
+- **Tax Groups** — every group, with the **Rates** it combines, its **Branches**, its combined **Rate (%)**, and its **Status**.
+
+Use the **Search by name...** box above either list to find a rate or group quickly.
+
+<Tip>
+If your workspace has TaxJar turned on, a **TaxJar** card also appears at the top of this page. See [Choose which branches use TaxJar](#choose-which-branches-use-taxjar) below.
+</Tip>
+
+## Create a tax rate
+
+On the **Tax Rate** tab, click **Create New**, fill in the form, and click **Create Tax Rate**.
+
+- **Name** — what the rate is called, for example "King County." This is the name your team picks in the tax selector, and customers see it on proposals and invoices.
+- **Tax rate (%)** — the percentage, from 0 to 100. Decimals are allowed, for example `10.35`.
+- **Branches** — the branches this rate is available to. A rate only shows in the tax selector for the branches you pick here, so a rate with no branches can't be applied anywhere.
+- **Default rate per branch** — one switch for each branch you selected. Turn a branch's switch on to make this its default rate, which is applied automatically to new estimates on that branch and to new invoices you create from scratch. Each branch can have only one default.
+- **Internal tax description** — optional notes for your records. Customers don't see this.
+- **Is Active** — leave this on so the rate can be used. Turn it off to hide the rate from the tax selector without deleting it.
+
+<Note>
+If you make a rate the default for a branch that already had one, the new rate takes over. A message confirms the change, for example "Default tax changed from King County to Seattle for Seattle Branch."
+</Note>
+
+## Create a tax group
+
+A tax group adds several rates together into one choice. It's useful when a location charges, say, a state rate plus a city rate and you want your team to pick them as a single item.
+
+On the **Tax Groups** tab, click **Create New**, fill in the form, and click **Create Tax Group**.
+
+- **Name** — what the group is called. Customers see this on proposals and invoices.
+- **Tax Rates** — tick the rates to include. You need at least one. The **Combined tax rate** under the list adds up the rates you've ticked.
+- **Branches** — the branches this group is available to. Like rates, a group only shows in the tax selector for the branches you pick.
+- **Internal tax description** — optional notes for your records.
+- **Is Active** — leave this on so the group can be used.
+
+A group's rate is always the sum of the rates in it. Change one of those rates later, and the group's combined rate changes too. Tax groups can't be a branch's default — only individual rates can.
+
+## Edit or delete a rate or group
+
+Find the rate or group in its list and click the **pencil** icon to edit, or the **trash** icon to delete. On a phone, open the three-dots menu on the card and choose **Edit** or **Delete**. In the edit form, change what you need and click **Save**.
+
+Deleting asks you to confirm, because it can't be undone. A deleted rate or group can no longer be applied to estimates, and a deleted rate is also removed from any group that included it.
+
+<Tip>
+Estimates and invoices keep a saved copy of the tax name and percentage they were given, so editing, deactivating, or deleting a rate doesn't change the tax already on them. An estimate only picks up a rate's new percentage when its tax is applied again — see [Sales tax](/reference/billing/sales-tax#the-saved-copy-of-the-rate). If you'd rather stop using a rate for a while, turn off **Is Active** instead of deleting it.
+</Tip>
+
+## Choose which branches use TaxJar
+
+When TaxJar is turned on from [Integrations](/guides/settings/integrations#taxjar), a **TaxJar** card with an **Active** badge appears above the tabs. When it's collapsed, it lists the branches that currently use TaxJar.
+
+<Steps>
+  <Step title="Open the branch list">
+    Click **Configure Settings** on the TaxJar card.
+  </Step>
+  <Step title="Switch branches on or off">
+    Under **Choose which branches you want to use TaxJar**, turn on each branch that should use TaxJar.
+  </Step>
+  <Step title="Save">
+    Click **Save Changes**. You'll see "TaxJar branches saved." Click **Cancel** to close the card without saving.
+  </Step>
+</Steps>
+
+A branch that uses TaxJar gets a TaxJar option in its tax selector, and TaxJar replaces the branch's default rate as the tax applied automatically. Branches you leave off keep using their saved rates. For how TaxJar finds a rate and what happens when it can't, see [TaxJar](/guides/settings/integrations#taxjar).
+
+## Common messages
+
+- **"Name is required"** — every rate and group needs a name.
+- **"Rate must be between 0 and 100"** — enter the percentage as a number from 0 to 100.
+- **"Select at least one tax rate"** — a tax group needs at least one rate ticked.
+- **"Failed to create tax rate"**, **"Failed to update tax rate"**, or **"Failed to delete tax rate"** (and the same for tax groups) — the change didn't go through. The message underneath explains why.
+- **"Failed to save TaxJar branches"** — your TaxJar branch choices weren't saved. Try again.
+
+## What's next
+
+<CardGroup cols="2">
+  <Card title="Sales tax" icon="receipt" href="/reference/billing/sales-tax">
+    How the tax you set up here is applied to estimates, proposals, and invoices.
+  </Card>
+  <Card title="Items" icon="package" href="/guides/settings/price-book/items">
+    Mark which price book items are taxable.
+  </Card>
+</CardGroup>

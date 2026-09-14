@@ -1,118 +1,110 @@
 ---
 title: "Sales tax"
-description: "How sales tax is determined and applied across estimates, proposals, and invoices — where the rate comes from, when tax is charged, and when an order ends up untaxed."
-keywords: ["sales tax", "how is sales tax calculated", "Washington sales tax", "why is there no tax on my estimate", "why is my invoice not taxed", "local tax vs state tax", "tax breakdown", "tax exempt", "unable to calculate tax", "tax by address"]
+description: "How sales tax is chosen and calculated across estimates, proposals, and invoices — where rates come from, what gets taxed, the saved copy of the rate, and how older estimates and invoices are handled."
+keywords: ["sales tax", "how is sales tax calculated", "tax rate", "tax group", "default tax rate", "why is there no tax on my estimate", "why is my invoice not taxed", "change tax on invoice", "tax exempt", "TaxJar", "taxable items"]
 ---
 
-This reference explains how sales tax is determined and applied in product terms — where tax appears, how a rate is chosen, when tax is charged, and when an order ends up untaxed.
+This reference explains how sales tax works in product terms: where the rate comes from, what it's applied to, what gets saved with an estimate or invoice, and how older records are handled.
 
-The platform never stores its own tax rates. Every tax figure is looked up live from the tax engine at the moment of calculation, based on the order's address and amount.
+Sales tax is always a choice made on the estimate or invoice. Your workspace keeps its own list of tax rates and tax groups, and your team picks one in the tax selector. There's no automatic rule based on the state a job is in — an order is taxed when a tax is selected, and isn't when **No Tax** is.
 
-## Where tax appears
+## Where a rate comes from
 
-Tax is calculated in two places, each driven off its own address and amount:
+The tax selector offers these choices, scoped to the estimate's or invoice's branch:
 
-- **Estimates and proposals** — tax is calculated on the estimate's final (post-discount) price and saved with the estimate, so the proposal can show a tax breakdown and an after-tax total.
-- **Invoices** — tax is recalculated from the invoice's line items against the billing address whenever a draft invoice is created, edited, or scaled.
+| Choice | What it applies |
+| --- | --- |
+| **TaxJar** | A rate looked up from the property address. Only shown for branches that use TaxJar. |
+| **Saved rates** | One of your workspace's tax rates. The branch's default is marked **(Default)**. |
+| **Tax Groups** | Several rates added together into one percentage. |
+| **No Tax** | No tax at all. |
+| **Create new** | Opens the tax rate form so you can add a rate without leaving the page. |
 
-Both paths use the same tax engine and the same core rule: **tax is charged only for Washington addresses** (covered below).
+Only **active** rates and groups that are assigned to the branch appear. Admins set rates and groups up on the [Taxes](/guides/settings/taxes) settings page. Admins, Ops Managers, Sales Admins, and Sales Members can also add a rate with **Create new**. A rate you create there is selected for you once it's assigned to that branch and active.
 
-## How a tax rate is chosen
+For how TaxJar finds a rate, see [TaxJar](/guides/settings/integrations#taxjar).
 
-<Card title="Rates are address-driven and looked up live">
-The platform does not keep a rate table. For every calculation it sends the destination address (street, city, state, ZIP) and the order amount to the tax engine, and uses whatever rate and amount the tax engine returns for that exact address. The rate is resolved all the way down to the locality.
+### The tax applied automatically
+
+Some records get a tax picked for you when they're created:
+
+- **New estimates in the Calculator** and **estimates built from scratch** get the branch's default rate.
+- **New invoices you create from scratch** get the branch's default rate too.
+- **On a branch that uses TaxJar**, TaxJar is picked instead of the default rate.
+
+If the branch has no default rate and doesn't use TaxJar, nothing is picked and the record starts with no tax. You can change the automatic choice at any time.
+
+## How tax is calculated
+
+<Card title="Tax = taxable amount × rate">
+Tax is the taxable amount multiplied by the rate's percentage, rounded to the cent. For a tax group, the percentage is the sum of the rates in the group.
 </Card>
 
-The tax engine returns several rate components, which the platform groups into two displayed lines:
+What counts as the taxable amount depends on how the estimate was built:
 
-- **Local Tax** — the city, county, and special-district rates, summed into a single line (shown as "City Tax" or "Local Tax").
-- **State Tax** — the state rate on its own.
+- **Calculator estimates** — the final price after any discount, counting only the items marked **Taxable Item** in your price book. Estimates saved before items could be marked taxable are taxed on the whole final price.
+- **Estimates built from scratch** — the subtotal of the lines marked taxable, after discounts.
 
-The **total tax shown is the amount the tax engine says is collectable** for that address — it is taken directly from the tax engine, not re-derived by multiplying the displayed component rates.
+Items that aren't taxable are left out, so the rate applies only to the taxable part of the job. See [Items](/guides/settings/price-book/items) for the **Taxable Item** setting.
 
-### Address resolution and ZIP-level fallback
+On proposals and invoices, the tax shows as one line named after the rate, for example "Tax · King County (10.1%)".
 
-- **Estimates** use the property's address (street number, street, city, state, ZIP).
-- **Invoices** use the **client's billing address first**, and fall back to the **project's property address** if the client has no complete billing address.
+## The saved copy of the rate
 
-If the street and/or city are missing but the **state and ZIP are present**, the platform still calculates tax — it falls back to a coarser, ZIP-level rate instead of a precise rooftop rate. (See also `/reference/platform/geocoding-zip` for how addresses are resolved.)
+When a tax is applied, the estimate saves a copy of the rate's name and percentage along with the tax amount. That copy is what the proposal shows and what invoices are built from. So if you later edit, deactivate, or delete the rate in settings, estimates that already use it don't change on their own — the tax selector still shows the saved name and percentage.
 
-## How tax is calculated on an estimate
+The tax is worked out again, using your current rates, when:
 
-<Card title="Estimates are taxed only for Washington properties">
-When an estimate is priced, tax is requested **only if the property is in Washington state**. For a property in any other state, tax is skipped entirely and the estimate carries no tax. This is the single biggest reason an estimate shows no tax.
+- **You pick a tax** in the selector — in the Calculator, or on the proposal while the estimate is **In Progress** and the proposal isn't signed.
+- **You save the estimate again in the Calculator** with a tax selected.
+- **You refresh the estimate's pricing.** The tax follows the new total.
+
+Editing the lines of an estimate built from scratch also recalculates the tax, but keeps the saved percentage.
+
+## Older estimates
+
+Estimates taxed before tax rates existed have a stored tax amount but no saved rate. They keep that amount:
+
+- Saving them without choosing a tax, or refreshing their pricing, leaves the stored tax as it is.
+- Their read-only proposal still shows the original **Local Tax** and **State Tax** lines.
+- If you reopen one in the Calculator on a branch that uses TaxJar, and TaxJar finds a rate for the property, the tax switches to TaxJar and is recalculated. Otherwise the stored amount stays.
+
+## Tax on invoices
+
+<Card title="Invoices from an estimate carry its tax">
+An invoice created from an estimate uses the estimate's saved rate, and the tax shows as a **read-only** line. To change it, change the tax on the estimate. Trying to change it on the invoice shows "Tax on an estimate-based invoice is changed on the estimate."
 </Card>
 
-When an estimate is priced for a Washington property:
+- **Per-line tax.** Each taxable line is taxed at the rate on its own amount after discounts, and non-taxable lines get no tax. A custom line that isn't linked to a price book item counts as taxable.
+- **Older estimates without a saved rate.** The estimate's stored tax amount is spread across the taxable lines in proportion to their amounts, and shown as a single "Tax" line. That way the invoice still matches the proposal the customer accepted.
+- **Billing part of the job.** When you customize the amount due, the tax is recalculated on the smaller amounts.
+- **Deposit invoices.** The invoice created automatically when a proposal is signed taxes the deposit amount at the estimate's saved rate. If the estimate has no saved rate, the deposit has no tax.
+- **Invoices created from scratch** have their own tax selector, with the branch's default rate (or TaxJar) picked for you. While the invoice is a draft, you can switch to any rate, group, TaxJar, or **No Tax**. See [Create an invoice](/guides/billing/create-an-invoice).
 
-1. The final price is computed (retail price minus any discount provided).
-2. Tax is looked up from the tax engine for that property address.
-3. The local-tax and state-tax amounts and the total tax are saved with the estimate. If the tax engine returns no applicable tax, the estimate simply carries no tax breakdown.
+## When an order has no tax
 
-On the proposal:
+An estimate or invoice ends up with no tax when:
 
-- Each tax line is shown **only when its amount is greater than zero**.
-- The deposit percentage is computed against the **after-tax total**.
+- **No Tax** is selected, or nothing was picked and the branch has no default rate.
+- None of the items or lines are taxable.
+- TaxJar is selected but couldn't find a rate for the address — for example, the property has no ZIP code. See [TaxJar](/guides/settings/integrations#taxjar) for how each screen handles this.
 
-## How tax is calculated and applied on an invoice
-
-<Card title="Invoices are taxed only for Washington billing addresses">
-Invoice tax is requested **only when the resolved billing address is in Washington state** — the same rule estimates follow. For an address in any other state, every invoice tax path (creating from an estimate, creating manually, editing or scaling a draft, and the auto-created deposit invoice) skips tax entirely, so a non-Washington invoice total always matches the estimate the customer agreed to.
+<Card title="There is no tax-exempt setting">
+There's no "tax exempt" flag on a client or invoice. For an exempt job, choose **No Tax**.
 </Card>
-
-For a Washington billing address, invoice tax is computed **per line item**, then summarized into a tax breakdown.
-
-1. Each line item is sent to the tax engine with its quantity, unit price, line discount, and a product tax category. Today every line uses the **same "taxable services" tax category**.
-2. The tax engine returns the collectable tax for each line. Each line stores its own tax amount, and the invoice total is the subtotal plus the total tax.
-3. Tax is always **recomputed from the current line items** — on the draft invoice detail page, in the create-invoice flow, and whenever line items are scaled.
-
-<Card title="Scaling an invoice recalculates tax — it is never carried forward">
-When you invoice for part of a project (for example 50%), each line's price is scaled and its **previously stored tax is discarded and recalculated** on the new, smaller subtotal. Tax always reflects the current amount being invoiced, never a stale figure.
-</Card>
-
-### Live recalculation in the editor
-
-While you edit a draft invoice's line items, tax is recalculated automatically a moment after you stop typing, and the updated per-line tax, tax lines, and total are pushed back into the form.
-
-### When invoice tax comes out as zero
-
-Invoice tax computation returns **zero tax, with no error**, in any of these cases:
-
-- The invoice has no line items.
-- No valid billing address could be resolved (street, city, state, or ZIP is missing or empty).
-- The billing address is **outside Washington state**.
-- The net taxable amount is zero or negative.
-
-<Card title="There is no per-client tax-exempt toggle">
-There is no explicit "tax exempt" flag on a client or invoice. In practice an order ends up untaxed when the address is outside Washington, when no usable address is available, or when the tax engine returns nothing collectable for that address.
-</Card>
-
-The two paths now follow the same rule: **estimates request tax only for Washington properties**, and **invoices request tax only for Washington billing addresses**. A non-Washington order carries no tax on either the proposal or the invoice.
-
-## Errors and guards
-
-### On estimates, a tax failure stops pricing
-
-For a Washington property, if the tax lookup fails, the whole pricing call fails and shows a tax error rather than silently dropping tax. You may see:
-
-- "Error calculating tax for address ..." — the tax engine could not return a rate for that address.
-- "Unable to calculate tax — zip code is missing from the property address."
-- "Unable to calculate tax — state is missing from the property address."
-
-### On invoices, a tax failure is non-fatal
-
-When tax can't be calculated for an invoice, the invoice is **still created and shown without tax** — the failure is logged for the team rather than blocking you. This applies to the draft detail page, the create-invoice flow, and the deposit invoice that is auto-created when a proposal is signed (it is created without tax if the lookup fails).
 
 ## Quick reference
 
-- **Rates are never stored locally.** Every calculation asks the tax engine for the rate at the given address.
-- **Displayed tax is grouped** into Local Tax (city + county + special district) and State Tax. The total is the tax engine's collectable amount.
-- **Estimates are taxed only for Washington properties.** Non-Washington estimates carry no tax.
-- **Invoices are taxed only for Washington billing addresses** (client billing address first, otherwise the property address). Like estimates, non-Washington invoices carry no tax.
-- **Tax is always recomputed** from the current line items and amount (for example on scaling) — never carried forward.
-- **An order ends up untaxed** when the address is outside Washington, there are no line items, no usable address, a non-positive amount, or the tax engine returns nothing. There is no per-client tax-exempt toggle.
+- **Tax is a choice** made in the tax selector: a saved rate, a tax group, TaxJar (where a branch uses it), or No Tax. There's no state-based rule.
+- **The selector shows** active rates and groups assigned to the branch.
+- **Defaults:** new estimates and new from-scratch invoices get the branch's default rate, or TaxJar on branches that use it.
+- **Tax = taxable amount × rate**, rounded to the cent. Only taxable items count.
+- **Estimates keep a saved copy** of the rate's name and percentage. Settings changes don't touch them until the tax is applied again.
+- **Older estimates keep their stored tax** unless a new tax is chosen.
+- **Invoices from an estimate** carry its tax read-only. **Invoices from scratch** can pick their own.
 
 ## Related references
 
-- `/reference/platform/geocoding-zip` — how an address becomes coordinates and a ZIP, and why a Washington job missing its ZIP shows a tax error.
-- `/reference/platform/money-rounding` — how the taxable amount and each tax figure are rounded to the cent.
+- [Taxes settings](/guides/settings/taxes) — set up rates, groups, branch defaults, and TaxJar branches.
+- [Money rounding](/reference/platform/money-rounding) — how taxable amounts and tax figures are rounded to the cent.
+- [Invoice status and actions](/reference/billing/invoice-status-and-actions) — when an invoice's tax can still be changed.
