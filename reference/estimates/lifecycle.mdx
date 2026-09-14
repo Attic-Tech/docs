@@ -2,7 +2,7 @@
 title: "Estimate lifecycle & statuses (reference)"
 description: "Every estimate status, the transitions between them, what each one triggers, and which fields lock when."
 icon: "arrows-spin"
-keywords: ["estimate status", "sold", "released", "lost", "secondary estimate", "deleted", "status transition", "first sold date", "effective sold date", "change sold date", "who can change status", "permissions"]
+keywords: ["estimate status", "sold", "released", "lost", "secondary estimate", "deleted", "status transition", "first sold date", "effective sold date", "change sold date", "who can change status", "permissions", "one sold estimate per project", "only one estimate can be sold"]
 ---
 
 This page is the complete reference for an estimate's lifecycle: every status it can be in, how it moves between statuses, what each move triggers, and which fields lock when.
@@ -40,9 +40,9 @@ The table below shows the allowed moves between statuses, the condition for each
 | --- | --- | --- |
 | (new estimate) | In Progress | The default when an estimate is created. Subject to the per-user open-estimate cap. |
 | (new estimate) | Sold | An estimate may be created already Sold; this records both sold dates at creation. |
-| In Progress | Sold | Anyone allowed to set Sold. Creates the job and work order. |
+| In Progress | Sold | Anyone allowed to set Sold. Creates the job and work order. Blocked if another estimate in the same project is already Sold. |
 | In Progress | Released / Lost / Secondary Estimate / Deleted | Anyone allowed to set that target status. Ops Manager is specifically not allowed to set these. |
-| Released | Sold | Anyone allowed to set Sold. Because the estimate was previously released, the existing job (if any) is reactivated. |
+| Released | Sold | Anyone allowed to set Sold. Because the estimate was previously released, the existing job (if any) is reactivated. Blocked if another estimate in the same project is already Sold. |
 | Sold | any other status | Requires management-level permissions: Sales Admin, Ops Manager, or Admin. |
 | Sold | Lost | As above, plus an extra rule: blocked if the related job is already Closed. On success the related job is cancelled. |
 | Sold | In Progress (to re-edit) | Management-level permissions only. If the proposal is signed, the user must explicitly confirm the reopen and enter a required change order note; re-editing then removes the signature. |
@@ -88,6 +88,12 @@ The first time an estimate becomes Sold and no job yet exists for it, the system
 - creates a job, set to "Requires Crew Lead", scheduled for the current date and linked to the estimate, branch, work order, and project.
 
 This happens automatically as a result of the sale — anyone allowed to set Sold triggers it.
+
+### Only one estimate per project can be Sold
+
+A project can hold several estimates, but only one can be Sold at a time — the winner. Once one estimate in a project is Sold, no *other* estimate in that same project can be marked Sold. The Sold option is greyed out in the status menu, and attempting the change anyway is rejected with a message naming the estimate that already won ("This project already has a sold estimate…"). This applies however the sale is triggered — a team member setting the status, or a customer signing that estimate's proposal. To sell a different estimate, move the current winner out of Sold first.
+
+The rule excludes the estimate itself, so re-selling the current winner (for example, for a change order) still works. It also closes the proposal path for the project's other estimates: while one estimate is Sold, the others can no longer have their proposals sent.
 
 ### Re-selling reactivates the existing job
 
