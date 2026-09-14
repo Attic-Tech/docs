@@ -50,7 +50,7 @@ The actions offered on an invoice depend entirely on its current status. The act
 | --- | --- |
 | **Send** | Draft or Open |
 | **Record Payment** | Open or Partially Paid |
-| **Add Credit** | Open or Partially Paid |
+| **Add Credit** | Open or Partially Paid, with a balance still owed |
 | **Void** | Open only |
 | **Edit** | Draft only |
 | **Delete** | Draft only |
@@ -92,7 +92,7 @@ Recording a payment is available on **Open** and **Partially Paid** invoices. Th
 
 ### Add Credit
 
-Adding a credit is available on **Open** and **Partially Paid** invoices. The credit is applied to the invoice and reduces its balance. The amount must be a positive number, otherwise you'll see **"Credit amount must be a positive number."**
+Adding a credit is available on **Open** and **Partially Paid** invoices that still have a balance owed. If the invoice's balance is already zero, the **Add Credit** option is hidden — there's nothing left to credit against. The credit is applied to the invoice and reduces its balance. The amount must be a positive number, otherwise you'll see **"Credit amount must be a positive number."**
 
 A credit can later be voided or edited from its transaction row, with these limits:
 
@@ -126,7 +126,7 @@ The **Invoices** page can be turned off for a workspace as a capability. When in
 
 - **Five statuses:** Draft, Open, Partially Paid, Paid, Voided. Status is always derived, never chosen by hand.
 - **Overdue** is a flag (Open or Partially Paid, past due date), not a sixth status.
-- **Send:** Draft or Open. **Record Payment / Add Credit:** Open or Partially Paid. **Void:** Open only. **Edit / Delete:** Draft only.
+- **Send:** Draft or Open. **Record Payment:** Open or Partially Paid. **Add Credit:** Open or Partially Paid, and only while a balance is still owed. **Void:** Open only. **Edit / Delete:** Draft only.
 - **Paid and Voided** are end states with no further actions.
 - **Only Admins** can perform any invoice action, and only within branches they belong to.
 
