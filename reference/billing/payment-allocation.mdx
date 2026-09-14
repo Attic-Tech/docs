@@ -32,10 +32,10 @@ You also see this check live in the multi-invoice screen before you submit, so m
 <Card title="Rule 2 — Every targeted invoice must be eligible to receive a payment">
 Each invoice you allocate to must belong to your workspace and be in a status that can accept a payment. If any invoice is missing, not yours, or not in an eligible status, the whole payment fails — nothing is partially applied.
 
-- **Recording a new payment:** eligible invoice statuses are **Open** and **Partially paid**.
-- **Editing an existing payment:** eligibility also includes **Paid**, so you can adjust a payment on an invoice it already settled in full.
+- **Recording a new payment:** eligible invoice statuses are **Draft**, **Open**, and **Partially paid**. Recording a payment on a **Draft finalizes it** — the draft moves out of Draft and its status is recomputed from the new balance. A draft is only offered when you record the payment on the draft itself; the split-across-invoices picker lists Open and Partially paid invoices only.
+- **Editing an existing payment:** eligible statuses are **Open**, **Partially paid**, and **Paid**, so you can adjust a payment on an invoice it already settled in full. A draft is never a re-allocation target.
 
-Draft and voided invoices can never receive a payment.
+Voided invoices can never receive a payment.
 </Card>
 
 Each individual allocation amount, and the payment total itself, must be a positive number. An empty allocation list, a zero or negative allocation, or a zero or negative payment total are all rejected.
@@ -55,7 +55,8 @@ The balance is: **invoice total, minus the sum of all payment allocations and al
 | Zero or below | **Paid** |
 | Above zero but below the total | **Partially paid** |
 | Equal to the full total (nothing applied) | **Open** |
-| Invoice was a draft or voided | Unchanged — a payment never flips these |
+| Voided invoice | Unchanged — a voided invoice never receives a payment |
+| Draft invoice | **Finalized** — the draft moves out of Draft, then follows the rows above (Partially paid or Paid) |
 
 So a payment smaller than the balance leaves the invoice **Partially paid**; a payment that brings the balance to zero (or below) marks it **Paid**. See [Invoice status and actions](/reference/billing/invoice-status-and-actions) for the full status picture.
 
@@ -113,7 +114,7 @@ Credits reduce an invoice's balance through the **same allocation math** as paym
 <Card title="How credits differ from payments">
 - **Credits cannot exceed the remaining balance.** A credit allocation larger than the invoice's remaining balance is rejected, with a message naming the invoice and its remaining balance — the same guard payments now apply.
 - A credit's allocations must add up to the credit amount — the same summing rule as payments.
-- Eligible invoice statuses for adding a credit are **Open** and **Partially paid**.
+- Eligible invoice statuses for adding a credit are **Draft**, **Open**, and **Partially paid** — and, as with a payment, adding a credit to a **Draft finalizes it**.
 - A credit is never deleted; it is **voided**. Voiding restores the affected invoices' balances. A credit that was already voided cannot be voided again.
 - **Editing a credit cannot add, remove, or reassign invoices** — only the amounts may change, and the number of allocations must match the original. You cannot point a credit at a different invoice.
 - When you re-save a credit at its current size, its own existing amount is treated as available headroom, so resaving does not trip the over-balance rule.
@@ -142,7 +143,7 @@ Credits reduce an invoice's balance through the **same allocation math** as paym
 ## Quick reference
 
 - **A payment is one amount split into per-invoice allocations.** Amounts are applied exactly as entered — no automatic distribution.
-- **Allocations must sum to the payment total** (rejected if not) and **target eligible invoices** (Open or Partially paid for a new payment; also Paid when editing).
+- **Allocations must sum to the payment total** (rejected if not) and **target eligible invoices** (Draft, Open, or Partially paid for a new payment — a payment on a Draft finalizes it; Open, Partially paid, or Paid when editing).
 - **Balance and status are recomputed from scratch** after every change. Zero or below = Paid; above zero but below total = Partially paid.
 - **Under-payment is normal.** **Over-payment is blocked** on both the payment and credit paths — an allocation can't exceed what the invoice still owes.
 - **Refunds add the amount back.** A refund allocation raises the invoice balance, so a **Paid** invoice can move back to **Partially paid** or **Open**.
