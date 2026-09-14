@@ -7,7 +7,7 @@ icon: "paper-plane"
 Once an invoice is ready, you can email it to your customer right from the invoice screen. Menaia fills in the recipient, subject line, and a friendly message for you — you can edit any of it before it goes out. If you need to send the same invoice again later (a gentle reminder, or a corrected address), you can resend it just as easily.
 
 <Note>
-Sending an invoice emails your customer a copy and moves the invoice from **Draft** to **Open**, so it's now an active, trackable bill. Resending an already-open invoice sends another copy without changing its status.
+Sending an invoice emails your customer a copy and moves the invoice from **Draft** to **Open**, so it's now an active, trackable bill. Resending an invoice that's already been sent sends another copy without changing its status.
 </Note>
 
 ## Send an invoice you've already created
@@ -30,8 +30,12 @@ When you open an invoice that's still a **Draft**, the main button at the top re
 </Steps>
 
 <Tip>
-If you don't see the **Send Invoice** button, check the invoice status. An invoice can only be sent while it's a **Draft** or **Open** — once it's **Paid** or **Voided**, sending is turned off.
+If the **Send Invoice** or **Resend Invoice** button is greyed out, check the invoice status. A **Draft** can be sent, and an invoice you've already sent can be resent while it's **Open**, **Partially Paid**, or **Paid** (for example, when a customer asks for a copy of a receipt). Only a **Voided** invoice can't be sent.
 </Tip>
+
+<Note>
+The **Send Invoice** button (or **Resend Invoice** on an invoice that's already been sent) is also unavailable when the invoice has no line items, or while the line-items editor has changes you haven't saved yet. Hover over the greyed-out button and it tells you which one applies — add a line item, or **Save Changes** first, and the button turns back on. This keeps you from mailing an empty invoice or an out-of-date copy.
+</Note>
 
 ## Send an invoice the moment you create it
 
@@ -43,22 +47,22 @@ You don't have to save a draft first. While creating a new invoice, the footer g
 Choose **Save and Send**, review the email, and press send. The invoice is created and emailed in one step, and you land on its details screen with the status already set to **Open**.
 
 <Note>
-**Save and Send** stays unavailable until the invoice has at least one line item — there has to be something to bill before you can send.
+Both **Save as Draft** and **Save and Send** stay unavailable until the invoice has at least one line item — there has to be something to bill before you can save or send.
 </Note>
 
 ## Resend an invoice
 
-An invoice that's already **Open** can be sent again at any time — handy for reminders or if the first email went to the wrong address.
+An invoice you've already sent can be sent again at any time — handy for reminders, if the first email went to the wrong address, or when a customer asks for another copy of a bill or a paid receipt. Resending works on **Open**, **Partially Paid**, and **Paid** invoices.
 
 <Steps>
-  <Step title="Open the open invoice">
-    From the **Invoices** list, click an invoice with the **Open** status.
+  <Step title="Open the invoice">
+    From the **Invoices** list, click an invoice that's **Open**, **Partially Paid**, or **Paid**.
   </Step>
   <Step title="Click Resend Invoice">
-    On an open invoice, the top button reads **Resend Invoice** instead of Send Invoice. Press it to open the email window.
+    Once an invoice has been sent, the top button reads **Resend Invoice** instead of Send Invoice. Press it to open the email window.
   </Step>
   <Step title="Adjust and resend">
-    Update the recipients or message if you need to, then press **Resend Invoice**. The customer gets a fresh copy, and the invoice stays **Open**.
+    Update the recipients or message if you need to, then press **Resend Invoice**. The customer gets a fresh copy, and the invoice keeps its current status.
   </Step>
 </Steps>
 
@@ -72,7 +76,7 @@ The email window is fully editable, so each invoice can be as personal as you li
 
 ### Recipients
 
-The customer's email address is filled in automatically when it's on file. To send to more than one person — a spouse, an office manager, a property contact — click **Add Recipient** and type another address. You can add several recipients and remove any with the trash icon next to it. An address that isn't valid is flagged so you can fix it before sending.
+The customer's email address is filled in automatically when it's on file. To send to more than one person — a spouse, an office manager, a property contact — click **Add Recipient** and type another address. You can add up to 20 recipients on a single send and remove any with the trash icon next to it. An address that isn't valid is flagged so you can fix it before sending.
 
 ### Subject
 
@@ -80,7 +84,7 @@ A subject line is pre-written for you, including your company name and the invoi
 
 ### Body
 
-The message comes pre-written with a friendly greeting, the invoice total, and the due date already filled in. Rewrite it however you like — add a personal note, payment instructions, or anything else. The body can't be left empty.
+The message comes pre-written with a friendly greeting and an amount owed. It adapts to where the invoice stands: while there's still a balance, it shows the amount due — the full total, or the **remaining balance** if part has already been paid — along with the due date. Once the invoice is paid in full, it thanks the customer and says the invoice **has been paid in full** instead of quoting a due date. Rewrite it however you like — add a personal note, payment instructions, or anything else. The body can't be left empty.
 
 <Note>
 The amounts and dates shown in the message come straight from the invoice, so they always match what your customer will see on the invoice itself.
@@ -95,7 +99,8 @@ To start taking online payments, see [Set up Menaia Pay](/guides/settings/menaia
 ## After you send
 
 - You'll get an on-screen confirmation that the invoice is being emailed. Delivery can take a moment.
-- The invoice status updates to **Open**, marking it as an active bill you can track and collect against.
+- The email goes out under your company's name. If the customer replies to it, their reply comes back to you — whoever sent the invoice.
+- The first time you send a draft, its status updates to **Open**, marking it as an active bill you can track and collect against.
 - If the email couldn't be sent for some reason, you'll see a notice — the invoice is still saved, and you can simply resend it from the invoice screen.
 
 <Tip>

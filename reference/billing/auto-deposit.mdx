@@ -38,6 +38,10 @@ A deposit invoice is created on signing only when **all** of the conditions belo
   The estimate must belong to a workspace and have an assigned salesperson on file, and the branch must have at least one payment term configured. If these are missing, the deposit cannot be created.
 </Card>
 
+<Card title="A payment schedule's deposit must still be in place (payment schedules only)">
+  If your workspace uses payment schedules on proposals and the signed proposal has a payment schedule, that schedule must still include its deposit payment for a deposit invoice to be auto-created. If the deposit was removed from the schedule — or its amount or name was edited so it is no longer the deposit, or the whole schedule was removed — no deposit invoice is created on signing, even with **Auto Create Deposit Invoice** on. Workspaces that do not use payment schedules are unaffected.
+</Card>
+
 ## Settings that control auto-deposit
 
 Four settings govern auto-deposit. Two control **how much** the deposit is; two control **whether** it is created and emailed. They are edited in two different places in Settings.
@@ -120,7 +124,7 @@ The deposit invoice is a separate record from a project's main or final invoice,
 
 ## Quick reference
 
-- **Auto-deposit fires only when:** invoicing is enabled, Auto Create Deposit Invoice is on for the branch, the estimate has no existing invoice, and the deposit amount is greater than zero.
+- **Auto-deposit fires only when:** invoicing is enabled, Auto Create Deposit Invoice is on for the branch, the estimate has no existing invoice, and the deposit amount is greater than zero. If your workspace uses payment schedules, the signed proposal's schedule must also still include its deposit payment.
 - **Amount =** estimate total times Deposit Percent, capped at Max Deposit Amount when that cap is above 0.
 - **Created invoice:** a single "Project Deposit" line item, in Draft, tied to the estimate and project.
 - **Emailed automatically only when:** Auto Send is on, the client has an email, a billing address exists, and tax calculation did not fail — at which point the invoice becomes Open.

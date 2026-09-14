@@ -59,7 +59,7 @@ The ledger never double-logs the same event. Before adding an entry, the system 
 ### When each event is logged
 
 <Card title="Issuing an invoice" icon="circle-check">
-  An entry is recorded only when an invoice becomes live — either at creation, if it is issued immediately, or when an edit moves a draft to issued. Drafts are not logged.
+  An entry is recorded only when an invoice becomes live — at creation, if it is issued immediately; when an edit moves a draft to issued; or when recording a payment or adding a credit on a draft finalizes it. A draft that stays a draft is not logged.
 </Card>
 
 <Card title="Recording a payment" icon="circle-check">
@@ -120,7 +120,7 @@ The financial summary on a project (and the roll-ups for a branch or workspace) 
 
 ### The transaction list
 
-The list of transactions shown in the financial summary is also built from the underlying payments, credits, and refunds — not from the ledger — and it leaves out deleted payments and voided credits.
+The list of transactions shown in the financial summary is also built from the underlying payments, credits, and refunds — not from the ledger — and it leaves out deleted payments and voided credits. The one figure it does take from the ledger is the **date** on each row: every payment, credit, and refund is dated to when the money actually moved — its posted date — rather than the day the record was keyed in, so those dates match what the ledger records. When a payment is moved off a voided invoice onto its replacement, its row keeps that original posted date instead of the day it was re-applied. If a record has no posted date on the ledger, its own recorded date is shown instead.
 
 ## Access and visibility
 

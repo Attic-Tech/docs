@@ -66,6 +66,7 @@ Editing a branch submits the full settings form and rewrites the branch and its 
 - **Name** — editable, still subject to the per-workspace uniqueness rule.
 - **Color** — editable. A save that leaves color untouched keeps the existing color.
 - **Timezone, payroll id, and every pricing and proposal base constant** — editable.
+- **Working hours and the minimum time between appointments** — editable. Each day of the week can be turned on or off with its own start and end time. For any day that is turned on, the end time must be later than the start time; the minimum time between appointments, when set, must be a whole number of minutes and cannot be negative.
 - **Multiplier ranges and work areas** — fully replaced on each save, and re-checked for workspace ownership, overlap, and full coverage.
 - **Address** — editable. When the address changes, the branch's map coordinates are looked up again. If that lookup fails, the existing coordinates are kept rather than cleared. See [Geocoding and ZIP](/reference/platform/geocoding-zip).
 
@@ -101,6 +102,9 @@ When a rule is broken, the create or save action returns one of these messages.
 | Gap between consecutive ranges | Your multiplier ranges don't cover jobs between ... and ... (gap between "..." and "..."). |
 | Max open estimates not a whole number | The value must be a whole number |
 | Max open estimates below 1 | Max open estimates must be at least 1 |
+| An open day's end time is not after its start time | End time must be after start time |
+| An open day has a missing or invalid start or end time | Enter a valid time |
+| Minimum time between appointments not a whole number | Minimum time between appointments must be a whole number |
 | Branch not found in your workspace | Branch ... not found |
 
 The numeric base constants also carry their own messages, such as "Base hourly rate must be greater than 0", "Max discount must be between 0 and 100", and "Average work day hours must be at least 1".

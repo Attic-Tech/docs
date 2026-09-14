@@ -73,9 +73,14 @@ Whether a role can open a given page in the app:
 | My performance | Yes | Yes | | | | Yes | Yes |
 | Wallet | Yes | Yes | | | | Yes | Yes |
 | Business insights | Yes | Yes | Yes | | | | |
+| Communications | Yes | Yes | Yes | Yes | Yes | Yes | |
 
 <Note>
   The Settings area and the Integrations page are available to **Admin** only. The Invoices page is **Admin** only as well, and is also gated by the invoicing feature being turned on.
+</Note>
+
+<Note>
+  The **Communications** inbox is open to every role except **Crew Member**, and is gated by the messaging feature being turned on. Everyone with access can read and send texts and place calls, but **turning on texting** and **changing phone settings** under **Settings → Communications** are **Admin** only.
 </Note>
 
 ## Estimate breakdown visibility
@@ -92,11 +97,12 @@ What pricing detail you can see inside the Calculator depends on your role:
 
 | Area | Admin | Ops Manager | Sales Admin | Sales Member | Client Coordinator | Crew Leader | Crew Member |
 |---|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| Leads | Manage | Manage | Manage | No access | Manage | No access | No access |
+| Leads | Manage | Manage | Manage | View own | Manage | No access | No access |
 | Lead activities | Manage | Manage | Manage | Own only | Manage | No access | No access |
 | Lead statuses & sources | View | View | View | View | View | View | View |
 
-- A **Sales Member** can't create or own leads. They can only work on **lead activities assigned to themselves** — if they try to edit or delete someone else's activity, they're told "You can only update lead activities assigned to yourself."
+- A **Sales Member** can't create, edit, or delete leads, but can **view their own leads** read-only — leads assigned to them (as the salesperson or client coordinator) or that they created. They don't get the Leads page itself; those leads surface when they pick a lead while scheduling a lead activity, or when they ask the assistant about a lead.
+- A **Sales Member** can only work on **lead activities assigned to themselves** — if they try to edit or delete someone else's activity, they're told "You can only update lead activities assigned to yourself."
 - Branch Management roles see all lead activity in the branch; a Sales Member sees only their own.
 
 See also: [/reference/leads/status-lifecycle](/reference/leads/status-lifecycle) for who can change a lead's status and how statuses are defined.
@@ -107,7 +113,7 @@ See also: [/reference/leads/status-lifecycle](/reference/leads/status-lifecycle)
 |---|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Clients | Manage | View all + edit + delete | View all + edit + delete | View all + edit | View all + edit | View + edit | No access |
 | Contacts | Manage | Manage | Manage | Create/view/edit | Create/view/edit | No access | No access |
-| Projects | Manage | View + edit | Manage | Manage | View + edit | View | No access |
+| Projects | Manage | View + edit | Manage | Manage | Create/view/edit | View | No access |
 | Project media | Manage | Manage | Manage | Manage | Manage | Manage | No access |
 | Properties | Manage | Edit | Edit | Edit | Edit | Edit | No access |
 
@@ -192,7 +198,7 @@ If the workspace settings feature is turned off, all settings changes are closed
 
 - **Settings, Integrations, Invoices, user administration, groups:** Admin only.
 - **Branch Management** (see all branch data, not just your own) = Admin, Ops Manager, Sales Admin, Client Coordinator.
-- **Sales Member** has no lead ownership (only their own lead activities) and sees only their own schedule.
+- **Sales Member** can view leads assigned to them read-only (no create, edit, or delete), works only their own lead activities, and sees only their own schedule.
 - **Ops Manager** can manage estimates but can't move an estimate to Released, Sold, Lost, Secondary Estimate, or Deleted.
 - **A signed estimate can't be deleted by anyone.**
 - **Cost breakdown** in the Calculator is Admin only.

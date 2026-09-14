@@ -12,13 +12,15 @@ You'll find it as **Jobs** in the main navigation. The heading at the top reads 
 
 By default the page shows your jobs in a table. Each row is one job, with these columns:
 
-- **Job Name** — the name of the job. Click it to open the client's project page, where the job's details, plan, and forms live.
+- **Client** — the client the job belongs to. Click anywhere on the row to open the job's project page, where its details, plan, and forms live.
+- **Project** — the project the job is part of.
 - **Assigned To** — the crew lead responsible for the job, or a dash if no one is assigned yet.
+- **Sales Person** — the person who created the job's estimate, or a dash if none is linked.
 - **Created** — the date the job was created.
 - **Updated At** — the last time anything on the job changed.
 - **Status** — where the job is in its lifecycle (see below).
 - **Work Area** — the areas of the property the job covers, shown as tags.
-- **Actions** — a button that takes you to the next step for that job.
+- **Actions** — a three-dot menu with shortcuts for that job.
 
 <Note>
 The list shows the jobs for your current branch. Cancelled jobs are hidden by default — switch to the **Cancelled** tab (or add it as a status filter) to see them.
@@ -32,7 +34,7 @@ The tabs across the top of the list — starting with **All Jobs** — let you j
 
 ### Change a job's status
 
-If you have permission, the **Status** cell is a dropdown. Open it on the job's row and pick a new status. A confirmation appears (**Status updated**) once the change saves.
+If you have permission, the **Status** cell is a dropdown. Open it on the job's row and pick a new status. A confirmation appears (**Status updated**) once the change saves. Moving a job back to **Requires Crew Lead** asks you to confirm first, because it permanently deletes the job's plan and the crew's logged hours — the status only changes once you choose **Delete plan and hours**.
 
 <Note>
 The dropdown lets you set the job to any status, so move it deliberately. If you don't have permission to change status, the status simply shows as a colored tag instead of a dropdown.
@@ -47,7 +49,7 @@ There are a few ways to narrow the list down.
     Use the search box at the top left — it reads **Type a name...** — and start typing. The list filters as you type.
   </Step>
   <Step title="Filter by status or date">
-    Open the filters to narrow by **Status** (pick one or more) or by **Date Created** (choose a date range). These stack with search, so you can combine them.
+    Open the filters to narrow by **Status** (pick one or more), by **Crew Lead**, **Sales Person**, or **Work Area**, or by date — **Date Created**, **Closed Date**, or **Updated At**. These stack with search, so you can combine them.
   </Step>
   <Step title="Use the status tabs">
     For a quick cut, click a status tab at the top of the list (for example **Pending Review**) to see only the jobs in that stage.
@@ -64,18 +66,13 @@ In the top right of the list there's a view toggle. Switch to the **map** view t
 
 ## Jump to the next action
 
-The **Actions** column gives each job a single button for its next step, based on its status:
-
-- **Assign Crew Lead** — for a job that still needs a crew lead.
-- **View Profile** — opens the client's project page to see the job's details and progress.
-- **Review Plan** — opens the plan so you can review and approve it.
-- **Schedule Job** — takes you to the schedule to place the job.
-
-Click the button to go straight to that task. On phones, each job appears as a card with the same status, details, and action button.
+Every row ends with an **Actions** menu (the three-dot button). It has **View Project** to open the job's project page and **Media Gallery** for its photos and media. When the next step lives somewhere else, the menu adds it at the top: **Review Plan** for a job in **Pending Review**, or **Schedule Job** for a job in **Requires Scheduling**.
 
 <Tip>
-When a job has linked project media, you'll also see a small image icon next to the action button — click it to open that project's media.
+You can also click anywhere on a job's row to jump straight to its project page.
 </Tip>
+
+On phones, each job card has a button for its next step (**Assign Crew Lead**, **Review Plan**, **Schedule Job**, or **View Profile**) with the same three-dot menu beside it.
 
 ## What's next
 

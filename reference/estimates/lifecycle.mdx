@@ -2,7 +2,7 @@
 title: "Estimate lifecycle & statuses (reference)"
 description: "Every estimate status, the transitions between them, what each one triggers, and which fields lock when."
 icon: "arrows-spin"
-keywords: ["estimate status", "sold", "released", "lost", "secondary estimate", "deleted", "status transition", "first sold date", "effective sold date", "change sold date", "who can change status", "permissions"]
+keywords: ["estimate status", "sold", "released", "lost", "secondary estimate", "deleted", "status transition", "first sold date", "effective sold date", "change sold date", "who can change status", "permissions", "one sold estimate per project", "only one estimate can be sold"]
 ---
 
 This page is the complete reference for an estimate's lifecycle: every status it can be in, how it moves between statuses, what each move triggers, and which fields lock when.
@@ -40,12 +40,12 @@ The table below shows the allowed moves between statuses, the condition for each
 | --- | --- | --- |
 | (new estimate) | In Progress | The default when an estimate is created. Subject to the per-user open-estimate cap. |
 | (new estimate) | Sold | An estimate may be created already Sold; this records both sold dates at creation. |
-| In Progress | Sold | Anyone allowed to set Sold. Creates the job and work order. |
+| In Progress | Sold | Anyone allowed to set Sold. Creates the job and work order. Blocked if another estimate in the same project is already Sold. |
 | In Progress | Released / Lost / Secondary Estimate / Deleted | Anyone allowed to set that target status. Ops Manager is specifically not allowed to set these. |
-| Released | Sold | Anyone allowed to set Sold. Because the estimate was previously released, the existing job (if any) is reactivated. |
+| Released | Sold | Anyone allowed to set Sold. Because the estimate was previously released, the existing job (if any) is reactivated. Blocked if another estimate in the same project is already Sold. |
 | Sold | any other status | Requires management-level permissions: Sales Admin, Ops Manager, or Admin. |
 | Sold | Lost | As above, plus an extra rule: blocked if the related job is already Closed. On success the related job is cancelled. |
-| Sold | In Progress (to re-edit) | Management-level permissions only. If the proposal is signed, the user must explicitly confirm that re-editing will remove the signature. |
+| Sold | In Progress (to re-edit) | Management-level permissions only. If the proposal is signed, the user must confirm the reopen in **Start a change order?** and enter required **Change order notes**; re-editing then removes the signature. |
 | any (except Sold) | Deleted | Through the delete action only. Blocked if the estimate is Sold, or if its proposal is signed. |
 | Sold | Sold (re-sale) | When the estimate was previously In Progress or Released and a job already exists, re-selling reactivates and re-syncs that job. |
 
@@ -89,6 +89,12 @@ The first time an estimate becomes Sold and no job yet exists for it, the system
 
 This happens automatically as a result of the sale — anyone allowed to set Sold triggers it.
 
+### Only one estimate per project can be Sold
+
+A project can hold several estimates, but only one can be Sold at a time — the winner. Once one estimate in a project is Sold, no *other* estimate in that same project can be marked Sold. The Sold option is greyed out in the status menu, and attempting the change anyway is rejected with a message naming the estimate that already won ("This project already has a sold estimate…"). This applies however the sale is triggered — a team member setting the status, or a customer signing that estimate's proposal. To sell a different estimate, move the current winner out of Sold first.
+
+The rule excludes the estimate itself, so re-selling the current winner (for example, for a change order) still works. It also closes the proposal path for the project's other estimates: while one estimate is Sold, the others can no longer have their proposals sent.
+
 ### Re-selling reactivates the existing job
 
 If a job already exists for the estimate and the estimate was previously In Progress or Released, re-selling it reactivates the existing job rather than creating a new one: unless the job is already Closed or still brand-new ("Requires Crew Lead"), it is moved back to "Plans In Progress", and any non-draft job plan is reset to Draft. In all cases the work order is re-synced from the estimate. Closed jobs are left untouched.
@@ -131,9 +137,9 @@ Saving edits and rebuilding the snapshot from the current catalog at the same ti
 
 Deleting an estimate is a soft delete — the estimate is hidden from lists and project lookups, and its proposal is preserved in case it needs to be restored. Deletion is blocked if the estimate's proposal is signed, and blocked if the estimate is Sold. Deletion is available to management-level roles.
 
-### Re-editing a signed estimate requires confirming signature removal
+### Re-editing a signed estimate reopens it for a change order
 
-If an estimate's proposal is signed and someone wants to move it back to In Progress (the only status that requires removing the signature), the system asks for explicit confirmation first instead of making the change. Confirming the change also requires management-level permissions. When confirmed, the signature is cleared and the status changes together as a single step. Moving a signed estimate to other read-only statuses (Lost, Released, Secondary Estimate) keeps the signature as audit evidence.
+If an estimate's proposal is signed and someone wants to move it back to In Progress (the only status that requires removing the signature), the system opens a **Start a change order?** dialog instead of making the change, and requires **Change order notes**. The notes are mandatory — empty or blank notes are rejected — and are visible to your client. **Start change order** stays disabled until you enter them. Starting the change order also requires management-level permissions. Once started, the signature is cleared and the status changes together as a single step; the signed proposal is preserved as a read-only earlier version, and the proposal's earlier sent, opened, and expiry state is reset so the next send starts fresh. Moving a signed estimate to other read-only statuses (Lost, Released, Secondary Estimate) keeps the signature as audit evidence and does not require a note.
 
 ### Selling an estimate can award badges
 

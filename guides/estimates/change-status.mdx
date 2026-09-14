@@ -36,6 +36,10 @@ Which statuses you can choose depends on your role. If an option isn't available
 
 When the customer accepts, set the estimate to **Sold**. Once it's sold, a **Sold Date** appears on the row. If you ever need to correct when the deal actually closed, you can adjust that date right on the sold estimate.
 
+<Note>
+A project can have several estimates, but only **one** of them can be Sold — the winner. Once one estimate in a project is marked Sold, the **Sold** option is greyed out for the project's other estimates, and their proposals can no longer be sent. To sell a different one, move the current sold estimate to another status first.
+</Note>
+
 ## Moving a Sold estimate back
 
 Moving an estimate **out of Sold** is a bigger deal, so it's more controlled — typically it requires manager-level permission. If you don't have it, the option won't be available.
@@ -45,5 +49,5 @@ Moving an estimate **out of Sold** is a bigger deal, so it's more controlled —
 Only **In Progress** estimates can have their items and pricing edited. If you need to change the work on an estimate that's already Sold or in another status, switch it back to **In Progress** first.
 
 <Note>
-If the estimate's proposal has already been **signed** by the customer, moving it back to In Progress will need to clear that signature so the estimate can be edited again. You'll be asked to confirm before that happens — and you'll see a confirmation once the signature has been removed.
+If the estimate's proposal has already been **signed** by the customer, moving it back to In Progress reopens it for a **change order**. Before the signature is cleared, a **Start a change order?** dialog asks you to fill in **Change order notes** describing what's changing — they're required and visible to your client. Once you click **Start change order**, the signature is removed and the estimate becomes editable again. The signed proposal isn't lost: it's preserved as a read-only earlier version you can still refer back to. Reopening also resets the proposal's earlier sent, opened, and expiry state, so the next time you send it the customer starts fresh.
 </Note>

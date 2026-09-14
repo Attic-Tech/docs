@@ -2,7 +2,7 @@
 title: "Troubleshooting: why can't I…? (reference)"
 description: "Why an estimate action is blocked, disabled, or failing — cause and resolution for each case."
 icon: "circle-question"
-keywords: ["why is blocked", "why disabled", "greyed out", "button disabled", "permission denied", "cannot delete estimate", "cannot save estimate", "void", "sold estimate", "signed proposal", "roles", "permissions", "read only"]
+keywords: ["why is blocked", "why disabled", "greyed out", "button disabled", "permission denied", "cannot delete estimate", "cannot save estimate", "void", "sold estimate", "signed proposal", "roles", "permissions", "read only", "one sold estimate per project", "cannot mark sold", "send proposal disabled"]
 ---
 
 This page covers every rule in the estimate Calculator flow that blocks, disables, warns, or requires permission — what you see, why it happens, and how to resolve it.
@@ -14,6 +14,14 @@ This page covers every rule in the estimate Calculator flow that blocks, disable
 - **Symptom:** The "Calculator" / "New Estimate" entry point is missing, or access is denied.
 - **Cause:** Calculator access is granted only to certain roles — Admin, Ops Manager, Sales Admin, Sales Member, Client Coordinator, and Crew Leader. A role without calculator access cannot reach the page.
 - **Resolution:** Ask an admin to grant you a role that includes calculator access.
+
+---
+
+### Why does my estimate open as a proposal instead of the Calculator?
+
+- **Symptom:** You open an estimate — from the estimates list or a saved link — and it lands on its editable proposal rather than in the Calculator wizard.
+- **Cause:** The estimate was created with the **From Scratch** option instead of the Calculator. A from-scratch estimate isn't built from your price book, so there's no Calculator pricing to reopen — you add and edit its line items and pricing directly on the proposal.
+- **Resolution:** This is expected. Edit a from-scratch estimate's items, prices, and details on its proposal. If you want the guided Calculator instead, start a new estimate with the **From Pricebook** option.
 
 ---
 
@@ -51,8 +59,8 @@ This page covers every rule in the estimate Calculator flow that blocks, disable
 
 ### Why can't I complete the Inspection Report step? (required report fields)
 
-- **Symptom:** The inspection report won't submit, with "required" errors on customer demeanor, customer concerns, installation impacts, hazards, or special instructions — or a length error on crew notes.
-- **Cause:** The inspection report requires customer demeanor, customer concerns, installation impacts, hazards, and special instructions. Crew notes are optional but limited to a maximum length, with a message like "Crew notes must be N characters or fewer."
+- **Symptom:** The inspection report won't submit, with "required" errors on customer demeanor, customer concerns, what needs to happen before the crews arrive, the home/attic/crawlspace square footage, the square-footage explanation, special instructions, or crew notes — or a length error on crew notes.
+- **Cause:** The inspection report requires customer demeanor, customer concerns, what needs to happen before the crews arrive, the home/attic/crawlspace square footage (each a whole number greater than zero), the square-footage explanation, special instructions, and crew notes. Crew notes are also limited to a maximum length, with a message like "Crew notes must be N characters or fewer."
 - **Resolution:** Fill in the required report fields and keep crew notes within the length limit.
 - **Note:** A read-only estimate lets you navigate through a report that was saved before some of these fields became required, without forcing them to be filled in. This is intentional and not a bug.
 
@@ -138,11 +146,27 @@ This page covers every rule in the estimate Calculator flow that blocks, disable
 
 ---
 
-### Why am I asked to "Remove signature to continue" when I change status?
+### Why can't I mark this estimate Sold? ("project already has a sold estimate")
 
-- **Symptom:** Changing a signed estimate's status to **In Progress** opens a red dialog: "Remove signature to continue / This estimate has an approved proposal. To make changes, remove the signature and resend the proposal." The confirm button stays disabled until a checkbox is ticked.
-- **Cause:** The proposal has been signed, and moving the estimate back to **In Progress** requires removing that signature first. Instead of applying the change immediately, the app asks you to confirm.
-- **Resolution:** Tick "I understand this will remove the customer's signature and payment details, and the proposal must be resent," then confirm. This clears the signature, payment method, and financing term together with the status change, and shows a "Signature removed" confirmation. You need management-level permissions — without them, confirming returns "You do not have permission to remove a customer signature."
+- **Symptom:** The **Sold** option is greyed out in the status menu, or the change is rejected with a message like "This project already has a sold estimate ("…"). Only one estimate per project can be sold — change that estimate's status first."
+- **Cause:** A project can have several estimates, but only one can be Sold at a time — the winner. Another estimate in the same project is already Sold, so this one can't also be sold. The same block applies when a customer tries to sign this estimate's proposal, and it closes the proposal-send path for the project's other estimates (see the next card).
+- **Resolution:** Decide which estimate is the winner. To make this one the sold estimate, first move the currently sold estimate in the project out of **Sold** (which needs management-level permissions), then mark this one **Sold**.
+
+---
+
+### Why is "Send Proposal" disabled? ("another estimate is already sold")
+
+- **Symptom:** On the proposal preview, the **Send Proposal** button (or **Resend Proposal**, if it was sent before) is disabled, and hovering it shows "Another estimate in this project is already sold, so this proposal can no longer be sent."
+- **Cause:** Once one estimate in a project is Sold, that project's proposal cycle is closed. The other estimates in the project can no longer send their proposals — the send is blocked up front rather than failing after the fact.
+- **Resolution:** If this estimate should be the winner instead, move the currently sold estimate in the project out of **Sold** first (which needs management-level permissions); the send then becomes available again.
+
+---
+
+### Why am I asked to start a change order when I change a signed estimate's status?
+
+- **Symptom:** Changing a signed estimate's status to **In Progress** opens **Start a change order?**, explaining the customer's signature will be removed; **Start change order** stays disabled until you enter **Change order notes**.
+- **Cause:** The proposal has been signed, and moving the estimate back to **In Progress** requires removing that signature first. Instead of applying the change immediately, the app asks you to start a change order. The signed proposal is kept as a read-only earlier version.
+- **Resolution:** Enter change order notes (visible to your client) and click **Start change order**. This clears the signature, payment method, and financing term together with the status change, and shows a "Signature removed" confirmation. You need management-level permissions — without them you'll see "You do not have permission to remove a customer signature."
 
 ---
 

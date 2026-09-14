@@ -39,7 +39,7 @@ User-facing roles referenced below: **Admin, Ops Manager, Sales Admin, Sales Mem
 ### B1. "Why can't I create a new lead? (the 'New Lead' button is missing)"
 - **Symptom:** No "New Lead" button on the Leads page.
 - **Cause:** The button only appears for roles that can manage leads.
-- **Who can (by role):** **Admin, Ops Manager, Sales Admin, Client Coordinator.** **Sales Member and Crew Leader** have no lead permissions and see no button.
+- **Who can (by role):** **Admin, Ops Manager, Sales Admin, Client Coordinator.** **Sales Member and Crew Leader** can't create leads, so they see no button. (A Sales Member can view their own leads read-only — but can't create, edit, or delete them; a Crew Leader has no lead access at all.)
 - **Resolution:** Use a role that can manage leads.
 
 ### B2. "Why does creating a lead fail server-side even though I clicked the button?"
@@ -137,9 +137,9 @@ User-facing roles referenced below: **Admin, Ops Manager, Sales Admin, Sales Mem
 
 ### D1. "Why can't I create a project? / convert a lead to a client-project?"
 - **Symptom:** Project creation fails.
-- **Cause:** Creating a project requires a sales role, and the client must exist in the organization and have a **primary contact** — otherwise you'll see "Client does not have a primary contact." or "Client not found."
-- **Who can (by role):** **Admin, Sales Admin, Sales Member** can create projects. **Ops Manager and Client Coordinator** can view and update projects but **cannot create** them. Crew Leader cannot.
-- **Resolution:** Use a sales role (Admin, Sales Admin, or Sales Member), and make sure the client has a primary contact.
+- **Cause:** Creating a project requires a role that can create projects, and the client must exist in your organization. When you create a project from the client page, you pick or add its primary contact right in the form.
+- **Who can (by role):** **Admin, Sales Admin, Sales Member, Client Coordinator** can create projects. **Ops Manager** can view and update projects but **cannot create** them. Crew Leader cannot.
+- **Resolution:** Use a role that can create projects (Admin, Sales Admin, Sales Member, or Client Coordinator). If **New Project** is missing from the client's **Create New** menu, your role can't create projects.
 
 ### D2. "Why can't I edit project details / contacts even though I can view the project?"
 - **Symptom:** Edit buttons are hidden, or the update fails.
@@ -177,8 +177,9 @@ User-facing roles referenced below: **Admin, Ops Manager, Sales Admin, Sales Mem
 - **Resolution:** Select an organization you belong to before retrying.
 
 ### E3. "Why can an API / service-account token act on leads/clients but a regular user can't (or vice-versa)?"
-- **Cause:** Service-account access is the intersection of the token's granted permissions and the underlying user's role. A token missing the leads or clients permission is denied even if the user's role would allow it. Feature-off restrictions apply to these tokens as well.
-- **Resolution:** Grant the token the leads/clients read or write permission it needs, and confirm the feature is enabled.
+- **Cause:** Automated access comes in two forms, and they're bounded differently. An **app connected on your behalf** can only do what you granted it *and* what your own role already allows — the two are combined, so the app is denied anything your role can't do, even where you granted the permission. A **service-account API key** is tied to the whole workspace rather than to a person, so its access is exactly the permissions granted to the key, with no personal role narrowing it further — which is why a key can act on a lead in any branch of its workspace, while a regular user is limited to the branches they belong to. Either way, a token missing the leads or clients permission is denied, and a feature turned off for the workspace blocks the token too.
+- **Branch:** A service-account key has no active branch to fall back on, so when it creates a lead it must name the branch to file it under; it can name any branch in its own workspace, and a branch outside that workspace comes back "not found." (An app connected on your behalf must likewise name the branch when creating a lead.)
+- **Resolution:** Grant the token the leads/clients read or write permission it needs, confirm the feature is enabled, and — when a service-account key or connected app creates a lead — include the branch to file it under.
 
 ---
 
@@ -193,7 +194,7 @@ User-facing roles referenced below: **Admin, Ops Manager, Sales Admin, Sales Mem
 | Edit client | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Delete client | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
 | Remove existing contact | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
-| Create project | ✓ | ✗ | ✓ | ✓ | ✗ | ✗ |
+| Create project | ✓ | ✗ | ✓ | ✓ | ✗ | ✓ |
 | Update project | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ |
 
 Note: **lead deletion** is available to all four lead-management roles (Admin, Ops Manager, Sales Admin, Client Coordinator), subject to branch membership. **Client deletion** is narrower: Admin, Ops Manager, and Sales Admin only.

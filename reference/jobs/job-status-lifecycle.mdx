@@ -51,6 +51,8 @@ If the crew is later cleared (no crew assigned) and the job is not closed, the j
 
 Manually setting a job back to **Requires Crew Lead** resets the job: it clears the assigned crew and removes the job's plan, plan days, item assignments, vehicle and equipment requirements, employee requests, and shifts, and it clears the scheduled date. Use this only when you genuinely want to start the job's planning over.
 
+Because this can't be undone, choosing **Requires Crew Lead** from a job's status dropdown on the **Jobs** page opens a confirmation dialog — **Move this job back to Requires Crew Lead?** — spelling out that it permanently deletes the job plan, the crew's logged hours, the assigned crew, and the scheduled date. The job's status doesn't change until you confirm with **Delete plan and hours**; choosing **Cancel** leaves the job exactly as it was. The prompt only appears when the job is moving *into* **Requires Crew Lead** from another status — a job already in that status has nothing left to clear.
+
 ### Completing and approving the plan advances the job
 
 As the job's plan progresses, the job advances automatically:

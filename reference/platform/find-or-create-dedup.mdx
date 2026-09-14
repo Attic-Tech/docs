@@ -49,21 +49,24 @@ When client or project edits add or update contacts:
 
 - Editing an existing contact merges your incoming values over the stored ones.
 - An edit that would leave a contact with neither email nor phone is rejected with **"Either email or phone number is required."**
-- **You can't hijack someone else's contact by guessing an ID.** When editing a client's or project's contacts, a contact reference that doesn't actually belong to that record is treated as a **new** contact rather than an edit to an unrelated one. This prevents one user from altering arbitrary contacts.
+- **You can't hijack someone else's contact by guessing an ID.** When editing a client's or project's contacts, a contact reference is only treated as an edit to an existing contact when that contact belongs to the record's scope — a client's own contacts, or, for a project, the project's contacts **plus** those of its client (so you can link one of the client's people to the project without duplicating them). A reference to any other contact is treated as a **new** contact rather than an edit to an unrelated one, so one user can't alter arbitrary contacts by guessing IDs.
 
-## Properties — matched by exact address within the same client
+## Properties — matched per client by street address and its city, state, and ZIP
 
-A property is deduplicated **per client, by exact address**. If you add a property whose address already exists for that client, Menaia reuses (and updates) the existing property instead of creating a new one.
+A property is deduplicated **per client**. When you add a property (directly, or by saving an estimate or converting a lead), Menaia looks for one the client already has at the **same street address** — and, among those, one whose **city, state, and ZIP** are compatible with what you entered. If it finds a compatible match, that property is reused and any missing details are filled in; otherwise a new property is created.
 
 ### Matching rules
 
-- **Exact address match, per client.** The address you enter must match an existing property's address exactly, for the same client. The match is exact text — it is not fuzzy and is not normalized.
+- **Same street address, per client.** The street address you enter must match an existing property's street address exactly, for the same client. The match is exact text — it is not fuzzy and is not normalized.
+- **City, state, and ZIP must be compatible.** Among the client's properties at that street address, Menaia reuses the one whose city, state, and postal code don't contradict what you entered — an exact match on all three wins. If **every** same-street property names a **different** city, state, or ZIP, none is reused and a **new** property is created. So "123 Main St, Chicago" and "123 Main St, Springfield" are two separate properties for the same client, even though the street text is identical. City, state, and ZIP are compared ignoring case and surrounding spaces.
+- **Blank or placeholder details are filled in, not treated as a conflict.** If a stored property is missing a city, state, or ZIP — or still holds a placeholder left from an unresolved address — the value you enter fills it in rather than forcing a second property.
+- **A real, different value is never overwritten.** When a property is reused, Menaia only fills in the city, state, or ZIP fields that were blank or placeholder. It never rewrites a city, state, or ZIP that already holds a real, different value — that case creates a new property instead, so an address attached to other work isn't silently changed.
 - **Address is required.** Creating a property without an address fails with **"Address is required when creating a property."**
 - **Same workspace only.** A property can only attach to a client in your own workspace.
 - **No-op reuse writes nothing.** If you re-add a property and nothing changed, the existing property is returned without an update.
 
 <Note>
-Because the address match is exact, the **same** physical address typed two different ways (for example, "123 Main St" vs. "123 Main Street") is treated as **two different properties**. There is no fuzzy address matching.
+Because the street match is exact text, the **same** physical address typed two different ways (for example, "123 Main St" vs. "123 Main Street") is treated as **two different properties**. There is no fuzzy address matching.
 </Note>
 
 ## Projects — created once per lead and client
@@ -101,14 +104,14 @@ There is **no "create duplicate anyway" toggle.** Because matching is driven by 
 
 - **New client or contact:** use a **different phone and a different email** than the existing record's primary contact. Matching succeeds if **either** the phone or the email matches, so changing only one still matches on the other.
 - **Clearing a value won't help:** at least one of email or phone is always required, so you can't create an identifier-less client to dodge the match.
-- **New property at the "same" location:** vary the address text. Since the match is exact, a different street string for the same client is a distinct property.
+- **New property at the "same" location:** enter a different city, state, or ZIP — a same-street address with a different city, state, or ZIP becomes a separate property. Varying the street text works too, since the street match is exact.
 - **Lead intake duplicate skip:** either wait out the one-hour window or submit with a different primary-contact email or phone.
 - **In the create-lead form:** clear the auto-matched client to detach from the suggestion and start a fresh contact set.
 
 ## Quick reference
 
 - **Clients / contacts:** matched by normalized phone **or** email, primary contact only, your workspace only, deleted records excluded, phone preferred over email. On a match the record is reused and your details are merged.
-- **Properties:** matched by exact address text, per client, your workspace only.
+- **Properties:** matched per client by exact street text **plus** a compatible city, state, and ZIP. A same-street address with a different city, state, or ZIP is a separate property. Blank or placeholder details are filled in; a real, different value is never overwritten.
 - **Projects:** created once per lead and client; a repeat conversion returns the existing project.
 - **Leads (automated intake):** suppressed for one hour on a matching primary-contact phone or email — a skip, not a merge.
 - **No "create duplicate" override** — force a new record by giving it a non-matching identifier.

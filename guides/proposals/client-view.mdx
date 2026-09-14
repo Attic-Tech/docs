@@ -28,11 +28,14 @@ As the customer scrolls, they see the proposal you built, in order:
   <Accordion title="Photos and videos">
     Any media you attached, both for the job overall and on individual services.
   </Accordion>
+  <Accordion title="Project Allowances">
+    Any custom terms, allowances, or notes you added for this proposal. This section only appears if you filled it in.
+  </Accordion>
   <Accordion title="Service Breakdown">
     The itemized work, grouped by area. Whether they see per-item prices depends on the **Unit Price** and **Total Price** choices you made when building the proposal.
   </Accordion>
   <Accordion title="Price Summary">
-    Subtotal, any discount, taxes, the total, and the **Required Deposit**.
+    Subtotal, any discount, taxes, the total, the **Required Deposit**, and — when your branch uses them — a **Payment Schedule** that breaks the total into named payments.
   </Accordion>
 </AccordionGroup>
 
@@ -48,6 +51,10 @@ When **WisePick** is enabled for your branch, the customer also sees a WisePick 
 When a customer uploads competing proposals, your team is notified and can see the same analysis and the uploaded documents — see **Handle the customer's response**.
 </Note>
 
+## The payment schedule
+
+If your branch uses payment schedules and you built one for this proposal, the customer sees it in the **Price Summary**, just under the **Required Deposit**. It lists each payment by name — for example *Deposit* or *Final Payment* — with its amount, the share of the total it represents, and any services tied to it. For the customer it's read-only: it simply shows how the total is broken up.
+
 ## Choosing a payment option
 
 In the **Price Summary**, under **Payment Options**, the customer picks how they'd like to pay from the options your branch offers. If **financing** is one of them, selecting it reveals more:
@@ -58,6 +65,10 @@ In the **Price Summary**, under **Payment Options**, the customer picks how they
 
 <Note>
 Financing figures shown here are **estimates only and subject to credit approval** — the proposal says so right on the page. They help the customer picture the monthly cost; they're not a final offer.
+</Note>
+
+<Note>
+When your workspace has [**Acorn Finance**](/guides/settings/integrations#acorn-finance) connected, financing works differently. The financing payment option above is replaced by an **Acorn Finance** offer shown just below **Payment Options** — instead of the loan-term selector and estimated figures, the customer sees an invitation to *"Pay for your project over time"* and taps **Check rates** (or scans the QR code) to see if they're pre-qualified by Acorn's network of lenders. They still choose one of your other payment options for this proposal; Acorn is how they cover the cost. A proposal that was already signed keeps the payment method it was signed with.
 </Note>
 
 The payment option the customer selects is recorded with their approval, so your team knows how they intend to pay.

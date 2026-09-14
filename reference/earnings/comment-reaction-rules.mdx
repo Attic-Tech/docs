@@ -1,7 +1,7 @@
 ---
 title: "Comment reaction rules"
 description: "Who can comment and react, what they can edit or delete, the limits on comment content, and how replies and notifications work."
-keywords: ["comments", "reactions", "emoji reactions", "comment replies", "comment mentions", "delete a comment"]
+keywords: ["comments", "reactions", "emoji reactions", "comment replies", "comment mentions", "delete a comment", "Meni", "AI assistant in comments"]
 ---
 
 This reference explains who can post comments and react to them, what each role can edit or delete, the limits the app puts on comment content, and how replies and notifications behave.
@@ -37,7 +37,7 @@ Comments appear in two places today: on a **project's discussion** and on **grou
 ### Admins can edit or delete anyone's comment
 
 <Card title="Others' comments: Admin only">
-  An Admin can edit or delete any comment, regardless of who posted it. All other roles are limited to their own comments and are blocked with a permission error if they try to edit or delete someone else's.
+  An Admin can edit or delete any comment, regardless of who posted it. All other roles are limited to their own comments and are blocked with a permission error if they try to edit or delete someone else's. The one exception is an answer from Meni, the AI assistant: no one — not even an Admin — can edit it (see [Meni in comments](#meni-in-comments)).
 </Card>
 
 ### Delete keeps the record
@@ -152,11 +152,46 @@ These limits apply when you post a comment and when you edit one.
   When you reply to a comment, its author is notified — unless that author is you, or you already mentioned them in the reply (they won't be notified twice).
 </Card>
 
+## Meni in comments
+
+Meni is Menaia's built-in AI assistant. When this feature is turned on for your workspace, anyone who can comment can ask Meni a question inside a thread — on a project discussion or a group feed post — and Meni posts its answer back into that same thread.
+
+### Mentioning Meni asks it a question
+
+<Card title="@Meni appears in the mention list">
+  Type **@** in the comment box and Meni shows up in the list alongside your teammates, with the hint "Ask in this thread". Send a comment that mentions Meni and it replies in the thread. The reply is marked as an AI answer and notes who it is answering.
+</Card>
+
+### Meni's answer is a public comment
+
+<Card title="Everyone in the thread can read it">
+  Meni's reply is a normal comment that everyone with access to the project or post can read. Meni answers only the question in the comment that mentioned it, and treats earlier comments in the thread as background — it will not follow an instruction buried in an earlier comment.
+</Card>
+
+### Meni's answers can't be edited
+
+<Card title="No one can edit a Meni answer">
+  An answer from Meni cannot be edited by anyone, including an Admin. A Meni answer has no **Edit** option. Deleting still works: the person who asked Meni can delete its answer, and an Admin can delete it too.
+</Card>
+
+### A failed answer can be re-run
+
+<Card title="Ask again re-runs a failed answer">
+  If Meni couldn't finish — for example it stopped before producing an answer — the reply shows as failed with an **Ask again** button that re-runs it in place. Only a failed answer can be re-run; an answer that is still working or already finished cannot.
+</Card>
+
+### A cap on answers in progress
+
+<Card title="Up to three answers in progress per person">
+  Each person can have at most three Meni answers being worked on at the same time. If you mention Meni again while three of your answers are still in progress, that new mention is ignored until one of them finishes.
+</Card>
+
 ## Quick reference
 
 - **Post, reply, react, read:** every staff role.
 - **Edit or delete your own comment:** every staff role.
 - **Edit or delete someone else's comment:** Admin only.
+- **Meni's answers:** no one can edit them; the person who asked (or an Admin) can delete them. Ask Meni by mentioning **@Meni** in a comment; up to three answers per person can be in progress at once.
 - **GIFs:** group feed posts only, from a supported provider, over a secure connection.
 - **Limits:** at most 25 mentions, 10,000 characters, 8 attachments, and a fixed set of eight reaction emoji.
 - **Replies:** one level deep, and must stay with their parent project or post.
