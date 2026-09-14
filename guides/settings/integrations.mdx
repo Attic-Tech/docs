@@ -70,6 +70,35 @@ Some integrations only appear for workspaces where the feature has been enabled.
 
 **QuickBooks** is the marketplace's accounting integration — you'll find it under the **Accounting** category. Open its card to read what it offers and connect it from its **Get Started** panel, the same way as any other app.
 
+## Data Sources
+
+**Data Sources** connects the tools your business already runs on — QuickBooks, Stripe, Salesforce, Google Sheets and hundreds more — so Meni can answer questions that span all of your business data. You'll find it under the **Data** category.
+
+Unlike a single-app integration, its detail page is a hub with two parts: **Connected sources**, which lists everything you've already linked, and **Add a source**, a searchable catalog of connectors you can add to.
+
+<Steps>
+  <Step title="Open Data Sources">
+    From the marketplace, open the **Data Sources** card. If you haven't linked anything yet, click **Browse connectors** to jump to the catalog.
+  </Step>
+  <Step title="Pick a connector">
+    Search the **Add a source** catalog by name, then click **Connect** on the source you want. Menaia opens a secure window where you authorize the connection — Menaia never stores your source's credentials.
+  </Step>
+  <Step title="Wait for the first sync">
+    After you authorize, the source appears under **Connected sources** and starts syncing in the background. It shows a **Syncing** badge during its first sync, then **Connected** along with when it was last synced.
+  </Step>
+</Steps>
+
+Each connected source shows its current status and lets you manage it:
+
+- **Connected** — live and syncing on a schedule. **Syncing** means its first sync is still running.
+- **Incomplete** — authorization didn't finish; use **Finish setup** to complete it.
+- **Needs attention** — the connection broke; use **Reconnect** to fix it.
+- Use the refresh control to re-check a source's status, or remove a source with the trash icon. Removing it stops syncing and Meni can no longer answer questions from it — you can reconnect it later.
+
+<Tip>
+Once your sources have finished their first sync, use **Ask Meni** to ask questions that span everything you've connected — for example, comparing figures across your accounting, payments, CRM, and spreadsheets in one place.
+</Tip>
+
 ## What's next
 
 <CardGroup cols="2">
