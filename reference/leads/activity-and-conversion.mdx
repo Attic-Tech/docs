@@ -57,6 +57,8 @@ A lead activity requires:
 - A start time and end time
 - A status (Draft or Published)
 - A "client confirmed" indicator (defaults to off)
+- A "hot lead" indicator (defaults to off)
+- A "flexible client" indicator (defaults to off)
 
 Notes are optional. Activity notes are an **independent copy** of the lead's notes — editing the activity's notes does not change the lead's notes.
 
@@ -69,7 +71,7 @@ The schedule-activity form requires:
 - A date, start time, and end time
 - An address
 - A project name
-- The "client confirmed" indicator
+- The "client confirmed", "hot lead", and "flexible client" indicators
 
 City, state, and postal code are optional. **At least one of phone or email is required** — if neither is provided, the form shows "Either phone or email is required." The date/time range is validated, and all-day events are not allowed.
 
@@ -101,7 +103,7 @@ Whether a given viewer can see drafts at all is also governed by their permissio
 - When you **edit** a Draft activity and change it to Published, it converts.
 - Re-saving an activity that is **already** Published does **not** re-trigger conversion.
 
-Because a first-time conversion creates a project, publishing an activity for a lead that has **not yet been converted** additionally requires a role that can create projects: **Admin**, **Sales Admin**, or **Sales Member**. Sales Members can publish their own assigned activities. **Ops Manager** and **Client Coordinator** can create and edit activities, but they can only publish for leads that are **already converted** — publishing an unconverted lead fails for them because it would need to create a project.
+Because a first-time conversion creates a project, publishing an activity for a lead that has **not yet been converted** additionally requires a role that can create projects: **Admin**, **Sales Admin**, **Sales Member**, or **Client Coordinator**. Sales Members can publish their own assigned activities. **Ops Manager** can create and edit activities, but can only publish for leads that are **already converted** — publishing an unconverted lead fails for that role because it would need to create a project.
 
 Important: publishing and conversion are **all-or-nothing**. They run together as a single save — if any conversion step fails, the whole publish fails and nothing is saved. There is no state where the activity published but the client or project wasn't created; fix the reported problem and publish again.
 
