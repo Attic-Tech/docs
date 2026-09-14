@@ -177,8 +177,9 @@ User-facing roles referenced below: **Admin, Ops Manager, Sales Admin, Sales Mem
 - **Resolution:** Select an organization you belong to before retrying.
 
 ### E3. "Why can an API / service-account token act on leads/clients but a regular user can't (or vice-versa)?"
-- **Cause:** Service-account access is the intersection of the token's granted permissions and the underlying user's role. A token missing the leads or clients permission is denied even if the user's role would allow it. Feature-off restrictions apply to these tokens as well.
-- **Resolution:** Grant the token the leads/clients read or write permission it needs, and confirm the feature is enabled.
+- **Cause:** Automated access comes in two forms, and they're bounded differently. An **app connected on your behalf** can only do what you granted it *and* what your own role already allows — the two are combined, so the app is denied anything your role can't do, even where you granted the permission. A **service-account API key** is tied to the whole workspace rather than to a person, so its access is exactly the permissions granted to the key, with no personal role narrowing it further — which is why a key can act on a lead in any branch of its workspace, while a regular user is limited to the branches they belong to. Either way, a token missing the leads or clients permission is denied, and a feature turned off for the workspace blocks the token too.
+- **Branch:** A service-account key has no active branch to fall back on, so when it creates a lead it must name the branch to file it under; it can name any branch in its own workspace, and a branch outside that workspace comes back "not found." (An app connected on your behalf must likewise name the branch when creating a lead.)
+- **Resolution:** Grant the token the leads/clients read or write permission it needs, confirm the feature is enabled, and — when a service-account key or connected app creates a lead — include the branch to file it under.
 
 ---
 
