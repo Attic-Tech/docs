@@ -33,7 +33,7 @@ Branch settings are part of Workspace Settings, which is an admin-only area. If 
     On the Branch Configuration page, press **New Branch** in the top-right corner.
   </Step>
   <Step title="Fill in the sections">
-    The form is grouped into four sections — **Branch Details**, **Costs & Production**, **Pricing & Finance**, and **System Customization**. Work through each one (covered below).
+    The form is grouped into five sections — **Branch Details**, **Branch Working Hours**, **Costs & Production**, **Pricing & Finance**, and **System Customization**. Work through each one (covered below).
   </Step>
   <Step title="Create the branch">
     Press **Create Branch** at the bottom. You can come back and adjust any setting later by reopening the branch from the list.
@@ -58,6 +58,17 @@ This section identifies the branch and connects it to your price book.
 
 <Note>
 Multiplier ranges and work areas are defined elsewhere in the price book. If the one you need isn't in the list, an administrator can add it first, then return here to select it.
+</Note>
+
+## Branch Working Hours
+
+These are the default hours the branch is open, used for scheduling. (Team members can override them in their own preferences.)
+
+- **Days of the week** — each day from Monday to Sunday has its own row. Turn a day **on** to mark the branch open that day, then set its **start** and **end** time. Leave a day **off** to mark it closed — its times are ignored while it's off.
+- **Minimum Time Between Appointments** — an optional buffer, in whole minutes, to keep between one appointment and the next. Leave it blank for no buffer.
+
+<Note>
+For any day you turn on, the **end time must be later than the start time**, and both must be valid times — otherwise the form won't save and shows "End time must be after start time" or "Enter a valid time" on the field.
 </Note>
 
 ## Costs & Production
