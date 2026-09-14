@@ -17,7 +17,7 @@ The Jobs page opens with a short reminder right under the title: "View job info,
     Choose **Jobs** from the main navigation. The page loads with your branch's jobs already listed.
   </Step>
   <Step title="Read the list">
-    Each job shows its **Job Name**, who it's **Assigned To**, when it was **Created**, when it was last **Updated**, its **Status**, the **Work Area** tags, and an **Actions** button that takes you to the next step for that job.
+    Each job shows its **Job Name**, who it's **Assigned To**, the **Sales Person** who created its estimate, when it was **Created**, when it was last **Updated**, its **Status**, the **Work Area** tags, and an **Actions** menu with the next step for that job.
   </Step>
 </Steps>
 
@@ -41,10 +41,15 @@ There's one tab per status, in the order a job moves through the pipeline — fr
 
 ### Status and date filters
 
-For more control, open the filters panel on the list. It has two sections:
+For more control, open the filters panel on the list. It has several sections:
 
 - **Status** — pick one or more statuses at once to build a custom view (for example, everything that's *In Production* or *Pending Payment*).
+- **Crew Lead** — show only jobs led by a particular crew lead.
+- **Sales Person** — show only jobs whose estimate was created by a particular sales person.
+- **Work Area** — show only jobs that cover the work areas you pick.
 - **Date Created** — choose a date range to show only jobs created in that window. The control reads "Select date range."
+- **Closed Date** — narrow to jobs closed within a date range.
+- **Updated At** — narrow to jobs last updated within a date range.
 
 <Note>
 By default the list hides **Cancelled** jobs so your pipeline stays focused on active work. Choose the **Cancelled** tab, or select it in the **Status** filter, when you need to see them.
@@ -60,17 +65,17 @@ The dropdown lists every status, and anyone who can manage jobs can set the job 
 
 ## Jump to the next action
 
-The **Actions** column always shows the one button that makes sense for where the job is right now. The button text changes with the status:
+Every row ends with an **Actions** menu — the **⋮** button on the right. Open it to see the next step that makes sense for where the job is right now, plus quick links to its project. The next-step item changes with the status:
 
 - **Assign Crew Lead** — for a job that still needs a crew lead.
 - **Review Plan** — for a plan that's ready to be looked over.
 - **Schedule Job** — for an approved plan that needs a slot on the schedule.
 - **View Profile** — for jobs further along, to open the client's project page with the job's details.
 
-Click it to go straight to that step — no need to hunt for the right screen.
+The same menu also has **View Project** to open the job's project page, and **Media Gallery** to open that project's photos and media (shown when the job has a project attached).
 
 <Tip>
-Next to the action button, a small image icon appears when a job has a project attached. Click it to open that project's photos and media.
+You can also click anywhere on a job's row to jump straight to its project page — no need to hunt for the right screen.
 </Tip>
 
 ## Switch to the map
