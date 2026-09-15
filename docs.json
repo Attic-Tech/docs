@@ -13,7 +13,7 @@
       {
         "tab": "Guides",
         "groups": [
-          { "group": "Getting Started", "pages": ["guides/start/welcome", "guides/start/core-concepts", "guides/start/how-work-flows", "guides/start/roles-at-a-glance", "guides/start/finding-your-way-around"] },
+          { "group": "Getting Started", "pages": ["guides/start/welcome", "guides/start/core-concepts", "guides/start/how-work-flows", "guides/start/roles-at-a-glance", "guides/start/finding-your-way-around", "guides/start/your-profile"] },
           { "group": "Meni", "pages": ["guides/meni/ask-meni", "guides/meni/dashboard", "guides/meni/automations"] },
           { "group": "Leads & Clients", "pages": [
             "guides/leads/overview",
