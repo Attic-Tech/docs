@@ -49,6 +49,14 @@ A job contributes to performance periods only when it is in the **Closed Job** s
 
 For a job to produce period rows, it must also have a bonus payout recorded — only jobs with a bonus payout are rolled into performance periods.
 
+<Card title="Rule: jobs with no estimated labor hours earn no bonus">
+A closed job whose estimate has no labor hours (zero or blank) gets no bonus payout, positive or negative, and any payout it had before is removed when its bonus is recalculated. With no payout, the job never appears in **Personal** periods, so it doesn't count toward a person's metrics on **My Performance** or the Crew leaderboard, and it isn't listed in **My Wallet**.
+</Card>
+
+<Card title="Rule: Branch and Company job totals include every closed job in the bucket">
+A Branch or Company period row only exists when at least one job in its bucket has a bonus payout. Once it exists, its job value, estimated labor hours, total job hours, and job count are summed from **every** qualifying closed job in that bucket — including jobs with no bonus payout, such as jobs with no estimated labor hours. Bonus, hours saved, and people counts still come only from jobs with payouts.
+</Card>
+
 ### Per-job inputs
 
 Each qualifying closed job contributes:
@@ -138,7 +146,7 @@ Bulk regeneration is restricted to **Admin** only. Ops Manager can create, read,
 ## Quick reference
 
 - **Levels:** Personal, Branch, Company. **Timeframes:** weekly, monthly, quarterly, yearly.
-- **Only Closed Jobs with a branch, a closed date, and a bonus payout feed periods.**
+- **Only Closed Jobs with a branch, a closed date, and a bonus payout feed periods.** Jobs with no estimated labor hours get no bonus payout, so they stay out of Personal periods (Branch and Company job totals still include them).
 - **Buckets use local calendar time** — branch time zone for Personal and Branch, workspace time zone for Company. The "week" is a week-of-month (1 to 5).
 - **Stored metrics** (production per hour, bonus per hour, average time savings, average jobs per user) are computed at rebuild time, not on read.
 - **Two rebuild paths:** automatic (after a review or job change, targeted to that job's buckets) and manual bulk regeneration (scopable, with a dry-run option).

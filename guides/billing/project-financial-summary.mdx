@@ -1,0 +1,135 @@
+---
+title: "Project financial summary"
+description: "See what a project is worth and how much of it has been invoiced, collected, still due, and overdue, check its expenses and gross profit, and record one payment that covers several of the project's invoices."
+icon: "chart-pie"
+---
+
+The **Financial Summary** tab on a project gives you the money side of one job on a single screen. A row of cards shows what the project is worth, how much you've billed and collected, and what's still owed. Below the cards, the **Transactions** list shows every payment, credit, and refund on the project's invoices. When one customer payment covers more than one invoice, you can record it here and split it across them in one step.
+
+<Note>
+The Financial Summary tab is for **Admins**, the same as the rest of billing. If you don't see it, either your role doesn't include billing or invoicing isn't turned on for your workspace. See [Invoice status and actions](/reference/billing/invoice-status-and-actions#who-can-perform-invoice-actions).
+</Note>
+
+## Open the Financial Summary
+
+<Steps>
+  <Step title="Open the project">
+    Go to **Clients**, open the customer, and open the project. See [Work a Project](/guides/projects/work-a-project).
+  </Step>
+  <Step title="Choose the Financial Summary tab">
+    Click **Financial Summary** in the project's tabs. The cards load at the top and **Transactions** loads below them.
+  </Step>
+</Steps>
+
+## Read the summary cards
+
+| Card | What it shows |
+| --- | --- |
+| **Project Value** | The total price of the project's estimates marked **Sold**. |
+| **Not Invoiced** | How much of the Project Value you haven't billed yet: the Project Value minus the total of the project's invoices. It never goes below zero, so it shows $0 if you've invoiced more than the sold estimates. |
+| **Collected** | How much of the project's invoices has been paid down, meaning payments and credits applied, less any refunds. |
+| **Due** | The balance still owed on invoices that are **Open** or **Partially Paid**. |
+| **Overdue** | The part of **Due** that sits on invoices past their due date. An invoice counts as overdue once its due date has passed, going by today's date in your branch's time zone. |
+| **Expenses** | The total of every expense logged on the project, whatever its status. |
+| **Gross Profit** | **Collected** minus the project's expenses marked **Paid**. Hover the info icon on the card for a reminder of how it's worked out. |
+
+<Note>
+The **Expenses** and **Gross Profit** cards only appear when project expenses are turned on for your workspace. To see what goes into them, see [Project expenses](/guides/projects/expenses).
+</Note>
+
+### What the totals leave out
+
+- **Draft invoices** don't count until they're finalized.
+- **Voided invoices** don't count at all.
+- **Estimates that aren't Sold**, such as In Progress, Lost, Released, or Secondary Estimate, don't add to **Project Value**.
+- **Expenses that aren't Paid** still count toward **Expenses**, but they aren't subtracted in **Gross Profit** until you mark them Paid.
+
+<Tip>
+If **Not Invoiced** is higher than you expect, check whether the remaining invoice is still a draft. A draft doesn't count as invoiced until it's finalized.
+</Tip>
+
+## Review the transactions
+
+The **Transactions** list shows the payments, credits, and refunds on the project's invoices. When nothing has been recorded yet, you see **No payments recorded yet**.
+
+| Column | What it shows |
+| --- | --- |
+| **Date** | The day the payment, credit, or refund was posted. |
+| **Type** | **Payment**, **Refund**, or **Credit Note**. |
+| **Method** | How the customer paid. Payments taken online show the card or payment type with a badge. |
+| **Status** | The payment's status badge, when it has one. |
+| **Credit Reason** | The reason picked for a credit. |
+| **Note** | A **View Note** link when there's an internal note. |
+| **Amount** | The amount applied to that invoice. Refunds and credits show as negative amounts. |
+| **Invoice** | The invoice number the row applies to. |
+| **Actions** | The three-dots menu for that row. |
+
+A payment split across several invoices shows up as one row per invoice, each with the amount that invoice received.
+
+From a row's three-dots menu you can:
+
+- **Edit Payment** or **Delete Payment** on a payment you recorded by hand. Payments taken online can't be edited or deleted here. See [Edit a payment](/guides/billing/record-allocate-payment#edit-a-payment) and [Delete a payment](/guides/billing/record-allocate-payment#delete-a-payment).
+- **Edit Credit** or **Void Credit** on a credit. See [Edit or remove a credit](/guides/billing/add-a-credit#edit-or-remove-a-credit).
+
+## Record one payment across the project's invoices
+
+When a customer sends one payment that covers more than one invoice, record it from the project and split it across those invoices. For example, one check might pay off a deposit invoice and part of the final invoice.
+
+### Before you start
+
+The **Record Payment** button next to **Transactions** is turned off unless all of these are true:
+
+- At least one of the project's invoices is **Open** or **Partially Paid** and still has a balance.
+- Your branch has at least one payment method. See [Payment methods](/guides/settings/payment-methods-financing#payment-methods).
+
+<Steps>
+  <Step title="Click Record Payment">
+    On the **Financial Summary** tab, click **Record Payment** next to the **Transactions** heading. The **Record Payment** window opens.
+  </Step>
+  <Step title="Fill in the payment details">
+    Enter what the customer paid:
+
+    - **Payment Amount**: the full amount you received.
+    - **Method**: how they paid, chosen from your branch's payment methods.
+    - **Reference #**: an optional check number, transfer ID, or confirmation code.
+    - **Payment Date**: the day you received it. It's set to today to start.
+    - **Internal Notes**: an optional note for your team. The customer doesn't see it.
+  </Step>
+  <Step title="Split it under Allocate to Invoices">
+    Each open or partially paid invoice on the project is listed with its status, its number, and its **Balance**. Type how much of the payment goes to each one. Leave an invoice blank to skip it. As you type, **Remaining** shows how much of the payment you still need to assign.
+  </Step>
+  <Step title="Save the payment">
+    When **Remaining** reaches zero, click **Save Payment**. You see a **Payment recorded** confirmation. Each invoice's balance goes down by the amount you gave it, and the payment appears in **Transactions**.
+  </Step>
+</Steps>
+
+### Rules for splitting a payment
+
+- **The amounts must add up to the payment exactly.** If they don't, the window shows the total you assigned next to the payment amount, and **Save Payment** stays off until they match.
+- **At least one invoice needs an amount.** You can't save a payment that isn't assigned to any invoice.
+- **No invoice can take more than its balance.** If you put more on an invoice than it still owes, the payment isn't saved and you see a message naming that invoice and its remaining balance. Nothing is applied until you fix the amounts.
+- **Drafts, paid invoices, and voided invoices aren't listed.** To put a payment on a draft, record it on the draft itself, which finalizes it. See [Record allocate payment](/guides/billing/record-allocate-payment#before-you-start).
+- **No receipt is sent from here.** This window doesn't email the customer. To send a receipt, record the payment on the invoice instead.
+
+For the full balance and status rules, see [Payment allocation](/reference/billing/payment-allocation).
+
+<Note>
+If you need to change how a payment is split later, open it from **Transactions** with **Edit Payment** and adjust the amounts under **Allocate to Invoices**.
+</Note>
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Record allocate payment" icon="hand-holding-dollar" href="/guides/billing/record-allocate-payment">
+    Record a payment on a single invoice, send a receipt, and edit or delete a payment.
+  </Card>
+  <Card title="Project expenses" icon="receipt" href="/guides/projects/expenses">
+    Log the project's costs so Expenses and Gross Profit stay accurate.
+  </Card>
+  <Card title="Add a credit" icon="badge-percent" href="/guides/billing/add-a-credit">
+    Lower what the customer owes without recording a payment.
+  </Card>
+  <Card title="Payment allocation" icon="scale-balanced" href="/reference/billing/payment-allocation">
+    The rules for splitting payments, over- and under-payment, and balances.
+  </Card>
+</CardGroup>

@@ -1,6 +1,6 @@
 ---
 title: "Browse, Filter, and Map Your Leads"
-description: "Search your pipeline, narrow it down with filters, and switch to the map view to see where your leads are."
+description: "Search your pipeline, narrow it down with filters, sort and customize the list, work leads on the board, and switch to the map view to see where your leads are."
 icon: "magnifying-glass"
 ---
 
@@ -10,13 +10,13 @@ The **Leads** page is your home base for working your pipeline. Every lead lives
 
 At the top of the page, a **Table / Board / Insights** switch changes how you look at your pipeline:
 
-- **Table** — the full list of leads, with search, filters, and a map option. This is the view the rest of this guide covers.
-- **Board** — your leads as cards, arranged in columns by status, so you can see the whole pipeline stage by stage.
+- **Table** — the full list of leads, with search, filters, sorting, and a map option. Most of this guide covers this view.
+- **Board** — your leads as cards, arranged in columns by status, so you can see the whole pipeline stage by stage. See [Work the board](#work-the-board).
 - **Insights** — an AI-written read of your pipeline: a headline takeaway, a few supporting points, a recommended next action, and a chart. Use **New insight** to regenerate it from a fresh angle.
 
 ## Search your leads
 
-At the top of the list is a search box: Search by name, email or phone.... Type any part of a contact's name, email, or phone number and the list narrows as you go. It's the fastest way to jump to a specific lead.
+At the top of the list is a search box: **Search name, email, phone…**. Type any part of a contact's name, email, or phone number and the list narrows as you go. It's the fastest way to jump to a specific lead.
 
 ## Filter the pipeline
 
@@ -38,13 +38,46 @@ Click the Filters button to open the filter panel. Filters stack — turn on as 
 
 ## Read the list
 
-Each lead in the table shows the essentials at a glance — name, email, phone, lead source, channel, branch, confidence, status, client coordinator, address, tags, and when it was created. You can change a lead's **status** right from the list using the status dropdown on its row, without opening it.
+Out of the box, each lead in the table shows its **Name**, **Status**, **Lead Source**, **Channel**, **Branch**, **Confidence Level**, and **Created By**, plus a **View Summary** button. More columns are available but hidden until you turn them on: **Client Coordinator**, **Email**, **Phone**, **Address**, **Tags**, **Created Date**, and **Last Viewed At**. See [Customize the columns](#customize-the-columns).
 
-Click any row to open the full **lead summary**.
+You can change a lead's **status** right from the list using the status dropdown on its row, without opening it.
+
+Click any row, or its **View Summary** button, to open the full **lead summary**. Use **Show** at the bottom of the list to choose how many leads appear per page, and **Previous** / **Next** to move between pages.
 
 <Note>
   On a phone, the list becomes easy-to-tap cards with the same key details, so you can work leads on the go.
 </Note>
+
+## Sort the list
+
+Sorting lives in a popover, not in the column headers. Click the sort button (the up-and-down arrows) at the top of the list to open **Sort by**, then pick **First name**, **Last name**, **Email**, **Phone**, **Status**, **Lead source**, **Channel**, **Branch**, **Confidence level**, **Created by**, **Client coordinator**, **Created date**, or **Last viewed**.
+
+- The active option shows an arrow for its direction. Pick it again to flip between ascending and descending.
+- Dates start newest first; everything else starts in ascending order.
+- Click **Reset to Default** to go back to the newest leads first.
+
+Your sort choice is remembered on that browser, and it applies to the **Board** too.
+
+## Customize the columns
+
+Click the **Customize View** button (the sliders icon) at the top of the list to choose which columns you see and in what order.
+
+<Steps>
+  <Step title="Open Customize View">
+    Click the sliders icon. The **Customize View** panel lists every column under **Columns**.
+  </Step>
+  <Step title="Show or hide columns">
+    Check a column to show it, or uncheck it to hide it.
+  </Step>
+  <Step title="Reorder columns">
+    Drag a column by its handle to move it up or down the list. You can also drag a column header in the table itself to move it left or right.
+  </Step>
+  <Step title="Start over if you need to">
+    Click **Reset to Default** to bring back the original columns and order.
+  </Step>
+</Steps>
+
+Your column choices are remembered on that browser and device, so they're waiting for you next time. They don't carry over to another computer or browser, and they don't change what your teammates see.
 
 ## Switch to the map view
 
@@ -57,8 +90,55 @@ On the map:
 - Click **View Lead Summary** in the popup to open the full lead.
 - Pan and zoom — the map loads the leads in the area you're looking at.
 
+Sorting, **Customize View**, and paging apply to the list only, so they're hidden while the map is showing.
+
 <Tip>
   Your search and filters apply to the map too. Filter down to, say, high-confidence leads in one branch, then switch to the map to plan a day of visits by neighborhood.
+</Tip>
+
+## Work the board
+
+Switch to **Board** to see your pipeline as columns. Each column is a lead status, in your workspace's status order, with the number of leads in that status next to its name. Every active status gets a column — including end-of-the-line ones like *Sold* or *Lost* (statuses in the **Done** and **Cancelled** categories).
+
+Each card shows the lead's name, the company (if there is one), an avatar for the salesperson (or the client coordinator, if no salesperson is set), and how long ago the lead was created. Click a card to open the lead summary. When a column has more leads than fit, a **+N more** line appears at the bottom — search or filter to narrow it down.
+
+The search box, sort, and **Filters** at the top of the board work just like they do on the table. Filtering by **Status** narrows the cards, but every column stays on the board so you can still see the whole pipeline.
+
+### Move a lead to another status
+
+Drag a card into another column. The lead's status changes as soon as you drop it, and you'll see **Status updated**. There's no extra confirmation, even when you drop a lead into an end-of-the-line status. If the change can't be saved, the card jumps back to where it was and you'll see **Unable to update status**.
+
+### Add a lead from the board
+
+Click **+** next to a column's name, or **Add card** at the bottom of a column, to open **Create New Lead**. See [Create a lead](/guides/leads/create-a-lead) for the form.
+
+<Note>
+  A lead you add from the board isn't placed in the column you clicked. Like any new lead, it starts in your workspace's starting status (the one in the **New** category). Drag it to another column afterward if you need to.
+</Note>
+
+### Manage the columns
+
+Admins can shape the board's columns right from the board. Because columns *are* lead statuses, every change here changes your workspace's lead statuses — for everyone, everywhere statuses appear. These are the same statuses you manage in [Statuses](/guides/settings/statuses) settings. If you don't see these options, your role doesn't include managing workspace settings.
+
+- **Add a column** — Click **New column** at the end of the board, type a **Column name**, pick a **Color**, and click **Add column** (or press Enter). You'll see **Column added**. The new status is active right away and sits in the **In Progress** category, at the end of the order. To use a different category, edit the status in [Statuses](/guides/settings/statuses) settings.
+- **Rename a column** — Open the **⋯** menu next to a column's name and choose **Rename**. Type the new name and press Enter or click away to save; press Esc to cancel. Built-in statuses can be renamed too.
+- **Delete a column** — Open the **⋯** menu and choose **Delete**. The column is removed right away, with no confirmation, and you'll see **Column deleted**. Built-in statuses don't offer **Delete**.
+
+<Warning>
+  You can't delete a column that still has leads in it. You'll see **Could not delete column** with a note to reassign those leads first. Move its cards to other columns, then delete it. If older leads might still need the status, turn it **Inactive** in [Statuses](/guides/settings/statuses) settings instead.
+</Warning>
+
+### View settings
+
+Admins also get a **View settings** button (the sliders icon) at the top of the board. Its **Groups** section shows that the board is grouped **by Status** and lists every column in order, with its color:
+
+- **Reorder** — Drag a group by its handle. The new order is saved for the whole workspace, so the board columns — and the status **Order** in settings — follow it for everyone. If it can't be saved, you'll see **Could not save the new order**.
+- **Rename** — Click a group's name, type the new name, and press Enter or click away to save. Press Esc to cancel.
+- **Delete** — Click the trash icon next to a group. The same rules as deleting a column apply: no confirmation, no built-in statuses, and no statuses that still have leads.
+- **Add a group** — Type a name in **New group name**, pick a color from the swatches below it, and click **Add**. It's added as a new column at the end of the board.
+
+<Tip>
+  The colors in **View settings** apply only to a group you're adding. To change an existing status's color, edit it in [Statuses](/guides/settings/statuses) settings.
 </Tip>
 
 ## What's next
