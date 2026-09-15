@@ -1,7 +1,7 @@
 ---
 title: "Feature availability"
 description: "Why some capabilities are turned on or off for your account, how to tell whether a feature is available to you, and what you see when it isn't."
-keywords: ["feature not showing up", "why can't I see this page", "feature not available", "page disappeared from menu", "this feature is not available", "missing menu item", "feature turned off for my workspace", "rollout", "why is this hidden"]
+keywords: ["Meni not available", "Ask the docs only", "no Dashboard in menu", "no Automations in menu", "feature not showing up", "why can't I see this page", "feature not available", "page disappeared from menu", "this feature is not available", "missing menu item", "feature turned off for my workspace", "rollout", "why is this hidden", "no Best Match when scheduling a lead activity"]
 ---
 
 This reference explains why certain capabilities in the platform are turned on for some accounts and off for others, how to tell whether a feature is available to you, and what you see when it isn't.
@@ -61,7 +61,23 @@ A sub-capability of Ride Along that adds voice emotion (tone) analysis on top of
 
 ### AI BI dashboard
 
-An embedded analytics and business-intelligence dashboard. The page returns "not found" when the capability is unavailable to you.
+An embedded analytics and business-intelligence dashboard, separate from Meni's Dashboard. The page returns "not found" when the capability is unavailable to you.
+
+### Meni assistant
+
+The full Meni assistant: live answers from your workspace data, charts and record lists, changes prepared for your approval, and saved conversation history. It also unlocks the **Dashboard** page and pinned views. When it's off for you, the Meni panel still opens in **Ask the docs** mode — marked with a **Docs** tag — and answers only how-to questions and problem reports; the **Dashboard** menu item is removed and pinning views is refused. See [Ask Meni](/guides/meni/ask-meni).
+
+### Meni automations and daily insight
+
+Meni's background work: the **Automations** page with playbooks, watch rules, and the approval queue; the **Needs your attention**, **Morning briefing**, and approvals sections of the Dashboard; and the **Meni daily insight** email to Admins. When it's off, the **Automations** menu item is removed, the Dashboard shows only pinned views, and no daily insight is sent. See [Automations](/guides/meni/automations).
+
+### Meni memory
+
+Meni remembering facts about leads, clients, and your own preferences between conversations. It works on top of the Meni assistant. When it's off, the **Meni memory** button doesn't appear in the Meni panel and Meni doesn't save new memories. See [Meni memory](/guides/meni/ask-meni#meni-memory).
+
+### Meni workspace data views
+
+Lets Admins ask Meni for charts and reports on nearly anything in the workspace, such as text messages, calls, and voicemails, beyond the standard lists. When it's off, Meni builds views only from the standard sources, and pinned views that use workspace data show as blocked. See [Workspace data views for Admins](/guides/meni/dashboard#workspace-data-views-for-admins).
 
 ### Meni in comments
 
@@ -117,6 +133,10 @@ Forms attached to jobs, shown on the job forms tab. Gated alongside the jobs cap
 
 The crew **My Shifts** page and the manager **Job Shifts** page.
 
+### Best Match
+
+Suggests which salesperson to send on a lead activity, ranked by soonest opening or shortest driving distance. It uses each person's working preferences and home address. When it's off, the **Best Match** list doesn't appear in the **Schedule New Lead Activity** panel, and you pick someone from **Assign To** instead. The **Working Preferences** tab and **Home Address** under **Edit Profile** stay available either way. Your team can fill them in ahead of time, but they're only used for Best Match suggestions. See [Pick who goes with Best Match](/guides/leads/schedule-a-site-visit#pick-who-goes-with-best-match) and [Your profile](/guides/start/your-profile).
+
 ## Clients, leads, and projects
 
 ### Clients page
@@ -139,7 +159,7 @@ A **Client Portal** tab on projects for activating a secure, client-facing porta
 
 ### Communications
 
-The **Communications** inbox — texting clients by SMS, along with calling and voicemail. When off, the **Communications** menu item is removed and the page returns "not found," and the underlying texting, calling, and voicemail actions are refused, including through a connected integration. Turning on texting for the first time, and changing phone settings under **Settings → Communications**, is limited to Admins.
+The **Communications** inbox — texting clients by SMS, along with calling and voicemail — and the **Call Center** page, which shows the live call queue, agents, activity, and call and SMS volume. When off, the **Communications** and **Call Center** menu items are removed and both pages return "not found," and the underlying texting, calling, and voicemail actions are refused, including through a connected integration. Crew Members don't have the Call Center page. Turning on texting for the first time, and changing phone settings under **Settings → Communications**, is limited to Admins.
 
 ## Earnings and performance
 
@@ -163,7 +183,7 @@ Specific users, roles, or branches can be excluded from leaderboard rankings —
 
 ### Win Channels
 
-The Win Channels feature — groups, posts, leaderboards, and celebrations. When off, the win-board groups don't load in navigation, and win-related views and uploads are refused.
+The Win Channels feature — groups, posts, leaderboards, and celebrations. When off, feed groups (both Win and Communication groups) don't load in navigation, and group views and uploads are refused.
 
 ### Badges
 

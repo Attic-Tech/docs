@@ -75,10 +75,12 @@ Some integrations only appear for workspaces where the feature has been enabled.
 Once QuickBooks is connected, a confirmation appears inviting you to **Set up sync preferences** — or you can choose **I'll do this later** and come back to it from the **Finish setup** banner on the QuickBooks page. Setting up opens a guided **QuickBooks Setup** wizard that walks you step by step through what should sync between Menaia and QuickBooks:
 
 - **Branch Setup** — whether your Menaia branches map to Classes in QuickBooks, so you can track income and expenses per branch.
-- **Client Sync** — whether client details in Menaia update when they change in QuickBooks, and whether to import your existing QuickBooks customers as clients when you finish setup.
-- **Item Sync** — whether your items are created in QuickBooks when they're first used on an invoice.
-- **Invoice Sync** — whether invoices sync, and when: when they're created, when they're sent, or when they're marked as paid. Credit notes sync as credit memos, and voided invoices are voided in QuickBooks automatically.
-- **Payment Sync** — whether payments sync, and which QuickBooks bank account your Stripe payouts are deposited to. Payments are matched to their invoices so balances stay accurate in both systems, and processing fees and bank deposits are recorded too.
+- **Client Sync** — two switches:
+  - **Sync customer updates from QuickBooks** keeps a client's contact details and billing address in Menaia up to date when they change in QuickBooks. Turning it off doesn't stop clients from reaching QuickBooks: a client is still created there when one of their invoices or expenses syncs.
+  - **Import existing customers** brings your existing QuickBooks customers into Menaia as clients, once, when you finish setup. Customers without an email address or phone number are skipped.
+- **Item Sync** — whether your items are created in QuickBooks the first time they're used on an invoice. Only items created from scratch are updated back from QuickBooks; price book items stay managed in Menaia. With **Item Sync** off, every invoice line syncs under one fallback product/service in QuickBooks — an existing one from your QuickBooks catalog, or a new item called "Services" if you have none.
+- **Invoice Sync** — whether invoices sync, and when: when they're created, when they're sent, or when they're marked as paid. Voided invoices are voided in QuickBooks automatically. Details on how invoices and credit notes land in QuickBooks are in [Invoices and credit notes in QuickBooks](#invoices-and-credit-notes-in-quickbooks).
+- **Payment Sync** — whether payments sync, and which QuickBooks bank account your Menaia Pay payouts are deposited to. Payments are matched to their invoices so balances stay accurate in both systems, and processing fees and bank deposits are recorded too. A payment is only sent when the amounts applied to its invoices add up exactly to the payment. If they don't, nothing is sent — QuickBooks would otherwise book the difference as unapplied credit — and a **Warning** in the [Sync log](#sync-log) shows both amounts. Offline payments recorded in QuickBooks also come back into Menaia — see [Payments recorded in QuickBooks](#payments-recorded-in-quickbooks).
 - **Expense Sync** — whether expenses logged to a project sync, and which QuickBooks bank or credit card account they're paid from.
 
 A **Review** step lets you confirm every choice before you select **Finish setup**. The initial sync can take from 30 minutes up to 48 hours depending on how much data you have — you can keep working in the meantime. If you chose to import your existing customers, every Admin gets a notification (in-app and by email) when the import finishes.
@@ -87,11 +89,134 @@ A **Review** step lets you confirm every choice before you select **Finish setup
 You can change any of these choices later from the **Settings** tab on the QuickBooks page, where each option has its own **Edit** button.
 </Tip>
 
-### Sync errors
+#### If your QuickBooks plan doesn't track classes
 
-Menaia keeps track of records that fail to sync to QuickBooks. Whenever there are outstanding sync errors, Admins see a **QuickBooks Sync Errors** badge in the top navigation bar. Select it to jump straight to the **Sync Log** tab on the QuickBooks page, where you can review what didn't sync. The badge clears on its own once the errors are resolved, and it goes away if you disconnect QuickBooks.
+Mapping branches to classes needs class tracking turned on in QuickBooks. When it's off for your QuickBooks company, **Branch Setup** shows this warning:
+
+> Class tracking isn't enabled for your QuickBooks plan. Turn on "Track classes" in QuickBooks under Settings > Account and settings > Advanced (available on QuickBooks Plus and Advanced) to map branches to classes.
+
+While the warning shows, the **Use QuickBooks classes for branches** switch is disabled, so you can't turn class mapping on. If class mapping was already on, you can still turn it off. Until class tracking is back on in QuickBooks, records sync without class data, no classes are created, and a **Class tracking** warning appears in the [Sync log](#sync-log).
+
+### Invoices and credit notes in QuickBooks
+
+With **Invoice Sync** on, here's what to expect when an invoice or credit note reaches QuickBooks:
+
+- **Invoice lines match the Menaia subtotal.** Line amounts are rounded to the cent so they add up to the invoice's subtotal in Menaia. For example, an amount split evenly across three lines goes over as 33.34, 33.33, and 33.33. If the lines stored in Menaia are further off from the subtotal than rounding can fix, they're sent as they are, and the [Sync log](#sync-log) shows a **Warning** with the difference.
+- **Totals are checked after the invoice syncs.** If QuickBooks ends up with a different invoice total than Menaia billed, you get a **Warning** saying so. A payment for the Menaia total won't close that invoice's balance in QuickBooks, so check the invoice's lines and tax there.
+- **Credit notes become credit memos numbered from the invoice.** A credit memo's number is the invoice number, then "-CN", then the number the [Sync log](#sync-log) shows for that credit note. For example, **Credit Note #57** on invoice SAC-1042 becomes credit memo SAC-1042-CN57 in QuickBooks. When one credit note covers several invoices, the number comes from one of them. A very long invoice number is shortened from the front to fit QuickBooks' length limit.
+- **Credit memos are applied to their invoices.** Once the credit memo and its invoices are in QuickBooks, the credit is applied to those invoices so their QuickBooks balances go down too. The sync log shows "Credit memo applied to its invoices in QuickBooks."
+- **A credit that can't be applied safely is left unapplied.** The credit memo stays in QuickBooks as unapplied customer credit and the sync log shows a **Warning** explaining why. This happens when **Payment Sync** is off (applying a credit records a payment transaction in QuickBooks), when the credit note covers invoices for different clients, when the credit memo's amount in QuickBooks no longer matches the credit note, or when an invoice's open balance in QuickBooks is smaller than the credit applied to it. Fix the cause, then use **Retry** on the warning to apply the credit.
+
+### Payments recorded in QuickBooks
+
+When **Payment Sync** and **Invoice Sync** are both on, payments also flow from QuickBooks into Menaia. If someone records an offline payment in QuickBooks — a check, cash, or a bank transfer — against an invoice that's linked to a Menaia invoice, it comes into Menaia as a payment on that invoice and the invoice balance updates. There's nothing to record twice.
+
+- **Only offline payments come in.** Card payments, payments QuickBooks collected online, and payments with no payment method set in QuickBooks are ignored.
+- **The payment method is matched by name.** Menaia looks for a payment method on the invoice's branch with the same name as the one used in QuickBooks. If there's no match, the payment comes in without a method.
+- **Changes follow the payment.** If the payment's amount, invoices, method, or reference number changes in QuickBooks, the Menaia payment updates to match. If it's voided or deleted in QuickBooks, it's removed from Menaia and the invoice balances update.
+- **Some payments can't come in.** A payment applied to invoices on more than one Menaia project, or in more than one branch, isn't imported, because a Menaia payment belongs to a single project. Neither is a payment whose invoice is still a **Draft** in Menaia.
+- **Part of a payment can be skipped.** Any amount applied to an invoice Menaia doesn't have, or to a draft or voided invoice, is left out. So is unapplied customer credit.
+
+Payments that come in, and most that can't, get an entry in the [Sync log](#sync-log) explaining what happened.
+
+### Sync log
+
+The **Sync Log** tab on the QuickBooks page lists every sync between Menaia and QuickBooks, newest first — both what went to QuickBooks and what came back. Until something syncs, it shows "No syncs yet."
+
+| Column | What it shows |
+| --- | --- |
+| **Record** | The record that synced, with a short message underneath explaining what happened or what went wrong. |
+| **Type** | Client, Invoice, Expense, Payment, Item, Credit Note, Payout, or Configuration (a problem with your setup, such as class tracking). |
+| **Status** | **Synced**, **Warning** (the sync finished but skipped something or needs your attention), or **Error** (the record didn't sync). |
+| **Synced at** | When the sync happened. |
+
+Use **Show:** at the bottom of the list to choose how many entries appear per page (10, 25, 50, or 100), and **Previous** and **Next** to move between pages.
+
+#### Retry or ignore an entry
+
+Each entry has a three-dots menu:
+
+- **Retry** runs the sync again. It only appears on entries that can be re-run:
+  - errors sending an invoice (including a void), a credit note, or a payment to QuickBooks
+  - errors bringing a client's or an item's changes in from QuickBooks, or importing your existing customers
+  - warnings about a credit memo that reached QuickBooks but wasn't applied
+
+  You'll see **Retry queued** — "We'll re-run this sync in the background." The entry leaves the list, and the new attempt adds its own entry with the result.
+- **Ignore** hides an entry you've dealt with or don't need. You're asked "Ignore this sync log entry?" first. Ignoring removes it from the sync log for everyone in your organization.
+
+#### The sync errors badge
+
+Whenever there are outstanding sync errors, Admins see a **QuickBooks Sync Errors** badge in the top navigation bar. Select it to jump straight to the **Sync Log** tab. The badge counts errors only, not warnings. An error stays counted until you retry or ignore it — a later successful sync of the same record doesn't clear it. The badge also goes away if you disconnect QuickBooks.
+
+### Sync issue notifications
+
+Admins are notified when QuickBooks syncs run into trouble, so problems don't wait for someone to open the sync log:
+
+- **QuickBooks Sync Error** — a record failed to sync to or from QuickBooks.
+- **QuickBooks Sync Warning** — a sync finished but skipped records or needs attention.
+
+Notifications are grouped rather than sent for every record. You get at most one error notification and one warning notification every 30 minutes. Each one names the problem, or says how many QuickBooks records need attention and names the most recent, with a link to the QuickBooks page.
+
+Errors and warnings have separate toggles, so you can choose different channels for each. You'll find them under **Settings → Notifications**, in the **Integrations** group — see [Notification preferences](/guides/settings/notification-preferences). If you don't see the **Integrations** group, QuickBooks isn't turned on for your workspace.
 
 For what happens when you reconnect QuickBooks, switch companies, or your connection expires, see [Integration lifecycle](/reference/config/integration-lifecycle).
+
+## TaxJar
+
+**TaxJar** is the marketplace's sales tax integration — you'll find it under the **Taxes** category. When it's on, Menaia looks up the sales tax rate for a job from its property address — state, county, city, and special-district rates combined — and offers that rate in the tax selector, so you don't have to look rates up or keep them current by hand. You still make the final call on which tax applies.
+
+There's nothing to sign up for: no TaxJar account, no API key, and no sign-in window. TaxJar is free and runs on Menaia's own account.
+
+### Turn TaxJar on
+
+<Steps>
+  <Step title="Enable TaxJar">
+    From the marketplace, open the **TaxJar** card and click **Enable TaxJar** in the **Get Started** panel. It turns on right away, and the panel shows a **Connected** badge.
+  </Step>
+  <Step title="Choose the branches that use it">
+    Open **Settings** and choose **Taxes**. On the **Tax Settings** page, use the new **TaxJar** card to switch on each branch that should use TaxJar — see [Choose which branches use TaxJar](/guides/settings/taxes#choose-which-branches-use-taxjar).
+  </Step>
+</Steps>
+
+<Warning>
+Enabling TaxJar doesn't turn it on for any branch. Every branch starts switched off, and a branch that's off keeps using its saved tax rates only — the TaxJar option won't appear in its tax selector.
+</Warning>
+
+### How TaxJar tax works
+
+For a branch that uses TaxJar, the tax selector gains a **TaxJar** option at the top, above your **Saved rates** and **Tax Groups**. It shows the rate found for the property — for example "Renton, WA - 10.5%" — with **Calculated from property address** underneath. You'll find this selector in three places:
+
+- **The estimate calculator** — the **Tax** row in the job breakdown. On a new estimate, TaxJar is selected for you.
+- **The proposal's price summary** — the **Tax** row, while the estimate is still **In Progress**.
+- **Invoices you create from scratch** — the **Tax** row in the line items breakdown. On a new invoice, TaxJar is selected for you.
+
+On a branch that uses TaxJar, it replaces the branch's default rate as the tax picked automatically. That includes estimates you build from scratch. You can switch any of these to a saved rate, a tax group, or **No Tax** at any time.
+
+Some things to know about how the rate is found and applied:
+
+- **The property address drives the rate.** A ZIP code is the minimum TaxJar needs; the street, city, and state make the rate more precise. Addresses are looked up as US addresses.
+- **The rate is saved with the estimate or invoice.** Like any tax choice, it's applied to your taxable items only. It doesn't change on its own when rates change, or when you turn TaxJar off.
+- **The rate is looked up again** when you save an estimate with TaxJar selected, or refresh its pricing, so it reflects the current address and rates.
+- **Invoices created from an estimate** carry the estimate's tax — including a TaxJar rate — as a read-only line. The deposit invoice made when a proposal is signed does the same.
+- **Exemptions aren't considered.** TaxJar gives you the rate for the location. It doesn't know whether a customer or job is tax-exempt, or where your business is registered to collect tax. For an exempt job, choose **No Tax**.
+
+### When TaxJar can't find a rate
+
+If TaxJar can't return a rate — most often because the property has no ZIP code — the option shows just **TaxJar**, without a percentage. Menaia never blocks your work over it:
+
+- **Saving a new estimate** goes ahead with no tax.
+- **Saving changes to an estimate** that already has tax keeps the tax it had. Refreshing its pricing does the same.
+- **Picking TaxJar on a proposal** applies no tax.
+
+To fix it, add the missing details to the property address, or pick a saved rate instead. You might also see these messages:
+
+- **"A TaxJar rate could not be resolved for this invoice."** — you saved a draft invoice with TaxJar selected, but no rate was found for the project's property. Check the address, or choose another rate.
+- **"TaxJar is not enabled for this branch."** — you picked TaxJar on a proposal whose branch no longer uses it. Switch the branch back on in **Tax Settings**, or choose another rate.
+- **"Failed to connect TaxJar"** or **"Failed to disconnect TaxJar"** — the change didn't go through. Try again.
+
+### Turn TaxJar off
+
+Open the TaxJar page again and click **Disconnect**. It takes effect right away, with no confirmation step. The TaxJar card disappears from **Tax Settings**, and new estimates and from-scratch invoices go back to each branch's default rate. Estimates and invoices that already use a TaxJar rate keep their saved tax. Your branch choices are kept, so turning TaxJar back on picks up where you left off.
 
 ## Acorn Finance
 
@@ -101,6 +226,64 @@ Open its card to read what it offers, then connect it from the **Get Started** p
 
 To turn it off later, open the page again and click **Disconnect**. You'll be asked to confirm, because disconnecting removes the financing option from your client-facing proposals. You can reconnect at any time.
 
+## Thumbtack
+
+**Thumbtack** connects your Thumbtack Pro account to Menaia — you'll find it under the **Automations** category. Once it's connected, every new Thumbtack lead lands in your **Communications** inbox as it comes in, with the full conversation attached. Replies you send from Menaia go back through Thumbtack, so the customer sees them just as if you'd answered in the Thumbtack app. Thumbtack is free to connect.
+
+### Connect your Thumbtack Pro account
+
+You'll need to sign in with the Thumbtack Pro account that manages your business.
+
+<Steps>
+  <Step title="Start the connection">
+    From the marketplace, open the **Thumbtack** card and click **Connect Thumbtack** in the **Get Started** panel. Menaia takes you to Thumbtack in the same browser tab.
+  </Step>
+  <Step title="Sign in and approve">
+    Sign in with your Thumbtack Pro account and approve the connection. Try to finish within 15 minutes — after that the connect link expires and you'll need to start again.
+  </Step>
+  <Step title="Confirm you're connected">
+    Thumbtack sends you back to the Thumbtack page in Menaia. The button reads **Finishing connection…** for a moment, then you'll see a **Thumbtack connected** message and a **Connected** badge.
+  </Step>
+</Steps>
+
+Connecting also does some setup for you:
+
+- **All your businesses are added.** If your Pro account runs more than one business, each is listed in the **Businesses** card with its own switch. Turn a business off to stop receiving its leads. If you add a business on Thumbtack later, click **Refresh businesses** to start syncing it.
+- **Your Menaia phone numbers are registered with Thumbtack** for the first business on your account. Numbers you add to Menaia later are registered too. To also receive Thumbtack customers' phone calls in Menaia, set your business phone number in your Thumbtack profile settings to your Menaia number. Messages work either way.
+- **A ThumbTack lead source is set up**, so leads you convert from Thumbtack conversations are credited to it. If you already have a lead source named "ThumbTack", Menaia uses that one instead of creating a duplicate.
+
+<Note>
+Leads start arriving from the moment you connect. Leads you received before connecting aren't imported, but if a customer messages you on one of them, that lead's conversation and details appear in the inbox.
+</Note>
+
+### Thumbtack leads in Communications
+
+Each Thumbtack lead becomes its own conversation in the **Communications** inbox:
+
+- **The first message is a lead card.** It's titled "New Thumbtack lead" with the job category, then the customer's phone number, location, answers to Thumbtack's questions, and any photos they attached.
+- **The header shows where it came from.** Under the customer's name you'll see "via Thumbtack" and the name of the business the lead is for. When Thumbtack shares the customer's phone number, the header also has a call button.
+- **Replies go back through Thumbtack.** Type your reply as you would for a text message. Replies are text only — attachments aren't supported on Thumbtack conversations. Replies you type in the Thumbtack app also show up in the conversation.
+- **A reply Thumbtack won't accept is marked Failed** — for example, when the lead was closed on Thumbtack, or the connection stopped working as the reply was being sent.
+- **Canceled requests are flagged.** Menaia checks about once an hour for leads the customer canceled on Thumbtack. When it finds one, the conversation gets a **Canceled** badge and a note such as "Jane Doe canceled this request on Thumbtack." You can't message it anymore: the reply box says "This lead was canceled on Thumbtack — you can no longer message it."
+
+Thumbtack conversations don't create leads on their own. When a conversation is worth pursuing, click **Convert to Lead** in its header and fill in the customer's contact details. The request category, location, and Thumbtack's answers are copied into the lead's notes, and the lead is credited to your ThumbTack lead source. After you convert, the header links to **View Lead** — or **View Client Page** once the lead has a client. For who can convert, which branch the lead lands in, and the required fields, see [Lead capture rules](/reference/leads/capture-rules#converting-an-inbox-conversation-to-a-lead).
+
+Once a converted lead turns into a job, Menaia keeps Thumbtack updated on the job's progress: not yet scheduled, scheduled, complete (when the job is closed), or canceled.
+
+### Disconnect Thumbtack
+
+Open the Thumbtack page and click **Disconnect**. It takes effect right away, with no confirmation step. Menaia stops receiving leads and messages from all of your businesses, and replies are no longer sent through Thumbtack. Your existing Thumbtack conversations, and any leads you converted from them, stay in Menaia. To connect again, click **Connect Thumbtack** and sign in. Your businesses are listed again, all switched on.
+
+### If something goes wrong
+
+- **Reconnect needed** — the connection to your Thumbtack account stopped working, for example because access was withdrawn on Thumbtack's side. The page shows "Thumbtack connection expired — reconnect to keep receiving leads and sending replies." Until you reconnect, new leads don't arrive and replies aren't delivered to Thumbtack. Click **Reconnect Thumbtack** and sign in again.
+- **"Connected, but part of the setup needs attention"** — a step such as registering a business or your phone numbers didn't finish. Reconnecting usually fixes this. A business that couldn't be registered shows switched off in the **Businesses** card.
+- **"The Thumbtack account you signed in with has no business profile…"** — the account you signed in with doesn't manage a Thumbtack business. Sign in with the Thumbtack Pro account that manages your business, then connect again.
+- **"OAuth state expired — retry the connect"** or **"Unknown or expired OAuth state"** — the connect link was too old or had already been used. Click **Connect Thumbtack** again.
+- **"This connect link belongs to a different workspace"** — you started connecting in one workspace and finished in another. Switch to the workspace you want to connect, then start again.
+- **"Thumbtack did not complete the authorization. Try again."** — you canceled on Thumbtack, or Thumbtack didn't approve the connection.
+- **"Could not start Thumbtack connect"**, **"Could not refresh businesses"**, **"Could not update business"**, or **"Failed to disconnect Thumbtack"** — the action didn't go through. Try again.
+
 ## Zapier
 
 **Zapier** is the marketplace's automation integration — you'll find it under the **Automations** category. It links Menaia to over 10,000 apps so you can automate the busywork around your leads and clients: capture new leads automatically, keep client records in sync across your other tools, and cut out manual copy-and-paste. Set up an automation (a "Zap") once and it keeps running on its own.
@@ -108,8 +291,58 @@ To turn it off later, open the page again and click **Disconnect**. You'll be as
 Connecting Zapier only needs a free Zapier account — there's no plan upgrade on the Menaia side.
 
 <Note>
-The Zapier page works a little differently from the other apps. Instead of a **Get Started** panel, you manage your Menaia Zaps and browse ready-made automations right on the page. Set Zapier up on a computer — on a small screen you'll be prompted to open Menaia on your computer to finish connecting.
+The Zapier page works a little differently from the other apps. Instead of a **Get Started** panel, you manage your Menaia Zaps under **Your Menaia Zaps** and browse ready-made automations under **Connect Menaia to 10,000+ apps**, right on the page. Set Zapier up on a computer — on a small screen you'll be prompted to open Menaia on your computer to finish connecting.
 </Note>
+
+### Connect your Menaia account
+
+The first time a Zap uses Menaia, Zapier asks you to sign in to Menaia and approve the connection. If you're not already signed in, Menaia asks you to sign in first, then shows its authorization screen.
+
+<Steps>
+  <Step title="Review what Zapier can do">
+    The screen lists the permissions Zapier is asking for, each with a checkbox, all ticked. Only permissions your own role already has are listed. Leave the lead, client, and message permissions ticked for the Menaia steps you plan to use — if you untick one, Zaps can't do that. The screen also shows the email address you're connecting as.
+  </Step>
+  <Step title="Pick the organization">
+    If you belong to more than one organization, choose one under **Organization** ("Select an organization"). Your Zaps work in that organization only.
+  </Step>
+  <Step title="Approve">
+    Click **Approve** to finish and return to Zapier, or **Deny** to cancel. In Zapier, the connection is named after your organization and your email address.
+  </Step>
+</Steps>
+
+<Warning>
+Zaps act as you. Everything a Zap does in Menaia uses your own role's permissions, limited to the permissions you approved. A Zap can't do anything in Menaia that you couldn't do yourself. If a Zap step fails because of permissions, see [Why can't I…?](/reference/leads/why-cant-i)
+</Warning>
+
+If the authorization screen shows one of these messages instead, close the window and start connecting again from Zapier:
+
+- **"This authorization link is invalid"** — the link was incomplete.
+- **"This authorization request has expired"** — the request is no longer valid.
+- **"Authorization is temporarily unavailable"** — something went wrong on Menaia's side. Try again later, or contact support if it keeps happening.
+
+### What Zaps can do with Menaia
+
+**Triggers** start a Zap when something happens in Menaia:
+
+| Trigger | Starts when |
+| --- | --- |
+| **New Lead** | A new lead is created. |
+| **Updated Lead** | A lead is updated. |
+| **New Client** | A new client is created. |
+| **New Outbound Message** | A teammate replies in a **Communications** inbox conversation that came from another platform (such as Yelp or Angi), so a Zap can send the reply back to that platform. When the Thumbtack integration is connected, replies on Thumbtack conversations go through it instead. |
+
+**Actions** do something in Menaia:
+
+- **Create Lead** — creates a lead. Choose its **Branch** and enter the primary contact's **First Name** and **Last Name** (all required), plus an **Email** or **Phone** (at least one). **Notes**, **Address**, **City**, **State**, and **Postal Code** are optional.
+- **Create Client** — creates a client from a **First Name**, **Last Name**, and an **Email** or **Phone** (at least one). If a client already has that email or phone, Menaia returns that client instead of creating a duplicate.
+- **Create Inbox Message** — adds a message from another platform to your **Communications** inbox, starting a conversation if there isn't one yet. Enter the **Source Platform** (Yelp, Google Business Profile, Google Local Services Ads, Thumbtack, Angi, Facebook, or Other — the field's help text lists the exact value to use), the **External Thread ID**, and the **Message Body**. Messages with the same thread ID land in the same conversation. Optionally add an **External Message ID** (recommended — it stops the same message from being added twice), a **Sender Name**, a **Customer Name** (shown as the conversation's name), and **Sent At** (defaults to now).
+
+**Searches** look something up so later steps can use it:
+
+- **Find Lead** — finds a lead by the contact's name, email, or phone.
+- **Find Client** — finds a client by the contact's email or phone (at least one).
+
+If a **Create Lead**, **Create Client**, or **Find Client** step has neither an email nor a phone, it stops with "Provide an email or a phone for the contact."
 
 ## Data Sources
 

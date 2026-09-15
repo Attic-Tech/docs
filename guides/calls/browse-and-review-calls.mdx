@@ -1,50 +1,100 @@
 ---
-title: "Browse & review calls"
-description: "Find any call your team has made or taken, listen to the recording, read the transcript, and make sure it's linked to the right client, lead, and project."
+title: "Review calls and voicemails"
+description: "Find past calls in the Communications inbox, call back missed callers, listen to voicemails, and link calls to the right lead, client, or project."
 icon: "list"
+keywords: ["call history", "past calls", "missed calls", "call back", "voicemail", "voicemail transcript", "link a call to a lead", "link call to project", "recent calls", "who called", "blocked call", "transferred call"]
 ---
 
-Every call on your connected Aircall lines is logged in Menaia automatically. The **Calls** page is where you find them — filter by who, when, and how the call went, then open a call to hear the recording, read the transcript, and check what it's linked to.
+Every call to or from your business numbers is kept in Menaia, in the conversation with the person you talked to. This guide shows you how to find past calls, follow up on missed ones, and connect calls to the lead, client, or project they're about.
 
 <Note>
-The Calls page appears once Calls is enabled for your workspace and [Aircall is connected](/guides/settings/aircall). Admins, Ops Managers, Sales Admins, Sales Members, and Client Coordinators can view calls; re-linking a call is Admin-only.
+Calls live in [Communications](/guides/calls/inbox), which is available to every role except **Crew Member**. If you don't see it, it isn't turned on for your workspace.
 </Note>
 
-## The calls list
+## Find a call
 
-Open **Calls** from the main navigation. Each row shows:
+Open **Communications** and click the **Calls** tab. It lists every conversation that includes at least one call, with the most recent activity first.
 
-| Column | What it shows |
+- **Search** by contact name or phone number.
+- **Pick a number** from the number switcher to see only calls on that line. See [Switch between your numbers](/guides/calls/inbox#switch-between-your-numbers).
+- **Read the icon** next to each preview to see how the latest call went: incoming, outgoing, missed, or blocked.
+
+Click a conversation to open it. Calls appear in order alongside the texts and voicemails you've exchanged with that person.
+
+## Read a call in a conversation
+
+Each call shows as an entry in the conversation:
+
+| Entry | What it means |
 | --- | --- |
-| **Caller** | The matched client (linked), lead, or contact — or the raw phone number when nobody matched. |
-| **Direction** | **Inbound** or **Outbound**. |
-| **Status** | How the call went — see below. |
-| **Started** | When the call began. |
-| **Duration** | Talk time, from answer to hang-up. |
+| **Incoming Call** | This person called you and someone answered. Shows how long the call lasted. |
+| **Outgoing Call** | Your team called this person. Shows how long the call lasted, if they picked up. |
+| **Missed call** | This person called and nobody answered. Has a **Call back** button. |
+| **Blocked call** | The number is on your blocked list, so the call didn't ring. See [Blocked numbers](/guides/settings/communications#blocked-numbers). |
+| **Transferred to** | The call was transferred to a teammate. |
 
-**Statuses** follow the life of a call: **Initial**, **Ringing**, **Answered**, and **In progress** while it's live; then **Completed**, **Missed**, **Voicemail**, or **Failed** once it's over.
+## Follow up on missed calls
 
-**Filters.** Search by phone number, or narrow by **Direction**, **Status**, a **Started** date range, **Client**, or **Project**. Combine them to answer questions like "which inbound calls did we miss last week?"
+Click **Call back** on a missed call to call the person straight away. See [Make and take calls](/guides/calls/use-the-dialer).
 
-## The call page
+Depending on your workspace's settings, a missed caller may also:
 
-Click a call to open it. What you'll find:
+- **Get a text back automatically.** It appears in the conversation with an **Auto** tag. See [Missed-call auto-text](/guides/settings/communications#missed-call-auto-text).
+- **Leave a voicemail.** It appears in the conversation and on the **Voicemails** tab.
 
-- **Call Recording** — an inline player with a **Download** button. Menaia streams the recording from Aircall; the audio itself stays stored with Aircall.
-- **Transcript** — the conversation turn by turn, with speaker and timing. If you see *"No transcript available for this call"*, transcripts require **Aircall Conversation Intelligence**, which isn't enabled for that workspace.
-- **Call Details** — direction, both phone numbers, your line, and start / end / duration (duration is talk time).
-- **Linked Records** — the client, lead, and project this call belongs to.
-- **Call Context** — the agent and team who handled it, missed-call reason, caller country, tags, and cost from Aircall.
-- **Aircall Details** — the call's identifiers and links back to Aircall, including voicemail when one was left.
+## Listen to voicemails
 
-## How callers are matched
+A voicemail shows in the caller's conversation with a **Play** button, its length, a **Call back** button, and the **AI TRANSCRIPT** once it's ready. While the transcript is still being prepared, you'll see "Transcribing…".
 
-Menaia matches each call's outside number against your contacts' phone numbers. A clean single match links the call to that contact's client, lead, and project automatically. If the number matches nobody — or matches more than one contact — the call stays unlinked rather than guessing.
+To see every voicemail in one place, open the **Voicemails** tab. Unheard voicemails are bold with a dot, and the first time anyone plays one, it's marked heard for everyone. You can also delete voicemails from there. See [Voicemails](/guides/calls/inbox#voicemails).
+
+## Link a call to a lead, client, or project
+
+When a call comes in or goes out, Menaia connects it to the contact with that phone number. To connect it to a specific lead, client, or project, link it yourself:
+
+<Steps>
+  <Step title="Open the conversation">
+    Open the conversation with the call. If you're linking a voicemail's call, open the voicemail from the **Voicemails** tab.
+  </Step>
+  <Step title="Open Call options">
+    Click **More actions** (the three dots) in the header, then click **Call options**. The menu applies to the most recent call in the conversation.
+  </Step>
+  <Step title="Pick where it belongs">
+    Under **Link to existing**, choose a **Lead**, **Client**, or **Project**. Menaia lists the leads, clients, and projects whose contacts have this phone number. You'll see "Call linked".
+  </Step>
+</Steps>
+
+If the caller isn't in Menaia yet, click **Create New Lead** in the same menu. The **Create Lead** form opens with the caller's number filled in, and the call is linked to the new lead when you save it. If **Link to existing** doesn't appear, no lead, client, or project has a contact with this number.
 
 <Tip>
-**Fixing a mismatch is an Admin action:** on the call page, use the **Linked Records** card to pick the right lead or project. A manual re-link sticks — automatic matching never overwrites it.
+Link calls to the project they're about. Linked calls show up on the project's **Recent Calls** card, so anyone opening the project can see the latest conversations with the customer.
 </Tip>
 
-## Privacy at a glance
+## Recent calls on a project
 
-Menaia stores the facts of the call (numbers, timing, outcome, links to your records) plus **references** to the recording and transcript — never the audio file or transcript text themselves, which remain in your Aircall workspace and follow its policies. Disconnecting Aircall stops new calls from logging but keeps your existing call history.
+A project's **Overview** has a **Recent Calls** card with the five latest calls linked to that project. Each call shows:
+
+- The lead or client name, or the phone number.
+- An icon for the direction. Missed incoming calls are red.
+- The outcome (**Completed**, **Missed**, **Busy**, **Failed**, **Canceled**, **Blocked**, **Ringing**, or **In progress**) and how long the call lasted.
+- How long ago it happened.
+
+If no calls are linked to the project yet, the card says "No calls yet."
+
+## Who can do what
+
+| Action | Who |
+| --- | --- |
+| See calls and voicemails, call back, link a call to an existing lead, client, or project | Every role except Crew Member |
+| Create a new lead from a call | Admin, Ops Manager, Sales Admin, Client Coordinator |
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Call Center" icon="headset" href="/guides/calls/call-center">
+    Watch call volume, missed calls, and the live queue across your workspace.
+  </Card>
+  <Card title="Use the Communications inbox" icon="inbox" href="/guides/calls/inbox">
+    Text customers, use snippets, and reply to marketplace messages.
+  </Card>
+</CardGroup>

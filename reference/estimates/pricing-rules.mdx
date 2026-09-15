@@ -155,7 +155,7 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
 
 - **What it governs:** The final price — what the customer pays before tax.
 - **How it works:** The final price is the retail price reduced by the customer discount percentage (final price = retail price × (1 − discount %)). The discount defaults to 0.
-- **Notes:** The discount is applied **after** the minimum retail floor, so the final price can fall below the minimum retail price. Tax is computed on the final price (see the tax rule below).
+- **Notes:** The discount is applied **after** the minimum retail floor, so the final price can fall below the minimum retail price. Tax is applied to the taxable part of the final price (see the tax rule below).
 
 ---
 
@@ -167,22 +167,11 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
 
 ---
 
-### Tax (Washington only, applied to the final price)
+### Tax (a chosen rate, applied to the taxable part of the final price)
 
-- **What it governs:** The sales tax amount and rate breakdown for the estimate.
-- **How it works:** Tax is calculated only when the property address is in Washington state. When it applies, the tax service computes tax on the **final price** (the discounted price), using the property address. The total tax amount is the **sum of the state and local components** — state plus city, county, and special-district tax — computed for that address.
-- **Notes:** Non-Washington addresses incur no tax (saved as 0). A missing ZIP or state prevents tax calculation. If the street or city is missing, the system falls back to ZIP-level rates and still computes tax. Tax is applied to the discounted final price, not to retail.
-
----
-
-### Tax breakdown (state vs. local)
-
-- **What it governs:** How the tax is split into state and local components on the estimate.
-- **How it works:**
-  - **Local tax rate** = city + special-district + county rates; **local tax amount** = the corresponding city, county, and special-district amounts.
-  - **State tax rate** and **state tax amount** come from the state component.
-  - **Total tax** = the state tax amount + the local tax amount — it always equals the sum of the breakdown lines shown on the estimate.
-- **Notes:** When no tax is calculated, the estimate simply has no tax breakdown. Each component defaults to 0.
+- **What it governs:** The sales tax amount saved on the estimate.
+- **How it works:** Pricing itself doesn't calculate tax. Tax comes from the rate picked in the tax selector — a saved tax rate, a tax group, TaxJar (on branches that use it), or **No Tax** — and is the **taxable amount × the rate**, rounded to the cent. For a Calculator estimate, the taxable amount is the part of the **final price** (after the customer discount) that belongs to items marked **Taxable Item** in the price book. Estimates saved before items could be marked taxable are taxed on the whole final price.
+- **Notes:** There's no rule based on the state or ZIP code of the property — an estimate is taxed only when a tax is selected. A new estimate starts with the branch's default rate (or TaxJar on branches that use it). The estimate keeps a saved copy of the rate's name and percentage, so later changes to the rate in settings don't change it on their own. See [Sales tax](/reference/billing/sales-tax) for the full rules, including estimates built from scratch and older estimates.
 
 ---
 
@@ -258,4 +247,4 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
 ### Rounding
 
 - **What it governs:** Where pricing rounds vs. carries full precision.
-- **How it works:** Pricing carries full precision through material cost, labor, true cost, retail, final price, and tax — the stored retail cost, true cost, final price, tax amount, and labor hours are not rounded. Rounding is applied only in specific places: driving distance (to the nearest mile), the count of generated secondary items (rounded up), and the deposit invoice line (rounded to the nearest cent). Amounts shown in the app are formatted as currency for display, but the underlying stored values keep full precision.
+- **How it works:** Pricing carries full precision through material cost, labor, true cost, retail, and final price — the stored retail cost, true cost, final price, and labor hours are not rounded. Rounding is applied only in specific places: driving distance (to the nearest mile), the count of generated secondary items (rounded up), the tax amount (to the nearest cent), and the deposit invoice line (to the nearest cent). Amounts shown in the app are formatted as currency for display, but the underlying stored values keep full precision.

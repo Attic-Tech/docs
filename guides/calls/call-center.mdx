@@ -1,0 +1,83 @@
+---
+title: "Monitor the Call Center"
+description: "Watch your team's calls and texts live: call and text volume, answer rate, missed calls, who's in the queue, and which teammates are available."
+icon: "headset"
+keywords: ["call center", "call dashboard", "answer rate", "missed calls", "abandoned calls", "average handle time", "wait time", "call queue", "callers waiting", "agents available", "who is on a call", "call volume", "sms volume", "team availability"]
+---
+
+The **Call Center** gives you a live view of your phones. See how many calls and texts came in, how many were missed, who's waiting in the queue right now, and which teammates are free to pick up. Everything on it covers your whole workspace and updates on its own, so you can leave it open on a screen.
+
+<Note>
+Open **Call Center** from the main navigation. It's available to every role except **Crew Member**. If you don't see it, it isn't turned on for your workspace. See [Feature availability](/reference/platform/feature-availability#communications).
+</Note>
+
+## Pick a time range
+
+Use the toggle at the top right to choose **Today**, **7 days**, or **30 days**. The range applies to the call and text counts and to the charts. **Today** starts at midnight in your workspace's time zone, and **7 days** and **30 days** include today.
+
+Live figures (active calls, available agents, and the queue) always show what's happening right now, whatever range you pick.
+
+## Headline numbers
+
+A row of tiles sits under the heading. Tiles marked with a pulsing dot are live.
+
+| Tile | What it shows |
+| --- | --- |
+| **Calls** | Labeled with the range, for example **Calls · Today**. Every call in the range, with how many were incoming (**in**) and outgoing (**out**). |
+| **Answer rate** | The share of incoming calls that were answered, with the number answered. |
+| **Missed calls** | Incoming calls nobody answered, with how many callers hung up or timed out while waiting in the queue (**abandoned**). Highlighted when there's at least one. |
+| **Avg handle time** | The average length of completed calls, with the average time callers waited in the queue before being connected. |
+| **Active calls** | Calls happening right now. |
+| **Agents available** | How many teammates are available out of everyone who can take calls, and how many are on a call. |
+| **SMS** | Labeled with the range, for example **SMS · Today**. Texts in the range, with how many came in and went out. |
+| **In queue** | Callers waiting right now. Highlighted when anyone is waiting. |
+
+## Queue
+
+The **Queue** card lists callers on hold waiting for someone to pick up, longest wait first, with a count of how many are waiting. Each caller shows their name, or number if they don't match a contact, and how long they've been waiting. A wait of two minutes or more turns red. When nobody is waiting, you'll see "No one is waiting".
+
+Callers wait in the queue only when your workspace has it turned on. See [Ring behaviour](/guides/settings/communications#ring-behaviour).
+
+## Activity
+
+The **Activity** card shows the latest calls and texts across your team, newest first. Each item shows:
+
+- **Who**: the lead, client, or project name, or the phone number.
+- **What**: for example "Inbound call" or "Outbound SMS", with the teammate who handled it, the call length, or the text.
+- **When** it happened.
+- **A status badge** such as **Ringing**, **In progress**, **Answered**, **Missed**, **Busy**, **Abandoned** (the caller hung up before anyone answered), **Blocked**, or **Failed** for calls. Texts show **Received**, **Sent**, **Delivered**, or **Failed** as they happen, and otherwise **Message** or how many messages are unread. Calls still in progress have a pulsing dot.
+
+To follow up on something you see here, open the conversation in [Communications](/guides/calls/inbox).
+
+## Charts
+
+Three charts show how volume changes over the range, hour by hour for **Today** and day by day for **7 days** and **30 days**:
+
+- **Call volume**: incoming and outgoing calls.
+- **Answered vs missed**: incoming calls that were answered compared with those that were missed.
+- **SMS volume**: texts received and sent.
+
+Hover over a chart to see the numbers at a point, and click a legend entry to show just that line. A chart with nothing in the range says "No calls in range" or "No SMS in range". Try a wider range.
+
+## Agents
+
+The **Agents** card lists every teammate who can take calls, with a summary of how many are available, on a call, and in total. Teammates on a call are listed first, then available teammates, then everyone else.
+
+Each teammate shows their status:
+
+- **Available**: calls can ring them.
+- **On a call**: they're talking to someone now.
+- **Unavailable**: they've set themselves unavailable, so calls skip them.
+
+Teammates set their own availability from the Communications inbox. See [Set your availability](/guides/calls/use-the-dialer#set-your-availability).
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Make and take calls" icon="phone-volume" href="/guides/calls/use-the-dialer">
+    Answer calls, transfer them, and set your availability.
+  </Card>
+  <Card title="Review calls and voicemails" icon="list" href="/guides/calls/browse-and-review-calls">
+    Call back missed callers and link calls to leads, clients, and projects.
+  </Card>
+</CardGroup>

@@ -1,7 +1,7 @@
 ---
 title: "Integration lifecycle"
 description: "How an integration connects, stays connected, and disconnects — the states a connection can be in, who can manage it, and what controls whether it shows up at all."
-keywords: ["integrations", "connect integration", "disconnect integration", "reconnect integration", "integration connection error", "quickbooks expired", "reconnect quickbooks", "integrations marketplace", "payments integration"]
+keywords: ["integrations", "connect integration", "disconnect integration", "reconnect integration", "integration connection error", "quickbooks expired", "reconnect quickbooks", "integrations marketplace", "payments integration", "taxjar", "thumbtack reconnect needed", "reconnect thumbtack", "quickbooks sync log", "zapier connection", "zapier organization"]
 ---
 
 This reference explains the lifecycle of an integration in your workspace: the states a connection can be in, who can manage it, and what controls whether the Integrations area and individual integrations are visible to you.
@@ -48,7 +48,7 @@ A connection is always in exactly one of three states:
 | --- | --- |
 | **Connected** | The integration is live, authorized, and usable. |
 | **Revoked** | The connection was disconnected and its authorization withdrawn. It is no longer usable until it's reconnected. |
-| **Error** | The connection has failed — for example, its authorization broke or the integration rejected it — and needs attention before it can be used again. For QuickBooks, this is shown to you as **Expired**. |
+| **Error** | The connection has failed — for example, its authorization broke or the integration rejected it — and needs attention before it can be used again. For QuickBooks, this is shown to you as **Expired**; for Thumbtack, as **Reconnect needed**. |
 
 There is **no "disconnected" state**. An integration your workspace has never connected simply has no connection at all. "Never connected" means there's no connection record; "was connected, now off" means a connection that's in the **Revoked** state.
 
@@ -61,10 +61,13 @@ From an integration's detail page, an Admin starts the connection flow with the 
 - **Menaia Pay** — **Connect Stripe** sends you to Stripe's onboarding flow to set up the payments account, then returns you to the integration page when you're done.
 - **QuickBooks** — **Connect QuickBooks** opens a sign-in window where you authorize the connection. Once it completes, a confirmation appears naming the QuickBooks company you connected and inviting you to set up how your data syncs between Menaia and QuickBooks. The page then shows a **Connected** badge along with a **Disconnect** option. Finalizing the connection can take a moment after the window closes; if the page hasn't caught up yet, use **Refresh status** to check again.
 - **Acorn Finance** — **Connect Acorn Finance** turns the integration on right away. There's no separate account to set up and no sign-in window; the connection completes immediately and the page shows a **Connected** badge. Disconnecting asks you to confirm first, because it removes the financing option from your client-facing proposals.
+- **TaxJar** — **Enable TaxJar** works the same way: no account, no API key, and no sign-in window, and the page shows a **Connected** badge right away. Connecting alone doesn't change any tax — each branch has to be switched on separately in Tax Settings before TaxJar appears in its tax selector.
+- **Thumbtack** — **Connect Thumbtack** takes you to Thumbtack in the same tab, where you sign in with your Thumbtack Pro account and approve the connection. You're then sent back to the Thumbtack page, which shows **Finishing connection…** and then a **Connected** badge. The connect link is only good for 15 minutes.
+- **Zapier** — works differently from every other integration: there's no connect button and no workspace connection. Each person connects their own Menaia account from inside Zapier, approving it on Menaia's authorization screen and, if they belong to more than one organization, choosing which one under **Organization**. Their Zaps then act with that person's own role permissions, limited to the permissions they approved. Because there's no workspace connection, the states below don't apply to Zapier.
 
 A successful connect creates the workspace's connection for that integration and sets its state to **Connected**.
 
-Once QuickBooks is connected, what syncs — clients, items, invoices (with their credit notes and voids), payments, and expenses — follows the choices you make in its sync setup. See [Integrations](/guides/settings/integrations) for the setup steps.
+Once QuickBooks is connected, what syncs — clients, items, invoices (with their credit notes and voids), payments, and expenses — follows the choices you make in its sync setup. With payment and invoice sync on, offline payments recorded in QuickBooks against linked invoices also come back into Menaia. Every sync is recorded in the QuickBooks page's **Sync Log**. See [Integrations](/guides/settings/integrations#quickbooks) for the setup steps.
 
 ### Reconnect
 
@@ -93,6 +96,10 @@ The **Finish setup** prompt also appears any time QuickBooks is connected but yo
 
 A QuickBooks connection can stop working on its own — for example, when its authorization expires or is withdrawn on the QuickBooks side. When that happens, the integration page marks the connection **Expired**: it shows an **Expired** badge, a banner explaining that the connection has expired, and a **Reconnect** button to restore it. Your sync preferences and branch-to-class mappings are kept while the connection is expired and are restored as soon as you reconnect, so reconnecting picks up where it left off instead of starting over. If you'd rather not reconnect, you can still **Disconnect** the integration from here.
 
+#### When a Thumbtack connection stops working
+
+If Menaia can no longer reach your Thumbtack account — for example, because access was withdrawn on Thumbtack's side — the connection moves to **Error**. The Thumbtack page shows a **Reconnect needed** badge, a banner saying the connection expired, and a **Reconnect Thumbtack** button. New leads stop arriving, and replies you send from Menaia aren't delivered to Thumbtack until you reconnect. Reconnecting signs you in again and restores the same connection.
+
 ### Disconnect
 
 Disconnecting moves the connection to **Revoked**. The connection is kept rather than removed, so your workspace retains a record that the integration was once connected. A connection can also land in **Error** without anyone disconnecting it — for example, when re-authorizing an existing QuickBooks connection fails. QuickBooks surfaces this as an **Expired** connection that stays unusable until it's reconnected (see *When a QuickBooks connection expires* above).
@@ -101,7 +108,12 @@ Disconnecting moves the connection to **Revoked**. The connection is kept rather
 
 ### Capabilities stop working until it's reconnected
 
-A connection in **Revoked** or **Error** is not usable. Anything that depends on that integration stops working until the connection is restored to **Connected**. For a Payments integration, that means capabilities like accepting payments, syncing payouts and fees, and reconciling against invoices are unavailable while the connection is down. For **QuickBooks**, it means nothing syncs — invoices, credit notes, voids, payments, and expenses stop going to QuickBooks — until the connection is restored.
+A connection in **Revoked** or **Error** is not usable. Anything that depends on that integration stops working until the connection is restored to **Connected**. For a Payments integration, that means capabilities like accepting payments, syncing payouts and fees, and reconciling against invoices are unavailable while the connection is down. For **QuickBooks**, it means nothing syncs — invoices, credit notes, voids, payments, and expenses stop going to QuickBooks, and payments recorded in QuickBooks stop coming into Menaia — until the connection is restored. The **QuickBooks Sync Errors** badge is hidden while QuickBooks isn't connected.
+
+### What each integration keeps when you disconnect
+
+- **TaxJar** — your choice of which branches use TaxJar is kept, so turning it back on picks up where you left off. Estimates and invoices that already use a TaxJar rate keep their saved tax, and new ones go back to each branch's default rate.
+- **Thumbtack** — Menaia stops receiving leads and messages from all of your businesses, and forgets your business list and its on/off switches. When you reconnect, every business is listed again, switched on. Your Thumbtack conversations, and any leads converted from them, stay in Menaia.
 
 ### Disconnecting affects only your workspace
 
@@ -113,7 +125,9 @@ A disconnect only ever touches the workspace that owns the connection. One works
 - **One connection per integration, per workspace** — reconnecting updates the same connection.
 - **Reconnecting QuickBooks to a different company** clears the previous company's mappings and sync history (after you confirm), pauses syncing while it clears, and then prompts you to finish setup again.
 - **States:** Connected, Revoked, Error. There is no separate "disconnected" state — a never-connected integration simply has no connection. QuickBooks shows the **Error** state to you as **Expired**, with a **Reconnect** prompt and your settings preserved.
-- **Disconnect** moves a connection to **Revoked** and keeps the record.
+- **Disconnect** moves a connection to **Revoked** and keeps the record. TaxJar keeps its branch choices; Thumbtack keeps its conversations but forgets its business list.
+- **Thumbtack** shows the **Error** state as **Reconnect needed**, with a **Reconnect Thumbtack** button.
+- **Zapier** has no workspace connection: each person connects their own account from Zapier, picks the organization, and their Zaps act with their own role's permissions.
 - **Two visibility controls:** the Integrations area as a whole, and each individual integration — either can hide an integration from you.
 
 ## Related references

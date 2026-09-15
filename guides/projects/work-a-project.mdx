@@ -70,14 +70,16 @@ A project is organized into tabs along the top. You'll always see **Overview**, 
 | Tab | What's there |
 | --- | --- |
 | **Overview** | The summary screen — contact details, property details, lead information, assignment, and shortcuts. |
-| **Estimates** | The estimate(s) and proposal(s) for this job. |
-| **Schedule** | Visits and appointments booked for this work. |
+| **Estimates** | The estimate(s) and proposal(s) for this job. See [The Estimates tab](#the-estimates-tab). |
+| **Schedule** | Visits and appointments booked for this work. See [The Schedule tab](#the-schedule-tab). |
 | **Job Plan** | The plan the crew works from. |
 | **Media** | Photos, videos, and documents for the project. See [Add & manage project media](/guides/projects/media). |
-| **Comments** | The running conversation about this project. |
+| **Comments** | The running conversation about this project, with mentions, attachments, and threaded replies. See [Project comments](/guides/projects/comments). |
 | **Forms** | Forms filled out for the job. |
-| **Invoices** & **Financial Summary** | Billing and payment tracking for the work. |
-| **Client Portal** | Activate a secure portal for the customer, send them an invite by email or text, and preview what they'll see: job status, their team, and shared media, plus proposals, invoices, and a calendar if your workspace turns those on. |
+| **Invoices** | The invoices for the work. |
+| **Expenses** | The costs logged on the project, with receipts and a status for each. Every role except Crew Member sees it when expenses are turned on for your workspace. See [Project expenses](/guides/projects/expenses). |
+| **Financial Summary** | What the project is worth and how much has been invoiced, collected, and is still due, plus every payment and credit. You can also record one payment across several invoices here. Admins only. See [Project financial summary](/guides/billing/project-financial-summary). |
+| **Client Portal** | Activate a secure portal for the customer, send them an invite by email or text, and preview what they'll see: job status, their team, and shared media, plus proposals, invoices, and a calendar if your workspace turns those on. See [Share the Client Portal](/guides/projects/client-portal). |
 
 <Note>
 If you don't see a tab, it isn't part of your branch's setup or there's nothing for it yet — for example, **Estimates** and the billing tabs only appear once those features are enabled for you.
@@ -97,11 +99,56 @@ The Overview is split into a main column and a sidebar.
 
 - **Upcoming Events** — the next visits and appointments, when scheduling is turned on.
 - **Assignment** — the **Sales Person** credited with the work and the **Crew Lead** assigned to the job.
+- **Recent Calls** — the last five calls tied to this project, each with who it was with, whether it was completed or missed, how long it lasted, and when it happened. You see "No calls yet." when there aren't any.
 - **Shortcuts** — quick links to the estimate, when one exists.
 
 <Tip>
 The **Sales Person** is filled in for you automatically based on the most recent lead activity — they're the person credited with the sale in **My Performance**.
 </Tip>
+
+## The Estimates tab
+
+The **Estimates** tab lists every estimate on the project, along with how its proposal is doing with the customer. It shows up when estimates are turned on for your workspace, for every role that can open a project.
+
+| Column | What it shows |
+| --- | --- |
+| **Created By** | Who built the estimate. |
+| **Sent to Client** | The date and time the proposal was sent, or a dash if it hasn't gone out. |
+| **Proposal Viewed** | **Viewed** once the customer has opened the proposal. |
+| **Proposed Cost** | The estimate's price. |
+| **Crew Notes** | **View Notes** when the estimate has crew notes, or **Add Notes** when it doesn't. Either one opens the **Crew Notes** window, where you can edit the notes and click **Save**. |
+| **Status** | The estimate's status, such as In Progress or Sold. See [Change an Estimate's Status](/guides/estimates/change-status). |
+| **Client Response** | **View Response** when the customer requested changes, or **View Rejection** when they rejected the proposal. It opens their note and reason, with an **Email Client** button when the customer has an email on file. See [Handle the Customer's Response](/guides/proposals/client-response). |
+| **Actions** | Buttons to open the estimate, open its proposal, or delete it. |
+
+The buttons in **Actions** are:
+
+- **View breakdown** (the calculator icon) opens the estimate's breakdown.
+- **View proposal** (the document icon) opens the proposal. If no proposal has been made yet, this reads **Preview proposal**.
+- **Delete estimate** (the **x** icon) deletes the estimate after you confirm. Its proposal is deleted too.
+
+On a smaller screen, each estimate shows as a card with a three-dots menu. The menu has **View Breakdown**, **View Proposal** (or **Preview Proposal**), **View Crew Notes** (or **Add Notes**), **View Client Response** or **View Rejection Details** when the customer has responded, and **Delete Estimate**.
+
+<Note>
+Only **Admin**, **Ops Manager**, and **Sales Admin** can delete an estimate. Once the customer has signed the proposal, delete is turned off. Hovering it shows "This estimate was signed and cannot be deleted," and on a smaller screen the menu option reads **Delete Estimate (Signed)**.
+</Note>
+
+If the project doesn't have any estimates yet, the tab shows **No Proposals found** with a **Create Estimate** button. The button starts a new estimate with this client and project already filled in. See [Create an Estimate with the Calculator](/guides/estimates/create) or [Create an Estimate from Scratch](/guides/estimates/create-from-scratch).
+
+## The Schedule tab
+
+The **Schedule** tab lists the calendar events tied to this project: lead activities, tasks, and job shifts. It shows up for every role that can open a project, as long as the schedule is turned on for your workspace. By default, events are sorted by day with the newest first.
+
+| Column | What it shows |
+| --- | --- |
+| **Event Type** | **Lead Activity**, **Task**, or **Job Shift**. |
+| **Event Title** | The event's name. |
+| **Created By** | Who created the event, and when. |
+| **Day** | The date of the event. |
+| **Time** | The start and end time. |
+| **Actions** | **See Calendar Event** opens that event on the Schedule. |
+
+If nothing has been booked yet, you see **No events have been scheduled.** with a **Schedule Event** button that takes you to the Schedule to book something. See [View the schedule](/guides/schedule/view-the-schedule).
 
 ## Let the customer know you're on the way
 

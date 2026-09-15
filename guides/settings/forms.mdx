@@ -1,0 +1,158 @@
+---
+title: "Forms"
+description: "Build the custom forms and checklists your team fills out on projects — add fields, choose which branches use each form, preview it, and decide who gets emailed when one is submitted."
+icon: "file-text"
+keywords: ["form builder", "forms", "checklists", "custom forms", "form fields", "questionnaire", "form submissions", "archive form", "email form submissions"]
+---
+
+The **Forms** page is where you build the forms your team fills out on projects — a safety checklist, a site walkthrough, a sign-off sheet. You design each form once here: its fields, which branches use it, and who gets an email when someone submits it. Your team then picks the form from a project's **Forms** tab and fills it in on the job.
+
+<Note>
+Forms is part of Settings, which only **Admins** can open. If you're an Admin and don't see **Forms** in the Settings sidebar, the form builder isn't turned on for your workspace. See [Feature availability](/reference/platform/feature-availability).
+</Note>
+
+## Open the Forms page
+
+<Steps>
+  <Step title="Go to Settings">
+    Open **Settings** from the main navigation.
+  </Step>
+  <Step title="Choose Forms">
+    Under **System Configuration**, select **Forms**. The page lists your forms in two groups: **Active Forms** and **Inactive Forms**.
+  </Step>
+</Steps>
+
+Each form appears as a card showing its number of **Fields**, how many **Submissions** it has, and the date it was **Created**. Use **Search by form name...** at the top to find one quickly.
+
+## Create a form
+
+<Steps>
+  <Step title="Start a new form">
+    Click **Create New** in the top-right. The **Create Form** page opens.
+  </Step>
+  <Step title="Fill in the form details">
+    In the **Form Details** card, set:
+
+    - **Form Title** — the name your team sees when picking a form. Required.
+    - **Form Category** — where the form is used. **Project** is the category available today. Required.
+    - **Branches** — the branches that can use this form. Pick at least one. Your team only sees forms assigned to their branch.
+    - **Inactive** — leave this off for a form you want in use now. Turn it on to keep the form hidden so it won't receive submissions.
+  </Step>
+  <Step title="Add fields">
+    Add the questions your team will answer. See [Add fields](#add-fields) below.
+  </Step>
+  <Step title="Set up what happens on submit">
+    In the **Submit Settings** card, choose the button label, the confirmation, and who gets an email. See [Submit settings](#submit-settings).
+  </Step>
+  <Step title="Save">
+    Click **Create Form**. The form is saved and you're returned to the Forms page.
+  </Step>
+</Steps>
+
+<Tip>
+If something is missing when you save, you'll see **Failed to save form** and the fields that need attention are highlighted — for example, a missing title, category, or branch.
+</Tip>
+
+## Add fields
+
+On a computer, the **Add Fields** panel sits on the right. Click a field type to add it to the bottom of the **Form Fields** card. On a smaller screen, use the **Select field** dropdown at the top of the **Form Fields** card instead.
+
+| Field type | What it collects |
+| --- | --- |
+| **Text** | A short typed answer, like a name. |
+| **Text Area** | A longer note or description. |
+| **Number** | A number. |
+| **Email** | An email address. |
+| **Date** | A date, picked from a calendar. |
+| **Checkbox** | A single yes/no tick. |
+| **Radio** | One choice from a list of options, shown all at once. |
+| **Select** | One choice from a dropdown list of options. |
+| **Media** | Photos uploaded from the job. |
+| **Message** | Text you write for the person filling in the form, such as instructions. It doesn't collect an answer. |
+
+### Field options
+
+Each field you add shows its own settings:
+
+- **Label** — the question or name shown next to the field.
+- **Required** — the form can't be saved until this field is answered.
+- **Default value** — an answer that's already filled in when the form opens. Available on Text, Text Area, Number, Radio, and Select. For a Date field it's called **Default Date**. For Radio and Select, enter the label of the option you want preselected.
+- **Checked by default** — on a Checkbox field, starts the box ticked.
+- **Allow multiple files** — on a Media field, lets the person upload more than one photo.
+
+For **Select** fields, click **Add Option** to add each choice. For **Radio** fields, the button is **Add Attributes**. Every Select and Radio field needs at least one option.
+
+A **Message** field has a text editor instead of these settings. Write the text you want people to read at that point in the form.
+
+### Reorder and remove fields
+
+- **Reorder** — drag a field by its handle on the left to move it up or down. Options inside a Select or Radio field can be dragged the same way.
+- **Remove** — click the trash button on a field, or next to an option, to delete it.
+
+<Note>
+Photos uploaded through a **Media** field are also saved to the project's media, in the **Forms** folder.
+</Note>
+
+## Submit settings
+
+The **Submit Settings** card controls what happens when someone submits the form.
+
+- **Submit Button Label** — the text on the form's submit button, such as *Submit Form*. Optional.
+- **Confirmation Type** — choose one:
+  - **Show Message** — enter a **Confirmation Message**, for example *Thank you for your submission.* Required with this option.
+  - **Redirect to URL** — enter a **Redirect URL** for a page in Menaia. After submitting, the person is taken to that page. It must start with a forward slash, or you'll see **Enter a valid path starting with /**.
+
+### Email Submissions To
+
+Choose who gets an email each time the form is submitted. The email includes the form's title and every answer. Use the three tabs to pick recipients, and combine them however you like:
+
+- **Roles** — everyone with the selected roles in the project's branch.
+- **Users** — specific people on your team.
+- **Emails** — any email address, including people outside your workspace. Type an address and click **Add** (or press Enter). Click the **×** on an address to remove it.
+
+If no one is selected, the form still saves submissions — it just doesn't send an email.
+
+## Preview a form
+
+Click **Preview** at the top of the page to see the form the way your team will see it. A **Preview Mode** banner confirms you're looking at a preview, and nothing you enter is submitted. Click **Edit** to go back and keep making changes.
+
+## Edit a form
+
+<Steps>
+  <Step title="Open the form">
+    On the Forms page, open the **⋮** menu on the form's card and choose **Edit Form**.
+  </Step>
+  <Step title="Make your changes">
+    Change the details, fields, or submit settings. The **Update Form** button stays inactive until you've changed something.
+  </Step>
+  <Step title="Save">
+    Click **Update Form**.
+  </Step>
+</Steps>
+
+## Archive or delete a form
+
+From the **⋮** menu on a form's card:
+
+- **Archive Form** — moves the form to **Inactive Forms**. It can no longer be attached to projects. Forms your team already completed stay on their projects.
+- **Unarchive Form** — on an inactive form, restores it to **Active Forms** so your team can use it again.
+- **Delete Form** — permanently removes the form. This can't be undone.
+
+<Tip>
+If you might need a form again, archive it instead of deleting it.
+</Tip>
+
+## Where completed forms show up
+
+Your team fills out forms from the **Forms** tab on a project. The **Select Form** list there shows active **Project** forms assigned to their branch. Completed forms stay on the project, where anyone with access can review or edit them. See [Forms and checklists](/guides/jobs/forms-and-checklists).
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Forms and checklists" icon="clipboard-check" href="/guides/jobs/forms-and-checklists">
+    See how your team fills out, edits, and removes forms on a job.
+  </Card>
+  <Card title="Settings overview" icon="sliders-horizontal" href="/guides/settings/overview">
+    Find every section of Settings and what it controls.
+  </Card>
+</CardGroup>

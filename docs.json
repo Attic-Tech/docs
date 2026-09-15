@@ -13,17 +13,19 @@
       {
         "tab": "Guides",
         "groups": [
-          { "group": "Getting Started", "pages": ["guides/start/welcome", "guides/start/core-concepts", "guides/start/how-work-flows", "guides/start/roles-at-a-glance", "guides/start/finding-your-way-around"] },
+          { "group": "Getting Started", "pages": ["guides/start/welcome", "guides/start/sign-in", "guides/start/create-your-workspace", "guides/start/core-concepts", "guides/start/how-work-flows", "guides/start/roles-at-a-glance", "guides/start/finding-your-way-around", "guides/start/your-profile"] },
+          { "group": "Meni", "pages": ["guides/meni/ask-meni", "guides/meni/dashboard", "guides/meni/automations"] },
           { "group": "Leads & Clients", "pages": [
             "guides/leads/overview",
             { "group": "Leads", "pages": ["guides/leads/create-a-lead", "guides/leads/edit-and-contacts", "guides/leads/source-confidence-referral", "guides/leads/browse-filter-map", "guides/leads/qualify-a-lead", "guides/leads/schedule-a-site-visit", "guides/leads/turn-lead-into-client"] },
             { "group": "Clients & Properties", "pages": ["guides/clients/manage-clients", "guides/clients/properties", "guides/clients/contacts"] },
-            { "group": "Projects", "pages": ["guides/projects/work-a-project", "guides/projects/edit-details", "guides/projects/media"] }
+            { "group": "Projects", "pages": ["guides/projects/work-a-project", "guides/projects/client-portal", "guides/projects/comments", "guides/projects/edit-details", "guides/projects/media", "guides/projects/expenses"] }
           ]},
-          { "group": "Calls", "pages": ["guides/calls/use-the-dialer", "guides/calls/browse-and-review-calls"] },
+          { "group": "Communications", "pages": ["guides/calls/inbox", "guides/calls/use-the-dialer", "guides/calls/browse-and-review-calls", "guides/calls/call-center"] },
           { "group": "Estimates & Proposals", "pages": [
             "guides/estimates/overview",
             "guides/estimates/create",
+            "guides/estimates/create-from-scratch",
             { "group": "AI estimating", "pages": ["guides/estimates/enhance-crew-notes", "guides/estimates/ride-along"] },
             { "group": "Estimate pipeline", "pages": ["guides/estimates/browse-filter", "guides/estimates/change-status", "guides/estimates/history"] },
             { "group": "Proposals", "pages": ["guides/proposals/generate", "guides/proposals/edit-notes-price-display", "guides/proposals/send", "guides/proposals/client-view", "guides/proposals/client-response"] }
@@ -43,25 +45,26 @@
           { "group": "Billing & Payments", "pages": [
             "guides/billing/overview",
             { "group": "Invoices", "pages": ["guides/billing/browse-invoices", "guides/billing/create-an-invoice", "guides/billing/send-and-resend", "guides/billing/preview-download-pdf"] },
-            { "group": "Payments & credits", "pages": ["guides/billing/record-allocate-payment", "guides/billing/add-a-credit", "guides/billing/void-an-invoice"] },
+            { "group": "Payments & credits", "pages": ["guides/billing/record-allocate-payment", "guides/billing/project-financial-summary", "guides/billing/add-a-credit", "guides/billing/void-an-invoice"] },
             { "group": "Deposits & automation", "pages": ["guides/billing/auto-deposit-invoices"] }
           ]},
           { "group": "Earnings & Recognition", "pages": [
             "guides/earnings/overview",
             { "group": "Performance", "pages": ["guides/earnings/performance-dashboard", "guides/earnings/leaderboard"] },
             { "group": "Wallet & bonuses", "pages": ["guides/earnings/wallet", "guides/earnings/bonus-report"] },
-            { "group": "Badges & wins", "pages": ["guides/earnings/badges", "guides/earnings/win-feed", "guides/earnings/create-ai-win-post", "guides/earnings/comment-react"] },
+            { "group": "Badges & wins", "pages": ["guides/earnings/badges", "guides/earnings/win-feed", "guides/earnings/manage-groups", "guides/earnings/create-ai-win-post", "guides/earnings/comment-react"] },
             { "group": "Reviews", "pages": ["guides/earnings/customer-review", "guides/earnings/branch-review"] }
           ]},
           { "group": "Workspace Settings", "pages": [
             "guides/settings/overview",
             { "group": "Company & branches", "pages": ["guides/settings/organization", "guides/settings/branches"] },
             { "group": "Your team", "pages": ["guides/settings/users", "guides/settings/roles-branches"] },
+            { "group": "Communications", "pages": ["guides/settings/communications"] },
             { "group": "Price book", "pages": ["guides/settings/price-book/items", "guides/settings/price-book/item-categories", "guides/settings/price-book/factors-additional-costs", "guides/settings/price-book/multiplier-ranges", "guides/settings/price-book/work-areas"] },
-            { "group": "Proposal & invoice setup", "pages": ["guides/settings/proposal-content", "guides/settings/payment-methods-financing", "guides/settings/invoice-content-automations", "guides/settings/payment-terms", "guides/settings/credit-void-reasons"] },
-            { "group": "Lists & lifecycles", "pages": ["guides/settings/statuses", "guides/settings/tags", "guides/settings/subcontractors", "guides/settings/task-types", "guides/settings/equipment-vehicles"] },
-            { "group": "Integrations", "pages": ["guides/settings/integrations", "guides/settings/menaia-pay", "guides/settings/aircall"] },
-            { "group": "Notifications", "pages": ["guides/settings/notification-rules", "guides/settings/ai-bi"] }
+            { "group": "Proposal & invoice setup", "pages": ["guides/settings/proposal-content", "guides/settings/payment-methods-financing", "guides/settings/invoice-content-automations", "guides/settings/payment-terms", "guides/settings/taxes", "guides/settings/credit-void-reasons"] },
+            { "group": "Lists & lifecycles", "pages": ["guides/settings/statuses", "guides/settings/lead-sources", "guides/settings/tags", "guides/settings/subcontractors", "guides/settings/expense-types", "guides/settings/task-types", "guides/settings/equipment-vehicles", "guides/settings/forms", "guides/settings/media-folders", "guides/settings/client-portal"] },
+            { "group": "Integrations", "pages": ["guides/settings/integrations", "guides/settings/menaia-pay"] },
+            { "group": "Notifications", "pages": ["guides/settings/notification-preferences", "guides/settings/notification-rules", "guides/settings/ai-bi"] }
           ]}
         ]
       },
@@ -84,7 +87,8 @@
     { "source": "/estimates/create", "destination": "/guides/estimates/create", "permanent": true },
     { "source": "/estimates/pricing-rules", "destination": "/reference/estimates/pricing-rules", "permanent": true },
     { "source": "/estimates/lifecycle", "destination": "/reference/estimates/lifecycle", "permanent": true },
-    { "source": "/estimates/troubleshooting", "destination": "/reference/estimates/troubleshooting", "permanent": true }
+    { "source": "/estimates/troubleshooting", "destination": "/reference/estimates/troubleshooting", "permanent": true },
+    { "source": "/guides/settings/aircall", "destination": "/guides/settings/communications", "permanent": true }
   ],
   "logo": {
     "light": "/logo/light.svg",

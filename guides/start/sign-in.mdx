@@ -1,0 +1,144 @@
+---
+title: "Sign in"
+description: "Sign in to Menaia with a one-time code from your email, your Google account, or a password — pick a workspace if you belong to more than one, and get back in if you forget your password."
+icon: "right-to-bracket"
+keywords: ["sign in", "log in", "login", "one-time code", "email code", "6-digit code", "code didn't arrive", "continue with google", "use a password instead", "forgot password", "reset password", "reset link expired", "select organization", "switch workspace", "sign out", "account not registered", "account blocked", "link invalid"]
+---
+
+You don't need a password to use Menaia. By default you sign in with a one-time code that Menaia emails you. You can also continue with Google, or use a password if you've set one.
+
+## Sign in with an email code
+
+<Steps>
+  <Step title="Open the sign-in page">
+    The **Sign in** page says "We'll email you a one-time code — no password needed."
+  </Step>
+  <Step title="Enter your work email">
+    Type the email your administrator added you with in **Work email**, then press **Email me a code**.
+  </Step>
+  <Step title="Enter the code">
+    The page changes to **Check your email** and shows the address the code went to. Type the 6-digit code from the email into **6-digit code** and press **Continue**.
+  </Step>
+</Steps>
+
+If you belong to one workspace, it opens right away. If you belong to more than one, you choose one first (see [Pick a workspace](#pick-a-workspace)).
+
+On the **Check your email** screen you can also:
+
+- Press **Resend code** to get a new code. You'll see "We sent you a fresh code."
+- Press **Use a different email** to go back and fix a typo.
+
+## Continue with Google
+
+Press **Continue with Google** at the top of the sign-in page and choose your Google account. The Google account's email has to match the email you were added to Menaia with.
+
+<Tip>
+Belong to more than one workspace? Sign in with an email code or your password. Those show you the workspace picker, so you can choose where to go.
+</Tip>
+
+## Sign in with a password
+
+If you've set a password, you can use it instead of a code.
+
+<Steps>
+  <Step title="Switch to password sign-in">
+    Below the code form, press **Use a password instead**.
+  </Step>
+  <Step title="Enter your email and password">
+    Fill in **Email** and **Password**, then press **Sign in**.
+  </Step>
+</Steps>
+
+To go back to codes, press **Email me a one-time code instead**.
+
+You can set or change your password yourself on the **Security** tab of your profile. See [Your profile](/guides/start/your-profile#security).
+
+## Pick a workspace
+
+If your email belongs to more than one workspace, you'll see **Select Organization** after you sign in: "You belong to multiple organizations. Choose one to continue." Click the workspace you want to open.
+
+To switch to a different workspace later, sign out and sign back in, then pick the other one.
+
+<Note>
+If the workspace you pick has no branches set up, you'll see "This organization does not have any branches configured. Please contact your administrator." An Admin of that workspace needs to set up a branch and add you to it.
+</Note>
+
+## Forgot your password?
+
+<Steps>
+  <Step title="Open the reset page">
+    On the password sign-in form, press **Forgot your password?**
+  </Step>
+  <Step title="Request a reset link">
+    Enter your email and press **Send reset link**. You'll see **Check your email**: "If an account with this email exists, an email has been sent with instructions to reset your password."
+  </Step>
+  <Step title="Open the link in the email">
+    The link opens a **Reset Password** page.
+  </Step>
+  <Step title="Choose a new password">
+    Enter it in **New Password** and again in **Confirm Password**, then press **Reset Password**. It must be at least 8 characters, and both entries must match.
+  </Step>
+  <Step title="Sign in again">
+    You're taken back to the sign-in page. Sign in with your new password or an email code.
+  </Step>
+</Steps>
+
+If the reset link has already been used or is too old, the page says "This password reset link is invalid or has expired. Please request a new one." Go back to **Forgot your password?** and request a new link.
+
+<Tip>
+You don't need a password to get back in. If you're locked out of your password, sign in with an email code instead. An Admin can also send you a reset email. See [Reset a password](/guides/settings/users#reset-a-password).
+</Tip>
+
+## Sign out
+
+At the bottom of the sidebar, click your name, then choose **Sign out**. Signing out also signs you out of Menaia in your other browsers and on your other devices. Each one signs out once its current session runs out.
+
+## If something goes wrong
+
+### Email code problems
+
+| What you see | What to do |
+| --- | --- |
+| "We could not find an account for that email. Check the address, or sign in with your password instead." | Check the email for typos. If it's right, ask your administrator which email they added you with. |
+| "Too many codes requested for this email. Wait a minute and try again." | Wait a minute before pressing **Email me a code** or **Resend code** again. |
+| "We could not send you a code. Please try again in a minute." | Wait a moment and try again. |
+| "That code expired or is incorrect. Request a new one." | Press **Resend code** and enter the code from the newest email. |
+| "That code is not valid. Check it and try again." | Re-type the 6 digits from the newest email. |
+| "Enter the 6-digit code from your email" | The code must be exactly 6 digits. |
+| "We could not verify you are human. Refresh and try again." | Refresh the page and start again. |
+
+If the code email doesn't show up, check your spam or junk folder. Make sure you typed the address correctly (**Use a different email** lets you fix it), then press **Resend code**.
+
+### Password problems
+
+| What you see | What to do |
+| --- | --- |
+| "Invalid email or password." | Check both fields. If you've forgotten the password, use **Forgot your password?** or sign in with an email code. |
+| "Login could not be completed. Please try again in a moment." | Wait a moment and try again. |
+
+### Account problems
+
+| What you see | What it means |
+| --- | --- |
+| "This account is not registered in the application. Contact your administrator." | You signed in, but your email isn't part of any Menaia workspace. Ask an Admin to add you. |
+| "This account has been blocked. Contact your administrator." | An Admin blocked your account. Only an Admin can unblock it. See [Block or unblock a user](/guides/settings/users#block-or-unblock-a-user). |
+| "You do not have access to any branches, please contact your administrator." | Your account isn't assigned to a branch. An Admin needs to add you to one. |
+| "You do not have access to any organizations, please contact your administrator." | Your account isn't part of any workspace. An Admin needs to add you. |
+
+### A customer's link says "Link invalid"
+
+The secure links Menaia emails to customers can stop working. When a link is broken or already used up, it opens a page titled **Link invalid**: "This access link is no longer valid." This page isn't about your own sign-in. The customer needs a fresh link. For proposals, press **Resend Proposal** (see [Expiration: how the secure link stays safe](/guides/proposals/send#expiration-how-the-secure-link-stays-safe)).
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Your profile" icon="user-pen" href="/guides/start/your-profile">
+    Set a password and update your details.
+  </Card>
+  <Card title="Finding your way around" icon="compass" href="/guides/start/finding-your-way-around">
+    Get to know the sidebar and the top bar.
+  </Card>
+  <Card title="Create your workspace" icon="rocket" href="/guides/start/create-your-workspace">
+    New to Menaia? Set up a workspace for your company.
+  </Card>
+</CardGroup>

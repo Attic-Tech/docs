@@ -1,13 +1,13 @@
 ---
 title: "Add crew equipment vehicles"
-description: "Staff each day of a job — pick the workers and their hours, then choose how many vehicles and pieces of heavy equipment the crew needs — using the Job Planner."
+description: "Staff each day of a job — pick the workers and their hours, assign subcontractors, then choose how many vehicles and pieces of heavy equipment the crew needs — using the Job Planner."
 icon: "users"
 ---
 
-When you build a plan for a job, you plan it one day at a time. For each day you tell the **Job Planner** three things: who's working and for how long, which vehicles the crew takes, and what heavy equipment they'll need on site. This guide walks through adding all three.
+When you build a plan for a job, you plan it one day at a time. For each day you tell the **Job Planner** who's working and for how long, which subcontractors are on the job, which vehicles the crew takes, and what heavy equipment they'll need on site. This guide walks through each one.
 
 <Note>
-You set crew, vehicles, and equipment **per day**. If a job runs several days, repeat these steps on each day — the numbers can be different from one day to the next.
+You set crew, subcontractors, vehicles, and equipment **per day**. If a job runs several days, repeat these steps on each day — the numbers can be different from one day to the next.
 </Note>
 
 ## Before you start
@@ -18,11 +18,12 @@ Open the job's plan first. Each day in the planner is a card titled **Day 1**, *
 Need the full walkthrough of starting a plan and adding days? See [Build a plan](/guides/jobs/build-a-plan).
 </Tip>
 
-Inside each day you'll see numbered sections. Crew, vehicles, and equipment are sections 2, 3, and 4:
+Inside each day you'll see numbered sections. Crew, subcontractors, vehicles, and equipment are sections 2 through 5:
 
 - **2. Add Employees**
-- **3. Add Vehicles**
-- **4. Add Heavy Equipment**
+- **3. Assign Subcontractors** (optional)
+- **4. Add Vehicles**
+- **5. Add Heavy Equipment**
 
 Open a section to fill it in, then move on to the next.
 
@@ -54,13 +55,42 @@ To take someone off the day, click the trash icon next to their name. To add mor
 The workers you can choose come from your branch's team. If someone you expect isn't in the **Request Employees** list, they may not be set up for your branch yet — check with whoever manages your team.
 </Note>
 
+## Add subcontractors
+
+The **Assign Subcontractors** section is where you add the outside companies working the day alongside — or instead of — your own crew. Its prompt reads "Assign one or more subcontractors to this job." The section is optional, and it opens as soon as the day's work order is done, so you can fill it in before or after your employees.
+
+<Steps>
+  <Step title="Open Assign Subcontractors">
+    On the day you're planning, open the **3. Assign Subcontractors** section. Until you've picked anyone, it reads "No subcontractors selected."
+  </Step>
+  <Step title="Open the picker">
+    Click **Assign Subcontractors**. The **Assign Subcontractors** window lists the active subcontractors for your branch, each with their description underneath if they have one.
+  </Step>
+  <Step title="Find and select subcontractors">
+    Use **Search by name...** to narrow the list — it matches the description too, so you can search by trade. Click a subcontractor to check them, and click again to uncheck.
+  </Step>
+  <Step title="Save your selection">
+    Click **Save Changes** to add them to the day, or **Cancel** to back out. Then click **Save Changes** at the bottom of the section to mark it done.
+  </Step>
+</Steps>
+
+Each subcontractor you assign shows as a card on the day. To change the list, click **Assign Subcontractors** again and check or uncheck names.
+
+<Note>
+Subcontractors don't get hours or quantities — you're only noting which companies are on the job that day. Each subcontractor can be assigned once per day. To have them back another day, assign them on that day too.
+</Note>
+
+<Tip>
+If the section says "No subcontractors have been created yet.", your branch has no active subcontractors. The **Create a new subcontractor.** link opens Settings in a new tab — see [Subcontractors](/guides/settings/subcontractors) for how to add one. Settings are Admin-only, so ask an Admin if you can't open it.
+</Tip>
+
 ## Add the vehicles
 
 The **Add Vehicles** section is about how many vehicles of each type the crew needs — not specific named vehicles. Its prompt reads "Select how many vehicles of each type you need for this day."
 
 <Steps>
   <Step title="Open Add Vehicles">
-    On the same day, open the **3. Add Vehicles** section. You'll see a card for each vehicle type available to your branch.
+    On the same day, open the **4. Add Vehicles** section. You'll see a card for each vehicle type available to your branch.
   </Step>
   <Step title="Choose a type">
     Click a vehicle type's card to select it. A checkmark shows it's chosen.
@@ -83,7 +113,7 @@ The **Add Heavy Equipment** section works exactly like vehicles — you choose h
 
 <Steps>
   <Step title="Open Add Heavy Equipment">
-    On the same day, open the **4. Add Heavy Equipment** section.
+    On the same day, open the **5. Add Heavy Equipment** section.
   </Step>
   <Step title="Select a type and set the quantity">
     Click an equipment type to select it, then use the number stepper to set how many that day needs. As with vehicles, you can't request more than your branch has.
@@ -99,10 +129,14 @@ If this section says "No equipment available for your branch," there's no heavy 
 
 ## Wrap up the day
 
-Once a day has its work order, employees, vehicles, and equipment filled in, the day's card flips from **In Progress** to **Complete**. There's also a **5. Add Daily Notes** section if you want to leave the crew a note for the day.
+Once a day has its work order, employees, vehicles, and equipment filled in, the day's card flips from **In Progress** to **Complete**. Subcontractors are optional and don't hold up completion. There's also a **6. Add Daily Notes** section if you want to leave the crew a note for the day.
+
+<Note>
+A day can be worked by your employees, by subcontractors, or both — but every day needs at least one employee or one subcontractor before the plan can be submitted.
+</Note>
 
 <Tip>
-You don't have to finish everything in one sitting. Use **Save Draft** to keep your progress and come back later — your crew, vehicle, and equipment picks are all saved with the draft.
+You don't have to finish everything in one sitting. Use **Save Draft** to keep your progress and come back later — your crew, subcontractor, vehicle, and equipment picks are all saved with the draft.
 </Tip>
 
 When every day is complete, submit the plan from the **Job Planner** for approval.

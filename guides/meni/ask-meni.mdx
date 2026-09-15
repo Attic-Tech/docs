@@ -1,0 +1,167 @@
+---
+title: "Ask Meni"
+description: "Open Meni, Menaia's AI assistant, to get how-to answers, look up your live data as charts, tables, and record lists, and prepare changes you approve before anything happens."
+icon: "sparkles"
+keywords: ["Meni", "AI assistant", "ask Meni", "copilot", "chat with AI", "ask the docs", "conversation history", "Meni memory", "forget memory", "approve change", "confirm cancellation", "AI charts", "pin to dashboard", "report an issue", "what can Meni do", "Meni can't do"]
+---
+
+**Meni** is Menaia's AI assistant. It opens as a chat panel on the right side of any page, so you can ask a question without leaving what you're working on. Depending on what's turned on for you, Meni answers how-to questions from these docs, looks up your live workspace data, and prepares changes for you to approve.
+
+## Open Meni
+
+- Click the **sparkles** button in the top bar (its tooltip reads **Ask the docs**).
+- Or press **Cmd + J** (Mac) or **Ctrl + J** (Windows). Press it again to close the panel.
+- Many pages also have an **Ask Meni** button — for example the [Dashboard](/guides/meni/dashboard), the [Automations](/guides/meni/automations) page, the Data Sources area of Integrations, and the Communications inbox.
+
+Close the panel with the **X** in its header or press **Esc**. On a phone, the panel fills the screen. On a larger screen, click **Expand panel** to widen it, and **Contract panel** to shrink it again.
+
+## Full Meni or Ask the docs
+
+What Meni can do for you depends on whether the full assistant is turned on for you.
+
+| | Full Meni | Ask the docs |
+| --- | --- | --- |
+| How to tell | The header reads **Meni** and **Your Menaia copilot**, with buttons for new chats, history, and watch rules | The header shows a **Docs** tag next to **Meni** |
+| How-to questions | Yes, from these docs | Yes, from these docs |
+| Report a problem | Yes | Yes |
+| Look up your leads, jobs, schedule, invoices, and other records | Yes | No |
+| Charts, tables, and record lists | Yes | No |
+| Prepare changes for you to approve | Yes | No |
+| Saved conversation history | Yes | No — use **Clear conversation** to start over |
+
+<Note>
+Everyone can use **Ask the docs**. If your panel shows the **Docs** tag, the full assistant isn't turned on for you. Ask whoever manages your workspace if you need it. See [Feature availability](/reference/platform/feature-availability#meni-assistant).
+</Note>
+
+## Start a conversation
+
+When a conversation is empty, Meni greets you and shows a few suggestion cards picked for your role, such as **What's on my schedule today?** or **What are my latest leads?**. Click a card to send it, or type in the **Ask Meni anything…** box and press send.
+
+- **On a record's page**, Meni also offers quick prompts for that record, like **Summarize this lead** or **What's the status of this project?**. When you say "this lead" or "this client", Meni knows which record you mean.
+- **Since you were last here** — with the full assistant, a short list of what changed (new leads, overdue invoices, today's schedule, and more) can appear above the cards. Click a line to put that question in the message box, or dismiss the list.
+- **Talk instead of typing** — if your browser supports it, click the microphone (**Start voice input**), speak, then click the stop button to turn your words into text. Press **Esc** to cancel a recording.
+
+While Meni is answering, the box reads **Reply when Meni finishes…** and the send button becomes a stop button. To change a question you already sent, use **Edit and resend** on your message. If an answer stops early or fails, use **Regenerate** or **Try again**.
+
+### Panel buttons
+
+With the full assistant, the panel header has these buttons:
+
+- **New chat** — start a fresh conversation.
+- **Conversation history** — your saved chats with Meni, newest first. Click one to pick up where you left off, or hover it and click the trash icon to delete it.
+- **Meni memory** — what Meni remembers (see [Meni memory](#meni-memory) below). This only appears when Meni memory is turned on for you.
+- **Watch rules** — the things you've asked Meni to keep an eye on. See [Automations](/guides/meni/automations#watch-rules).
+
+## What Meni can answer
+
+- **How Menaia works.** Meni answers from these docs and ends with a **Sources** list of the pages it used. If the docs don't cover something, it says so.
+- **Your live data** (full assistant). Meni can look up leads, estimates, proposals, projects, jobs, the schedule and shifts, invoices, wallet and bonuses, badges, clients, your team, leaderboards, ride-alongs, customer reviews, and text conversations. It only sees what your role can see — if you ask about something your role can't access, it tells you.
+- **Connected data sources.** If your workspace has connected outside tools under Integrations, Meni can answer questions across them. See [Data Sources](/guides/settings/integrations#data-sources).
+- **Open ended questions.** Ask "What should I focus on today?" or "What's at risk this week?" and Meni pulls the relevant records and gives you a short, prioritized answer.
+
+Meni says where each answer came from, and never makes up names, numbers, or dates it didn't find.
+
+<Tip>
+Meni can also answer in a comment thread when someone mentions **@Meni**. See [Ask Meni in a thread](/guides/earnings/comment-react#ask-meni-in-a-thread).
+</Tip>
+
+### Charts, tables, and record lists
+
+When numbers read better visually, Meni builds the answer as a card right in the chat:
+
+- **Charts** — use the **Chart** / **Table** switch on the card to see the same data as rows. If a chart can't be drawn, click **Retry** or **Show as table**.
+- **KPI tiles and tables** — headline numbers and itemized rows. A note that starts with "Showing the first" and ends with "the data was capped." means there was more data than the card shows.
+- **Record lists** — when Meni names specific records (overdue invoices, stale leads, today's jobs), it lists them as rows you can click to open. If there are more, you'll see **Showing X of Y** and a **View all** link.
+
+To keep a chart, KPI, or table, click **Pin** on the card. It changes to **Pinned** and the view appears on your [Dashboard](/guides/meni/dashboard#pinned-views), where it refreshes with fresh data. You can drill into the records behind a number from the Dashboard. Pinning needs access to the Dashboard — if your role doesn't have it, you can't pin views.
+
+## Ask Meni to make a change
+
+With the full assistant, you can ask Meni to do things — "reschedule Tuesday's shift to Thursday", "mark these three leads lost", "add a contact to this client". Meni never changes anything on its own. It prepares an **approval card**, and nothing happens until you approve it.
+
+<Steps>
+  <Step title="Ask for the change">
+    Describe what you want in plain words. Meni looks up the records involved first, and asks you for anything it's missing — like a date or time — instead of guessing.
+  </Step>
+  <Step title="Review the card">
+    The card shows what you asked for under **Requested change**, followed by a live preview of the records it will touch. While it loads you'll see **Checking the current records and availability…**. Anything worth a second look appears under **Please review**. Some cards let you edit the details — pick a different status, change the email text, or adjust a time — before you approve.
+  </Step>
+  <Step title="Approve or decline">
+    Click the approve button to go ahead. It usually reads **Approve change** or **Approve**; for cancelling shifts, tasks, or time off, or deleting a project comment, it reads **Confirm cancellation**. A few cards name the action instead, such as **Send email**, **Schedule**, **Create lead**, or **Apply to 3 leads**. Click **Decline** if you don't want it — the card then shows **Declined** and nothing changes.
+  </Step>
+</Steps>
+
+<Note>
+You can't keep chatting while a card is waiting. Approve or decline it before you send your next message.
+</Note>
+
+### When a card can't be approved
+
+- **The preview is still loading or incomplete.** The approve button stays unavailable. If you see "This proposal is incomplete. Ask Meni to prepare it again.", ask Meni to try again.
+- **The record changed.** If someone edited the record after Meni prepared the card, approving fails with "This record changed. Ask Meni to read it again and prepare a new proposal."
+- **You don't have permission.** Meni only offers changes your role could make yourself in Menaia, and checks your permissions again when the preview loads and when you approve.
+
+### What Meni can prepare
+
+| Area | Changes Meni can prepare |
+| --- | --- |
+| Schedule | Schedule job shifts, update a shift, publish shifts, cancel shifts; schedule, update, or cancel a task; schedule, update, or cancel time off |
+| Leads | Change a lead's status (one lead or several at once), change the assigned salesperson, set tags, change the source, client coordinator, confidence, or referrer, update notes or the address, create a lead, and schedule, update, or cancel a follow-up activity |
+| Follow-ups | Draft a follow-up email, which is sent when you click **Send email**; draft a follow-up text, which you copy with **Copy message** and send from your own phone |
+| Jobs | Change a job's status, replace the crew, assign the crew leader, update job plan notes, change a job plan's status |
+| Clients and projects | Create a client, update client details, add or update a client contact, create a project, rename a project, add or update a project contact |
+| Comments | Post, edit, or delete a project comment |
+| Automations | Create a watch rule or a playbook — see [Automations](/guides/meni/automations) |
+
+Before creating a lead, Meni checks whether a lead with the same phone number or email already exists, and points you to it instead of creating a duplicate.
+
+<Warning>
+Meni can't take payroll, payment, invoice, user, or subcontractor actions. It can look up invoices and wallet activity, but you make those changes yourself on their pages. Meni also can't approve anything for you — however the request is worded, the change only happens when you click the button on the card.
+</Warning>
+
+## Meni memory
+
+When Meni memory is turned on, Meni remembers useful facts between conversations — for example a client's preferred contact time, or how you like your drafts written. Click **Meni memory** in the panel header to see what it remembers.
+
+- **On a lead or client page**, the panel has two tabs: **This lead** (or **This client**) for facts about that record, and **About you** for your own preferences. Anywhere else it shows your own memories.
+- **Where memories come from** — each one is tagged with its source: **Chat** (your conversations with Meni), **Message** (follow-up emails sent to the lead), **Ride-along**, or **Imported**.
+- **Forget a memory** — hover it and click the trash icon (**Forget this memory**). You can also ask Meni to forget or correct something in the chat.
+
+If nothing is stored yet you'll see **Nothing remembered yet**. On a lead or client page, facts Meni learns about that record in chats, messages, and ride-alongs show up here over time. Under **About you**, tell Meni your preferences and it will keep them.
+
+<Note>
+Memories about a lead or client are shared with teammates who can see that record. Memories under **About you** are yours alone. Meni treats a memory as something it recalls, not as the current record — it checks the live data before acting on it.
+</Note>
+
+## Report a problem
+
+Click the **Report an issue** button (the question-mark icon in the top bar), or pick **Ask about an issue** from the suggestion cards. Meni opens in a problem-report flow:
+
+<Steps>
+  <Step title="Describe what happened">
+    Meni asks what went wrong, where in the app, and when it started. It already knows which page you're on and your device, so you don't need to explain those.
+  </Step>
+  <Step title="Add a screenshot">
+    Drop an image or video on the upload area above the message box, or click it to choose a file. A screenshot helps the team find the problem faster.
+  </Step>
+  <Step title="Let Meni file it">
+    If it's a how-to question, Meni answers it on the spot. If it's a real bug, Meni files a report with the details and confirms it's been sent to the team.
+  </Step>
+</Steps>
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Your Meni Dashboard" icon="table-columns" href="/guides/meni/dashboard">
+    Pin Meni's charts and see what needs your attention.
+  </Card>
+  <Card title="Automations" icon="bolt" href="/guides/meni/automations">
+    Have Meni watch your numbers and draft follow-ups for approval.
+  </Card>
+  <Card title="AI features and limits" icon="sparkles" href="/reference/platform/ai-features-and-limits">
+    How Meni keeps you in control of what it does.
+  </Card>
+  <Card title="Feature availability" icon="toggle-on" href="/reference/platform/feature-availability">
+    Why some Meni features may not appear for you.
+  </Card>
+</CardGroup>

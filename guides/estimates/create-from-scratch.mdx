@@ -1,0 +1,125 @@
+---
+title: "Create an Estimate from Scratch"
+description: "Skip the Calculator and build a quick estimate by hand — pick the client and project, add your own line items and prices on the proposal, choose the tax, and send it."
+icon: "square-plus"
+---
+
+A **from-scratch estimate** is a quick way to quote a job without the Calculator. Instead of picking work areas and price book items and letting the pricing engine work out the price, you type in each line item and its price yourself, right on the proposal. It's a good fit for small jobs, one-off work, or anything your price book doesn't cover.
+
+<Note>
+If you don't see the **From Scratch** option when you click **New Estimate**, it isn't turned on for your workspace. Proposals also need to be turned on for your branch, because a from-scratch estimate is built on its proposal.
+</Note>
+
+## Who can create one
+
+Admins, Ops Managers, Sales Admins, Sales Members, and Client Coordinators can create from-scratch estimates and add, edit, and remove their line items. Crew Leaders and Crew Members can't.
+
+## Start a from-scratch estimate
+
+<Steps>
+  <Step title="Click New Estimate">
+    Go to **Estimates** from the main navigation and click **New Estimate** in the top-right corner. The **Create Estimate** window opens.
+
+    You can also start from a client or project: open the **Create New** menu and choose **New Estimate**. When you start from a project, the client and project are already filled in and the window skips straight to the next step.
+  </Step>
+  <Step title="Choose the client and project">
+    Pick the **Client**, then the **Project** the estimate belongs to. The project list fills in once a client is selected. Click **Continue**.
+  </Step>
+  <Step title="Choose From Scratch">
+    You'll see two cards:
+
+    - **From Pricebook** — "Use items from your branch workspace." This opens the Calculator, with the client and project already filled in. See [Create an estimate with the Calculator](/guides/estimates/create).
+    - **From Scratch** — "Create items from scratch for a quick proposal."
+
+    Select **From Scratch** and click **Continue**. Use **Back** to change the client or project.
+  </Step>
+  <Step title="Land on the proposal">
+    Menaia creates a blank **In Progress** estimate for the project and opens its proposal. The **Service Breakdown** section says **No items added yet**, with an **Add Item** button.
+  </Step>
+</Steps>
+
+<Tip>
+From-scratch estimates count toward your branch's limit on open estimates, just like Calculator estimates. If you've hit the limit, wrap up a few open estimates before starting a new one.
+</Tip>
+
+## Add a line item
+
+Click **Add Item** to open the **Add Item** window. From here you can reuse an item you've already set up, or create a new one.
+
+### Reuse an existing quick item
+
+The list shows your workspace's [quick items](/guides/settings/price-book/items#quick-items), including any items created from scratch on earlier estimates. Type in **Search items...** to narrow it down, then click an item.
+
+The form opens with the item's name, unit type, cost, description, image, and **Taxable Item** setting filled in. Enter the quantity and price for this job. Anything you change here applies only to this estimate — the item in your price book stays the same.
+
+<Note>
+Calculator items don't appear in this list. They're priced by the Calculator, so they're only available on Calculator estimates.
+</Note>
+
+### Create a new item
+
+Click **Create New** to open a blank **New Item** form. When you add the line, the new item is also saved to your price book as a quick item, so you can pick it again on future estimates.
+
+### Fill in the item form
+
+- **Image** — for a new item, click the image box to upload a picture. It appears next to the line on the proposal. You can't change an existing item's image from here.
+- **Item Name** — what the customer sees on the proposal.
+- **Unit Type** — the unit the item is measured in, such as square feet or each.
+- **Unit** — how many units this job needs, for example `300`. This is the line's quantity.
+- **Costs** — what the item costs you.
+- **Total Price** — the price for the whole line, before any discount. It isn't multiplied by the quantity — the unit price is worked out for you.
+- **Markup %** — your markup over **Costs**. **Total Price** and **Markup %** stay in step: change one and the other updates to match.
+- **Description** — shown under the item on the client proposal.
+- **Discount** — a percentage taken off this line.
+- **Taxable Item** — turn on if tax applies to this line. See [Choose the tax](#choose-the-tax).
+
+Click **Add Item** to add the line, or **Cancel** to close without saving. You'll see "Item added" once it's on the proposal.
+
+To save, a line needs an **Item Name**, a **Unit Type**, a **Unit** greater than 0, and a **Total Price** greater than 0. If one is missing, a message appears under the field — for example, "Enter a total price greater than 0."
+
+<Warning>
+Each item can only be on an estimate once. If you pick an item that's already there, you'll see "That item is already on the estimate" and "Edit the existing line instead of adding it again." Use **Edit Item** on the existing line to change its quantity or price.
+</Warning>
+
+## Edit, remove, and reorder lines
+
+Once the proposal has items, each line shows its image, name, quantity, and — depending on your **Client View Settings** — its **Unit Price** and **Total**. Under each line you'll find:
+
+- **Edit Item** — reopens the item form with the line's values. Change what you need and click **Update Item**.
+- **Delete Item** — removes the line right away. Any photos or videos attached to that line are removed with it.
+- **Upload Media** — attach photos or videos to that line. If the line has none yet, click **Attach photos or videos for this line item**.
+- **Add Item** — on the last line, adds another item.
+
+To change the order, drag a line by its handle on the left. Changes save as you go, and the **Price Summary** updates to match.
+
+## Choose the tax
+
+The **Price Summary** below the Service Breakdown shows the **Subtotal**, a **Tax** row, and the **Total Price**.
+
+A new from-scratch estimate starts with your branch's default tax rate, or TaxJar if your branch uses it. To change it, open the selector in the **Tax** row and pick another saved rate, a tax group, or **No Tax**. Admins, Ops Managers, Sales Admins, and Sales Members can also choose **Create new** to add a tax rate without leaving the proposal.
+
+Tax applies only to lines with **Taxable Item** turned on, after each line's discount. For the full rules, see [Sales tax](/reference/billing/sales-tax).
+
+## When the estimate locks
+
+You can add, edit, and remove lines and change the tax only while the estimate is **In Progress** and its proposal isn't signed. After that, the proposal shows a read-only Service Breakdown:
+
+- **Sending the proposal** moves the estimate to **Released**, which locks it. To make more changes, move the estimate back to **In Progress** — see [Change an estimate's status](/guides/estimates/change-status) — then resend.
+- **A signed proposal** stays locked. To change the scope after the customer signs, reopen the estimate for a change order — see [Handle the customer's response](/guides/proposals/client-response#the-customer-signed-approved).
+
+## Things that work differently from Calculator estimates
+
+- **No Calculator.** A from-scratch estimate always opens on its proposal. It can't be opened in the Calculator, because there's no Calculator pricing behind it.
+- **You set the prices.** The price is exactly what you enter on each line. Branch pricing settings, multipliers, and factors don't apply.
+- **Everything else is the same.** You personalize, send, and track the proposal the same way — see [Generate a proposal](/guides/proposals/generate) and [Send a proposal](/guides/proposals/send).
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Send the proposal" icon="paper-plane" href="/guides/proposals/send">
+    Email the proposal to your customer with a secure link to review and sign.
+  </Card>
+  <Card title="Quick items" icon="package" href="/guides/settings/price-book/items#quick-items">
+    Set up reusable items to add to from-scratch estimates.
+  </Card>
+</CardGroup>

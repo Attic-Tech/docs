@@ -1,0 +1,185 @@
+---
+title: "Project expenses"
+description: "Log the costs on a project — materials, subcontractors, dumpsters, and more — attach receipts, track each cost from Budgeted to Paid, and choose whether a cost comes out of the crew's bonus."
+icon: "receipt"
+---
+
+The **Expenses** tab on a project is where you record what the job costs you. Each expense has a type, an amount, and a status, and you can attach receipts, link the subcontractor you paid, and decide whether the cost should reduce the crew's bonus. The tab keeps a running total, and your expenses feed the project's **Financial Summary**.
+
+<Note>
+Every role except **Crew Member** can view, add, edit, and delete project expenses. If you don't see an **Expenses** tab on a project, expenses aren't turned on for your workspace — see [Feature availability](/reference/platform/feature-availability#project-expenses).
+</Note>
+
+## Open the Expenses tab
+
+<Steps>
+  <Step title="Open the project">
+    Open the project from the client, the same way you'd open any project.
+  </Step>
+  <Step title="Click Expenses">
+    Select the **Expenses** tab. You'll see **Expense Management** with every expense logged on the project, or "No expenses for this project" if nothing has been added yet.
+  </Step>
+</Steps>
+
+## Add an expense
+
+<Steps>
+  <Step title="Start a new expense">
+    Click **+ Add Expense**. The **Add Expense** window opens.
+  </Step>
+  <Step title="Pick the expense type">
+    In **Expense Type**, choose the category that fits the cost. Start typing to search the list. If the type you need doesn't exist yet, you can create it right here — see [Create an expense type as you go](#create-an-expense-type-as-you-go).
+  </Step>
+  <Step title="Link a subcontractor (optional)">
+    If the cost was paid to a subcontractor, pick them in **Subcontractor**. Leave it on **No subcontractor** otherwise.
+  </Step>
+  <Step title="Enter the amount and status">
+    Type the **Amount**, then set the **Status** to **Budgeted**, **Confirmed**, or **Paid**.
+  </Step>
+  <Step title="Add a note and attachments (optional)">
+    Use **Note** for any detail worth keeping, and drop receipts or documents into **Attachments**.
+  </Step>
+  <Step title="Decide whether it affects bonuses">
+    Check **Affect Bonuses** only if this cost should come out of the crew's bonus for the job. See [How expenses affect crew bonuses](#how-expenses-affect-crew-bonuses) before you turn this on.
+  </Step>
+  <Step title="Save it">
+    Click **Add Expense**. The expense appears in the table and the total updates.
+  </Step>
+</Steps>
+
+### The fields
+
+| Field | What it's for |
+| --- | --- |
+| **Expense Type** (required) | The category of cost. Only active expense types are offered. |
+| **Subcontractor** | The subcontractor the expense was paid to. The list shows active subcontractors on your branch, and you can clear it to remove the link. |
+| **Amount** (required) | What the cost was, or is expected to be. It must be greater than zero. |
+| **Status** (required) | Where the cost stands: **Budgeted**, **Confirmed**, or **Paid**. New expenses start as **Budgeted**. |
+| **Note** | An optional note about the expense. It shows as **Description** in the table. |
+| **Affect Bonuses** | When checked, the cost reduces the bonus payouts tied to this job. |
+| **Portion applied to bonuses** | Appears once **Affect Bonuses** is checked. Choose **25%**, **50%**, **75%**, or **100%** of the amount to apply. It starts at **100%**. |
+| **Attachments** | Photos, videos, and documents such as receipts and invoices. |
+
+### Create an expense type as you go
+
+You don't have to leave the project to add a new category.
+
+<Steps>
+  <Step title="Search for the type">
+    In **Expense Type**, type the name you want — for example, *Dumpster rental*.
+  </Step>
+  <Step title="Add it">
+    If nothing matches exactly, the list offers **Add "Dumpster rental" as new type**. Select it. The new type is created, selected on your expense, and available to everyone from then on.
+  </Step>
+</Steps>
+
+<Tip>
+Check the list before adding a new type — two names for the same kind of cost make your expense reports harder to read. Admins can tidy up the list later in [Expense types](/guides/settings/expense-types).
+</Tip>
+
+## Attach receipts and documents
+
+Drag files onto the **Attachments** area in the expense window, or click it to choose files. You can attach images, videos, and documents.
+
+- **On a new expense**, your files upload right after the expense is saved. If an upload fails, the expense is still created and you'll see "Expense created, but file upload failed" — open the expense and add the file again.
+- **On an existing expense**, add more files or use the remove control on a thumbnail. Your attachment changes are applied when you click **Save Changes**.
+
+In the table, click **View Attachment** on a row to open that expense's files in a viewer.
+
+## Read the expenses table
+
+Each row in the table is one expense. The columns are:
+
+- **Expense Type**
+- **Subcontractor** — shows a dash when none is linked.
+- **Amount**
+- **Description** — the note you added.
+- **Created By** — who logged it, with the date.
+- **Last Updated** — who last changed it, with the date.
+- **Attachments** — a **View Attachment** link, or a dash when there are none.
+- **Status**
+
+The footer shows **Total Expenses**, the sum of every expense on the project whatever its status. On a phone, each expense shows as a card with the same details.
+
+## Change an expense's status
+
+You can update a status without opening the expense. Click the status in the row and pick **Budgeted**, **Confirmed**, or **Paid**. The change saves right away, and you'll see "Status updated successfully."
+
+<Note>
+Status matters for your numbers. The project's **Financial Summary** counts every expense in its **Expenses** card, but **Gross Profit** only subtracts expenses marked **Paid**.
+</Note>
+
+## Edit an expense
+
+<Steps>
+  <Step title="Open the expense">
+    Click the **pencil** icon on the expense's row. The **Edit Expense** window opens with the current details.
+  </Step>
+  <Step title="Make your changes">
+    Change any field, add or remove attachments, or clear the subcontractor.
+  </Step>
+  <Step title="Save">
+    Click **Save Changes**.
+  </Step>
+</Steps>
+
+<Tip>
+If an expense type has been deactivated since the expense was logged, the expense keeps it — you can still edit other details. You just can't switch another expense to that type.
+</Tip>
+
+## Delete an expense
+
+<Steps>
+  <Step title="Choose the expense">
+    Click the red **trash** icon on the expense's row.
+  </Step>
+  <Step title="Confirm">
+    The **Delete expense?** dialog warns that the expense will be permanently deleted. Click **Delete** to remove it.
+  </Step>
+</Steps>
+
+The expense disappears from the table and from the project total. If it was affecting bonuses, the crew's bonus is recalculated without it. See [Soft delete](/reference/platform/soft-delete) for what deleting does behind the scenes.
+
+## How expenses affect crew bonuses
+
+Crew bonuses come from finishing a job in fewer hours than the estimate allowed. The hours saved create a bonus pool for the job, and the pool is split among the crew by the hours each person worked. Your crew can follow their share in their [Wallet](/guides/earnings/wallet).
+
+When you check **Affect Bonuses**, the expense comes out of that pool before it's split:
+
+- **The amount taken out** is the expense amount times the portion you chose. A $400 expense at **50%** takes $200 out of the pool.
+- **Everyone shares the cost** in proportion to their hours, just as they share the bonus.
+- **Every status counts.** A bonus-affecting expense reduces the pool whether it's **Budgeted**, **Confirmed**, or **Paid**.
+- **It applies to the project's most recently closed job.** If the project has several jobs, only the latest closed one is affected.
+- **A pool can go below zero.** If expenses are larger than the bonus the crew earned, their payout for the job becomes a deduction.
+
+The bonus is recalculated whenever a bonus-affecting expense is added, deleted, or has its amount or portion changed — and when you turn **Affect Bonuses** on or off. Crew members see the change in their **Wallet**.
+
+<Warning>
+You can only turn on **Affect Bonuses** once the project has a closed job with its crew's hours recorded. Otherwise the expense won't save, and you'll see "Unable to save expense. No job exists to affect bonus payouts." or "Unable to save expense. Missing the information needed to apply a bonus impact." Leave the box unchecked for now and edit the expense once the job has closed.
+</Warning>
+
+<Note>
+Bonuses stop changing once a job is past the **Bonus Payout Cutoff (Days)** set in your [branch configuration](/guides/settings/branches), counted from the day the job closed. A bonus-affecting expense added or changed after that point is saved, but it no longer changes anyone's payout. Jobs whose estimate has no labor hours don't earn a bonus, so there's nothing for an expense to reduce.
+</Note>
+
+## Expenses and QuickBooks
+
+If your workspace has connected **QuickBooks** and turned on **Expense Sync**, Menaia sends your project expenses to QuickBooks for you:
+
+- **Adding or editing an expense** creates or updates a matching expense in QuickBooks. It's recorded against the project's client, paid from the account you chose in your sync settings, and categorized under an expense account named after the expense type.
+- **Status doesn't hold anything back.** Expenses sync whatever their status, including **Budgeted**.
+- **Deleting an expense** that has already synced also deletes it in QuickBooks.
+- **If no pay-from account is set**, nothing is sent and the expense shows a warning in the QuickBooks **Sync Log**. Choose the account in the expense sync settings, then edit the expense to try again.
+
+To turn expense sync on or off, or change the account expenses are paid from, see [Integrations](/guides/settings/integrations#quickbooks).
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Expense types" icon="list" href="/guides/settings/expense-types">
+    Create, rename, and deactivate the categories your team picks when logging expenses.
+  </Card>
+  <Card title="Wallet" icon="wallet" href="/guides/earnings/wallet">
+    See how bonuses — and bonus deductions — show up for each crew member.
+  </Card>
+</CardGroup>

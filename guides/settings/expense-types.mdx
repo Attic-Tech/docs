@@ -1,0 +1,99 @@
+---
+title: "Expense types"
+description: "Manage the categories your team picks when logging project expenses — create, rename, and deactivate or reactivate expense types from Settings."
+icon: "receipt"
+---
+
+**Expense types** are the categories your team chooses from when they log a cost on a project's **Expenses** tab — for example, materials, a dumpster rental, or a permit fee. A short, consistent list keeps expense reports readable and makes it easy to see where a job's money went.
+
+<Note>
+The **Expenses** page in Settings is available to **Admins**. If you don't see it, your role doesn't have access. Anyone who can log project expenses can still add a brand-new type on the fly from the **Add Expense** window — see [Project expenses](/guides/projects/expenses#create-an-expense-type-as-you-go).
+</Note>
+
+## Open the expense types list
+
+<Steps>
+  <Step title="Open Settings">
+    Go to **Settings** from the main navigation.
+  </Step>
+  <Step title="Choose Expenses">
+    Under **System Configuration**, select **Expenses**. You'll see every expense type in your workspace with its **Name**, **Description**, and **Status** (**Active** or **Inactive**).
+  </Step>
+</Steps>
+
+<Tip>
+Use the **Search by name...** box at the top of the list to find a type quickly.
+</Tip>
+
+## Create an expense type
+
+<Steps>
+  <Step title="Start a new type">
+    Click **Create New**. The **Create Expense Type** window opens.
+  </Step>
+  <Step title="Name it">
+    Enter a **Name** — keep it short and recognizable. A name is required. Check the list first so you don't end up with two types for the same kind of cost.
+  </Step>
+  <Step title="Add a description (optional)">
+    Use **Description** to explain when to use this type, so the rest of the team picks the right one.
+  </Step>
+  <Step title="Choose whether it's active">
+    **Is Active** — "Whether this expense type is active and can be used" — is checked by default. Uncheck it if you want to set the type up now but keep it out of use for the time being.
+  </Step>
+  <Step title="Save">
+    Click **Create**. The type appears in the list and, if it's active, is ready to pick on new expenses.
+  </Step>
+</Steps>
+
+## Edit an expense type
+
+<Steps>
+  <Step title="Open the type">
+    Click the **pencil** icon on its row. On a phone, open the card's **menu** and choose **Edit**.
+  </Step>
+  <Step title="Make your changes">
+    Update the **Name**, **Description**, or **Is Active**, then click **Save Changes**.
+  </Step>
+</Steps>
+
+## Deactivate an expense type
+
+Expense types aren't deleted — you retire one by deactivating it. That way every expense already logged under the type keeps its category and history.
+
+<Steps>
+  <Step title="Start the deactivation">
+    Click the red **trash** icon on the type's row. On a phone, open the card's **menu** and choose **Deactivate**.
+  </Step>
+  <Step title="Confirm">
+    The **Deactivate expense type?** dialog explains that the type "will be deactivated and can no longer be selected for new expenses. Existing expenses keep this type." Click **Deactivate**.
+  </Step>
+</Steps>
+
+Once a type is inactive:
+
+- It shows as **Inactive** in the list, and its trash icon is unavailable.
+- It's no longer offered in the **Expense Type** list when someone adds or edits an expense.
+- Expenses that already use it keep it, and can still be edited.
+
+<Note>
+An expense type that's in use by project expenses can never be removed outright — deactivate it instead. See [Soft delete](/reference/platform/soft-delete) for how Menaia handles records that are still in use.
+</Note>
+
+## Reactivate an expense type
+
+To bring a type back, open it with the **pencil** icon, check **Is Active**, and click **Save Changes**. It's available on new expenses again right away.
+
+## Expense types and QuickBooks
+
+If QuickBooks is connected with **Expense Sync** turned on, each synced expense is categorized in QuickBooks under an expense account named after its expense type. Clear, consistent type names make your QuickBooks reports easier to read too. See [Project expenses](/guides/projects/expenses#expenses-and-quickbooks).
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Project expenses" icon="receipt" href="/guides/projects/expenses">
+    Log costs on a project, attach receipts, and decide whether a cost affects crew bonuses.
+  </Card>
+  <Card title="Subcontractors" icon="hard-hat" href="/guides/settings/subcontractors">
+    Keep the list of subcontractors you can link to expenses and job plans.
+  </Card>
+</CardGroup>

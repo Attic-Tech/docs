@@ -1,10 +1,10 @@
 ---
 title: "Geocoding zip"
-description: "How addresses become map coordinates, what happens when a lookup fails, and how the ZIP and address drive sales tax, driving distance, and nearest-branch routing for leads."
-keywords: ["why is my address not on the map", "address has no coordinates", "zip code is missing tax error", "unable to calculate tax", "how is sales tax calculated", "Washington sales tax", "nearest branch assignment", "how are leads assigned to a branch", "driving distance to property", "lead has no branch", "5 digit zip", "territory by zip"]
+description: "How addresses become map coordinates, what happens when a lookup fails, what the property address means for sales tax, and how the address drives driving distance and nearest-branch routing for leads."
+keywords: ["why is my address not on the map", "address has no coordinates", "does the property address affect sales tax", "TaxJar ZIP code", "how is sales tax calculated", "nearest branch assignment", "how are leads assigned to a branch", "driving distance to property", "lead has no branch", "5 digit zip", "territory by zip"]
 ---
 
-This reference explains how the platform turns a typed address into map coordinates, what happens when that lookup can't resolve, and how the ZIP code and address drive sales tax, driving-distance display, and automatic branch assignment for inbound leads.
+This reference explains how the platform turns a typed address into map coordinates, what happens when that lookup can't resolve, what the address means for sales tax, and how the address drives driving-distance display and automatic branch assignment for inbound leads.
 
 The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Branch Management** (Admin, Ops Manager, Sales Admin, and Client Coordinator).
 
@@ -30,6 +30,10 @@ When you choose an address from the autocomplete suggestions while typing, that 
 
 Both the address suggestions and the coordinate lookup are restricted to United States results, and the first matching result is used.
 
+### ZIP code input on the create-lead form
+
+On the create-lead form, a postal code must be exactly 5 digits ("ZIP code must be 5 digits"). An empty value is treated as no ZIP rather than an error.
+
 ## When an address can't be located
 
 ### A failed lookup never blocks the save
@@ -48,35 +52,15 @@ A property created from free-text with no resolvable city, state, or ZIP is stil
 
 Properties, leads, and branch base addresses that have an address but no coordinates can be filled in later by a maintenance pass that resolves them in bulk. Records that still can't be resolved are skipped and reported, and one failure never stops the rest of the run.
 
-## The ZIP code drives sales tax (Washington only)
+## The address and sales tax
 
-### Tax is calculated only for Washington-state addresses
+### Sales tax isn't based on the state or ZIP code
 
-Sales tax is calculated only when the property's address resolves to Washington. For any other state, no tax is requested.
+The platform doesn't decide whether a job is taxed from where the property is. Sales tax is always a choice made in the tax selector on the estimate, proposal, or invoice — a saved tax rate, a tax group, TaxJar on branches that use it, or **No Tax**. A missing ZIP code or state never blocks an estimate from pricing or saving. See [Sales tax](/reference/billing/sales-tax).
 
-<Warning>
-A Washington estimate that is missing its ZIP code will surface an error to the user — tax is **not** silently set to zero.
-</Warning>
+### TaxJar is the one place the address matters
 
-### A Washington job missing its ZIP shows a clear error
-
-When a Washington estimate's address has no ZIP code, the platform shows: **"Unable to calculate tax — zip code is missing from the property address."** A missing state shows the matching message: **"Unable to calculate tax — state is missing from the property address."** Add the ZIP (or state) to the property's address to clear the error.
-
-### An incomplete address is treated as no address, not a crash
-
-If an address resolves only partially — for example, it lands on Washington but with no ZIP — the platform treats it as having no usable components rather than forwarding a half-result that would fail tax calculation. The practical effect is "incomplete address, so no tax" instead of an error. A temporary lookup problem (timeout or outage) is handled the same way: the estimate still prices, just without tax.
-
-### ZIP present but street or city missing still calculates tax
-
-If a Washington address has a state and ZIP but is missing the street or city, tax still calculates using ZIP-level rates.
-
-### A genuine tax-lookup error surfaces with the address
-
-If the tax lookup itself errors for a Washington job, the failure is surfaced with the property address rather than silently zeroing the tax.
-
-### ZIP code input on the create-lead form
-
-On the create-lead form, a postal code must be exactly 5 digits ("ZIP code must be 5 digits"). An empty value is treated as no ZIP rather than an error.
+On a branch that uses TaxJar, the TaxJar option looks up a rate from the property address. A ZIP code is the minimum it needs; the street, city, and state make the rate more precise. If the property has no ZIP code, TaxJar can't find a rate. Work isn't blocked — add the ZIP to the property's address or pick a saved rate. See [When TaxJar can't find a rate](/guides/settings/integrations#when-taxjar-cant-find-a-rate) for how each screen handles it.
 
 ## The address drives driving distance and branch routing
 
@@ -107,11 +91,12 @@ Driving distance is measured in miles from the branch's base address to the prop
 - **What carries coordinates:** properties, leads, and branch base addresses — resolved from the address on save, re-resolved only when the address changes.
 - **Minimum to locate an address:** at least a city or a ZIP. Lookups are United States only.
 - **A failed lookup never blocks a save** and never overwrites existing coordinates.
-- **Sales tax:** Washington only. A Washington estimate missing its ZIP shows "Unable to calculate tax — zip code is missing from the property address."
+- **Sales tax:** chosen in the tax selector, not decided by the address. Only a TaxJar rate is looked up from the property address, and it needs at least a ZIP code.
 - **Lead routing:** nearest branch by driving distance — not by ZIP. A lead with no address, or no matchable branch, is still created without a branch.
 - **Branch must have a base address** to be a routing candidate or to show a driving distance.
 
 ## Related references
 
+- [Sales tax](/reference/billing/sales-tax)
 - [/reference/platform/permissions-roles-matrix](/reference/platform/permissions-roles-matrix)
 - [/reference/leads/status-lifecycle](/reference/leads/status-lifecycle)

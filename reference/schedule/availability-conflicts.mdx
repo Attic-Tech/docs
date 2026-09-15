@@ -1,7 +1,7 @@
 ---
 title: "Availability conflicts"
-description: "How the schedule detects double-bookings and unavailability, the availability dots shown while picking people, and the Scheduling Conflict dialog."
-keywords: ["why does it say scheduling conflict","what counts as a scheduling conflict","why is a team member shown as unavailable","can I schedule someone who has time off","what do the green and red dots mean when picking people","does a draft shift cause a conflict","how do I resolve a scheduling conflict","can I double-book someone on purpose"]
+description: "How the schedule detects double-bookings and unavailability, the availability dots shown while picking people, the Scheduling Conflict dialog, and how Best Match finds a salesperson's next opening."
+keywords: ["why does it say scheduling conflict","what counts as a scheduling conflict","why is a team member shown as unavailable","can I schedule someone who has time off","what do the green and red dots mean when picking people","does a draft shift cause a conflict","how do I resolve a scheduling conflict","can I double-book someone on purpose","how does Best Match decide who is available","why does Best Match say Unavailable","why is someone missing from Best Match","what does miles away mean in Best Match"]
 ---
 
 This reference explains how the schedule flags conflicts when you schedule a **Job shift**, **Task**, **Lead Activity**, or **Time Off** — what counts as a conflict, the availability dots shown while you pick people, and the **Scheduling Conflict** dialog you see on publish.
@@ -64,7 +64,7 @@ Before you save, the people pickers show a live availability signal for the date
 - **Dot in the people picker** — a small dot next to each name: **green** for available, **red** for unavailable.
 - **Team-member chip on a new job** — each assigned team member's chip is colored green (available) or red (unavailable). Subcontractors are never availability-checked and always appear neutral.
 
-Live availability is shown in the **Task**, **Lead Activity**, and **New Job** team picker.
+Live availability is shown in the **Task**, **Lead Activity**, and **New Job** team picker. When Best Match is turned on, the Lead Activity picker is replaced by the **Best Match** list, which shows each person's next opening instead of a dot — see [Best Match availability](#best-match-availability).
 
 <Warning>
 The availability dot is **advisory only**. It does not disable anyone or block selection — you can still assign someone shown in red. The only enforcement point is the Scheduling Conflict dialog on publish, and even that can be overridden.
@@ -112,6 +112,62 @@ If the schedule can't load conflict data — for example, a temporary outage —
 4. **Select Continue** to override and schedule anyway — an intentional double-booking.
 5. For a **task or lead activity**, **save it as a draft** instead of publishing. Drafts skip the conflict check, and draft events don't cause conflicts for others either.
 
+## Best Match availability
+
+When Best Match is turned on, the **Schedule New Lead Activity** panel suggests salespeople with their next opening and driving distance. These are the rules behind those suggestions. For how to use the list, see [Schedule a site visit](/guides/leads/schedule-a-site-visit#pick-who-goes-with-best-match).
+
+### Who is considered
+
+Active (not blocked) team members with the **Sales Admin** or **Sales Member** role who belong to the visit's branch.
+
+### The search window
+
+- Openings are searched across **14 days**, starting on the date chosen in the panel.
+- An opening is never in the past. If the chosen date is today, the search starts from the current time.
+- The opening's length is the panel's start-to-end time. If those aren't set, or the end isn't after the start, it's **one hour**.
+- Openings start on the **hour or half hour**.
+- Times follow the branch's timezone.
+
+### Which days and hours count
+
+A day can hold an opening only when **all** of these are true:
+
+- The branch is open that day, as set in **Branch Working Hours**.
+- The person has that day switched on in their **Working Preferences**.
+- The person has fewer published lead activities that day than their **Lead activity limit** for that day. Draft lead activities don't count toward the limit.
+
+The opening must fit inside the **person's own hours** for that day. People who have never saved Working Preferences work Monday to Friday, 8:00 AM to 5:00 PM, starting from the branch, with a limit of 3.
+
+### What blocks time
+
+The same events that cause conflicts block time: **published** job shifts, tasks, and lead activities, plus **all** time off. Drafts never block time. When you're editing an existing lead activity, that visit is ignored.
+
+### Gaps around existing events
+
+Unlike the conflict check, Best Match leaves a gap before and after each blocking event:
+
+- By default, the gap is the branch's **Minimum Time Between Appointments**. If that's blank, there's no gap, and back-to-back openings are allowed.
+- Around a published lead activity on the chosen date, the gap is the **driving time** between that visit and the new visit address, if that's longer than the branch minimum.
+
+### Where distance is measured from
+
+Distance is the driving distance, in miles, to the new visit's address. It's measured from the first of these that applies:
+
+1. **Previous lead address** — the address of the person's latest published lead activity on the chosen date.
+2. **Home** — their **Home Address**, when that day's **Start Point** is **Home** and a home address is saved.
+3. **Branch** — the address of the visit's branch.
+
+If there's no visit address, or the drive can't be worked out, no distance is shown.
+
+### Sort order
+
+- **Soonest** — earliest opening first. Ties go alphabetically by name. People with no opening come last.
+- **Nearest** — shortest distance first. People with no distance come last. Ties use the Soonest order.
+
+### Suggestions don't block booking
+
+Best Match is advisory. A person with no opening shows **Unavailable** but can still be picked. The Scheduling Conflict dialog on publish works the same as it does without Best Match.
+
 ## Quick reference
 
 - **Conflict = overlap** with a published job shift, published task, published lead activity, or any time off, for a person you're scheduling.
@@ -119,6 +175,7 @@ If the schedule can't load conflict data — for example, a temporary outage —
 - **Drafts never conflict;** time off always does.
 - **Editing an event excludes it from its own check** (a whole job's shifts for a job).
 - **Subcontractors are never availability-checked.**
+- **Best Match** uses the same blocking events, plus working days, hours, daily limits, and gaps around events. Its suggestions are advisory too.
 - **The availability dot is advisory;** the dialog is overridable. Conflicts never hard-block scheduling.
 
 ## Related references

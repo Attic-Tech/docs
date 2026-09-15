@@ -1,0 +1,179 @@
+---
+title: "Lead sources"
+description: "Set up the lead sources your team picks from — name them, choose a default, map incoming leads with external keys, and decide when a referral is required."
+icon: "bullseye"
+keywords: ["lead sources", "sources", "channels", "attribution", "external keys", "default source", "referral", "internal referral", "external referral", "thumbtack source", "system source"]
+---
+
+**Lead sources** record how a lead found you — your website, a phone call, a referral partner, Thumbtack, and so on. This page is where you define the list your team picks from on the lead form. Each source can also map incoming leads to itself automatically, and can ask for a salesperson or referral contact whenever someone chooses it.
+
+<Note>
+Managing lead sources is an **Admin** task. You'll find it under **Settings**, and only team members who can manage workspace settings can open it.
+</Note>
+
+## Open Lead Sources
+
+<Steps>
+  <Step title="Go to Settings">
+    Open **Settings** from the main navigation.
+  </Step>
+  <Step title="Open Leads">
+    Under **Sales & Operations**, choose **Leads**. The Leads settings open on the **Lead Statuses** tab.
+  </Step>
+  <Step title="Switch to Lead Sources">
+    Click the **Lead Sources** tab. You can also type "sources" or "attribution" in the settings search to jump straight here.
+  </Step>
+</Steps>
+
+## Read the sources list
+
+Each row shows:
+
+- **Name** — the label your team sees in the **Lead source** dropdown. Sources set up by an integration carry a **System** badge.
+- **Slug** — a short identifier for the source (lowercase letters, numbers, and hyphens).
+- **External Keys** — the identifiers that map incoming leads to this source, shown as badges. A dash means the source has none.
+- **Order** — where the source sits in the dropdown. Lower numbers come first.
+- **Status** — an **Active** or **Inactive** badge.
+
+Use the **Search by name...** box to find a source, and click a column heading to sort. On a phone, each source appears as a card with its badges and a menu for **Edit** and **Delete**.
+
+## Create a source
+
+<Steps>
+  <Step title="Start a new source">
+    Open the **Create New** menu in the top-right corner and choose **Lead Source**. The **Create New Lead Source** page opens.
+  </Step>
+  <Step title="Name it">
+    Enter the **Source Name**, for example *Google Ads* or *Home show*. This is what your team sees on the lead form.
+  </Step>
+  <Step title="Set the slug">
+    Enter a **Slug**, such as `google-ads`. Use lowercase letters, numbers, and hyphens only. Each slug must be unique in your organization.
+  </Step>
+  <Step title="Add a description (optional)">
+    Use **Description** to note when the team should pick this source.
+  </Step>
+  <Step title="Decide if it's active">
+    **Is Active** is checked by default. Uncheck it to set the source up without offering it yet.
+  </Step>
+  <Step title="Set the order">
+    Enter a **Sort Order**, a whole number of 0 or more. Sources are listed in this order on the lead form.
+  </Step>
+  <Step title="Choose whether it's the default (optional)">
+    Check **Is Default** to make this the fallback source for incoming leads that don't match any other source. See [Choose a default source](#choose-a-default-source).
+  </Step>
+  <Step title="Add external keys (optional)">
+    Click **Add Key** for each identifier that should map incoming leads to this source. See [Map incoming leads with external keys](#map-incoming-leads-with-external-keys). Click the trash icon next to a key to remove it.
+  </Step>
+  <Step title="Set the referral requirements">
+    Choose **None**, **Optional**, or **Required** for **Internal Referral Info** and **External Referral Info**. See [Require referral details](#require-referral-details).
+  </Step>
+  <Step title="Save">
+    Click **Create Source**. You'll see **Lead source created successfully**, and the new source appears in the list.
+  </Step>
+</Steps>
+
+If the slug is already taken, the save stops with a message that a lead source with that slug already exists. Pick a different slug and try again.
+
+## Choose a default source
+
+Your organization can have **one** default source. It only matters for leads that arrive automatically, such as website form leads:
+
+- When an incoming lead doesn't match any source, it's credited to the default.
+- The identifiers that lead carried are added to the default's external keys, so similar leads match it directly next time.
+- If you have no default, or the default is inactive or a system source, Menaia creates a new source for the lead instead. It's named after the identifier it came in with, and you can rename or tidy it up here later.
+
+Leads your team enters by hand never use the default. They get whatever source the person picks.
+
+If another source is already the default, the save is rejected with a message saying only one lead source per organization can be the default. Edit that source, uncheck **Is Default**, save, then try again.
+
+For the full matching order, see [Lead source for automated leads](/reference/leads/capture-rules#lead-source-for-automated-leads).
+
+## Map incoming leads with external keys
+
+**External Keys** are the identifiers that leads from other channels carry, so Menaia can credit those leads to the right source without anyone choosing it by hand.
+
+- **Website and campaign leads.** Automated leads carry tracking details: the campaign source, the campaign medium, or the website they came from. Menaia checks, in order, the campaign source and medium joined by a hyphen (for example `google-cpc`), then the campaign source alone (`google`), then the website's domain. The first active source with a matching key wins.
+- **Marketplace conversations.** When you convert a Communications conversation from a marketplace to a lead, Menaia credits the source whose external key matches that platform, such as `yelp`, `angi`, `facebook`, or `thumbtack`. If no key matches, a source whose slug matches the platform is used. For the Google platforms, add the same value you'd enter in Zapier's **Source Platform** field as the key.
+
+<Tip>
+Enter keys in lowercase. Menaia lowercases the identifiers it receives before matching, so a key typed as `Google` won't match.
+</Tip>
+
+Only **active** sources are matched by their keys. If you deactivate a source, incoming leads that would have matched it are handled as if nothing matched.
+
+### System sources
+
+Some sources are set up by an integration and carry a **System** badge. For example, connecting [Thumbtack](/guides/settings/integrations#thumbtack) sets up a **ThumbTack** source, so leads you convert from Thumbtack conversations are credited to it.
+
+A system source must stay in place for its integration to work, so:
+
+- Its **External Keys** are read-only. **Add Key** is disabled, and the form notes that the keys are managed by the integration.
+- It's always active. **Is Active** can't be unchecked.
+- It can't be deleted.
+
+You can still rename it and change its description, order, and referral requirements.
+
+## Require referral details
+
+The two referral settings decide what the lead form asks for when someone picks this source. Each can be **None**, **Optional**, or **Required**, and both start as **None**.
+
+| Setting | What the lead form shows |
+| --- | --- |
+| **Internal Referral Info** | A **Sales person** field, for recording which of your own salespeople sent the lead. |
+| **External Referral Info** | A referral contact section, for recording an outside referrer such as a partner or past customer. |
+
+- **None** hides the field or section.
+- **Optional** lets the person add it. For an outside referrer, they click **Add Referral** to show the contact fields.
+- **Required** shows it right away, and the lead can't be saved without it.
+
+A change here applies the next time someone picks the source on a lead. For how this looks while creating a lead, see [Set the lead source, confidence, and referral](/guides/leads/source-confidence-referral). For the exact field rules, see [Lead source and referral requirements](/reference/leads/capture-rules#lead-source-and-referral-requirements).
+
+## Edit a source
+
+<Steps>
+  <Step title="Open the source">
+    Click the **pencil** icon on the source's row. On a phone, open the card's menu and choose **Edit**.
+  </Step>
+  <Step title="Make your changes">
+    Update any of the fields on the **Edit Lead Source** page.
+  </Step>
+  <Step title="Save">
+    Click **Save Changes**. The button stays disabled until you change something. Click **Cancel** to go back without saving.
+  </Step>
+</Steps>
+
+## Turn a source on or off
+
+To stop offering a source without deleting it, edit it, uncheck **Is Active**, and save. An inactive source:
+
+- Drops out of the **Lead source** dropdown on the lead form and the source filter on the Leads list.
+- Stays on leads that already have it.
+- Is no longer matched by its external keys, and isn't used as the default.
+
+Check **Is Active** again at any time to bring it back. System sources can't be turned off.
+
+## Delete a source
+
+<Steps>
+  <Step title="Choose the source">
+    Click the **trash** icon on the source's row. On a phone, open the card's menu and choose **Delete**. System sources don't offer this option.
+  </Step>
+  <Step title="Confirm">
+    The **Delete lead source?** window warns that the source will be permanently deleted. Click **Delete** to finish.
+  </Step>
+</Steps>
+
+<Warning>
+You can't delete a source that any lead still uses. The delete fails with "Cannot delete a lead source that has leads assigned to it. Reassign leads first." Change those leads' source first, or turn the source **Inactive** instead, which keeps your history intact.
+</Warning>
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Set the lead source, confidence, and referral" icon="share-nodes" href="/guides/leads/source-confidence-referral">
+    See how sources and referral requirements show up when your team creates a lead.
+  </Card>
+  <Card title="Statuses" icon="tags" href="/guides/settings/statuses">
+    Set up the lead statuses on the tab next door.
+  </Card>
+</CardGroup>

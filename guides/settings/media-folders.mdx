@@ -1,0 +1,139 @@
+---
+title: "Media folders"
+description: "Set up the folders that organize every project's photos, videos, and documents — create them per branch, deactivate or delete them, and choose which ones customers can see."
+icon: "folder-open"
+keywords: ["media folders", "folders", "gallery", "photos", "images", "files", "project media", "all media", "system folders", "client portal folders"]
+---
+
+**Media folders** are the folders down the side of a project's **Media** tab, such as *Inspection*, *Existing Damage*, or *Completion*. This page is where you decide which folders exist, which branches they appear in, and whether they're in use. Changes apply to every project in those branches.
+
+<Note>
+Managing media folders is an **Admin** task. You'll find it under **Settings**, and only team members who can manage workspace settings can open it.
+</Note>
+
+## Open Media Folders
+
+<Steps>
+  <Step title="Go to Settings">
+    Open **Settings** from the main navigation.
+  </Step>
+  <Step title="Choose Media Folders">
+    Under **System Configuration**, select **Media Folders**. You can also type "folders" or "gallery" in the settings search.
+  </Step>
+</Steps>
+
+## Read the folders list
+
+Each row is one folder:
+
+- **Folder Name** — the name your team sees in the project gallery.
+- **Branch** — the branches the folder appears in. Long lists show the first three and a count, such as *+2 more*. Hover to see them all.
+- **Status** — an **Active** or **Inactive** badge.
+- **Client Portal** — a switch for sharing the folder with customers. This column only appears when the client portal is turned on for your workspace.
+- **Actions** — the **pencil** icon to edit and the **trash** icon to delete.
+
+Click **Folder Name** or **Status** to sort. On a phone, each folder appears as a card with the same details and switch.
+
+### One folder, many branches
+
+Folders are set up per branch, but a folder with the same name in several branches shows as **one row**. Editing that row changes the folder in every branch it lists. Deleting it removes it from all of them.
+
+### Starter and system folders
+
+Every new branch starts with the same set of folders: **Inspection**, **Existing Damage**, **HVAC**, **Roofing**, **Setup**, **Completion**, **Documents**, **All Media**, **Client Collection**, **Forms**, and **Competing Proposals**.
+
+Some of these are **system folders**. Menaia files media into them automatically, so they're locked in every branch:
+
+- **Inspection**, **HVAC**, **Roofing**, **All Media**, **Forms**, and **Competing Proposals** can't be renamed, deactivated, or deleted. Their row has no trash icon, and opening one shows the details read-only with the note "These folders are automatically added to every branch and can't be changed."
+- **Existing Damage**, **Setup**, **Completion**, **Documents**, and **Client Collection** are ordinary starter folders. You can rename, deactivate, or delete them like any folder you create.
+
+You can still share a system folder with customers using its **Client Portal** switch.
+
+## Create a folder
+
+<Steps>
+  <Step title="Start a new folder">
+    Click **Create New** in the top-right corner. The **Create Folder** window opens.
+  </Step>
+  <Step title="Name it">
+    Enter a **Name**, up to 100 characters.
+  </Step>
+  <Step title="Pick the branches">
+    Open **Branches** and select every branch that should get this folder. You need at least one.
+  </Step>
+  <Step title="Decide if it's active">
+    **Is Active** is on by default, so the folder shows up in project galleries right away. Turn it off to set the folder up without using it yet.
+  </Step>
+  <Step title="Save">
+    Click **Create Folder**. You'll see **Folder created successfully**, and the folder appears in the list.
+  </Step>
+</Steps>
+
+A branch can't have two folders with the same name. If one of your branches already has a folder with that name, you'll see "A folder named … already exists in this branch." New folders aren't shared with customers until you turn on their **Client Portal** switch.
+
+## Edit a folder
+
+<Steps>
+  <Step title="Open the folder">
+    Click the **pencil** icon on the folder's row. The **Edit** window opens with the folder's name, branches, and active setting.
+  </Step>
+  <Step title="Make your changes">
+    Change the **Name**, add or remove **Branches**, or turn **Is Active** on or off.
+  </Step>
+  <Step title="Save">
+    Click **Save Changes**. The button stays disabled until you change something.
+  </Step>
+</Steps>
+
+Keep in mind:
+
+- **Adding a branch** adds the folder to that branch's project galleries. If the folder is shared with customers, it's shared in the new branch too.
+- **Removing a branch** deletes the folder from that branch. Any files in it on that branch's projects move to **All Media**.
+
+## Deactivate a folder
+
+To retire a folder without losing track of what's in it, edit it, turn off **Is Active**, and save. The folder shows an **Inactive** badge. While it's inactive:
+
+- It no longer appears in the **Folders** list on a project's **Media** tab, and your team can't move files into it.
+- Files already in it stay where they are. You can still find them under **All Media**.
+- Customers don't see its files in the client portal, even if its **Client Portal** switch is on.
+
+Turn **Is Active** back on at any time to bring the folder and its files back into view. System folders can't be deactivated.
+
+## Delete a folder
+
+<Steps>
+  <Step title="Choose the folder">
+    Click the **trash** icon on the folder's row. System folders don't offer this option.
+  </Step>
+  <Step title="Confirm">
+    The **Are you sure you want to delete this folder?** window warns that all images in the folder will be moved to the **All Media** folder. Click **Yes, delete**.
+  </Step>
+</Steps>
+
+The folder is removed from every branch it's listed in, and you'll see **Folder deleted**. No files are lost: everything that was in it moves to **All Media** on each project.
+
+<Warning>
+Deleting a folder can't be undone. Anything that was sorted into it ends up mixed in with **All Media**. If you might want the folder back, deactivate it instead.
+</Warning>
+
+## Share a folder with customers
+
+When the client portal is turned on for your workspace, the **Client Portal** switch decides whether customers see a folder's files in their portal. Turning it on asks you to confirm with **Yes, make visible**, because customers see everything in the folder on every project, including files added later. Turning it off hides the folder right away.
+
+For the full steps, the **Partially visible** badge, and how this works with the portal's **Media** tab, see [Share media folders with customers](/guides/settings/client-portal#share-media-folders-with-customers).
+
+<Tip>
+If you don't see the **Client Portal** column, the client portal isn't turned on for your workspace. See [Feature availability](/reference/platform/feature-availability).
+</Tip>
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Add & manage project media" icon="images" href="/guides/projects/media#folders">
+    See how your folders show up on a project's Media tab, and move files between them.
+  </Card>
+  <Card title="Client Portal" icon="sliders" href="/guides/settings/client-portal">
+    Choose which portal tabs customers see and share folders with them.
+  </Card>
+</CardGroup>

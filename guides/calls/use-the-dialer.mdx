@@ -1,39 +1,139 @@
 ---
-title: "Use the phone dialer"
-description: "Make and take calls from Menaia's built-in phone panel — see who's calling before you answer, keep working while you talk, and never miss a ring."
+title: "Make and take calls"
+description: "Call customers from Menaia, answer incoming calls in your browser, put callers on hold, bring in or transfer to a teammate, and control when calls ring you."
 icon: "phone-volume"
+keywords: ["make a call", "call a client", "answer a call", "incoming call", "decline call", "hold", "mute", "transfer a call", "warm transfer", "cold transfer", "add someone to a call", "three-way call", "keypad", "call recording", "availability", "unavailable", "on a call", "calls not ringing", "microphone"]
 ---
 
-Once your workspace is [connected to Aircall](/guides/settings/aircall), a phone lives right in Menaia's top bar. Your team can place calls, answer incoming ones, and see caller details — all without leaving the page they're working on.
+Menaia has a built-in phone. You call customers from their conversation, answer incoming calls right in your browser, and hand calls to teammates without switching apps. Calls use your workspace's business numbers, so customers see your business, not your personal cell.
 
 <Note>
-The phone panel appears when Calls is enabled for your workspace and Aircall is connected. It's available on **desktop** screens, and each person signs in with their **own Aircall account** the first time they open it — you need an Aircall seat to use the dialer.
+Calling is available to every role except **Crew Member**, once texting is set up for your workspace. See [Turn on texting](/guides/calls/inbox#turn-on-texting). Menaia asks for microphone access the first time you call. If you block it, you'll see "Microphone unavailable", so allow the microphone for Menaia in your browser settings.
 </Note>
 
-## Open the phone
+## Place a call
 
-Click the **phone icon** in the top bar. The **Phone** panel opens with Aircall's dialer inside — sign in once and you're set. The icon also keeps you informed at a glance:
+Calls start from a call button in [Communications](/guides/calls/inbox):
 
-- A **status dot** shows your line's availability, and switches to the call state when you're on a call.
-- During a call, a **timer** next to the icon shows how long you've been talking.
+- The **Call** button in a conversation's header.
+- **Call back** on a missed call or a voicemail in a conversation.
 
-You can close the panel at any time — **calls keep ringing even while the panel is closed**, and your call isn't interrupted while you navigate around Menaia.
+To call someone you haven't talked to yet, start a conversation first. Click **New**, pick the contact or type the number on the **New Number** tab, then use the **Call** button in the header. See [Start a new conversation](/guides/calls/inbox#start-a-new-conversation).
 
-## When a call comes in
+A call button is grayed out when you can't call. Hover over it to see why:
 
-Two things happen the moment your line rings:
+| Message | What it means |
+| --- | --- |
+| "No phone number on file" | There's no number to call. |
+| "Calling is not available yet" | Your phone is still connecting, or texting isn't set up for your workspace yet. |
+| "You are already on a call" | Finish your current call first. |
 
-1. **In Menaia**, an **Incoming call** banner appears with the caller's name and direct links to their client, lead, or project — so you can open their records before you pick up. If the number doesn't match anyone, it shows **Unknown caller**.
-2. **In Aircall**, the agent taking the call sees a caller card with the same information — the matched client, their latest projects, and latest leads — including on mobile or wherever else they answer Aircall calls.
+When you click a call button, the call screen opens and shows **Calling…**, then **Ringing…**, then a timer once the person answers.
 
-The banner stays for the duration of the call and clears when it ends. Every call is logged automatically on the [Calls page](/guides/calls/browse-and-review-calls), whether it was answered in Menaia, in the Aircall app, or missed entirely.
+### Which number the customer sees
 
-## Placing a call
+Each call goes out on one of your workspace's numbers:
 
-Dial from the **Phone** panel the same way you would in Aircall — type the number and call. The call is logged in Menaia like any other, matched to the client or lead the number belongs to.
+1. **From a conversation tied to a number**, the call uses that number, as long as you're on that line. The **From** line above the message box shows which one.
+2. **Otherwise**, it uses a number you're on.
+3. **If you aren't on any number**, it uses your workspace's primary number.
+
+If an admin has marked you **Masked** on that line, the customer sees the line's masking number instead. For the exact rules, see [Which line outgoing calls use](/guides/settings/communications#which-line-outgoing-calls-use).
+
+## Answer a call
+
+Incoming calls ring you in Menaia on whatever page you're on, as long as Menaia is open in your browser. An **Incoming call** screen covers the page with the caller's name, when their number matches a client contact or a Thumbtack lead, or their number if it doesn't.
+
+- Click **Accept** to answer. While the call connects, the button changes to **Cancel**.
+- Click **Decline** to stop ringing.
+
+Who a call rings, and what happens when nobody answers, is set by your admin. See [How ringing works](/guides/settings/communications#how-ringing-works). While you're already on a call, new calls don't ring you.
+
+## During a call
+
+The call screen shows who you're talking to, the call timer, and these controls:
+
+| Control | What it does |
+| --- | --- |
+| **Mute** | Turns your microphone off or back on. |
+| **Hold** / **Resume** | Puts the customer on hold, then brings them back. The status reads **On hold** while they wait. |
+| **Hang up** | Ends the call. |
+| **Transfer** | Hands the call to a teammate. See [Transfer a call](#transfer-a-call). |
+| **Keypad** | Opens a number pad so you can press keys, for example to get through a phone menu. |
+| **Add Person** | Brings a teammate into the call. See [Add a teammate to the call](#add-a-teammate-to-the-call). |
+
+**Hold**, **Transfer**, **Keypad**, and **Add Person** switch on a moment after the call connects. They stay off while a warm transfer is in progress.
+
+### Keep working during a call
+
+The call screen covers the page. To get back to work while you talk, click **Minimize** (the minus icon in the corner). The call shrinks to a small bar with the caller's name, the timer or **On hold**, and **Mute** and **Hang up** buttons. Click the bar or **Expand** to bring the full call screen back. You can move around Menaia without dropping the call.
+
+### Call recording
+
+If your workspace records calls, a note at the bottom of the call screen reads "This call is being recorded" with a timer, or "Recording of this call is paused." Recording is set by your admin and starts on its own, so there's nothing for you to start or stop. Callers may hear a short message telling them the call is recorded. See [Incoming and outgoing call recording](/guides/settings/communications#incoming-and-outgoing-call-recording).
+
+## Transfer a call
+
+<Steps>
+  <Step title="Open Transfer">
+    On the call screen, click **Transfer**. The **Transfer call** screen opens.
+  </Step>
+  <Step title="Choose the type of transfer">
+    Pick **Warm transfer** or **Cold transfer**. Warm is selected to start.
+  </Step>
+  <Step title="Pick a teammate">
+    Search for a teammate. Each one shows their status (**Available**, **On a call**, or **Unavailable**), so you can pick someone who's free. Only teammates who can take calls are listed.
+  </Step>
+  <Step title="Transfer">
+    Click **Transfer Call**. To go back without transferring, click **Back**.
+  </Step>
+</Steps>
+
+Both types put the customer on hold while your teammate's phone rings.
+
+- **Warm transfer** lets you talk to your teammate first. A banner shows "Ringing *name*…", then "Consulting *name* — customer on hold" once they answer. Click **Complete** to connect the customer to your teammate and leave the call. Click **Cancel** to drop your teammate and take the customer off hold.
+- **Cold transfer** hands the call straight over. As soon as your teammate answers, the customer comes off hold, is connected to them, and the call becomes theirs.
+
+If your teammate doesn't answer, the customer comes off hold and is back with you.
+
+## Add a teammate to the call
+
+Click **Add Person**, search for a teammate, select them, and click **Call Now**. Menaia rings them and, when they answer, they join the call with you and the customer. The customer isn't put on hold.
+
+## Set your availability
+
+Your availability decides whether incoming calls ring you. Change it from the button at the top of the [Communications inbox](/guides/calls/inbox):
+
+- **Active**: incoming calls can ring you.
+- **Unavailable**: incoming calls skip you. Use this when you're away or busy with something else.
+- **On a call**: set automatically while you're on a call, then goes back to your previous choice when the call ends.
+
+Everyone starts as **Active**. Your choice stays until you change it, even after you close Menaia.
+
+<Tip>
+Closing Menaia doesn't change your availability. Set yourself to **Unavailable** when you step away, so incoming calls skip you and the Call Center doesn't count you as available.
+</Tip>
+
+When you switch back to **Active** and callers are waiting in the queue, the next caller can be connected to you. Your status also shows to teammates when they transfer a call and on the [Call Center](/guides/calls/call-center).
+
+## Test a line
+
+Admins can check a number works by opening it in [Communications settings](/guides/settings/communications) and clicking **Test call**.
 
 ## Troubleshooting
 
-- **"The phone couldn't connect"** — the dialer needs **third-party cookies** for aircall.io. Allow them in your browser settings (or add an exception for aircall.io) and reload.
-- **The panel is empty or won't load** — reload the page; if it persists, check that you can sign in at aircall.io with your seat.
-- **No phone icon at all** — either Calls isn't enabled for your workspace yet, Aircall isn't [connected](/guides/settings/aircall), or you're on a small screen (the dialer is desktop-only).
+- **"Microphone unavailable"**: allow microphone access for Menaia in your browser, then try again.
+- **"Calling unavailable" / "The dialer is not ready yet. Try again in a moment."**: your phone is still connecting. Wait a few seconds and click the call button again.
+- **"Call failed"**: the call couldn't be completed. Try again.
+- **Calls aren't ringing you**: check that your availability is **Active** and that Menaia is open in your browser. If it still doesn't ring, ask your admin whether you're on the number that's being called.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Review calls and voicemails" icon="list" href="/guides/calls/browse-and-review-calls">
+    Find past calls, call back missed ones, and link calls to leads, clients, and projects.
+  </Card>
+  <Card title="Call Center" icon="headset" href="/guides/calls/call-center">
+    See live call activity, the queue, and who's available across your team.
+  </Card>
+</CardGroup>

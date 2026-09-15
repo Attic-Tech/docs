@@ -7,14 +7,14 @@ icon: "bell"
 Notification rules decide **who hears about what**. When something happens in your workspace — a time-off request is added, a new lead comes in, a customer signs a proposal — a notification rule looks at that event and works out which people should be told. Each rule pairs one kind of event with a set of recipients, so the right team members stay in the loop without everyone getting pinged about everything.
 
 <Note>
-Notification rules live under **Settings → Notifications → Rules**, where workspace admins manage them directly. Open a rule to change its recipients, adjust who can trigger it, or turn it on or off, then save. If you don't see the Notifications area in Settings, you don't have the workspace-admin access it requires — ask an admin to make the change. The Rules tab sits alongside the **Notifications** tab (per-channel email, SMS, and in-app preferences) and the **Shift Reminders** tab.
+Notification rules live under **Settings → Notifications → Rules**, where workspace admins manage them directly. Open a rule to change its recipients, adjust who can trigger it, or turn it on or off, then save. If you don't see the Notifications area in Settings, you don't have the workspace-admin access it requires — ask an admin to make the change. Rules apply to your whole workspace. The **Notifications** and **Shift Reminders** tabs next to it are set per branch and control how notifications are sent — see [Notification preferences](/guides/settings/notification-preferences).
 </Note>
 
 ## What a rule is made of
 
 Every rule answers three questions:
 
-- **Which event triggers it?** The thing that happens — for example, *Time off added* or *Proposal signed by client*.
+- **Which event triggers it?** The thing that happens — for example, **Time Off Added** or **Proposal signed by client**.
 - **Who should be notified?** The recipients, chosen by role, by branch, or as specific people.
 - **Is it on?** A single switch turns the whole rule on or off.
 
@@ -22,17 +22,17 @@ A rule can also be limited to events started by certain people (for example, onl
 
 ## The events you can notify on
 
-Each rule is tied to one event. The events available today are:
+Each rule is tied to one event. The events available today, in the order they appear on the **Rules** tab, are:
 
-- **Time off added** — someone records new time off on the schedule.
-- **Lead ingested** — a new lead arrives in your workspace.
+- **Lead Ingested** — a new lead gets assigned to a branch.
 - **Proposal signed by client** — a customer signs a proposal.
-- **Event not published (48h reminder)** — a scheduled event is still unpublished and the start time is approaching, so a reminder goes out.
+- **Competing proposals uploaded** — a customer uploads competing proposals for your team to see.
 - **Job plan submitted for review** — a job plan is submitted and waiting for someone to review it.
-- **Job plan changes required** — a reviewed job plan is sent back because changes are needed.
-- **Client uploaded competing proposals** — a customer uploads competing proposals for your team to see.
+- **Job plan changes required** — changes are required on a submitted job plan.
+- **Event not published — 48 hour reminder** — an event is still unpublished 48 hours before it's scheduled to start, so a reminder goes out.
+- **Time Off Added** — a team member adds a time-off request.
 - **Texting approved** — your workspace's texting number is approved and texting goes live.
-- **Voicemail received** — a caller leaves a voicemail.
+- **Voicemail received** — a caller leaves a voicemail. This rule is listed last and doesn't show a friendly name on the **Rules** tab yet.
 
 <Tip>
 You can have more than one rule for the same event. That lets you notify one group one way and another group a different way — for instance, alert branch managers about every new lead while only looping in a regional lead for leads in their area.

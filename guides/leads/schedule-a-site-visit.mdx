@@ -32,9 +32,9 @@ The scheduling panel pre-fills what it can from the lead — you just confirm an
 
 - **Lead Name** — the lead this visit is for. It's already selected, but you can switch to another lead, or use **Create New Lead** if you need one on the spot.
 - **Phone Number** and **Email** — pulled from the lead's contact; adjust if needed.
-- **Address** — the property address, copied from the lead. Retype to change it.
+- **Address** — the property address, copied from the lead. Retype to change it. Use the optional **Address line 2** for an apartment, suite, or unit number.
 - **Project Name** — a name for the work, pre-filled from the lead. Edit it to whatever's clearest.
-- **Assign To** — the team member going on the visit. Search and pick someone (if you can only assign yourself, this shows you automatically).
+- **Assign To** — the team member going on the visit. Search and pick someone (if you can only assign yourself, this shows you automatically). When Best Match is turned on, a **Best Match** list takes this field's place — see [Pick who goes with Best Match](#pick-who-goes-with-best-match).
 - **Date**, **Start Time**, and **End Time** — when the visit happens.
 - **Lead notes** — copied from the lead so the assignee has context; edit freely without changing the lead itself.
 - **Client Confirmed** — check this once the customer has confirmed the appointment.
@@ -44,6 +44,69 @@ The scheduling panel pre-fills what it can from the lead — you just confirm an
 <Tip>
 If you pick a time that clashes with another appointment for the same person, the system warns you about the conflict before booking, so you can adjust.
 </Tip>
+
+## Pick who goes with Best Match
+
+**Best Match** suggests which salesperson to send, ranked by who's free soonest or who's closest to the property. When it's on, a **Best Match** box replaces the **Assign To** field in the **Schedule New Lead Activity** panel.
+
+<Note>
+If you don't see **Best Match** in the scheduling panel, it isn't turned on for your workspace — pick someone from **Assign To** instead. Best Match also only appears for people who can assign visits to others: Admins, Ops Managers, Sales Admins, and Client Coordinators. If you can only book yourself, the panel fills you in as usual.
+</Note>
+
+### What it needs
+
+- **A date** — the list loads as soon as the panel has a **Date**. That's the day you clicked on the calendar, or today. Change the date and the list refreshes.
+- **Start Time and End Time** — when both are set, Best Match looks for an opening that long. Otherwise it looks for a one-hour opening.
+- **Address** — used to work out driving distance. Without an address, you still see when people are free, but no distances.
+
+### Who's suggested
+
+The list shows every active **Sales Admin** and **Sales Member** in the visit's branch, each labeled **Sales Person**. If there's nobody, you'll see "No salespeople found for this branch."
+
+<Note>
+While Best Match is on, you pick the assignee from this list, so only salespeople in the branch can be chosen here. When you open a visit that's already assigned to someone who isn't in the list, they show at the top under **Currently assigned**.
+</Note>
+
+To find someone quickly, type in **Or search for a specific person**. It narrows the list by name.
+
+### Sort by Soonest or Nearest
+
+- **Soonest** (the default) — people with the earliest opening come first.
+- **Nearest** — people closest to the visit address come first. People without a distance go to the bottom.
+
+### What each person shows
+
+- **Availability badge** — when their next opening is, such as "Available 9am today," "Available 2:30pm tomorrow," or "Available in 3 days." Today and tomorrow are counted from the actual current date, not the date you picked. The person with the soonest opening gets a green badge. **Unavailable** means Best Match found no opening in the two weeks starting on your chosen date.
+- **Distance badge** — the driving distance to the visit address, such as "12.4 miles away." Hover over it to see where the drive starts, for example "12.4 miles drive from home" followed by the address. The drive starts from their **home**, their **branch**, or their **previous lead address** if they already have a visit that day.
+
+### How availability is worked out
+
+A person's next opening:
+
+- Falls on a day the branch is open and the person works, within that person's own hours.
+- Skips days where they've already reached their daily lead activity limit.
+- Doesn't overlap anything published on their calendar (job shifts, tasks, and lead activities), or any time off.
+- Leaves room around existing appointments. That's the branch's minimum time between appointments, or the drive time between this visit and another visit they have that day, whichever is longer.
+
+People set their working days, hours, start point, and daily limit in their own profile — see [Your profile](/guides/start/your-profile#working-preferences). Branch open days and the minimum time between appointments come from [Branches](/guides/settings/branches#branch-working-hours). For the exact rules, see [Best Match availability](/reference/schedule/availability-conflicts#best-match-availability).
+
+<Tip>
+Someone who has hit their daily limit isn't offered that day. Their badge moves to their next day with room, or shows **Unavailable**. You can still pick them and set the date and time yourself.
+</Tip>
+
+### Pick a person
+
+Click a person to assign them. Best Match then fills in the time for you:
+
+- **Start Time** is set to their next opening, with a note that it was auto-filled from that person's next available slot.
+- If that opening is on a different day, **Date** changes too, with a note that it moved to their next available day.
+- **End Time** only changes if the new start would land at or after it. Otherwise it stays where it was, so check it before you save.
+
+Picking someone marked **Unavailable** assigns them without changing the date or time. If you change the date or start time yourself afterward, the auto-fill notes go away.
+
+<Note>
+Best Match only suggests. When you publish, the usual conflict check still runs. If the list can't load, you'll see "Could not load availability." with a **Retry** button.
+</Note>
 
 ## Save as draft or publish
 

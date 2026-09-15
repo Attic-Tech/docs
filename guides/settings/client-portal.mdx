@@ -1,0 +1,106 @@
+---
+title: "Client Portal"
+description: "Choose which tabs customers see in the client portal, share media folders with them, and open the portal automatically when a customer signs a proposal."
+icon: "sliders"
+---
+
+The **Client Portal** settings decide what every customer sees when you share a project's portal with them, and whether the portal opens on its own when a proposal is signed. Set it up once and it applies to every project in your organization. To share a portal with a customer, see [Share the Client Portal](/guides/projects/client-portal).
+
+<Note>
+Client Portal settings are available to **Admins**. If you don't see **Client Portal** in the Settings sidebar, either your role can't manage workspace settings or the client portal isn't turned on for your workspace — see [Feature availability](/reference/platform/feature-availability).
+</Note>
+
+## Open the Client Portal settings
+
+<Steps>
+  <Step title="Go to Settings">
+    Open **Settings** from the main navigation.
+  </Step>
+  <Step title="Choose Client Portal">
+    Under **System Configuration**, select **Client Portal** — it sits right below **Media Folders**. You can also type "portal" in the settings search.
+  </Step>
+</Steps>
+
+The page has two cards, **Portal Tabs** and **Portal Activation**. When you change anything, click **Save Changes** at the bottom, or **Cancel** to put things back the way they were.
+
+## Choose the portal tabs
+
+The **Portal Tabs** card lists every tab a customer can see. Changes here apply to every project in your organization.
+
+| Tab | What the customer sees | Default |
+| --- | --- | --- |
+| **Overview** | Job status, property details, their team, and recent photos. | **Always on** — it can't be turned off. |
+| **Media** | The full photo gallery, limited to folders you've shared with clients. | On |
+| **Proposals** | Every proposal you've sent, with its versions, change orders, and current scope. Customers sign through the same secure proposal page they get by email. | Off |
+| **Invoices** | Issued invoices with the payments applied and balances. Customers can pay online when online payments are set up for the branch. | Off |
+| **Calendar** | Published visits for the project on a monthly calendar. Drafts stay internal until you publish them. | Off |
+
+Use the switch next to a tab to turn it on or off, then click **Save Changes**.
+
+<Note>
+When you turn a tab off, customers stop seeing it right away. Anyone who opens a link to that tab lands on **Overview** instead. Turning **Media** off hides the gallery, but **Overview** still shows a few recent photos from your shared folders.
+</Note>
+
+## Share media folders with customers
+
+Turning on the **Media** tab doesn't share any photos by itself. Customers only see files in folders you've marked as client-visible, and that choice lives on the [Media Folders](/guides/settings/media-folders) settings page. It's per folder and applies to every project.
+
+<Steps>
+  <Step title="Open Media Folders">
+    In **Settings**, select **Media Folders** under **System Configuration**. You can also follow the **Media Folders** link in the note under the **Media** row on the Client Portal page.
+  </Step>
+  <Step title="Turn on the folder's Client Portal switch">
+    Find the folder and turn on its switch in the **Client Portal** column. On a phone, use the **Client portal** switch on the folder's card.
+  </Step>
+  <Step title="Confirm">
+    A **Share this folder with clients?** window reminds you that customers will see every image in the folder, including anything uploaded later. Click **Yes, make visible**. The folder now shows a **Visible** badge.
+  </Step>
+</Steps>
+
+To stop sharing a folder, turn its switch off. Customers stop seeing its files right away.
+
+<Warning>
+Only share folders that never hold internal photos. A shared folder shows customers everything in it on every project, including files your team adds after you turn it on.
+</Warning>
+
+<Tip>
+If a folder shows **Partially visible**, it's shared in some of its branches but not others. Turn its switch on to share it in every branch, then off again if you meant to hide it everywhere.
+</Tip>
+
+## Open the portal automatically when a proposal is signed
+
+The **Portal Activation** card lets the portal open itself, so nobody has to remember to send it.
+
+<Steps>
+  <Step title="Turn on Activate on proposal signature">
+    Switch on **Activate on proposal signature**. From then on, when a customer signs a proposal, the project's portal opens and the sign-in link goes out to the project's primary contact.
+  </Step>
+  <Step title="Choose how the invite goes out">
+    Under **Send the invite by**, choose **Email only** or **Email and text message**.
+  </Step>
+  <Step title="Save">
+    Click **Save Changes**.
+  </Step>
+</Steps>
+
+Keep in mind:
+
+- **It skips portals that are already open.** A project whose portal is already active is left alone, so the customer doesn't get a second invite.
+- **The contact needs an email.** A project whose primary contact has no email address is skipped. That's why there's no text-only choice — every automatic invite includes email.
+- **The invite comes from the salesperson.** When the estimate has a salesperson, the invite names them as the person who shared the portal.
+- **You can still share by hand.** Turning this on doesn't change the **Client Portal** tab on the project. You can activate, resend, or deactivate a portal there any time.
+
+<Note>
+If you turn **Activate on proposal signature** off, your **Send the invite by** choice is kept, so it's still there when you turn it back on.
+</Note>
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Share the Client Portal" icon="globe" href="/guides/projects/client-portal">
+    Activate a project's portal, invite the customer, and preview what they'll see.
+  </Card>
+  <Card title="Add & manage project media" icon="images" href="/guides/projects/media">
+    Keep project photos in the right folders so you share only what you mean to.
+  </Card>
+</CardGroup>
