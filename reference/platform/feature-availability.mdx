@@ -35,6 +35,17 @@ The same capability can be on for one workspace and off for another. Turning it 
 
 If availability can't be determined — because of an error, or because no targeting has been configured — the capability is treated as **not available** rather than open. Features default to off until they are explicitly turned on.
 
+## Your subscription plan can gate a feature
+
+Separate from the per-workspace targeting above, some capabilities require a minimum **subscription plan**. Menaia's plans, from lowest to highest, are **Starter**, **Core**, **Pro**, and **Scale** (a **Trial** workspace is treated as Starter). A feature that needs a higher plan than yours stays unavailable until you upgrade — even if it's otherwise turned on for your workspace.
+
+- **QuickBooks** connection needs the **Core** plan or higher; it isn't available on Starter or during the trial.
+- The cross-source **data integrations** that let Meni read across your other business tools need the **Pro** plan or higher.
+
+Admins can review and change the plan under **Settings → Billing**.
+
+Availability can also be paused by your **token balance**: on workspaces that use token billing, Meni, AI features, and outbound calling and texting pause when the balance reaches zero, while core business tools keep working. See [AI features and limits](/reference/platform/ai-features-and-limits#meni-tokens-power-ai-features).
+
 ## How you can tell a capability is unavailable
 
 ### The menu item disappears
@@ -197,7 +208,7 @@ Visibility of the notifications control in the top navigation bar.
 
 ### Integrations marketplace
 
-The Integrations marketplace page. Off by default. Individual integrations within it can additionally require their own capability — for example, the payments integration requires payments to be on.
+The Integrations marketplace page. Off by default. Individual integrations within it can additionally require their own capability — for example, the payments integration requires payments to be on — or a minimum subscription plan, such as QuickBooks (Core plan or higher) and the cross-source data integrations (Pro plan or higher). See [Your subscription plan can gate a feature](#your-subscription-plan-can-gate-a-feature).
 
 ### Workspace settings
 

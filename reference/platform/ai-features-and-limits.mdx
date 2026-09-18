@@ -116,6 +116,15 @@ The **AI Ride Along** recorder captures an in-person sales conversation. After y
 - The results screen checks for completion automatically and stops checking after roughly 15 minutes, then shows "Still processing — check back soon … Refresh the page in a few minutes to check on the analysis."
 - If analysis can't complete you'll see **Analysis Failed** with the reason, or "An unexpected error occurred during analysis."
 
+## Meni tokens power AI features
+
+On workspaces that use token billing, Meni and every AI feature draw from a shared workspace **token balance**. Each AI action spends tokens from that balance — as do outbound calls and texts — and the activity shows up in your **Usage history** under **Settings → Billing**.
+
+- Your plan includes a monthly token allowance, and a **Trial** workspace starts with a pool of trial tokens.
+- When the balance runs low you'll see a warning; when it reaches **zero**, Meni, the AI drafting and analysis helpers, and outbound calling and texting **pause** until you top up. Your core business tools — scheduling, clients, proposals, invoices, and everything else — keep working and never pause.
+- If an AI action is refused because the balance is empty, you'll see a message that your workspace is out of Meni tokens and needs more to keep using AI features and outbound calling and texting.
+- Admins top up under **Settings → Billing** — either **Buy tokens** or by turning on automatic token reloads (auto-reload). Not every workspace uses token billing; where it isn't in use, AI features aren't limited by a token balance.
+
 ## Who can use each AI feature
 
 AI features are turned on per workspace and, in some cases, depend on your role, so not every workspace or user sees them.
@@ -126,7 +135,7 @@ AI features are turned on per workspace and, in some cases, depend on your role,
 - **Ride-Alongs** must be turned on for your workspace. The voice tone analysis depends on an additional voice-analysis setting being turned on for your workspace.
 - **AI win posts** require win channels to be turned on. With them off, you'll see "This feature is not available for your organization."
 
-If an AI feature you expect is missing, it's almost always because the feature isn't turned on for your workspace, or your role can't edit the underlying record. See [Permissions and roles](/reference/platform/permissions-roles-matrix).
+If an AI feature you expect is missing, it's almost always because the feature isn't turned on for your workspace, or your role can't edit the underlying record. If an AI feature is available but suddenly refuses to run, check your **token balance** — AI features pause when it reaches zero. See [Permissions and roles](/reference/platform/permissions-roles-matrix).
 
 ## Always review AI output
 
