@@ -65,12 +65,13 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
 
 ### Factors (named multipliers)
 
-- **What it governs:** A factor is a named multiplier that adjusts either material cost or labor cost.
-- **How it works:** Factors can be attached at three levels: the individual item, the item category, and the work area. For each level and cost type (material or labor), the combined factor starts at 1 and multiplies in:
-  1. every **always-on** factor that applies to that cost type, then
-  2. every **user-selected** (toggled-on) factor that applies to that cost type.
-  Always-on factors are applied automatically and are not shown as toggles; the remaining factors are selectable in the calculator.
-- **Notes:** Factors are multiplicative — a factor of 1 does nothing, less than 1 discounts, and greater than 1 marks up. Item-category factors apply their always-on factors only (there is no per-estimate selection of category factors). A factor that doesn't apply to a given cost type is ignored for that cost type. When a level has no applicable factors, its combined factor is 1.
+- **What it governs:** A factor is a named multiplier that changes one or more of an item's **material cost**, **labor hours**, or **price**. A single factor carries a set of these targets and applies the same value to every target it names.
+- **How it works:** Factors can be attached at three levels: the individual item, the item category, and the work area. Separately for material cost and for labor hours, the combined factor at each level starts at 1 and multiplies in:
+  1. every **always-on** factor that targets that cost type, then
+  2. every **user-selected** (toggled-on) factor that targets that cost type.
+  Always-on factors are applied automatically and are not shown as toggles; the remaining factors are selectable in the calculator. A **material cost** factor scales the item's material cost; a **labor hours** factor scales its labor hours, so the labor cost follows.
+- **Price factors:** A factor that targets **price** multiplies the line's retail price directly, *after* markup and the payment-method factor. The item, category, and work-area price factors all multiply onto the line. A price factor moves the line — including an item sold at a [fixed price](#fixed-price-items) — but it does **not** change true cost, labor hours, or which multiplier tier the job lands in.
+- **Notes:** Factors are multiplicative — a factor of 1 does nothing, less than 1 discounts, and greater than 1 marks up. Item-category factors apply their always-on factors only (there is no per-estimate selection of category factors). A factor is ignored for any target it doesn't name, and when a level has no applicable factors for a target, its combined factor for that target is 1. Factors saved before targets existed still behave as before: an older labor factor counts as a **labor hours** factor and an older material factor as a **material cost** factor.
 
 ---
 
@@ -147,7 +148,21 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
   - **Sub-contracted portion:** each sub-contracted item's cost multiplied by its markup — the item's own markup override if set, otherwise the branch's default sub-contractor markup.
   - These two portions are added together and multiplied by a **payment-method factor**: a cash factor for cash, the credit-card fee for credit, or the matching financing factor for 3-, 6-, or 12-month financing (all set in branch settings).
   - **Minimum retail floor:** for most jobs, the result is raised to at least the configured minimum retail price. This floor is skipped for fully sub-contracted jobs.
-- **Notes:** The payment-method factor applies to both the standard and sub-contracted portions. Markup is not applied to labor separately, because labor is already inside the standard true cost.
+- **Notes:** The payment-method factor applies to both the standard and sub-contracted portions. Markup is not applied to labor separately, because labor is already inside the standard true cost. Any [fixed-price lines](#fixed-price-items) are added on top *after* the payment-method factor (it never touches them), and any [price factors](#factors-named-multipliers) add their uplift after that too.
+
+---
+
+### Fixed-price items
+
+- **What it governs:** An item given a **Fixed Price (per unit)** in the price book, which sells at that exact price instead of being priced from cost.
+- **How it works:**
+  - The line's retail is the fixed unit price × quantity. The branch multiplier and the payment-method factor do **not** apply to it, and a **fixed sub-contracted item** sells at its fixed price rather than the sub-contractor markup (it's still reported as sub-contracted revenue). A [price factor](#factors-named-multipliers) and the customer discount still adjust the line. A fixed price of 0 is a free line — 0 is a real price, not "unset."
+  - The item's material cost and labor hours are still recorded: the hours count toward the estimate's total labor hours, and the cost stays in the company's true cost (real money the company spends). But that cost is **kept out of the true cost that picks the multiplier tier**, so a fixed item can't push the rest of the job into a higher markup band.
+  - A fixed item carries none of the job's shared overhead. That overhead is redistributed across the remaining cost-priced lines instead.
+- **Notes:**
+  - **Travel and quality-control visit:** on a job made up entirely of fixed-price and sub-contracted items — with no in-house, cost-priced item — no travel (fuel and driving/load-unload labor) and no quality-control visit are charged to the customer, because there's no marked-up line to carry them. The driving and load/unload hours are still logged for scheduling, and the trip and visit still count in the company's true cost. As soon as one cost-priced in-house item is on the job, travel and the QC visit are charged exactly as before.
+  - **Minimum retail floor:** fixed lines count toward the branch minimum retail price. When a cost-priced line can carry the job up to the floor, the fixed lines stay at their set price; only when there's no cost-priced line to raise are the fixed lines themselves lifted to meet the floor.
+  - **Tax:** a fixed line is taxed by its own item's **Taxable Item** flag, like any other line.
 
 ---
 
@@ -219,6 +234,7 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
 - **What it governs:** The per-item catalog settings that affect price.
 - **How it works:** The pricing-relevant settings on an item are:
   - **per-unit material cost** and **labor hours per unit**,
+  - an optional **fixed unit price** (sells the item at that exact price per unit — see [Fixed-price items](#fixed-price-items)),
   - a **markup override** (overrides the default sub-contractor markup for sub-contracted items),
   - the **sub-contracted** flag (routes the item to the sub-contracted bucket and markup),
   - the **unit** (Sq.Ft., Big Sq., Dollars, Linear Feet, Each, or Hours — for display only; it does not change the math),
