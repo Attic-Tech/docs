@@ -1,6 +1,6 @@
 ---
 title: "Project financial summary"
-description: "See what a project is worth and how much of it has been invoiced, collected, still due, and overdue, check its expenses and gross profit, and record one payment that covers several of the project's invoices."
+description: "See what a project is worth and how much of it has been invoiced, collected, still due, and overdue, check its expenses and gross profit, and record one payment that covers several of the customer's invoices."
 icon: "chart-pie"
 ---
 
@@ -71,15 +71,15 @@ From a row's three-dots menu you can:
 - **Edit Payment** or **Delete Payment** on a payment you recorded by hand. Payments taken online can't be edited or deleted here. See [Edit a payment](/guides/billing/record-allocate-payment#edit-a-payment) and [Delete a payment](/guides/billing/record-allocate-payment#delete-a-payment).
 - **Edit Credit** or **Void Credit** on a credit. See [Edit or remove a credit](/guides/billing/add-a-credit#edit-or-remove-a-credit).
 
-## Record one payment across the project's invoices
+## Record one payment across the customer's invoices
 
-When a customer sends one payment that covers more than one invoice, record it from the project and split it across those invoices. For example, one check might pay off a deposit invoice and part of the final invoice.
+When a customer sends one payment that covers more than one invoice, record it from the project and split it across those invoices. The invoices don't have to belong to this project: a payment settles the customer's balance, so the picker spans every open invoice the customer has in the branch, across all their projects, and each row names the project it belongs to. For example, one check might pay off a deposit invoice on this project and part of an invoice on another of the customer's projects.
 
 ### Before you start
 
 The **Record Payment** button next to **Transactions** is turned off unless all of these are true:
 
-- At least one of the project's invoices is **Open** or **Partially Paid** and still has a balance.
+- At least one of the customer's invoices in the branch is **Open** or **Partially Paid** and still has a balance.
 - Your branch has at least one payment method. See [Payment methods](/guides/settings/payment-methods-financing#payment-methods).
 
 <Steps>
@@ -96,7 +96,7 @@ The **Record Payment** button next to **Transactions** is turned off unless all 
     - **Internal Notes**: an optional note for your team. The customer doesn't see it.
   </Step>
   <Step title="Split it under Allocate to Invoices">
-    Each open or partially paid invoice on the project is listed with its status, its number, and its **Balance**. Type how much of the payment goes to each one. Leave an invoice blank to skip it. As you type, **Remaining** shows how much of the payment you still need to assign.
+    Each of the customer's open or partially paid invoices is listed with its status, its number, the project it belongs to, and its **Balance**. Type how much of the payment goes to each one. Leave an invoice blank to skip it. As you type, **Remaining** shows how much of the payment you still need to assign.
   </Step>
   <Step title="Save the payment">
     When **Remaining** reaches zero, click **Save Payment**. You see a **Payment recorded** confirmation. Each invoice's balance goes down by the amount you gave it, and the payment appears in **Transactions**.
