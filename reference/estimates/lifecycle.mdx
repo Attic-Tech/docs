@@ -89,6 +89,10 @@ The first time an estimate becomes Sold and no job yet exists for it, the system
 
 This happens automatically as a result of the sale — anyone allowed to set Sold triggers it.
 
+### Marking an unsigned estimate Sold asks for confirmation
+
+When someone marks an estimate Sold and its proposal has not been signed by the customer, the status menu doesn't commit the change immediately — it first opens a **Mark as Sold without a signature?** dialog, because Sold sits next to Lost in the menu and a misclick would otherwise commit a sale. Selling without a signature is still allowed (the customer may have accepted another way, such as a signed paper contract); the change is only applied once the user confirms with **Mark as Sold**. Cancelling leaves the status unchanged. If the proposal is already signed, Sold is applied right away with no prompt. This confirmation is a safeguard on the action only — it does not change any of the sale's side effects or permission rules.
+
 ### Only one estimate per project can be Sold
 
 A project can hold several estimates, but only one can be Sold at a time — the winner. Once one estimate in a project is Sold, no *other* estimate in that same project can be marked Sold. The Sold option is greyed out in the status menu, and attempting the change anyway is rejected with a message naming the estimate that already won ("This project already has a sold estimate…"). This applies however the sale is triggered — a team member setting the status, or a customer signing that estimate's proposal. To sell a different estimate, move the current winner out of Sold first.
