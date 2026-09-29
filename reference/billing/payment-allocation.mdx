@@ -15,7 +15,7 @@ The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales 
 A recorded payment has a single gross amount. An **allocation** is the portion of that amount applied to one specific invoice. A payment carries one allocation per invoice it touches.
 
 - One allocation = the payment pays a single invoice.
-- Several allocations = one received amount split across several invoices in the same project.
+- Several allocations = one received amount split across several of the client's invoices in the same branch.
 
 ### Amounts are applied exactly as entered — there is no auto-distribution
 
@@ -30,7 +30,7 @@ You also see this check live in the multi-invoice screen before you submit, so m
 </Card>
 
 <Card title="Rule 2 — Every targeted invoice must be eligible to receive a payment">
-Each invoice you allocate to must belong to your workspace and be in a status that can accept a payment. If any invoice is missing, not yours, or not in an eligible status, the whole payment fails — nothing is partially applied.
+Each invoice you allocate to must belong to your workspace and be in a status that can accept a payment. Every invoice on the payment must also belong to the **same client** and the **same branch** — a payment can settle several of one client's invoices across their projects, but never crosses to another client or branch. If any invoice is missing, not yours, belongs to a different client or branch, or is not in an eligible status, the whole payment fails — nothing is partially applied.
 
 - **Recording a new payment:** eligible invoice statuses are **Draft**, **Open**, and **Partially paid**. Recording a payment on a **Draft finalizes it** — the draft moves out of Draft and its status is recomputed from the new balance. A draft is only offered when you record the payment on the draft itself; the split-across-invoices picker never lists drafts.
 - **Editing an existing payment:** eligible statuses are **Open**, **Partially paid**, and **Paid**, so you can adjust a payment on an invoice it already settled in full. A draft is never a re-allocation target.
