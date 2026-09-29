@@ -7,7 +7,7 @@ icon: "badge-percent"
 A **credit** lowers the balance a customer owes on an invoice — for a goodwill adjustment, a price correction, or anything else you've agreed to take off the bill. You add it right from the invoice, choose how much, and record why. The credit shows up in the invoice's history so your team always knows what changed and on whose say-so.
 
 <Note>
-You can add a credit to any invoice that still has an outstanding balance — one that's **Open**, **Partially paid**, or still a **Draft**. Adding a credit to a draft **finalizes** it: the draft moves out of Draft and can no longer be edited or deleted, so you'll be asked to confirm first, and the option stays off until the draft is saved and has at least one line item. A credit can never be larger than what's still owed.
+You can add a credit to any invoice that hasn't been voided: **Draft**, **Open**, **Partially paid**, **Paid**, or **Refund Due**. Adding a credit to a draft **finalizes** it: the draft moves out of Draft and can no longer be edited or deleted, so you'll be asked to confirm first, and the option stays off until the draft is saved and has at least one line item. A credit can't be larger than the invoice total, less any credits already on it.
 </Note>
 
 ## Before you start
@@ -20,7 +20,7 @@ If you need to add a reason, see [Set up credit and void reasons](#set-up-credit
 
 <Steps>
   <Step title="Open the invoice">
-    Go to **Invoices**, find the one you want, and open it. The invoice needs a balance still owed — it can be **Open**, **Partially paid**, or a **Draft** (adding a credit to a draft finalizes it).
+    Go to **Invoices**, find the one you want, and open it. It can be **Open**, **Partially paid**, **Paid**, **Refund Due**, or a **Draft** (adding a credit to a draft finalizes it).
   </Step>
   <Step title="Open the actions menu">
     In the top-right of the invoice, click the **actions menu** (the three-dots button) and choose **Add Credit**.
@@ -29,10 +29,10 @@ If you need to add a reason, see [Set up credit and void reasons](#set-up-credit
     In the **Add Credit Note** window, pick a **Credit Type**:
 
     - **Fixed Amount ($)** — take a specific dollar amount off the balance.
-    - **Percentage (%)** — take a share of the remaining balance off. The system works out the dollar amount for you.
+    - **Percentage (%)**: take a share of the invoice total off, less any credits already on it. The system works out the dollar amount for you.
   </Step>
   <Step title="Enter the amount">
-    Fill in the **Credit Amount**. For a percentage, enter a number up to 100. Either way, the credit can't be more than the balance still owed — the form will stop you if it is.
+    Fill in the **Credit Amount**. For a percentage, enter a number up to 100. Either way, the credit can't be more than the invoice total, less any credits already on it. The form stops you if it is.
   </Step>
   <Step title="Pick a reason">
     Choose a **Reason** from the list. This is required, and it's how your team and your records make sense of the adjustment later.
@@ -48,6 +48,10 @@ If you need to add a reason, see [Set up credit and void reasons](#set-up-credit
 <Tip>
 Not sure whether to use a dollar amount or a percentage? Use **Fixed Amount** when you've agreed on an exact figure, and **Percentage** when you've promised something like "10% off." The result is the same — a lower balance.
 </Tip>
+
+## When the customer has already paid
+
+A credit on an invoice that's already been paid, fully or in part, can take the balance below zero. The invoice then owes the customer money, and its status changes to **Refund Due**. To give that money back, record a refund. See [Refund a customer](/guides/billing/refund-a-customer).
 
 ## See the credit on the invoice
 

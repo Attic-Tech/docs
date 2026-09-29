@@ -1,0 +1,160 @@
+---
+title: "Refund a customer"
+description: "Give money back to a customer who has already paid. Add a credit note to lower the invoice first, then record the refund against the invoice or a single payment."
+icon: "rotate-left"
+keywords: ["refund", "refund a payment", "refund an invoice", "refund due", "give money back", "credit then refund", "partial refund", "overpayment", "record refund", "stripe refund", "quickbooks refund"]
+---
+
+When a customer has already paid and you now owe them money back, you handle it in two steps. For example, the scope of the job shrank after they paid, you agreed to a discount after the fact, or they paid more than the work cost.
+
+1. **Add a credit note.** This lowers what the invoice charges. On an invoice that's already paid, it takes the balance below zero and the invoice status changes to **Refund Due**.
+2. **Record the refund.** This brings the balance back to zero, and the invoice returns to **Paid**.
+
+<Warning>
+Recording a refund in Menaia does not send any money. Return the funds to the customer yourself, by check, cash, bank transfer, or your card terminal, then record the refund here so your records match. Payments taken online through Stripe work differently. See [Stripe payments](#stripe-payments) below.
+</Warning>
+
+## Who can refund
+
+Refunds are part of billing, so only **Admins** can add credits and record refunds, and only on invoices in branches they belong to. Invoicing also has to be turned on for your workspace.
+
+## Why the credit note comes first
+
+A refund pays back money the sale no longer covers. Menaia only lets you refund what an invoice owes the customer, and an invoice only owes the customer money after a credit note has lowered it below what they've paid.
+
+If you try to refund first, the refund option stays off and explains why: **"This invoice does not owe the customer anything. Record a credit note for the amount being returned first."**
+
+Here's how the numbers move on a $5,000 invoice that the customer paid in full, when you agree to give $500 back:
+
+| Step | Balance | Status |
+| --- | --- | --- |
+| Customer pays $5,000 | $0.00 | **Paid** |
+| You add a $500 credit note | -$500.00 | **Refund Due** |
+| You record a $500 refund | $0.00 | **Paid** |
+
+## Step 1: Add a credit note
+
+<Steps>
+  <Step title="Open the invoice">
+    Go to **Invoices** and open the invoice the customer paid. You can credit an invoice that's **Paid**, as well as one that still has a balance.
+  </Step>
+  <Step title="Choose Add Credit">
+    Click the **actions menu** (the three-dots button) in the top-right of the invoice and choose **Add Credit**.
+  </Step>
+  <Step title="Enter the amount you're giving back">
+    In the **Add Credit Note** window, choose **Fixed Amount ($)** and enter the amount you plan to refund. Then pick a **Reason** and add **Notes**. Both are required.
+  </Step>
+  <Step title="Apply the credit">
+    Click **Apply Credit**. The invoice's status badge changes to **Refund Due**, and the balance line on the invoice reads **Refund Due** with the amount you owe back.
+  </Step>
+</Steps>
+
+A credit can't be more than the invoice total, less any credits already on it. For more on credit types, reasons, and editing or voiding a credit, see [Add a credit](/guides/billing/add-a-credit).
+
+<Tip>
+To find every invoice that owes money back, click the **Refund Due** card at the top of the **Invoices** page. It filters the list to those invoices.
+</Tip>
+
+## Step 2: Record the refund
+
+There are two ways to record the refund. Use **Refund Invoice** when you just want to settle what the invoice owes back. Use **Refund Payment** when you want to choose which payment the money comes from, or set the refund date yourself.
+
+### Refund the invoice
+
+<Steps>
+  <Step title="Open the invoice">
+    Open the invoice that shows the **Refund Due** status.
+  </Step>
+  <Step title="Choose Refund Invoice">
+    Click the **actions menu** (the three-dots button) and choose **Refund Invoice**. This option only appears while the invoice is **Refund Due**.
+  </Step>
+  <Step title="Fill in the refund">
+    The **Refund Invoice** window tells you how much the invoice owes the customer. Enter the **Refund Amount**, up to that amount. Optionally choose a **Refund Method** to record how you sent the money back, and add **Notes** about why.
+  </Step>
+  <Step title="Record it">
+    Click **Record Refund**. The refund is dated today in your branch's time zone.
+  </Step>
+</Steps>
+
+If the invoice has more than one payment, Menaia takes the refund from the oldest payment first and records one refund for each payment it draws from. The confirmation tells you how many payments it was recorded across.
+
+### Refund a specific payment
+
+You can start from the invoice or from the payment.
+
+- **From the invoice:** in **Transaction History**, click the **More options** (three-dots) button on the payment and choose **Refund Payment**.
+- **From the Payments page:** open the payment, click its **actions menu** (the three-dots button), and choose **Refund Payment**. If the payment was split across several invoices and more than one of them owes money back, pick the invoice from the list. Each entry shows the invoice number and the most you can refund on it.
+
+Then fill in the **Record Refund** window:
+
+<Steps>
+  <Step title="Enter the Refund Amount">
+    You can refund up to the smaller of two amounts: what's left of this payment, and what the invoice owes the customer. The field shows the most you can enter.
+  </Step>
+  <Step title="Check the Refund Date">
+    It starts on today's date. Change it if you sent the money back on a different day.
+  </Step>
+  <Step title="Add the method and notes">
+    Optionally choose a **Refund Method** and add **Internal Notes** for your team. The customer doesn't see the notes.
+  </Step>
+  <Step title="Record it">
+    Click **Record Refund**. You see a **Refund recorded** confirmation.
+  </Step>
+</Steps>
+
+<Note>
+Partial refunds are fine. Enter any amount up to the limit and the payment's status becomes **Partially Refunded**. Once everything on it has been refunded, it becomes **Refunded**. You can see both statuses as tabs on the **Payments** page.
+</Note>
+
+## What changes after a refund
+
+- **Transaction History** on the invoice shows a new **Refund** row with a negative amount. The project's **Financial Summary** lists it under **Transactions** too.
+- The invoice balance goes up by the amount refunded. When it's back to zero, the invoice status returns to **Paid**. If you refunded less than the credit, it stays **Refund Due** for the rest.
+- The payment's status changes to **Partially Refunded** or **Refunded**.
+- A payment with a refund recorded against it can no longer be edited or deleted, because the refund depends on it.
+- The refund is logged in the billing [ledger](/reference/billing/ledger).
+
+### In QuickBooks
+
+If your workspace syncs payments to QuickBooks, each refund you record goes to QuickBooks as an **Expense**. Its payment type is **Check** or **Credit Card** when the refund method you picked is one of those. Any other method, or no method, is sent as **Cash**. The expense is then linked to the invoice's credit memo, so QuickBooks stops showing that credit as available to use again.
+
+<Tip>
+Pick a **Refund Method** when you record the refund. It's what decides how the refund is booked in QuickBooks.
+</Tip>
+
+See [Integrations](/guides/settings/integrations) for how QuickBooks sync is set up.
+
+## Stripe payments
+
+A payment the customer made online through Stripe can't be refunded from inside Menaia, because the money has to go back through Stripe. On those payments, **Refund Payment** is turned off with the message **"Stripe payments are refunded from the Stripe dashboard."**
+
+To refund a Stripe payment:
+
+1. Add a credit note to the invoice first, as in [Step 1](#step-1-add-a-credit-note), so the invoice's total matches what the customer ends up paying.
+2. Issue the refund from your Stripe Dashboard. The payment's row menu in **Transaction History** links to it.
+3. Menaia records the refund automatically when Stripe reports it. It appears in **Transaction History** like any other refund, and the invoice goes back to **Paid**.
+
+If you refund in Stripe without adding a credit first, the refund still comes through, but it raises the balance so the invoice moves back to **Partially Paid** or **Open**, as if the customer owes that money again.
+
+**Refund Invoice** only draws from payments recorded by hand. If most of the invoice was paid through Stripe, you may see **"Only $X of this invoice's payments can still be refunded. Stripe payments must be refunded from the Stripe dashboard."** Refund that part in Stripe instead.
+
+A refund made through Stripe can only be cancelled in Stripe.
+
+## Why can't I refund?
+
+| What you see | Why | What to do |
+| --- | --- | --- |
+| **Refund Invoice** isn't in the invoice's actions menu | The invoice doesn't owe the customer anything, so it isn't **Refund Due** | Add a credit note first. See [Step 1](#step-1-add-a-credit-note). |
+| **"This invoice does not owe the customer anything. Record a credit note for the amount being returned first."** | Same as above, shown on the payment's **Refund Payment** option | Add a credit note first. |
+| **"No invoice on this payment owes the customer anything. Record a credit note for the amount being returned first."** | Shown on the payment's page when none of the invoices it paid owe money back | Add a credit note to the invoice you're refunding. |
+| **"This payment has already been fully refunded."** | Everything on this payment has been refunded | Refund a different payment on the invoice, or use **Refund Invoice**. |
+| **"Stripe payments are refunded from the Stripe dashboard."** | The payment was made online | Refund it in Stripe. See [Stripe payments](#stripe-payments). |
+| **"Refund amount cannot exceed the refundable amount"** | The amount is more than the payment has left or more than the invoice owes back | Lower the amount. |
+| **"Credit amount cannot exceed the invoice total"** | The credit is bigger than the invoice total, less credits already on it | Lower the credit amount. |
+
+## Related
+
+- [Add a credit](/guides/billing/add-a-credit)
+- [Record and allocate a payment](/guides/billing/record-allocate-payment)
+- [Invoice status and actions](/reference/billing/invoice-status-and-actions)
+- [Payment allocation](/reference/billing/payment-allocation)

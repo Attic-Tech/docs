@@ -119,6 +119,10 @@ When **Payment Sync** and **Invoice Sync** are both on, payments also flow from 
 
 Payments that come in, and most that can't, get an entry in the [Sync log](#sync-log) explaining what happened.
 
+### Refunds in QuickBooks
+
+When **Payment Sync** is on, each refund you record in Menaia goes to QuickBooks as an **Expense**. Its payment type is **Check** or **Credit Card** when the refund method is one of those. Any other method, or no method, is sent as **Cash**. The expense is then linked to the invoice's credit memo, so QuickBooks stops showing that credit as available. If that link can't be made, the [Sync log](#sync-log) shows a **Warning**. See [Refund a customer](/guides/billing/refund-a-customer).
+
 ### Sync log
 
 The **Sync Log** tab on the QuickBooks page lists every sync between Menaia and QuickBooks, newest first — both what went to QuickBooks and what came back. Until something syncs, it shows "No syncs yet."

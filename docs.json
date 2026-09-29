@@ -45,7 +45,7 @@
           { "group": "Billing & Payments", "pages": [
             "guides/billing/overview",
             { "group": "Invoices", "pages": ["guides/billing/browse-invoices", "guides/billing/create-an-invoice", "guides/billing/send-and-resend", "guides/billing/preview-download-pdf"] },
-            { "group": "Payments & credits", "pages": ["guides/billing/record-allocate-payment", "guides/billing/project-financial-summary", "guides/billing/add-a-credit", "guides/billing/void-an-invoice"] },
+            { "group": "Payments & credits", "pages": ["guides/billing/record-allocate-payment", "guides/billing/project-financial-summary", "guides/billing/add-a-credit", "guides/billing/refund-a-customer", "guides/billing/void-an-invoice"] },
             { "group": "Deposits & automation", "pages": ["guides/billing/auto-deposit-invoices"] }
           ]},
           { "group": "Earnings & Recognition", "pages": [
