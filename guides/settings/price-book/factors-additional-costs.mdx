@@ -4,7 +4,7 @@ description: "Set up factors and additional costs in your Price Book so estimate
 icon: "sliders"
 ---
 
-**Factors** and **Additional costs** are two Price Book tools that adjust the price of an estimate beyond the items themselves. A **factor** is a multiplier that scales material or labor cost up or down. An **additional cost** is a flat dollar amount added on top. Set them up once and the Calculator applies them to estimates for you.
+**Factors** and **Additional costs** are two Price Book tools that adjust the price of an estimate beyond the items themselves. A **factor** is a multiplier that scales an item's material cost, labor hours, or price up or down. An **additional cost** is a flat dollar amount added on top. Set them up once and the Calculator applies them to estimates for you.
 
 <Note>
 These are admin settings. You'll find them under **Settings → Price book**, and you need workspace settings access to view or change them. If you don't see the Settings area, ask an admin on your team.
@@ -31,7 +31,7 @@ When you create or edit a factor, you'll fill in:
 
 - **Name** — what the factor is, in plain language (for example, *Remote jobsite surcharge*). This is how it shows up in the list and, when relevant, in the Calculator.
 - **Factor** — the multiplier itself, entered as a number (zero or higher).
-- **Applies to** — whether the multiplier acts on **Material Cost** or **Labor Cost**.
+- **Changes** — what the multiplier acts on. Pick one or more of **Material cost**, **Labor hours**, and **Price**. A single factor can change any mix of the three at the same value. **Material cost** and **Labor hours** scale the underlying cost the price is built from, while **Price** moves a line's price directly — including an item sold at a [fixed price](/guides/settings/price-book/items#pricing-fields), which no other factor or multiplier touches.
 - **Always enabled** — a checkbox. When it's on, the factor is applied automatically on every matching estimate and is hidden from the Calculator, so estimators can't switch it off. When it's off, the factor is available in the Calculator for estimators to turn on per estimate.
 
 <Tip>
@@ -48,7 +48,7 @@ Use **Always enabled** for adjustments that should never be skipped — a standa
     Press **Create New** (top right of the list). The Create Factor window opens.
   </Step>
   <Step title="Fill in the details">
-    Enter a **Name**, the **Factor** value, choose what it **Applies to**, and decide whether **Always enabled** should be on.
+    Enter a **Name**, the **Factor** value, choose what it **Changes** (one or more of Material cost, Labor hours, and Price), and decide whether **Always enabled** should be on.
   </Step>
   <Step title="Save it">
     Click **Create**. The factor is saved and appears in the list right away.
@@ -59,7 +59,7 @@ Use **Always enabled** for adjustments that should never be skipped — a standa
 
 Each row in the list has an edit (pencil) and delete (trash) action. On a phone, tap the menu on the card and choose **Edit** or **Delete**.
 
-- **Edit** reopens the same fields so you can change the name, value, what it applies to, or the Always enabled setting.
+- **Edit** reopens the same fields so you can change the name, value, what it changes, or the Always enabled setting.
 - **Delete** removes the factor. Before you confirm, the window tells you where the factor is currently used — across items, item categories, and work areas — so you know the impact.
 
 <Note>

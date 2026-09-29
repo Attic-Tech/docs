@@ -78,6 +78,7 @@ A **Quick Item** is a stripped-down item for adding to a proposal quickly, witho
     - **Unit Type** — the unit the item is measured and sold in. Required.
     - **Description** — optional text that shows up on client proposals.
     - **Costs** — the cost for one unit. Required.
+    - **Fixed Price (per unit)** — optionally sell the item at an exact price per unit, whatever the multiplier, factors, or payment method would otherwise do. Leave it blank to price from cost.
     - **Taxable Item** — turn on to mark the item as taxable when it's added to a proposal or estimate. Off by default.
     - **Image** — optionally upload a picture of the item.
   </Step>
@@ -93,7 +94,8 @@ The **Pricing** card is where you tell the system how to price the item. You don
 - **Unit Type** — the unit the item is measured and sold in (for example, square feet or each). Required.
 - **Material Cost** — the cost of materials for one unit. Required.
 - **Labor Hours** — how many hours of labor one unit takes. Required.
-- **Multiplier Override** — leave this blank to use your branch's normal pricing. Fill it in only when this one item should ignore the branch multiplier and use a fixed multiplier instead.
+- **Fixed Price (per unit)** — set this to sell the item at an exact price per unit instead of pricing it from cost. When it's filled in, the branch multiplier and the payment method don't change the line, and there's no material or labor cost for factors to scale — but a **Price** [factor](/guides/settings/price-book/factors-additional-costs#factors) and the customer discount still adjust it. Leave it blank to price the item from cost as usual; enter **0** for a free item. (The Material Cost and Labor Hours you enter are still used for reporting and to work out the job's hours.)
+- **Multiplier Override** — leave this blank to use your branch's normal pricing. Fill it in only when this one item should ignore the branch multiplier and use a fixed multiplier instead. Ignored when a Fixed Price is set.
 - **Factors** — optional conditions that adjust the item's price based on answers to the work-area questions on an estimate.
 - **Additional Costs** — optional extra costs attached to the item, such as a fee or a surcharge that always applies when it's used.
 
