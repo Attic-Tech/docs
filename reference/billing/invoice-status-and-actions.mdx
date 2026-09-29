@@ -1,16 +1,16 @@
 ---
 title: "Invoice status and actions"
-description: "The five invoice statuses, how each is derived, which actions are available in each, and who can perform them."
-keywords: ["invoice status", "void invoice", "record payment", "send invoice", "draft invoice", "invoice overdue", "add credit", "change due date", "custom due date"]
+description: "The six invoice statuses, how each is derived, which actions are available in each, and who can perform them."
+keywords: ["invoice status", "void invoice", "record payment", "send invoice", "draft invoice", "invoice overdue", "add credit", "change due date", "custom due date", "refund due", "refund invoice", "refund payment"]
 ---
 
-This reference explains the invoice statuses, how an invoice's status is set, which actions (send, record payment, add credit, void, edit, delete, change due date) are available in each status, and who can perform them.
+This reference explains the invoice statuses, how an invoice's status is set, which actions (send, record payment, add credit, refund, void, edit, delete, change due date) are available in each status, and who can perform them.
 
 The user-facing roles referenced below are **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Crew Member**.
 
-## The five invoice statuses
+## The six invoice statuses
 
-An invoice is always in exactly one of five statuses. The status is shown on the invoice and drives which actions appear.
+An invoice is always in exactly one of six statuses. The status is shown on the invoice and drives which actions appear.
 
 | Status | Meaning |
 | --- | --- |
@@ -18,6 +18,7 @@ An invoice is always in exactly one of five statuses. The status is shown on the
 | **Open** | Sent to the client; the full balance is outstanding. |
 | **Partially Paid** | Some, but not all, of the balance has been collected. |
 | **Paid** | The balance has been collected in full. |
+| **Refund Due** | The invoice owes the customer money. A credit note lowered it below what the customer had already paid, so the balance is below zero. |
 | **Voided** | Cancelled. The balance is forced to zero and the invoice no longer affects the workspace ledger. |
 
 <Card title="Status is automatic, never set by hand" icon="lock">
@@ -30,7 +31,8 @@ After a payment or credit changes the balance, the status is recomputed automati
 
 - A **Voided** invoice never changes status from a payment or credit. Recording a payment or adding a credit cannot move a Voided invoice.
 - A **Draft** is *finalized* by a payment or credit: recording a payment or adding a credit on a draft moves it out of Draft, and its status is then recomputed from the balance like any sent invoice. See [Recording a payment or credit on a draft](#recording-a-payment-or-credit-on-a-draft) below.
-- If the remaining balance reaches zero or below, the invoice becomes **Paid**.
+- If the remaining balance is below zero, the invoice becomes **Refund Due**. This happens when a credit note lands on an invoice the customer has already paid.
+- If the remaining balance is exactly zero, the invoice becomes **Paid**.
 - If part of the balance is still outstanding but some has been collected, the invoice is **Partially Paid**.
 - Otherwise the invoice is **Open**.
 
@@ -41,7 +43,7 @@ Overdue is not one of the five statuses. It is a separate flag the invoice shows
 - The status is **Open** or **Partially Paid**, and
 - The current date, in the branch's local time, is past the invoice's due date.
 
-A Draft, Paid, or Voided invoice is never marked overdue.
+A Draft, Paid, Refund Due, or Voided invoice is never marked overdue.
 
 ## Which actions are available in each status
 
@@ -49,13 +51,14 @@ The actions offered on an invoice depend entirely on its current status. The act
 
 | Action | Available when status is |
 | --- | --- |
-| **Send** | Draft, Open, Partially Paid, or Paid (anything but Voided) |
+| **Send** | Draft, Open, Partially Paid, Paid, or Refund Due (anything but Voided) |
 | **Record Payment** | Draft, Open, or Partially Paid |
-| **Add Credit** | Draft, Open, or Partially Paid, with a balance still owed |
+| **Add Credit** | Draft, Open, Partially Paid, Paid, or Refund Due (anything but Voided) |
+| **Refund Invoice** / **Refund Payment** | Refund Due only |
 | **Void** | Open only |
 | **Edit** | Draft only |
 | **Delete** | Draft only |
-| **Change due date** | Any status except Voided (Draft, Open, Partially Paid, or Paid) |
+| **Change due date** | Any status except Voided (Draft, Open, Partially Paid, Paid, or Refund Due) |
 
 On a **Draft**, Record Payment and Add Credit **finalize** the invoice — they move it out of Draft and it can no longer be edited or deleted. Both stay disabled on a draft until it has been saved (no unsaved changes) and has at least one line item, and both ask you to confirm first. See [Recording a payment or credit on a draft](#recording-a-payment-or-credit-on-a-draft).
 
@@ -72,7 +75,10 @@ On a **Draft**, Record Payment and Add Credit **finalize** the invoice — they 
     Can **Send** (re-send), **Record Payment**, **Add Credit**, **Change due date**. Cannot void, edit line items or amounts, or delete.
   </Card>
   <Card title="Paid" icon="circle-check">
-    Can **Send** (re-send) and **Change due date**. No payments, credits, or voids; the balance is settled.
+    Can **Send** (re-send), **Add Credit**, and **Change due date**. No payments or voids; the balance is settled. A credit here moves the invoice to Refund Due.
+  </Card>
+  <Card title="Refund Due" icon="rotate-left">
+    Can **Refund Invoice**, **Refund Payment**, **Add Credit**, **Send** (re-send), and **Change due date**. No payments or voids. Recording the refund returns it to Paid.
   </Card>
   <Card title="Voided" icon="ban">
     A full end state. No actions beyond viewing and downloading the PDF — not even a due-date change.
@@ -109,13 +115,17 @@ Recording a payment is available on **Draft**, **Open**, and **Partially Paid** 
 
 ### Add Credit
 
-Adding a credit is available on **Draft**, **Open**, and **Partially Paid** invoices that still have a balance owed. If the balance is already zero, the **Add Credit** option is hidden. The credit is applied to the invoice and reduces its balance. The amount must be a positive number, otherwise you'll see **"Credit amount must be a positive number."** On a Draft, adding a credit first finalizes the invoice — see [Recording a payment or credit on a draft](#recording-a-payment-or-credit-on-a-draft).
+Adding a credit is available on any invoice that isn't **Voided**: **Draft**, **Open**, **Partially Paid**, **Paid**, and **Refund Due**. The credit is applied to the invoice and reduces its balance. It can't be more than the invoice total, less credits already on it, and a credit that takes the balance below zero moves the invoice to **Refund Due**. The amount must be a positive number, otherwise you'll see **"Credit amount must be a positive number."** On a Draft, adding a credit first finalizes the invoice. See [Recording a payment or credit on a draft](#recording-a-payment-or-credit-on-a-draft).
 
 A credit can later be voided or edited from its transaction row, with these limits:
 
 - A credit that has already been voided cannot be voided again: **"This credit note has already been voided."**
 - A voided credit cannot be edited: **"Cannot edit a voided credit note."**
 - When editing a credit, you cannot change which invoices it applies to: **"Cannot add or remove invoice allocations when editing a credit note."** and **"Cannot assign the credit note to a different invoice."**
+
+### Refund
+
+A refund is only offered on a **Refund Due** invoice, meaning a credit note has already lowered it below what the customer paid. Use **Refund Invoice** from the invoice's action menu to settle the whole amount owed back, or **Refund Payment** on a payment row to refund from one payment. A refund can't be more than the invoice owes back. Recording a refund doesn't move money; it records money you returned yourself. Payments taken online through Stripe are refunded from the Stripe Dashboard instead. See [Refund a customer](/guides/billing/refund-a-customer).
 
 ### Recording a payment or credit on a draft
 
@@ -128,7 +138,7 @@ Finalizing this way does **not** email the customer or count as sending the invo
 
 ### Void
 
-Only **Open** invoices can be voided. This is stricter than Record Payment and Add Credit, which also allow **Draft** and **Partially Paid**. Voiding an invoice that isn't Open is rejected with **"Only open invoices can be voided."** Voiding sets the status to **Voided**, forces the balance to zero, records a void reason, and removes the invoice's effect from the workspace ledger.
+Only **Open** invoices can be voided. This is stricter than Record Payment and Add Credit, which also allow other statuses. Voiding an invoice that isn't Open is rejected with **"Only open invoices can be voided."** Voiding sets the status to **Voided**, forces the balance to zero, records a void reason, and removes the invoice's effect from the workspace ledger.
 
 ### Delete
 
@@ -136,7 +146,7 @@ Only **Draft** invoices can be deleted. Deleting any other status is rejected wi
 
 ## Who can perform invoice actions
 
-Invoice billing is restricted to **Admin**. Every invoice action — send, record payment, add credit, void, edit, delete, and viewing the Invoices page — is available only to Admins.
+Invoice billing is restricted to **Admin**. Every invoice action (send, record payment, add credit, refund, void, edit, delete, and viewing the Invoices page) is available only to Admins.
 
 All other roles (Ops Manager, Sales Admin, Sales Member, Client Coordinator, Crew Leader, Crew Member) have no access to invoices, payments, or credits.
 
@@ -150,10 +160,10 @@ The **Invoices** page can be turned off for a workspace as a capability. When in
 
 ## Quick reference
 
-- **Five statuses:** Draft, Open, Partially Paid, Paid, Voided. Status is always derived, never chosen by hand.
+- **Six statuses:** Draft, Open, Partially Paid, Paid, Refund Due, Voided. Status is always derived, never chosen by hand.
 - **Overdue** is a flag (Open or Partially Paid, past due date), not a sixth status.
-- **Send:** Draft, or re-send while Open, Partially Paid, or Paid. **Record Payment:** Draft, Open, or Partially Paid. **Add Credit:** Draft, Open, or Partially Paid, only while a balance is owed. On a Draft, both finalize the invoice after a confirmation. **Void:** Open only. **Edit / Delete:** Draft only. **Change due date:** any status except Voided.
-- **Paid** can still be re-sent and have its due date changed, but takes no money actions; **Voided** is a full end state with no further actions.
+- **Send:** Draft, or re-send while Open, Partially Paid, or Paid. **Record Payment:** Draft, Open, or Partially Paid. **Add Credit:** any status except Voided. **Refund:** Refund Due only. On a Draft, both finalize the invoice after a confirmation. **Void:** Open only. **Edit / Delete:** Draft only. **Change due date:** any status except Voided.
+- **Paid** can still be re-sent, credited, and have its due date changed, but takes no payments; **Refund Due** is settled by recording a refund; **Voided** is a full end state with no further actions.
 - **Only Admins** can perform any invoice action, and only within branches they belong to.
 
 ## Related references

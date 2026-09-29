@@ -16,12 +16,13 @@ You don't need to be an accountant to use billing. Menaia does the math — tota
 
 ### Summary cards
 
-Four cards sit above the list and give you the financial picture at a glance. Click any card to filter the list down to just those invoices.
+Five cards sit above the list and give you the financial picture at a glance. Click any card to filter the list down to just those invoices.
 
 - **Total Invoiced** — the full amount you've billed.
 - **Outstanding** — money that's been invoiced but not yet collected.
 - **Total Collected** — payments you've received.
 - **Overdue** — invoices that are past their due date and still owe a balance.
+- **Refund Due**: money you owe customers back, on invoices where a credit took the balance below what they paid. See [Refund a customer](/guides/billing/refund-a-customer).
 
 ### The invoice list
 
@@ -66,6 +67,9 @@ Every invoice carries a **Status** that tells you exactly where it stands. Under
   <Step title="Paid">
     When the full balance is collected, the invoice is marked **Paid** and the balance drops to zero.
   </Step>
+  <Step title="Refund Due">
+    If you add a credit after the customer has paid, the balance can go below zero. The invoice becomes **Refund Due** because you now owe the customer money. Once you record the refund, it goes back to **Paid**. See [Refund a customer](/guides/billing/refund-a-customer).
+  </Step>
 </Steps>
 
 <Note>
@@ -78,7 +82,7 @@ Open any invoice to see its detail page. Across the top you'll find the invoice 
 
 - **Send Invoice** (this becomes **Resend Invoice** once the invoice has been sent) emails the invoice to the customer.
 - **Record Payment** logs a payment against the balance.
-- The **more options** menu (the three-dot button) holds the rest: **View PDF**, **Record Payment**, **Add Credit**, **Void Invoice** or **Delete Invoice**, plus quick links to the related estimate or proposal.
+- The **more options** menu (the three-dot button) holds the rest: **View PDF**, **Record Payment**, **Add Credit**, **Refund Invoice** (only when the invoice is **Refund Due**), **Void Invoice** or **Delete Invoice**, plus quick links to the related estimate or proposal.
 
 Below the actions, the **Invoice Details** card shows the client, project, dates, payment terms, total, and balance remaining. A **Transaction History** section records every payment and credit applied to the invoice.
 

@@ -43,7 +43,7 @@ There are four kinds of ledger entry, each tied to the event that creates it:
 </Card>
 
 <Card title="Refund recorded" icon="rotate-left">
-  Logged when a refund of an online payment is processed. The amount recorded is the refund amount, dated to when the refund was posted, and the entry links back to the refund, the original payment, and the affected invoice.
+  Logged when a refund is recorded in Menaia or when a refund of an online payment comes through from Stripe. The amount recorded is the refund amount, dated to when the refund was posted, and the entry links back to the refund, the original payment, and the affected invoice.
 </Card>
 
 ### Each entry must match its source event
@@ -71,7 +71,7 @@ The ledger never double-logs the same event. Before adding an entry, the system 
 </Card>
 
 <Card title="Processing a refund" icon="circle-check">
-  An entry is recorded once a refund of an online payment is confirmed. Refunds are issued from your Stripe Dashboard and flow back automatically — the entry is logged when the refund comes through, and it is not logged twice for the same refund.
+  An entry is recorded once a refund is saved. For a refund an Admin records in Menaia, that's when the refund is recorded. For an online payment refunded from your Stripe Dashboard, it's when the refund comes through from Stripe. The entry is not logged twice for the same refund.
 </Card>
 
 ### Reversals zero out the entry — they don't erase it
@@ -102,11 +102,12 @@ Balances are calculated from invoices, not from the ledger.
 
 An invoice's balance is its total, minus everything applied to it — payments and credits — plus anything refunded, rounded to the cent. It is recalculated whenever a payment, credit, or refund changes, and the invoice's status is re-derived from the result:
 
-- Balance at or below zero → **Paid**
+- Balance below zero → **Refund Due**
+- Balance at zero → **Paid**
 - Balance below the total but above zero → **Partially paid**
 - Otherwise → **Open**
 
-Because a refund raises the balance back up, refunding a paid invoice can move it back to **Partially paid** or **Open**. Draft and Voided invoices are left as they are. For the full rounding behavior, see [Money rounding](/reference/platform/money-rounding).
+A balance goes below zero when a credit note lowers an invoice the customer has already paid. Because a refund raises the balance back up, recording the refund returns a **Refund Due** invoice to **Paid**, and a Stripe refund on an invoice that wasn't credited can move it back to **Partially paid** or **Open**. Draft and Voided invoices are left as they are. For the full rounding behavior, see [Money rounding](/reference/platform/money-rounding).
 
 ### Project and financial-summary totals
 
