@@ -51,12 +51,14 @@ Click anywhere on a row to open that line's settings.
   <Step title="Pick a number type">
     - **Toll-free** ("Faster to set up"). Toll-free verification usually clears in a few days.
     - **Local number** ("Area code, higher answer rates"). Local numbers need full carrier registration, and carrier review can take 10 to 15 days.
+
+    The window also shows the setup and ongoing carrier fees for the type you pick, so you can see the cost before you apply.
   </Step>
   <Step title="For a local number, choose the number">
-    Under **Choose your local number**, type an area code and click **Search**, then pick a number from the results. Numbers are held for you for 15 minutes. If nothing comes back, you see "No available numbers found. Try a different search."
+    Under **Choose your local number**, type an area code or a city name and click **Search**, then pick a number from the results. Numbers are held for you for 15 minutes. If nothing comes back, you see "No available numbers found. Try a different search."
   </Step>
   <Step title="Fill in your business details">
-    Fill in the fields listed in the table below. Only **Business name** is required.
+    Fill in the fields listed in the table below. **Business name** is always required. For a **local number**, you must also choose a **Business type** and an **Industry** — carriers reject a local registration without them, so the form won't submit until both are set.
   </Step>
   <Step title="Submit">
     Click **Submit Details**. You see "Number application submitted". Once the number is set up, it appears on the **Lines** card.
@@ -66,7 +68,7 @@ Click anywhere on a row to open that line's settings.
 | Field | Toll-free | Local number |
 | --- | --- | --- |
 | Business name, Business website | ✓ | ✓ |
-| Business type, Industry | | ✓ |
+| Business type, Industry | | ✓ (required) |
 | Business registration number or EIN | ✓ | ✓. Labeled **EIN or tax ID** and required unless you're a sole proprietor. |
 | Registration country | ✓ | ✓ |
 | Business address, City, State, ZIP | | ✓ |
@@ -76,10 +78,25 @@ Click anywhere on a row to open that line's settings.
 | How do customers agree to be texted? | ✓ | ✓ |
 
 <Note>
-A workspace applies for a number only once. If your workspace has already applied, submitting again fails with an error. To bring over more numbers you already own, use [Port a number](#port-a-number).
+A workspace fills in the full application only once. If your workspace has already applied, submitting the application again fails with an error. Once you're approved, you add more local numbers directly (see [Add a local number after approval](#add-a-local-number-after-approval)); to bring over numbers you already own from another carrier, use [Port a number](#port-a-number).
 </Note>
 
 New numbers start without a branch. The first number your workspace gets becomes **Primary** automatically. To assign a branch, open the line and go to the **General** tab.
+
+### Add a local number after approval
+
+Once your workspace's texting registration is approved for **local** numbers, that registration already covers any new local number, so there's no second application to fill in. Clicking **Add number** then opens a simpler **Add a number** window instead of the application form:
+
+<Steps>
+  <Step title="Pick a number">
+    Search by area code or city and choose a number from the results, the same way as in the application above. Numbers are held for you for 15 minutes.
+  </Step>
+  <Step title="Buy the number">
+    Click **Buy number**. You see "Number added and ready to use", and the number appears on the **Lines** card ready to call and text right away.
+  </Step>
+</Steps>
+
+Workspaces approved for a **toll-free** number don't get this shortcut: a toll-free registration doesn't cover local numbers, so **Add number** still opens the full application.
 
 ## Line settings
 
@@ -263,6 +280,10 @@ This card sets what happens when someone calls outside your business hours. Unde
 
 Use **Port a number** to bring a number you already own over from your current carrier. This card only appears if Communications is turned on for your workspace.
 
+<Note>
+The **Port a number** button stays disabled until your texting registration is approved, because a ported number joins your registered account in order to text. Until then the card shows "Porting unlocks once your texting registration is approved — a ported number needs your registration to text."
+</Note>
+
 <Steps>
   <Step title="Open the port window">
     On the **Port a number** card, click **Port a number**.
@@ -314,7 +335,7 @@ Being on a line through a role counts. If the caller is **Masked** on the chosen
 | Action | Who |
 | --- | --- |
 | Open Communications, manage lines, people, and call settings | Admin |
-| Port a number | Admin, when Communications is turned on for your workspace |
+| Port a number | Admin, when Communications is turned on for your workspace and your texting registration is approved |
 
 ## What's next
 
