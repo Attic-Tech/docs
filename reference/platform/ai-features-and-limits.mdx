@@ -8,15 +8,18 @@ This reference explains Menaia's AI-assisted features, the limits on what you ca
 
 ## What the AI features are
 
-Menaia's AI helpers fall into three groups:
+Menaia's AI helpers fall into four groups:
 
 - **Meni, the AI assistant** — a chat panel that answers questions, looks up and charts your data, remembers context, prepares changes for your approval, and runs automations that draft work for you.
 - **Drafting and writing helpers** that propose text you then review and edit — crew notes, the proposal email, text replies in the inbox, and win celebration posts.
 - **Analysis helpers** that summarize a recorded sales conversation — ride-along insights.
+- **The AI receptionist** — a voice agent that answers inbound phone calls on your behalf and acts on a live call. It's the one helper that takes action without a review step (see below).
 
-### Nothing the AI produces is applied automatically
+### The drafting and analysis helpers are never applied automatically
 
-Every AI feature returns a **suggestion**. The result is never sent, saved, or applied on its own. The screen always drops the output into an editable field, an undo-able replacement, or a review step first. See [Always review AI output](#always-review-ai-output) below.
+The drafting, writing, and analysis helpers each return a **suggestion**. The result is never sent, saved, or applied on its own. The screen always drops the output into an editable field, an undo-able replacement, or a review step first. See [Always review AI output](#always-review-ai-output) below.
+
+The **AI receptionist** is the exception: it talks to callers live and, within the limits you set, takes a message, captures a lead, or transfers the call during the call rather than drafting something for you to approve afterward. You control what it's allowed to do, and every call it handles is recorded in the inbox with a summary and transcript. See [AI receptionist](#ai-receptionist) below.
 
 ## What each feature does
 
@@ -92,6 +95,15 @@ The **AI Ride Along** recorder captures an in-person sales conversation. After y
 - The analysis is organized into sections: **Summary**, **Strengths**, **Next Steps** (or **Follow-up** if the deal closed on the spot), **Coaching** insights, **Tone** and communication analysis (talk-time percentage, confidence, engagement, hesitations), **Patterns**, and ready-to-send **Drafts** for a follow-up email or text.
 - Per-speaker tone, confidence, and engagement come from voice analysis. When that voice data isn't available, those fields are shown as empty rather than guessed.
 
+### AI receptionist
+
+The **AI receptionist** answers inbound phone calls for your business. An Admin turns it on and sets it up under [Communications settings](/guides/settings/communications#ai-receptionist): when it answers, the name and voice it uses, the language, the greeting and behavior instructions, whether it discloses the recording and that it's an AI, and which actions it's allowed to take.
+
+- Unlike the drafting helpers, it **acts on a live call** rather than drafting for later review. Within the actions you allow, it can take a message, capture the caller as a lead, and transfer the call to a person.
+- It only does what you've allowed. If you don't tick an action, it won't do it, and transfers go only to the people you choose.
+- The caller can be told up front that the call may be recorded and that they're speaking with an AI — on by default, with a line you can customize.
+- Every call it handles is kept in the [inbox](/guides/calls/inbox) with a summary and full transcript, so you can see exactly what it said and did. When it takes a message, the people on the line are notified.
+
 ## Usage limits
 
 ### Length and size limits
@@ -118,7 +130,7 @@ The **AI Ride Along** recorder captures an in-person sales conversation. After y
 
 ## Meni tokens power AI features
 
-On workspaces that use token billing, Meni and every AI feature draw from a shared workspace **token balance**. Each AI action spends tokens from that balance — as do outbound calls and texts — and the activity shows up in your **Usage history** under **Settings → Billing**.
+On workspaces that use token billing, Meni and every AI feature draw from a shared workspace **token balance**. Each AI action spends tokens from that balance — as do outbound calls and texts, and the calls the AI receptionist answers — and the activity shows up in your **Usage history** under **Settings → Billing**.
 
 - Your plan includes a monthly token allowance, and a **Trial** workspace starts with a pool of trial tokens.
 - When the balance runs low you'll see a warning; when it reaches **zero**, Meni, the AI drafting and analysis helpers, and outbound calling and texting **pause** until you top up. Your core business tools — scheduling, clients, proposals, invoices, and everything else — keep working and never pause.
@@ -134,6 +146,7 @@ AI features are turned on per workspace and, in some cases, depend on your role,
 - **The text reply helper** appears in the inbox composer for people who can send texts, and only once texting has been turned on for your workspace.
 - **Ride-Alongs** must be turned on for your workspace. The voice tone analysis depends on an additional voice-analysis setting being turned on for your workspace.
 - **AI win posts** require win channels to be turned on. With them off, you'll see "This feature is not available for your organization."
+- **The AI receptionist** is set up by an **Admin** under [Communications settings](/guides/settings/communications#ai-receptionist) and answers calls for your business number. If your workspace's token balance is empty, it can't answer and the caller goes to voicemail instead.
 
 If an AI feature you expect is missing, it's almost always because the feature isn't turned on for your workspace, or your role can't edit the underlying record. If an AI feature is available but suddenly refuses to run, check your **token balance** — AI features pause when it reaches zero. See [Permissions and roles](/reference/platform/permissions-roles-matrix).
 
