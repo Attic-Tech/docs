@@ -303,11 +303,11 @@ The Zapier page works a little differently from the other apps. Instead of a **G
 The first time a Zap uses Menaia, Zapier asks you to sign in to Menaia and approve the connection. If you're not already signed in, Menaia asks you to sign in first, then shows its authorization screen.
 
 <Steps>
-  <Step title="Review what Zapier can do">
-    The screen lists the permissions Zapier is asking for, each with a checkbox, all ticked. Only permissions your own role already has are listed. Leave the lead, client, and message permissions ticked for the Menaia steps you plan to use — if you untick one, Zaps can't do that. The screen also shows the email address you're connecting as.
+  <Step title="Choose an organization (only if you have more than one)">
+    If you belong to more than one Menaia organization, Menaia asks you first to **Choose an organization to connect**. Pick one under **Organization** ("Select an organization") and click **Continue** — each connection acts on a single organization, so your Zaps work only in the one you choose. This step also shows the account you're signed in as; if it's the wrong one, choose **Use a different account** to sign out of this browser and sign in again before continuing. If you belong to just one organization, Menaia skips this step.
   </Step>
-  <Step title="Pick the organization">
-    If you belong to more than one organization, choose one under **Organization** ("Select an organization"). Your Zaps work in that organization only.
+  <Step title="Review what Zapier can do">
+    The screen lists the permissions Zapier is asking for, each with a checkbox, all ticked. Only permissions your own role already has are listed. Leave the lead, client, and message permissions ticked for the Menaia steps you plan to use — if you untick one, Zaps can't do that. The screen also shows the email address you're connecting as and, when you chose an organization, which organization this connection is for — with a **Change** link if you need to pick a different one.
   </Step>
   <Step title="Approve">
     Click **Approve** to finish and return to Zapier, or **Deny** to cancel. In Zapier, the connection is named after your organization and your email address.
@@ -323,6 +323,7 @@ If the authorization screen shows one of these messages instead, close the windo
 - **"This authorization link is invalid"** — the link was incomplete.
 - **"This authorization request has expired"** — the request is no longer valid.
 - **"Authorization is temporarily unavailable"** — something went wrong on Menaia's side. Try again later, or contact support if it keeps happening.
+- **"Start the connection again"** — the request was approved before you chose an organization for it. Start the connection again from Zapier.
 
 ### What Zaps can do with Menaia
 
