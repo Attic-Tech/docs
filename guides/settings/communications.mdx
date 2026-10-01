@@ -247,6 +247,27 @@ Turn this on to send business calls to a cell phone, so calls still get answered
 When forwarding is on and a call doesn't go through the phone menu, it goes straight to the forwarding number. If nobody answers there, the caller goes to your queue (if it's on) or to business voicemail. That happens whichever option you pick above.
 </Note>
 
+### AI receptionist
+
+The **AI receptionist** can answer business calls on its own: it greets callers, takes messages, captures callers as leads, and hands them to your team. Turn the section on with its switch, then set it up.
+
+| Setting | What it does |
+| --- | --- |
+| **When it answers** | Choose **Off** (the receptionist never picks up), **Answer missed calls** (it steps in when nobody on your team picks up, and outside the business hours you set it answers right away), or **Answer every call** (it picks up every call immediately, day or night, including after hours and closed days). |
+| **Receptionist name** | How the receptionist introduces itself to callers, for example "Maya". Leave it blank and it introduces itself simply as the receptionist. |
+| **Voice** | The voice callers hear. Click **Play sample** next to it to listen. Samples always play in English, whatever language you pick. |
+| **Language** | **English** or **Spanish**. Calls use the language you pick. |
+| **Greeting & behavior instructions** | Free text that tells the receptionist how to greet callers and what to do, for example "Greet callers warmly, mention the business name, and offer to take a message or book an estimate." |
+| **Include a recording & AI disclosure in the greeting** | On by default. When on, the greeting tells callers the call may be recorded and that they're speaking with an AI. You can write your own **Disclosure line**, or leave it blank to use the default: "Just so you know, this call may be recorded, and you are speaking with an AI assistant." |
+| **Allowed actions** | Tick what the receptionist is allowed to do on a call: **Take a message**, **Capture the caller as a lead**, and **Transfer to a human**. |
+| **Transfer destination** | Appears when **Transfer to a human** is ticked. Choose **Ring everyone who takes calls** or **Ring specific people**, then pick the people. A destination is required before you can save. |
+
+<Note>
+**Answer missed calls** is the same choice as **Hand to the AI receptionist** under [Forward to phone](#forward-to-phone): in that mode the receptionist takes over a missed call instead of sending it to voicemail. The receptionist draws from your workspace's Meni token balance. If that balance is empty, it can't answer, and the caller goes to voicemail instead. See [AI features and limits](/reference/platform/ai-features-and-limits).
+</Note>
+
+After the receptionist handles a call, it shows up in the [inbox](/guides/calls/inbox) as an **AI receptionist answered** entry with a short summary and the full transcript. When it takes a message, the people on the line get a notification. See [Review calls and voicemails](/guides/calls/browse-and-review-calls#read-a-call-in-a-conversation).
+
 ### Ring behaviour
 
 | Setting | What it does |
