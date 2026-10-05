@@ -96,13 +96,24 @@ For **Select** fields, click **Add Option** to add each choice. For **Radio** fi
 
 A **Message** field has a text editor instead of these settings. Write the text you want people to read at that point in the form.
 
+### Choose where Media uploads go
+
+When a form has a **Media** field, a **Media Folder** picker appears on the first Media field. It sets where photos uploaded through *every* Media field in the form are filed in the project's media — with one picker per branch the form runs in, so each branch can use a different folder.
+
+- Each branch shows its own picker. Pick a folder, or leave it on **Forms (default)** to use that branch's own **Forms** folder.
+- The picker only lists the branch's active, custom media folders. Set these up on the [Media folders](/guides/settings/media-folders) page first.
+- With more than one branch, **Apply to all branches** copies your pick to the other branches that have a folder with the same name.
+- Select the form's **Branches** before choosing folders — until branches are picked, you'll see *Select branches to choose a folder.* Removing a branch from the form also removes its folder choice.
+
+If a folder you picked earlier is later deactivated or deleted, the branch falls back to its **Forms** folder and the picker shows a note. The choice is kept, so uploads return to that folder if it's reactivated; pick another folder to replace it, or **Forms (default)** to remove it.
+
 ### Reorder and remove fields
 
 - **Reorder** — drag a field by its handle on the left to move it up or down. Options inside a Select or Radio field can be dragged the same way.
 - **Remove** — click the trash button on a field, or next to an option, to delete it.
 
 <Note>
-Photos uploaded through a **Media** field are also saved to the project's media, in the **Forms** folder.
+Photos uploaded through a **Media** field are also saved to the project's media. They land in the folder chosen in the **Media Folder** picker for that project's branch, or in the branch's **Forms** folder when it's left on **Forms (default)**.
 </Note>
 
 ## Submit settings
