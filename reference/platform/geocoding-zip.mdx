@@ -68,15 +68,15 @@ There is no fixed ZIP-to-territory table in the platform. "Territory" here is co
 
 ### Inbound leads are auto-assigned to the nearest branch by driving distance
 
-When a lead comes in, the platform measures the driving distance from each of the workspace's branches (those that have a base address) to the lead's address, and assigns the lead to the closest one.
+When a lead comes into a workspace with **more than one branch**, the platform measures the driving distance from each branch (those that have a base address) to the lead's address and assigns the lead to the closest one. A workspace with a **single branch** skips this entirely — every automated lead goes to that one branch, with no distance check and no address needed.
 
 ### A lead with no address is created without a branch
 
-If a lead has no address, branch matching is skipped and the lead is still created — just without a branch. Likewise, if no branch can be matched by distance, the lead proceeds without a branch rather than failing.
+In a multi-branch workspace, a lead with no address — or an address too vague to locate, such as a street with no city and no ZIP — is created without a branch rather than routed to a guess. Likewise, if no branch can be matched by distance, the lead proceeds without a branch rather than failing. (A single-branch workspace is the exception: it always assigns its one branch, even when the lead's address is missing or too vague to place.)
 
 ### A branch needs a base address to be a routing candidate
 
-Only branches that have a base address are considered when matching. A branch with no base address set can never be the matched branch. Set a branch's base address under its configuration so it can receive routed leads.
+When a workspace has more than one branch, only branches that have a base address are considered when matching, and a branch with no base address set can never be the matched branch. Set a branch's base address under its configuration so it can receive routed leads. The exception is a workspace with a single branch, which receives every automated lead whether or not it has a base address.
 
 ### Driving distance shown on a property
 
@@ -92,7 +92,7 @@ Driving distance is measured in miles from the branch's base address to the prop
 - **Minimum to locate an address:** at least a city or a ZIP. Lookups are United States only.
 - **A failed lookup never blocks a save** and never overwrites existing coordinates.
 - **Sales tax:** chosen in the tax selector, not decided by the address. Only a TaxJar rate is looked up from the property address, and it needs at least a ZIP code.
-- **Lead routing:** nearest branch by driving distance — not by ZIP. A lead with no address, or no matchable branch, is still created without a branch.
+- **Lead routing:** in a multi-branch workspace, the nearest branch by driving distance — not by ZIP — when the lead's address is specific enough to locate; a lead with no address, a too-vague address, or no matchable branch is still created without a branch. A single-branch workspace assigns its one branch to every automated lead.
 - **Branch must have a base address** to be a routing candidate or to show a driving distance.
 
 ## Related references
