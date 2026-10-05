@@ -107,7 +107,12 @@ A referral is saved as its own contact, marked as a company referrer, with an op
 
 ## Branch matching for automated leads
 
-This applies to **automated leads only**. When an inbound lead has a usable address, the system looks at the branches in your workspace that have a base address set and assigns the one closest by **driving distance**. If there's no address, no branches with a base address, or any problem during matching, the lead is created with **no branch**.
+This applies to **automated leads only**, and what happens depends on how many branches your workspace has.
+
+- **One branch:** every automated lead is assigned to that branch. There's nothing to compare, so no distance check runs and no address is needed.
+- **More than one branch:** the system assigns the branch closest to the lead by **driving distance**, as long as the lead's address is specific enough to place — at minimum a **city** or a **postal code**. An address too vague to locate — for example a street with no city and no postal code — is left with **no branch** rather than risking a wrong one.
+
+In a multi-branch workspace, the lead is also created with **no branch** when there's no address at all, when no branch has a base address to compare against, or if any problem comes up during matching.
 
 Manual leads do not use distance matching — they're assigned to the creating user's branch.
 
