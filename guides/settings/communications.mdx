@@ -2,7 +2,7 @@
 title: "Communications"
 description: "Set up your workspace's phone lines: apply for or port a number, choose who each line rings and in what order, mask personal numbers, and configure greetings, voicemail, forwarding, queues, and call recording."
 icon: "phone"
-keywords: ["phone settings", "phone lines", "business phone number", "apply for number", "toll-free number", "local number", "port a number", "transfer my number", "ring order", "who gets calls", "call masking", "hide personal number", "voicemail settings", "call forwarding", "call queue", "call recording", "phone menu", "IVR", "missed call text", "blocked numbers"]
+keywords: ["phone settings", "phone lines", "business phone number", "set up your phone", "phone setup wizard", "apply for number", "add a number", "toll-free number", "local number", "carrier registration", "register local numbers", "caller ID name", "port a number", "transfer my number", "ring order", "who gets calls", "call masking", "hide personal number", "voicemail settings", "call forwarding", "call queue", "call recording", "phone menu", "IVR", "missed call text", "blocked numbers"]
 ---
 
 **Communications** is where you set up your business phone in Menaia. You get a phone number (or bring one you already own), decide who each line rings, and choose what callers hear when they call in. Your team then calls and texts from the [inbox](/guides/calls/inbox) and the [dialer](/guides/calls/use-the-dialer).
@@ -11,11 +11,12 @@ keywords: ["phone settings", "phone lines", "business phone number", "apply for 
 Communications is part of Settings, which only **Admins** can open. To find it, open **Settings** from the main navigation and choose **Communications** under **General**.
 </Note>
 
-The page has three parts, from top to bottom:
+The page has four parts, from top to bottom:
 
 1. **Lines**: every number your workspace has. Click a line to open its own settings.
-2. **Port a number**: bring a number over from another carrier.
-3. **Workspace call settings**: greeting, phone menu, business hours, voicemail, forwarding, ringing, recording, and after-hours handling. These apply to every call your workspace receives.
+2. **Carrier registrations**: where your texting and caller ID stand with the phone carriers.
+3. **Port a number**: bring a number over from another carrier.
+4. **Workspace call settings**: greeting, phone menu, business hours, voicemail, forwarding, ringing, recording, and after-hours handling. These apply to every call your workspace receives.
 
 ## Lines
 
@@ -42,59 +43,91 @@ Line statuses:
 
 Click anywhere on a row to open that line's settings.
 
-### Apply for a number
+### Set up your phone
+
+The first time your workspace sets up its phone, the **Lines** card is empty and shows **Set up your phone**. This opens a short wizard that gets you a number for calls and files everything for texting with the phone carriers in one place. You answer the questions once, for both calls and texts. Nothing is bought or filed until you submit the last step, and your answers are saved as you go — if you leave partway through, the **Lines** card shows **Continue setup** so you can pick up where you left off.
+
+<Note>
+Only an **Admin** can set up the phone, buy numbers, or file texting. Everyone else sees "Ask an admin to set up your phone."
+</Note>
+
+The wizard has these steps:
 
 <Steps>
-  <Step title="Start the application">
-    On the **Lines** card, click **Add number**. The **Apply for number** window opens.
-  </Step>
-  <Step title="Pick a number type">
-    - **Toll-free** ("Faster to set up"). Toll-free verification usually clears in a few days.
-    - **Local number** ("Area code, higher answer rates"). Local numbers need full carrier registration, and carrier review can take 10 to 15 days.
+  <Step title="Your business">
+    The carriers check these against your business tax records, so enter them exactly as they appear there. Fill in:
 
-    The window also shows the setup and ongoing carrier fees for the type you pick, so you can see the cost before you apply.
+    - **Legal business name** and **EIN or tax ID** (required unless you're a sole proprietor)
+    - **Business website**, **Business type**, and **Industry**
+    - **Name on caller ID** — what customers see when you call them. Up to 15 letters, numbers, and spaces; phones show it in capital letters.
+    - **Business address** (street, city, state, and ZIP)
+    - A contact the carriers can reach: **Contact name**, **Phone number**, and **Email**
   </Step>
-  <Step title="For a local number, choose the number">
-    Under **Choose your local number**, type an area code or a city name and click **Search**, then pick a number from the results. Numbers are held for you for 15 minutes. If nothing comes back, you see "No available numbers found. Try a different search."
+  <Step title="Your numbers">
+    You get a **local number** that makes and receives calls from day one and becomes your main texting line once the carriers approve it, usually in 10 to 15 days. Search by area code or city and pick one; it's held for you for 15 minutes.
+
+    You can also turn on **Include a toll-free number**. A toll-free number has its own, faster texting review, so you can text customers within a few days while your local number waits. It's off by default, and Menaia picks the toll-free number for you when you submit — you can always add one later. A timeline on this step shows when each number starts calling and texting.
   </Step>
-  <Step title="Fill in your business details">
-    Fill in the fields listed in the table below. **Business name** is always required. For a **local number**, you must also choose a **Business type** and an **Industry** — carriers reject a local registration without them, so the form won't submit until both are set.
+  <Step title="Fees">
+    When this step is shown, it lists what your numbers and texting cost each month and what's due when you submit.
   </Step>
-  <Step title="Submit">
-    Click **Submit Details**. You see "Number application submitted". Once the number is set up, it appears on the **Lines** card.
+  <Step title="Review">
+    See everything that will be filed — your business details, your numbers, and your caller ID name — along with **What we do when you submit** and the setup fees. Click **Edit** on any part to change it, then **Submit and buy numbers**.
   </Step>
 </Steps>
 
-| Field | Toll-free | Local number |
-| --- | --- | --- |
-| Business name, Business website | ✓ | ✓ |
-| Business type, Industry | | ✓ (required) |
-| Business registration number or EIN | ✓ | ✓. Labeled **EIN or tax ID** and required unless you're a sole proprietor. |
-| Registration country | ✓ | ✓ |
-| Business address, City, State, ZIP | | ✓ |
-| Contact name, Phone number, Email | ✓ | ✓ |
-| Estimated monthly message volume | ✓ | ✓ |
-
-<Note>
-A workspace fills in the full application only once. If your workspace has already applied, submitting the application again fails with an error. Once you're approved, you add more local numbers directly (see [Add a local number after approval](#add-a-local-number-after-approval)); to bring over numbers you already own from another carrier, use [Port a number](#port-a-number).
-</Note>
+After you submit, a progress screen shows where each part stands. You can leave the page — setup keeps going, and you're told when texting is on. Your numbers make and receive calls as soon as they're bought, while the carriers review texting. To follow the review afterwards, see [Carrier registrations](#carrier-registrations).
 
 New numbers start without a branch. The first number your workspace gets becomes **Primary** automatically. To assign a branch, open the line and go to the **General** tab.
 
-### Add a local number after approval
+### Add another number
 
-Once your workspace's texting registration is approved for **local** numbers, that registration already covers any new local number, so there's no second application to fill in. Clicking **Add number** then opens a simpler **Add a number** window instead of the application form:
+Once your workspace is set up, the **Lines** card shows **Add number** instead. This opens a quick window — there's no second application to fill in:
 
 <Steps>
-  <Step title="Pick a number">
-    Search by area code or city and choose a number from the results, the same way as in the application above. Numbers are held for you for 15 minutes.
+  <Step title="Pick the kind of number">
+    Choose **Local number** or **Toll-free**. The window shows what each can do right away and its monthly cost.
+    - A **local number** joins your existing local registration. If that registration is approved it can text right away; otherwise it makes and receives calls now and texts once the registration clears.
+    - A **toll-free** number gets its own texting registration, filed with your business details, and can text once the carriers approve it, usually in a few days. If Menaia doesn't have the business details a toll-free number needs yet, the window asks for them before you buy.
+  </Step>
+  <Step title="Choose a number">
+    Search by area code or city for a local number, or pick from the available toll-free numbers. Numbers are held for you for 15 minutes.
   </Step>
   <Step title="Buy the number">
-    Click **Buy number**. You see "Number added and ready to use", and the number appears on the **Lines** card ready to call and text right away.
+    Click **Buy number** and confirm. You see "Number added and ready to use", and the number appears on the **Lines** card ready to call right away.
   </Step>
 </Steps>
 
-Workspaces approved for a **toll-free** number don't get this shortcut: a toll-free registration doesn't cover local numbers, so **Add number** still opens the full application.
+<Note>
+**Add number** is unavailable while your workspace's first number is still being bought — it becomes available once that number is set up.
+</Note>
+
+## Carrier registrations
+
+The **Carrier registrations** card shows where your texting and caller ID stand with the phone carriers. It appears once your workspace has set up its phone. Each registration gets its own lane:
+
+- **Texting from your toll-free number** — one lane per toll-free number, each reviewed on its own.
+- **Texting from your local numbers** — the one registration that covers all your local numbers.
+- **Caller ID on all your numbers** — the name customers see when you call them.
+
+Each lane shows a status badge and a short explanation of where it stands:
+
+| Status | What it means |
+| --- | --- |
+| **Setting up** | Menaia is buying your number and preparing its registration. |
+| **Under review** | The carriers are reviewing your details. A local registration usually takes 10 to 15 days; a toll-free one, a few days. Your numbers make and receive calls the whole time. |
+| **Approved** | Your workspace can send and receive texts from the numbers this registration covers. |
+| **Not approved** | The carriers didn't approve the registration. Your numbers still make and receive calls. |
+| **Needs attention** | Something went wrong before the registration reached the carriers. |
+
+When a lane needs something from you, it shows the one action to take:
+
+- **Review and file again** on a toll-free registration the carriers couldn't confirm. You correct the details they flagged and file that number's registration again. There's a limit on how many times you can file, and the lane shows how many filings are left and when you can file next. Your corrections apply only to that number's registration; registrations that are already approved aren't filed again.
+- **Register local numbers** if your workspace started on a toll-free number and hasn't registered its local numbers for texting yet. This reuses your business details and files the local registration.
+- **Choose your caller ID name** (or **Change name**) to set or update the name customers see when you call. The carriers review it, and phones start showing it 2 to 3 days after it's approved.
+- **Contact support** when a registration wasn't approved or needs attention, so the team can go through it with you and file it again.
+
+Only an **Admin** sees these actions. Other roles see a note pointing them to an admin, for example "Ask an admin to register your local numbers."
 
 ## Line settings
 
@@ -279,7 +312,7 @@ This card sets what happens when someone calls outside your business hours. Unde
 Use **Port a number** to bring a number you already own over from your current carrier. This card only appears if Communications is turned on for your workspace.
 
 <Note>
-The **Port a number** button stays disabled until your texting registration is approved, because a ported number joins your registered account in order to text. Until then the card shows "Porting unlocks once your texting registration is approved — a ported number needs your registration to text."
+The **Port a number** button stays disabled until texting is turned on for your workspace — that is, until you've [set up your phone](#set-up-your-phone). A ported number follows the kind of number it is: a ported local number joins your registration for local numbers, and a ported toll-free number gets its own texting review. Until texting is turned on, the card shows "Porting unlocks once texting is turned on. A ported local number joins your registration for local numbers, and a ported toll-free number gets its own texting review."
 </Note>
 
 <Steps>
@@ -333,7 +366,8 @@ Being on a line through a role counts. If the caller is **Masked** on the chosen
 | Action | Who |
 | --- | --- |
 | Open Communications, manage lines, people, and call settings | Admin |
-| Port a number | Admin, when Communications is turned on for your workspace and your texting registration is approved |
+| Set up your phone, buy numbers, and manage carrier registrations | Admin |
+| Port a number | Admin, once texting is turned on for your workspace |
 
 ## What's next
 
