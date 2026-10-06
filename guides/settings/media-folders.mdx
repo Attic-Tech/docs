@@ -52,11 +52,13 @@ Folders are set up per branch, but a folder with the same name in several branch
 
 ### Starter and system folders
 
-Every new branch starts with the same set of folders: **Inspection**, **Existing Damage**, **HVAC**, **Roofing**, **Setup**, **Completion**, **Documents**, **All Media**, **Client Collection**, **Forms**, and **Competing Proposals**.
+Every new branch starts with the same set of folders: **Inspection**, **Existing Damage**, **Setup**, **Completion**, **Documents**, **All Media**, **Client Collection**, **Forms**, and **Competing Proposals**.
+
+Two more — **HVAC** and **Roofing** — only back the inspection report's roof and HVAC photo panels. They appear in the folders list only when your workspace uses inspection reports; without that feature, they stay hidden everywhere folders are listed. See [Feature availability](/reference/platform/feature-availability#inspection-report-step).
 
 Some of these are **system folders**. Menaia files media into them automatically, so they're locked in every branch:
 
-- **Inspection**, **HVAC**, **Roofing**, **All Media**, **Forms**, and **Competing Proposals** can't be renamed, deactivated, or deleted. Their row has no trash icon, and opening one shows the details read-only with the note "These folders are automatically added to every branch and can't be changed."
+- **Inspection**, **All Media**, **Forms**, and **Competing Proposals** — and **HVAC** and **Roofing** when they're shown — can't be renamed, deactivated, or deleted. Their row has no trash icon, and opening one shows the details read-only with the note "These folders are automatically added to every branch and can't be changed."
 - **Existing Damage**, **Setup**, **Completion**, **Documents**, and **Client Collection** are ordinary starter folders. You can rename, deactivate, or delete them like any folder you create.
 
 You can still share a system folder with customers using its **Client Portal** switch.
@@ -82,6 +84,8 @@ You can still share a system folder with customers using its **Client Portal** s
 </Steps>
 
 A branch can't have two folders with the same name. If one of your branches already has a folder with that name, you'll see "A folder named … already exists in this branch." New folders aren't shared with customers until you turn on their **Client Portal** switch.
+
+A handful of names are reserved for built-in folders. When your workspace doesn't use inspection reports, **HVAC** and **Roofing** are hidden from the list but still reserved — naming a new folder either of those shows `"…" is a reserved folder name.`, so pick a different name.
 
 ## Edit a folder
 
