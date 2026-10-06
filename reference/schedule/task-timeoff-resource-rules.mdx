@@ -41,7 +41,7 @@ When you delete a custom (non-default) task type, every scheduled task that used
 
 ## Scheduled tasks
 
-A scheduled task appears on the calendar, is assigned to one person, has a type, a start and end, and a status. It can optionally be linked to a client and a project, and it can create a shift.
+A scheduled task appears on the calendar, is assigned to one person — or left **unassigned** by a branch management user — has a type, a start and end, and a status. It can optionally be linked to a client and a project, and it can create a shift.
 
 ### Who can see, create, and edit tasks
 
@@ -53,14 +53,15 @@ A scheduled task appears on the calendar, is assigned to one person, has a type,
 ### Assignment rules
 
 - **If you are not a manager, you can only assign a task to yourself.** Trying to assign a task to someone else returns "You can only assign tasks to yourself."
+- **Only branch management can leave a task unassigned.** Leaving a task with nobody assigned is a manager-only choice; non-managers must keep the task assigned to themselves. The same applies on update — a non-manager can't unassign their own task.
 - **If you are not a manager, you can only publish a task that is assigned to you.** Returns "You can only publish tasks assigned to yourself."
-- **If you are not a manager, you can only delete a task that is assigned to you.** Returns "You can only delete tasks assigned to yourself."
-- **The assigned person must belong to the selected branch.** Otherwise you get "Assigned user does not belong to this branch."
+- **If you are not a manager, you can only delete a task that is assigned to you.** Returns "You can only delete tasks assigned to yourself." Only branch management can delete an unassigned task.
+- **The assigned person must belong to the selected branch.** Otherwise you get "Assigned user does not belong to this branch." An unassigned task has no assigned person, so this check doesn't apply.
 - **The task type must belong to the same organization** as the task.
 
 ### Field rules for a task
 
-- **Required:** organization, branch, the assigned person, task type, start date, end date, status, and the "creates shift" choice. **Optional:** title, description, client, and project.
+- **Required:** organization, branch, task type, start date, end date, status, and the "creates shift" choice. A task also needs an assigned person — unless you're in branch management, who can leave it **unassigned**. **Optional:** title, description, client, and project.
 - **The end must be after the start.** The calendar form shows "End must be after start."
 - **Status is either draft or published**, and a new task defaults to **draft**.
 - **Title is optional** — when left blank, the task uses the task-type name as its title.
@@ -70,7 +71,7 @@ A scheduled task appears on the calendar, is assigned to one person, has a type,
 
 These rules govern the New Task and Edit Task panel:
 
-- **Task type, assignee, start date, end date, start time, and end time are required** to submit.
+- **Task type, assignee, start date, end date, start time, and end time are required** to submit — except that branch management can leave the assignee as **Unassigned** instead of picking a person.
 - **Save Draft is disabled** until the form is valid, not already saving, the "creates shift" choice is answered, and (when editing) you have actually changed something.
 - **Publish is disabled** until the form is valid, not saving, and the "creates shift" choice is answered.
 - **The "creates shift" choice is required when the assignee is a Crew Member or Crew Leader.** Until you answer yes or no, the form is incomplete and shows "Creates shift selection is required."
@@ -78,7 +79,7 @@ These rules govern the New Task and Edit Task panel:
 
 ### Conflict check when publishing a task (a warning, not a block)
 
-When you publish a task, the calendar checks the assignee's other commitments in the same time window — their published job shifts, time off, other published tasks, and published lead activities. If anything overlaps, you see a conflict dialog, but you **can still proceed**. This conflict check is advisory only.
+When you publish a task, the calendar checks the assignee's other commitments in the same time window — their published job shifts, time off, other published tasks, and published lead activities. If anything overlaps, you see a conflict dialog, but you **can still proceed**. This conflict check is advisory only. An **unassigned** task has no assignee and keeps nobody busy, so there's nothing to check — it publishes without a conflict dialog.
 
 - **Only published events count as conflicts** — drafts are ignored. Time off always counts (it has no draft state). Two events conflict when their time ranges actually overlap.
 
@@ -128,6 +129,7 @@ Equipment and vehicles are catalog records kept under **Settings → Resources**
 - **Manage task types (create/edit/delete):** Admin only.
 - **Create/edit/delete tasks:** branch management plus Sales Member and Crew Leader. Crew Member is read-only.
 - **Non-managers can only assign, publish, and delete tasks for themselves.**
+- **Only branch management can leave a task unassigned** — an unassigned task has no assignee to notify, no branch check, and nothing to conflict-check.
 - **Create/edit/delete time off:** branch management only. Non-managers, only for themselves.
 - **Manage equipment, vehicles, and their types:** Admin only, under Settings. Everyone else read-only.
 - **The default "Task" type can't be renamed, deleted, or duplicated by name.**

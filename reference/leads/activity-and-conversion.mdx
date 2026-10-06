@@ -32,7 +32,7 @@ What a viewer sees can be further narrowed by whether drafts are visible to them
 
 A **Sales Member can only assign a lead activity to themselves.** If a Sales Member tries to assign an activity to someone else, the save is rejected with a message that they can only create or assign lead activities for themselves.
 
-Manager roles can assign an activity to any eligible user.
+Manager roles can assign an activity to any eligible user, or leave it **unassigned**. Leaving an activity with nobody assigned is a manager-only choice — a Sales Member must keep it assigned to themselves.
 
 ## Validation applied on every save
 
@@ -40,7 +40,7 @@ Every time a lead activity is created or edited, these rules are enforced:
 
 1. The person creating the activity is recorded as its creator.
 2. Sales Members can only assign activities to themselves (see above).
-3. The assigned user must belong to the selected branch. If not, the save is rejected with "Assigned user does not belong to this branch."
+3. The assigned user must belong to the selected branch. If not, the save is rejected with "Assigned user does not belong to this branch." An unassigned activity has no assigned user, so this check is skipped.
 4. The lead must belong to the same organization as the activity. If not, the save is rejected with "Lead does not belong to this organization."
 5. The end time cannot be before the start time.
 
@@ -53,7 +53,7 @@ A lead activity requires:
 - An organization and a branch (set automatically for scoping)
 - A creator (recorded automatically)
 - A lead
-- A single assigned user
+- A single assigned user — or nobody, since manager roles can leave an activity unassigned
 - A start time and end time
 - A status (Draft or Published)
 - A "client confirmed" indicator (defaults to off)
@@ -67,7 +67,7 @@ Notes are optional. Activity notes are an **independent copy** of the lead's not
 The schedule-activity form requires:
 
 - A lead
-- An assigned user
+- An assigned user (manager roles may instead leave it unassigned)
 - A date, start time, and end time
 - An address
 - A project name
@@ -126,7 +126,9 @@ After an activity is published, notifications are sent in the background based o
 - If "notify the assigned team" is on, the assigned user gets a "lead activity published" notification with a link to the activity on the calendar.
 - If "notify client" is on, the lead's contact gets an "Appointment scheduled" notification (plus any additional emails).
 
-Separately, when an **already-published** activity's time range changes, updated-event notifications are sent — to the assigned user if "notify the assigned team" is on, and to the client if "notify client" is on.
+An **unassigned** activity has no assignee, so no assignee notification is sent (and the assignee notification option isn't offered); client notifications are unaffected.
+
+Separately, when an **already-published** activity's time range changes, updated-event notifications are sent — to the assigned user if "notify the assigned team" is on (unless the activity is unassigned), and to the client if "notify client" is on.
 
 All of these notifications are best-effort: if a send fails, it's silently dropped and never blocks the save.
 
@@ -171,6 +173,6 @@ Recognition evaluation runs in the background; if it fails, it's logged and neve
 
 Deleting is permanent — there is no "cancelled" status to restore from.
 
-If the deleted activity was **Published**, cancellation notifications are sent in the background based on whether you chose to notify the assignee and/or the lead's contact.
+If the deleted activity was **Published**, cancellation notifications are sent in the background based on whether you chose to notify the assignee and/or the lead's contact. An unassigned activity has no assignee, so only the lead-contact option applies.
 
 **Deleting an activity does not reverse the conversion** — any client and project that were created remain.

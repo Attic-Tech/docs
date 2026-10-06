@@ -53,6 +53,7 @@ There is no forced order beyond this. Breaks happen inside an In Progress shift 
   - Not assigned and not a manager → "You are not assigned to this shift."
   - The shift has no assigned team members and you aren't assigned → "This shift has no assigned team members."
 - For a **scheduled task**, you must be the task's assignee — unless you are a manager.
+  - The task is **unassigned** (nobody assigned) → "This task has no assignee." No time can be tracked against an unassigned task — not even by a manager — until someone is assigned to it.
   - Not the assignee and not a manager → "You are not assigned to this task."
   - The task isn't set up to track time → "This task is not configured for shift tracking."
 
@@ -197,6 +198,7 @@ A time-tracked shift can still be created or updated even on a **closed** job, s
 |---|---|
 | You are not assigned to this shift. | A non-manager clocking into a scheduled shift they're not on. |
 | This shift has no assigned team members. | The scheduled shift has an empty team and you aren't assigned. |
+| This task has no assignee. | Clocking into a task that has nobody assigned — assign someone first. |
 | You are not assigned to this task. | A non-manager clocking into a task they're not assigned. |
 | This task is not configured for shift tracking. | The task isn't set up to track time. |
 | Invalid clock-in request. | Neither a scheduled shift nor a task was supplied. |
