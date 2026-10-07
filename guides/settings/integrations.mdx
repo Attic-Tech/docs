@@ -131,7 +131,7 @@ The **Sync Log** tab on the QuickBooks page lists every sync between Menaia and 
 | --- | --- |
 | **Record** | The record that synced, with a short message underneath explaining what happened or what went wrong. |
 | **Type** | Client, Invoice, Expense, Payment, Item, Credit Note, Payout, or Configuration (a problem with your setup, such as class tracking). |
-| **Status** | **Synced**, **Warning** (the sync finished but skipped something or needs your attention), or **Error** (the record didn't sync). |
+| **Status** | **Synced**, **Warning** (the sync finished but couldn't complete part of it, or needs your attention), **Skipped** (a QuickBooks record Menaia intentionally didn't import because it isn't tied to a customer or job — for example an overhead expense or a card credit; it's recorded so the log can explain why it isn't in Menaia, and needs no action), or **Error** (the record didn't sync). |
 | **Synced at** | When the sync happened. |
 
 Use **Show:** at the bottom of the list to choose how many entries appear per page (10, 25, 50, or 100), and **Previous** and **Next** to move between pages.
@@ -157,9 +157,11 @@ Whenever there are outstanding sync errors, Admins see a **QuickBooks Sync Error
 Admins are notified when QuickBooks syncs run into trouble, so problems don't wait for someone to open the sync log:
 
 - **QuickBooks Sync Error** — a record failed to sync to or from QuickBooks.
-- **QuickBooks Sync Warning** — a sync finished but skipped records or needs attention.
+- **QuickBooks Sync Warning** — a sync finished but couldn't fully complete, or needs your attention.
 
 Notifications are grouped rather than sent for every record. You get at most one error notification and one warning notification every 30 minutes. Each one names the problem, or says how many QuickBooks records need attention and names the most recent, with a link to the QuickBooks page.
+
+Entries marked **Skipped** in the sync log are informational only: Menaia left those QuickBooks records alone on purpose, so they don't count toward warnings and no one is notified about them.
 
 Errors and warnings have separate toggles, so you can choose different channels for each. You'll find them under **Settings → Notifications**, in the **Integrations** group — see [Notification preferences](/guides/settings/notification-preferences). If you don't see the **Integrations** group, QuickBooks isn't turned on for your workspace.
 
