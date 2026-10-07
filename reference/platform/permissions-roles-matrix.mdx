@@ -136,6 +136,7 @@ See also: [/reference/leads/status-lifecycle](/reference/leads/status-lifecycle)
 | Proposals | Manage | Manage | Manage | Manage | Manage | View | No access |
 | Proposal media | Manage | Manage | Manage | Manage | Manage | Manage | No access |
 | Inspection reports | Manage | Manage | Manage | Manage | Manage | View | No access |
+| Contracts | Manage | Manage | Manage | Create/view/edit/delete | Create/view/edit/delete | View | No access |
 
 - **Ops Manager** can manage estimates but **can't move an estimate's status** to Released, Sold, Lost, Secondary Estimate, or Deleted.
 - **Sales Member** and **Client Coordinator** can change an estimate's status only within an allowed set (In Progress, Released, Sold, Lost, Secondary Estimate, Deleted).
@@ -143,6 +144,7 @@ See also: [/reference/leads/status-lifecycle](/reference/leads/status-lifecycle)
 - A **signed** estimate can't be deleted by anyone, regardless of role — you'll see "This estimate was signed and cannot be deleted."
 - A read-only estimate can't be saved from the Calculator: "This estimate is read-only and cannot be saved."
 - Editing crew-facing notes on an estimate is available to **Ops Manager, Sales Member, Client Coordinator, and Crew Leader** (and Admin).
+- **Contracts** depend on the contracts feature being turned on. **Admin, Ops Manager, and Sales Admin** can also see the regulated personal details on a finance-application contract (such as Social Security and driver's license numbers); **Sales Member** and **Client Coordinator** can create, view, edit, and delete contracts, but those sensitive fields stay masked for them. **Crew Leaders** can view contracts only, and **Crew Members** have no access.
 
 ### Jobs and schedule
 
