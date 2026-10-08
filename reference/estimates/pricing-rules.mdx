@@ -41,6 +41,7 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
 - **How it works:** The system measures the one-way distance from the branch's base address to the property address (in miles, rounded to the nearest mile), then computes the round-trip total: two times the one-way distance, multiplied by the number of days.
 - **Inputs:** the branch base address, the property address, and the number of days.
 - **Notes:** When the job needs 0 days, driving distance is 0. A missing base or property address prevents the calculation.
+- **Live vs. frozen distance:** While an estimate is **In Progress** (editable), the distance is measured live, so correcting the property address re-prices the job against the real distance. Once the estimate is read-only (any status other than In Progress, such as **Sold**), the distance is instead frozen to the value saved with the estimate, so the price you see matches the one the proposal and invoice quoted — a fresh measurement could otherwise drift (or misread a bare street address) and show a different price than the customer was given.
 
 ---
 
