@@ -23,7 +23,11 @@ All viewing and editing of clients, properties, and projects is bounded by the o
 
 ### Viewing clients
 
-Any signed-in user may view clients within their organization. No specific role is required to view — every role can see the clients in organizations they belong to.
+Every role except **Crew Member** can open the Clients page within the organization(s) they belong to, but **which** clients they see there depends on the role:
+
+- **Admin, Ops Manager, Sales Admin, and Client Coordinator** see every client in the branch.
+- **Sales Member and Crew Leader** see only the clients they work on. A client appears for them when they're connected to one of that client's projects — they're on the crew of one of its jobs, they're assigned to the project, they're the assignee of a lead activity on its lead, or they own an estimate on it. A client they have no such connection to stays hidden from them, including in search.
+- **Crew Member** has no access to clients.
 
 ### Creating clients
 
@@ -31,7 +35,7 @@ Clients are normally created by converting a lead (publishing a lead activity), 
 
 ### Editing clients
 
-**Every role** can edit a client, scoped to the user's organization(s).
+Editing follows the same scope as viewing: any role that can see a client can also edit it. **Admin, Ops Manager, Sales Admin, and Client Coordinator** can edit any client in the branch; **Sales Member and Crew Leader** can edit only the clients they work on; **Crew Member** can't edit clients.
 
 ### Deleting clients
 
@@ -85,9 +89,10 @@ Deleting a project requires one of: **Admin**, **Sales Admin**, or **Sales Membe
 
 | Action | Who can do it |
 | --- | --- |
-| View client / property / project | Every role, within their organization |
+| View property / project | Every role, within their organization |
+| View client | Every role except Crew Member — but Sales Member and Crew Leader see only the clients they work on |
 | Create a client | Admin (clients are normally created via lead conversion) |
-| Edit a client | Every role |
+| Edit a client | Every role except Crew Member — Sales Member and Crew Leader can edit only the clients they work on |
 | Delete a client | Admin, Ops Manager, Sales Admin |
 | Create a property | Admin |
 | Edit a property | Every role |
@@ -98,7 +103,7 @@ Deleting a project requires one of: **Admin**, **Sales Admin**, or **Sales Membe
 
 ## Notable points
 
-- **Viewing and editing** clients and properties are open to all roles (within the user's organization), but **creating** and **deleting** are tightly role-gated as shown above.
+- **Viewing and editing** properties are open to all roles (within the user's organization). For **clients**, viewing and editing are open to every role except Crew Member — but **Sales Member and Crew Leader** can view and edit only the clients they work on, while Branch Management roles (Admin, Ops Manager, Sales Admin, Client Coordinator) see every client. **Creating** and **deleting** are tightly role-gated as shown above.
 - **Creating clients and properties** is reserved for **Admin** — and clients in practice are created by converting a lead, not through a standalone create action.
 - **Project deletion** is the sales roles (Admin, Sales Admin, Sales Member); Ops Manager and Client Coordinator can edit projects but cannot delete them.
 - **Organization membership is the hard access boundary** for clients, properties, and projects — but client lists and project pages are additionally scoped to your active branch. On the Clients list, the **Branch** filter lets you see another branch's clients directly; elsewhere, switch branches to see another branch's records.

@@ -102,6 +102,11 @@ Roles referenced below: **Admin, Ops Manager, Sales Admin, Sales Member, Client 
 
 ## C. Clients — edit / delete / contacts
 
+### C0. "Why don't I see all of my organization's clients?"
+- **Symptom:** You can open the Clients page, but a client you expect is missing from the list and from search — even though you're in the right organization and branch.
+- **Cause:** **Sales Member and Crew Leader** see only the clients they **work on**, not every client in the branch. A client appears for them when they're connected to one of that client's projects — on the crew of one of its jobs, assigned to the project, the assignee of a lead activity on its lead, or the owner of an estimate on it. **Admin, Ops Manager, Sales Admin, and Client Coordinator** see every client.
+- **Resolution:** If you need to work a client you're not yet connected to, have a manager (or a Branch Management role) assign you to the project, add you to a job's crew, or assign you a lead activity on the lead — or ask one of those roles to handle it. There's nothing to fix if the client simply isn't one of yours.
+
 ### C1. "Why can't I edit a client? (no pencil/edit button)"
 - **Symptom:** The edit (pencil) button is missing on the client header, or the Edit Client form fails to save.
 - **Cause:** Editing a client requires a role that can update clients, and an organization must be selected.
@@ -168,8 +173,8 @@ Roles referenced below: **Admin, Ops Manager, Sales Admin, Sales Member, Client 
 
 ### E1. "Why do reads return nothing for a record I know exists (no error)?"
 - **Symptom:** A lead, client, or project silently shows "not found" or is absent.
-- **Cause:** Records are scoped to your selected organization (or, if none is selected, the organizations you belong to). Leads are further limited to those with no branch or a branch you belong to — so a lead assigned to a branch you're not in is invisible to you.
-- **Resolution:** Select the correct organization, and make sure you have membership in the relevant branch.
+- **Cause:** Records are scoped to your selected organization (or, if none is selected, the organizations you belong to). Leads are further limited to those with no branch or a branch you belong to — so a lead assigned to a branch you're not in is invisible to you. For **clients**, there's an extra role-based limit: **Sales Member and Crew Leader** see only the clients they work on (see C0), so a client you have no connection to is invisible even within your organization and branch.
+- **Resolution:** Select the correct organization, and make sure you have membership in the relevant branch. If you're a Sales Member or Crew Leader and the missing record is a client, check whether it's one you work on (see C0).
 
 ### E2. "Why does a server action say 'You do not have access to this organization'?"
 - **Symptom:** A lead, client, or project action is blocked with that message.
@@ -197,4 +202,4 @@ Roles referenced below: **Admin, Ops Manager, Sales Admin, Sales Member, Client 
 | Create project | ✓ | ✗ | ✓ | ✓ | ✗ | ✓ |
 | Update project | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ |
 
-Note: **lead deletion** is available to all four lead-management roles (Admin, Ops Manager, Sales Admin, Client Coordinator), subject to branch membership. **Client deletion** is narrower: Admin, Ops Manager, and Sales Admin only.
+Note: **lead deletion** is available to all four lead-management roles (Admin, Ops Manager, Sales Admin, Client Coordinator), subject to branch membership. **Client deletion** is narrower: Admin, Ops Manager, and Sales Admin only. The ✓ for **Sales Member and Crew Leader** on "Open Clients page" and "Edit client" covers only the clients they work on — they don't see every client in the branch (see C0).
