@@ -11,7 +11,7 @@ keywords:
   - "how do I edit an approved plan"
 ---
 
-This reference explains the job plan: the crew-facing breakdown of a job into days, employees, subcontractors, vehicles, equipment, and work-item allocations. It covers the three statuses a plan moves through, who can build, submit, and approve it, what must be true before each step, and how the parent job's status follows along.
+This reference explains the job plan: the crew-facing breakdown of a job into phases, each with its days, employees, subcontractors, vehicles, equipment, and work-item allocations. It covers the three statuses a plan moves through, who can build, submit, and approve it, what must be true before each step, and how the parent job's status follows along.
 
 The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, **Client Coordinator**, **Crew Leader**, and **Crew Member**.
 
@@ -96,11 +96,11 @@ The **Submit** button is only enabled when the plan is fully ready, there are un
 
 - crew notes have been acknowledged (if the work order has any),
 - every plan day is marked complete,
-- there is at least one plan day,
+- there is at least one plan day, and every phase has at least one day,
 - any important notices are completed,
 - every work-order item is fully allocated, with no remaining shortfall.
 
-You can only add days once the important notices are completed.
+You can only add phases and days once the important notices are completed.
 
 ### What makes a single day valid
 
@@ -193,7 +193,7 @@ The plan card, on the **Job Plan** tab of the job's project page, shows status-s
 - **Statuses:** Draft to Complete (submit) to Approved, moving forward one step at a time.
 - **Build / submit / approve:** Admin, Ops Manager, Crew Leader. Everyone else is view-only.
 - **Approving** records the approver automatically and needs no special permission — but there is currently no in-app approve action; reviewers advance the job's status and the plan stays Complete.
-- **Submission requires** acknowledged crew notes, at least one employee or subcontractor, at least one assigned item, every day complete, and no allocation shortfall.
+- **Submission requires** acknowledged crew notes, at least one employee or subcontractor, at least one assigned item, every phase with at least one day, every day complete, and no allocation shortfall.
 - **Employee hours** must be between 0.5 and 24 per day, in half-hour steps.
 - **Job status follows the plan:** Complete to Pending Review, Approved to Requires Scheduling.
 - **Editing isn't frozen** — non-Draft plans show read-only, and **Edit Plan** re-opens the builder.
