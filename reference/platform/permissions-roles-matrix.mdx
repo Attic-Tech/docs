@@ -110,7 +110,7 @@ What pricing detail you can see inside the Calculator depends on your role:
 | Lead statuses & sources | View | View | View | View | View | View | View |
 
 - A **Sales Member** can't create, edit, or delete leads, but can **view their own leads** read-only — leads assigned to them (as the salesperson or client coordinator) or that they created. They don't get the Leads page itself; those leads surface when they pick a lead while scheduling a lead activity, or when they ask the assistant about a lead.
-- A **Sales Member** can only work on **lead activities assigned to themselves** — if they try to edit or delete someone else's activity, they're told "You can only update lead activities assigned to yourself."
+- A **Sales Member** can view and edit **lead activities assigned to themselves** — editing someone else's is refused with "You can only update lead activities assigned to yourself." Deleting is narrower still: a Sales Member can only delete an activity they **created** that is **still assigned to them** (the same rule applies to moving a published activity back to draft), otherwise it's refused with "You can only delete lead activities you created that are assigned to yourself."
 - Branch Management roles see all lead activity in the branch; a Sales Member sees only their own.
 
 See also: [/reference/leads/status-lifecycle](/reference/leads/status-lifecycle) for who can change a lead's status and how statuses are defined.

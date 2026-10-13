@@ -22,7 +22,7 @@ The status drives everything downstream — conversion and notifications all dep
 ## Who can create, view, edit, and delete activities
 
 - **Manager roles** can view, edit, and delete any activity within their organization and branches.
-- **Sales Members** can only view, edit, and delete activities that are assigned to them, within their organization and branches.
+- **Sales Members** can view and edit activities that are assigned to them, within their organization and branches. Deleting is narrower — a Sales Member can only delete an activity they **created** that is **still assigned to them** (see Deleting an activity).
 - Creating activities is available to manager roles and Sales Members.
 - A user with no branch or no organization assigned has no access to lead activities.
 
@@ -85,6 +85,15 @@ When an activity is saved as a **Draft**, two things can happen in the backgroun
 2. **A client notification.** If the "notify client" setting is on, an "Appointment scheduled" email is sent to the lead's contact (and any additional client emails).
 
 If a background step fails, it's logged but never blocks the save.
+
+## Moving a published activity back to draft (unpublishing)
+
+Saving an **already-published** activity as a **Draft** unpublishes it, which drops the lead out of the closing ratio just like deleting the activity would. So this follows the **same rule as deleting**:
+
+- **Manager roles** can move any published activity back to draft.
+- **Sales Members** can only move a published activity back to draft if they **created** it and it is **still assigned to themselves**. Otherwise the save is rejected with "You can only move lead activities you created that are assigned to yourself back to draft."
+
+Editing a published activity in other ways (such as changing its time) is unaffected — a Sales Member can still edit an activity assigned to them; the restriction only applies to switching it back to draft.
 
 ## Draft visibility
 
@@ -167,7 +176,9 @@ Recognition evaluation runs in the background; if it fails, it's logged and neve
 ## Deleting (cancelling) an activity
 
 - **Manager roles** can delete any in-scope activity.
-- **Sales Members** can only delete activities assigned to themselves; otherwise the delete is rejected with "You can only delete lead activities assigned to yourself."
+- **Sales Members** can only delete an activity they **created** that is **still assigned to themselves**. If someone else scheduled the activity for them, or they created it but it has since been reassigned to someone else, the delete is rejected with "You can only delete lead activities you created that are assigned to yourself." An unassigned activity can only be deleted by a manager role.
+
+This keeps a Sales Member from removing an activity a manager booked for them — which would otherwise drop the lead out of their closing ratio.
 
 Deleting is permanent — there is no "cancelled" status to restore from.
 
