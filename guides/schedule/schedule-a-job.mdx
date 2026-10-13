@@ -4,7 +4,7 @@ description: "Put a job on the calendar step by step — pick the client and job
 icon: "calendar-plus"
 ---
 
-Scheduling a job is how you tell your team who is working, where, and when. You start from the **Schedule** page, choose the job, fill in one or more days of work, assign the crew, and then either save your progress as a draft or publish it so everyone gets notified.
+Scheduling a job is how you tell your team who is working, where, and when. You start from the **Schedule** page, choose the job, group its days into **phases**, fill in one or more days of work per phase, assign the crew, and then either save your progress as a draft or publish it so everyone gets notified.
 
 <Note>
 You can build the schedule a little at a time. Save it as a draft whenever you want and come back later — nothing is sent to your team until you publish.
@@ -49,9 +49,25 @@ At the top of the panel you'll choose what you're scheduling.
 You have to pick a **Job** before you can save or publish. The job is what ties the schedule to the right customer, address, and crew.
 </Note>
 
-## Fill in the day's details
+## Choose the phase
 
-Each day of work is its own tab. You start on **Day 1**. For the selected day, fill in:
+Days on the schedule are grouped into **phases** — for example *Prep*, *Install*, and *Cleanup*. When the job already has a plan with phases, those phases carry over here; otherwise the job starts with a single phase you can rename.
+
+Use the **Phase** dropdown to pick the phase the day you're working on belongs to. The small **Phase actions** menu next to it (the **⋯** button) lets you manage phases:
+
+- **Add phase** — start a new phase.
+- **Rename phase** — give the selected phase a name.
+- **Colour** — pick a colour, so each phase is easy to tell apart on the calendar.
+- **Move up** / **Move down** — change the order of the phases.
+- **Delete phase** — remove the phase and its days. A job needs at least one phase, so this is unavailable when only one is left. If any of its days were already published, you'll be asked whether to notify the assigned team and the client about the cancellation.
+
+## Fill in the phase's days
+
+For each phase you can choose how to lay out its days with the toggle between **Phase range** and **Day-by-day**.
+
+### Day-by-day
+
+Each day of work is its own tab. For the selected day, fill in:
 
 - **Shift Title** — An optional label for the day, for example *Day 1 - Smith Residence*. If you leave it blank, the day is simply called "Day 1," "Day 2," and so on.
 - **Team Lead** — The crew leader running the day. Pick from the list of available leads.
@@ -59,9 +75,21 @@ Each day of work is its own tab. You start on **Day 1**. For the selected day, f
 - **Start Time** and **End Time** — Set when the shift begins and ends.
 - **Shift Notes** — Optional notes for anything the crew should know about that day.
 
+To add another day, press **+ Add Day** above the day's details — a new tab appears, pre-set to the next date. Switch between days using the tabs and fill in each one's time and crew. To remove a day, select its tab and click the trash icon next to it; removing a day that was already saved asks you to confirm first. A dot on each tab shows whether that day is booked yet.
+
+### Phase range
+
+When a phase runs the same crew across a stretch of days, **Phase range** fills them all in at once:
+
+- **Date From** and **Date To** — the first and last day of the phase.
+- **Working days** — which days in that range count (for example, weekdays only).
+- Set the **Team Lead** and crew once, and they apply to every day the range creates.
+
+A summary tells you how many days will be booked, and lists any already-scheduled days that fall outside the range and will be removed when you save.
+
 ## Assign the crew
 
-Use the **Assign To** field to choose who works the shift.
+Use the **Assign To** field to choose who works the shift (in **Phase range** this is the crew for the whole range).
 
 <Steps>
   <Step title="Open the team picker">
@@ -78,22 +106,6 @@ Use the **Assign To** field to choose who works the shift.
 <Tip>
 A person marked **Unavailable** already has a shift or time off that overlaps this one. You can still assign them, but it's worth checking the [Resolve a conflict](/guides/schedule/resolve-a-conflict) guide first.
 </Tip>
-
-## Add more days
-
-Many jobs run across several days. To add another:
-
-<Steps>
-  <Step title="Click + Add Day">
-    Press **+ Add Day** above the day's details. A new tab appears (**Day 2**, **Day 3**, and so on), pre-set to the next date.
-  </Step>
-  <Step title="Fill in the new day">
-    Switch between days using the tabs and fill in each one's time and crew, just like the first.
-  </Step>
-  <Step title="Remove a day you don't need">
-    Select the day's tab and click the trash icon next to it to remove it. Removing a day that was already saved asks you to confirm first.
-  </Step>
-</Steps>
 
 ## Save a draft or publish
 
