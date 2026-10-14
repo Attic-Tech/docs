@@ -109,7 +109,7 @@ What pricing detail you can see inside the Calculator depends on your role:
 | Lead activities | Manage | Manage | Manage | Own only | Manage | No access | No access |
 | Lead statuses & sources | View | View | View | View | View | View | View |
 
-- A **Sales Member** can't create, edit, or delete leads, but can **view their own leads** read-only — leads assigned to them (as the salesperson or client coordinator) or that they created. They don't get the Leads page itself; those leads surface when they pick a lead while scheduling a lead activity, or when they ask the assistant about a lead.
+- A **Sales Member** can't create, edit, or delete leads, but can **view their own leads** read-only — leads assigned to them (as the salesperson or client coordinator), leads they created, plus any lead that has a **lead activity assigned to them**. They don't get the Leads page itself; those leads surface when they pick a lead while scheduling a lead activity, through an activity assigned to them, or when they ask the assistant about a lead. A lead they can see **only** because an activity is assigned to them is view-only: they can't take owner actions on it, such as sending its follow-up email — that's blocked with "Only the lead's creator, salesperson or coordinator can send its follow-up email." The activity-based visibility lasts only while the activity stays assigned to them.
 - A **Sales Member** can only work on **lead activities assigned to themselves** — if they try to edit or delete someone else's activity, they're told "You can only update lead activities assigned to yourself."
 - Branch Management roles see all lead activity in the branch; a Sales Member sees only their own.
 
@@ -206,7 +206,7 @@ If the workspace settings feature is turned off, all settings changes are closed
 
 - **Settings, Integrations, Invoices, user administration, groups:** Admin only.
 - **Branch Management** (see all branch data, not just your own) = Admin, Ops Manager, Sales Admin, Client Coordinator.
-- **Sales Member** can view leads assigned to them read-only (no create, edit, or delete), works only their own lead activities, and sees only their own schedule.
+- **Sales Member** can view leads assigned to them — plus any lead that has an activity assigned to them — read-only (no create, edit, or delete), works only their own lead activities, and sees only their own schedule. A lead visible to them only through an assigned activity is view-only (they can't send its follow-up email, for instance).
 - **Ops Manager** can manage estimates but can't move an estimate to Released, Sold, Lost, Secondary Estimate, or Deleted.
 - **A signed estimate can't be deleted by anyone.**
 - **Cost breakdown** in the Calculator is Admin only.
