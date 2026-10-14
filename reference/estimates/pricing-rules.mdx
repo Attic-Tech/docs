@@ -75,11 +75,13 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
 
 ---
 
-### Additional costs (flat per-unit add-ons)
+### Additional costs (flat add-ons)
 
-- **What it governs:** An additional cost is a named flat amount that applies to either material or labor and is added when selected on an item.
-- **How it works:** For an item with a given quantity, each selected additional cost (matching the cost type) contributes its amount multiplied by the item's quantity. Additional costs are **added** to the item's cost after that level's factors are applied — they are additive, not multiplicative.
-- **Notes:** Only additional costs matching the cost type (material vs. labor) are summed in each pass.
+- **What it governs:** An additional cost is a named flat amount added when selected on an item. Each cost **applies to** the item's material cost, its labor cost, or the line's **price**.
+- **How it works:**
+  - A **material** or **labor** cost contributes its amount multiplied by the item's quantity, **added** to that cost after that level's factors are applied (additive, not multiplicative), and is then marked up along with the rest of the cost.
+  - A **price** cost is added directly to what the customer pays for the line, *after* the markup, the payment-method factor and any price factors. It is **never** treated as a cost, so it doesn't change true cost or which multiplier tier the job lands in. Unlike the other two it's charged **once per line** regardless of quantity, and it moves a [fixed-price line](#fixed-price-items) too.
+- **Notes:** Only costs matching the pass (material vs. labor) are summed into that cost. Price costs instead ride on top of the line's retail, alongside the [price factors](#factors-named-multipliers), and show as their own row in the estimate breakdown.
 
 ---
 
@@ -148,7 +150,7 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
   - **Sub-contracted portion:** each sub-contracted item's cost multiplied by its markup — the item's own markup override if set, otherwise the branch's default sub-contractor markup.
   - These two portions are added together and multiplied by a **payment-method factor**: a cash factor for cash, the credit-card fee for credit, or the matching financing factor for 3-, 6-, or 12-month financing (all set in branch settings).
   - **Minimum retail floor:** for most jobs, the result is raised to at least the configured minimum retail price. This floor is skipped for fully sub-contracted jobs.
-- **Notes:** The payment-method factor applies to both the standard and sub-contracted portions. Markup is not applied to labor separately, because labor is already inside the standard true cost. Any [fixed-price lines](#fixed-price-items) are added on top *after* the payment-method factor (it never touches them), and any [price factors](#factors-named-multipliers) add their uplift after that too.
+- **Notes:** The payment-method factor applies to both the standard and sub-contracted portions. Markup is not applied to labor separately, because labor is already inside the standard true cost. Any [fixed-price lines](#fixed-price-items) are added on top *after* the payment-method factor (it never touches them), and any [price factors](#factors-named-multipliers) and [Price additional costs](#additional-costs-flat-add-ons) add their uplift after that too.
 
 ---
 
