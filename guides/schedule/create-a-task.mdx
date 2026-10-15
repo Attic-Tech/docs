@@ -1,6 +1,6 @@
 ---
 title: "Create a task"
-description: "Add a task to the schedule — pick a task type, set the day and time, assign someone, and publish it so your team sees it on the calendar."
+description: "Add a task to the schedule — pick a task type, set the day and time, assign one or more people, and publish it so your team sees it on the calendar."
 icon: "clipboard-list"
 ---
 
@@ -52,13 +52,15 @@ The panel has a short list of fields. Only a few are required — the rest are t
     If the task relates to a customer, pick a **Client**, then pick the **Project** it belongs to. Once both are set, a **Project quick jump** appears at the top of the panel with an **Open project** button, so you can jump straight to that project in the Client Summary.
   </Step>
   <Step title="Assign the task">
-    Use **Assign To** to choose who the task is for. As you browse the list, the panel shows who's available during the time you picked, so you can avoid double-booking someone. If you can only schedule yourself, this just shows your name.
+    Use **Assign To** to choose who the task is for. You can pick **several people** — the task is shared by everyone you add. As you browse the list, the panel shows who's available during the time you picked, so you can avoid double-booking someone. If you can schedule for others, you can also pick **Unassigned** to leave the task on the calendar without an owner; picking a person clears Unassigned, and picking Unassigned again turns it off. If you can only schedule yourself, this just shows your name.
   </Step>
   <Step title="Set the dates and times">
     Set the **Start Date**, **Start Time**, **End Date**, and **End Time**. If the end ends up before the start, the panel flags it so you can fix it.
   </Step>
   <Step title="Answer Create a shift? (when it appears)">
-    If you assign the task to a crew member or crew leader, you'll see a **Create a shift?** question with **Yes** and **No** buttons. Choose **Yes** if this task should also become a working shift for that person (so their time is tracked), or **No** if it's just a calendar reminder. This only appears for crew assignees, and you must answer it before you can save.
+    If you assign the task to a crew member or crew leader, you'll see a **Create a shift?** question with **Yes** and **No** buttons. Choose **Yes** if this task should also become a working shift (so time is tracked), or **No** if it's just a calendar reminder. This only appears when at least one crew assignee is on the task, and you must answer it before you can save.
+
+    When **two or more** crew members are on the task and you choose **Yes**, a **Who can clock in?** checklist appears below the buttons with a row for each crew person. Check everyone who should be able to clock in on this task, and uncheck anyone who's only there for the calendar. You have to leave at least one person checked — if you uncheck everyone, the panel shows "Select at least one person to clock in, or answer No." With a single crew member, the **Yes / No** answer alone decides it, so there's no checklist.
 
     If you choose **Yes** and the linked project doesn't have a job yet, the panel shows a warning that time clocked on this shift won't roll up to job reporting — it won't count toward bonuses or job hours. The shift still saves and the time is still tracked; it just isn't tied to a job's numbers until the project has one.
   </Step>
@@ -68,7 +70,7 @@ The panel has a short list of fields. Only a few are required — the rest are t
 </Steps>
 
 <Note>
-The **Assign To** availability check and the **Create a shift?** question work together to keep the calendar honest: availability stops you from booking someone who's already busy, and the shift choice decides whether the task counts toward that person's tracked time.
+The **Assign To** availability check and the **Create a shift?** question work together to keep the calendar honest: availability stops you from booking someone who's already busy, and the shift choice decides whether the task counts toward each person's tracked time.
 </Note>
 
 ## Save or publish
@@ -96,9 +98,13 @@ If publishing would double-book the assignee, the schedule warns you before it s
 
 ## Edit or delete a task later
 
-Open any task by clicking it on the calendar. The same panel opens with the details filled in, so you can change the type, timing, assignee, or notes and save again.
+Open any task by clicking it on the calendar. The same panel opens with the details filled in, so you can change the type, timing, people, or notes and save again.
 
-To remove a task, open it and click **Delete**. Before it's removed, you can choose to **Notify Assigned User** and **Notify Client** so the right people know it's been cancelled. You can delete a task if you can schedule for others, or if the task is assigned to you.
+To remove a task, open it and click **Delete**. Before it's removed, you can choose to notify the assigned people (the toggle reads **Notify Assigned User** for a single person and **Notify Assigned Users** when there's more than one) and **Notify Client** so the right people know it's been cancelled.
+
+<Note>
+If a task is shared with other people, only a manager can change or delete it. If it's assigned to you alone, you can edit and delete it yourself; once someone else is on it too, the panel tells you "Only a manager can change this task because it isn't assigned to you alone."
+</Note>
 
 <Note>
 Each task shows who created it and when, at the bottom of the panel — handy when you're picking up someone else's work.

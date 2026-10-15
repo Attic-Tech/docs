@@ -41,7 +41,7 @@ When you delete a custom (non-default) task type, every scheduled task that used
 
 ## Scheduled tasks
 
-A scheduled task appears on the calendar, is assigned to one person, has a type, a start and end, and a status. It can optionally be linked to a client and a project, and it can create a shift.
+A scheduled task appears on the calendar, is assigned to **one or more people** (or left unassigned by a manager), has a type, a start and end, and a status. It can optionally be linked to a client and a project, and each crew person on it can create a shift. Up to 50 people can be on one task, and nobody can appear twice ("Each person can only be assigned once").
 
 ### Who can see, create, and edit tasks
 
@@ -52,15 +52,15 @@ A scheduled task appears on the calendar, is assigned to one person, has a type,
 
 ### Assignment rules
 
-- **If you are not a manager, you can only assign a task to yourself.** Trying to assign a task to someone else returns "You can only assign tasks to yourself."
-- **If you are not a manager, you can only publish a task that is assigned to you.** Returns "You can only publish tasks assigned to yourself."
-- **If you are not a manager, you can only delete a task that is assigned to you.** Returns "You can only delete tasks assigned to yourself."
-- **The assigned person must belong to the selected branch.** Otherwise you get "Assigned user does not belong to this branch."
+- **If you are not a manager, the task can only be assigned to you — and you alone.** You can't add anyone else or leave it unassigned; trying returns "You can only assign tasks to yourself." (Publishing follows from this: since a non-manager's task only ever has themselves on it, they only ever publish their own.)
+- **If you are not a manager, you can only edit or delete a task that is assigned to you alone.** Once anyone else is on the task it's shared, so changing or removing it becomes a manager-only action. A non-manager who is on a shared task they can see gets "You can only edit tasks assigned only to yourself" or "You can only delete tasks assigned only to yourself"; anyone else is simply told the task can't be found.
+- **A manager can share a task with several people and can leave it unassigned.** Managers (branch management roles) can add or remove people freely, since a shared task keeps its other people when they edit it.
+- **Each person added to a task must belong to the selected branch.** Otherwise you get "Assigned user does not belong to this branch." People already on the task stay even if they later leave the branch; only newly added people are checked.
 - **The task type must belong to the same organization** as the task.
 
 ### Field rules for a task
 
-- **Required:** organization, branch, the assigned person, task type, start date, end date, status, and the "creates shift" choice. **Optional:** title, description, client, and project.
+- **Required:** organization, branch, the assigned people (a manager may instead leave the task unassigned), task type, start date, end date, status, and the "creates shift" choice. **Optional:** title, description, client, and project.
 - **The end must be after the start.** The calendar form shows "End must be after start."
 - **Status is either draft or published**, and a new task defaults to **draft**.
 - **Title is optional** — when left blank, the task uses the task-type name as its title.
@@ -70,15 +70,16 @@ A scheduled task appears on the calendar, is assigned to one person, has a type,
 
 These rules govern the New Task and Edit Task panel:
 
-- **Task type, assignee, start date, end date, start time, and end time are required** to submit.
+- **Task type, the assigned people (at least one, or Unassigned for a manager), start date, end date, start time, and end time are required** to submit.
 - **Save Draft is disabled** until the form is valid, not already saving, the "creates shift" choice is answered, and (when editing) you have actually changed something.
 - **Publish is disabled** until the form is valid, not saving, and the "creates shift" choice is answered.
-- **The "creates shift" choice is required when the assignee is a Crew Member or Crew Leader.** Until you answer yes or no, the form is incomplete and shows "Creates shift selection is required."
+- **The "creates shift" choice is required when any assignee is a Crew Member or Crew Leader.** Until you answer yes or no, the form is incomplete and shows "Creates shift selection is required."
+- **With two or more crew people on the task, answering "creates shift" Yes shows a "Who can clock in?" checklist** — one row per crew person. At least one must stay checked; unchecking everyone shows "Select at least one person to clock in, or answer No." and blocks saving. With a single crew person there is no checklist; the Yes / No answer alone decides whether they clock in.
 - **Creating a shift on a project with no job shows an advisory warning (not a block).** When the "creates shift" choice is Yes and the linked project has no job, the form warns that time clocked on the shift won't roll up to job reporting — it won't count toward bonuses or job hours. The task still saves.
 
 ### Conflict check when publishing a task (a warning, not a block)
 
-When you publish a task, the calendar checks the assignee's other commitments in the same time window — their published job shifts, time off, other published tasks, and published lead activities. If anything overlaps, you see a conflict dialog, but you **can still proceed**. This conflict check is advisory only.
+When you publish a task, the calendar checks every assignee's other commitments in the same time window — their published job shifts, time off, other published tasks, and published lead activities. If anything overlaps for anyone on the task, you see a conflict dialog, but you **can still proceed**. This conflict check is advisory only. (An unassigned task keeps nobody busy, so there's nothing to check.)
 
 - **Only published events count as conflicts** — drafts are ignored. Time off always counts (it has no draft state). Two events conflict when their time ranges actually overlap.
 
@@ -127,7 +128,7 @@ Equipment and vehicles are catalog records kept under **Settings → Resources**
 
 - **Manage task types (create/edit/delete):** Admin only.
 - **Create/edit/delete tasks:** branch management plus Sales Member and Crew Leader. Crew Member is read-only.
-- **Non-managers can only assign, publish, and delete tasks for themselves.**
+- **Non-managers can only have themselves on a task, and can only edit or delete a task assigned to them alone.** Managers can share a task with several people (up to 50) or leave it unassigned.
 - **Create/edit/delete time off:** branch management only. Non-managers, only for themselves.
 - **Manage equipment, vehicles, and their types:** Admin only, under Settings. Everyone else read-only.
 - **The default "Task" type can't be renamed, deleted, or duplicated by name.**
