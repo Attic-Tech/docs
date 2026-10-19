@@ -4,7 +4,7 @@ description: "Find any job and see where it stands using the Jobs page — searc
 icon: "list-checks"
 ---
 
-The **Jobs** page is your pipeline. Every job your branch is working on lives here, and each row tells you where that job stands and what it needs next. From this one screen you can search for a job, narrow the list by status or date, view jobs on a map, and click straight through to the next step.
+The **Jobs** page is your pipeline. Every job you're working on lives here — the whole branch if your role can see all jobs, or just the jobs assigned to you if you're a crew lead — and each row tells you where that job stands and what it needs next. From this one screen you can search for a job, narrow the list by status or date, view jobs on a map, and click straight through to the next step.
 
 <Note>
 The Jobs page opens with a short reminder right under the title: "View job info, status, and any action items." That's exactly what this page is for.
@@ -51,6 +51,8 @@ There are two ways to focus on the jobs you care about.
 ### Status tabs
 
 Across the top of the list you'll find a row of tabs. **All Jobs** shows everything, and each remaining tab matches one status — with a count next to it so you can see how many jobs sit in each stage at a glance. Click a tab to show only those jobs.
+
+The count follows the same scope as the list: a crew lead sees the number of **their own assigned jobs** in each stage, while roles that can see all of the branch's jobs get branch-wide totals. Which roles see all jobs is covered in the [Permissions roles matrix](/reference/platform/permissions-roles-matrix#jobs-and-schedule).
 
 There's one tab per status, in the order a job moves through the pipeline — from **Requires Crew Lead** through to **Closed Job**, plus **Cancelled**. For what each status means, see [Job status lifecycle](/reference/jobs/job-status-lifecycle).
 
