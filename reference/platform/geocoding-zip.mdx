@@ -52,6 +52,12 @@ A property created from free-text with no resolvable city, state, or ZIP is stil
 
 Properties, leads, and branch base addresses that have an address but no coordinates can be filled in later by a maintenance pass that resolves them in bulk. Records that still can't be resolved are skipped and reported, and one failure never stops the rest of the run.
 
+### Pricing an estimate also fills in a property's missing coordinates
+
+A property that has an address but no coordinates — most often one that was imported — also gets them filled in automatically the next time an estimate tied to it is priced, for example when you open or recalculate that estimate. The platform already looks the address up while pricing; when that lookup lands on a single, precise location and the address still matches the one saved on the property, the resulting coordinates are saved to the property, so it stops being looked up again on every later reprice and starts showing on the map.
+
+This only ever fills in coordinates that were missing — it never changes coordinates a property already has — and it's skipped when the lookup is approximate or ambiguous, or when the estimate is pricing a different address than the one saved on the property.
+
 ## The address and sales tax
 
 ### Sales tax isn't based on the state or ZIP code
@@ -91,6 +97,7 @@ Driving distance is measured in miles from the branch's base address to the prop
 - **What carries coordinates:** properties, leads, and branch base addresses — resolved from the address on save, re-resolved only when the address changes.
 - **Minimum to locate an address:** at least a city or a ZIP. Lookups are United States only.
 - **A failed lookup never blocks a save** and never overwrites existing coordinates.
+- **A property missing coordinates also fills them in** the next time an estimate tied to it is priced, when the address resolves to a single precise location and still matches the property.
 - **Sales tax:** chosen in the tax selector, not decided by the address. Only a TaxJar rate is looked up from the property address, and it needs at least a ZIP code.
 - **Lead routing:** nearest branch by driving distance — not by ZIP. A lead with no address, or no matchable branch, is still created without a branch.
 - **Branch must have a base address** to be a routing candidate or to show a driving distance.
