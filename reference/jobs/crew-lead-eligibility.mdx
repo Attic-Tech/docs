@@ -41,17 +41,19 @@ Only people assigned to the job's branch are offered. People from other branches
 
 The picker hides:
 
-- **Blocked members** — anyone whose account is blocked.
+- **Blocked members** — anyone whose account is blocked is never offered as a *new* Team Lead. The one exception is covered below: if a blocked person was already set as a day's Team Lead, their name still shows — marked **(blocked)** — in that one day's field so you can see who it was and clear or replace them.
 - **Reserved/system names** — internal placeholder entries (for example, names used for warranty calls, complaints, quality-control visits, or delivery costs) are never offered as a Team Lead.
 
-### Two people stay selectable even if they'd otherwise be hidden
+### Some people stay selectable even if they'd otherwise be hidden
 
-To avoid losing an existing choice, two people remain available in the picker even if the rules above would normally exclude them:
+To avoid losing an existing choice, a few people remain available even when the rules above would normally exclude them:
 
 - the **default crew lead** carried over from the job's planning defaults, and
 - anyone **already assigned** as the Team Lead on one of the days you're currently scheduling.
 
-This means a previously chosen Team Lead won't silently disappear from the picker just because their role or branch changed.
+This means a previously chosen Team Lead won't silently disappear just because their role or branch changed — they stay selectable in the day's Team Lead picker.
+
+**A blocked person is kept more narrowly.** If someone was already set as the Team Lead on a day and has since been blocked, their name still shows — marked **(blocked)** — but only in the field of the day that already holds them, so you can see who it is and clear or replace them. A blocked person is never offered in any other day's picker and can't be made the Team Lead anywhere new.
 
 <Note>
 The "must be a Crew Leader" rule is applied in the **scheduling picker**. The picker is where eligibility is enforced — so make the assignment through the Team Lead field rather than expecting a separate check elsewhere.
@@ -104,6 +106,6 @@ For the full set of job statuses and transitions, see [Job status lifecycle](/re
 ## Quick reference
 
 - **The crew lead = the Team Lead on a scheduled day.** It's chosen per day and is optional.
-- **To be picked:** must hold the **Crew Leader** role, belong to the job's branch, and be an active, non-placeholder member — with the default and already-assigned Team Lead always kept selectable.
+- **To be picked:** must hold the **Crew Leader** role, belong to the job's branch, and be an active, non-placeholder member — with the default and already-assigned Team Lead kept selectable. A **blocked** person who was already a day's Team Lead stays shown (marked **(blocked)**) only in that one day's field, and can't be made the Team Lead anywhere new.
 - **To assign:** Admin, Ops Manager, Sales Admin, Client Coordinator, Sales Member, and Crew Leader can; **Crew Member** cannot.
 - **A Crew Leader can both be and assign a Team Lead.**
