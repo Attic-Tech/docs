@@ -2,7 +2,7 @@
 title: "Troubleshooting: why can't I…? (reference)"
 description: "Why an estimate action is blocked, disabled, or failing — cause and resolution for each case."
 icon: "circle-question"
-keywords: ["why is blocked", "why disabled", "greyed out", "button disabled", "permission denied", "cannot delete estimate", "cannot save estimate", "void", "sold estimate", "signed proposal", "roles", "permissions", "read only", "one sold estimate per project", "cannot mark sold", "send proposal disabled"]
+keywords: ["why is blocked", "why disabled", "greyed out", "button disabled", "permission denied", "cannot delete estimate", "cannot save estimate", "void", "sold estimate", "signed proposal", "roles", "permissions", "read only", "one sold estimate per project", "cannot mark sold", "send proposal disabled", "present to client disabled", "active job", "one active job per project", "estimate has an active job"]
 ---
 
 This page covers every rule in the estimate Calculator flow that blocks, disables, warns, or requires permission — what you see, why it happens, and how to resolve it.
@@ -148,19 +148,19 @@ This page covers every rule in the estimate Calculator flow that blocks, disable
 
 ---
 
-### Why can't I mark this estimate Sold? ("project already has a sold estimate")
+### Why can't I mark this estimate Sold? ("project already has a sold estimate" or "already has an active job")
 
-- **Symptom:** The **Sold** option is greyed out in the status menu, or the change is rejected with a message like "This project already has a sold estimate ("…"). Only one estimate per project can be sold — change that estimate's status first."
-- **Cause:** A project can have several estimates, but only one can be Sold at a time — the winner. Another estimate in the same project is already Sold, so this one can't also be sold. The same block applies when a customer tries to sign this estimate's proposal, and it closes the proposal-send path for the project's other estimates (see the next card).
-- **Resolution:** Decide which estimate is the winner. To make this one the sold estimate, first move the currently sold estimate in the project out of **Sold** (which needs management-level permissions), then mark this one **Sold**.
+- **Symptom:** The **Sold** option is greyed out in the status menu, or the change is rejected with a message like "This project already has a sold estimate ("…"). Only one estimate per project can be sold — change that estimate's status first." If the project's winning estimate was reopened for a change order but its job is still running, the message instead reads "This project already has an active job for "…". Only one estimate per project can have an active job — re-sell that estimate, or cancel its job first."
+- **Cause:** A project can have several estimates, but only one can be the winner. Another estimate in the same project is already Sold — or still has an active (not closed or cancelled) job, which happens when the winner was reopened for a change order — so this one can't also be sold. The same block applies when a customer tries to sign this estimate's proposal, and it closes the proposal-send path for the project's other estimates (see the next card).
+- **Resolution:** Decide which estimate is the winner. To make this one the winner, move the currently sold estimate in the project out of **Sold** (which needs management-level permissions); if that estimate already has a job, cancel the job too. Then mark this one **Sold**. Re-selling the current winner (for example, for a change order) is never blocked.
 
 ---
 
-### Why is "Send Proposal" disabled? ("another estimate is already sold")
+### Why are "Send Proposal" and "Present to Client" disabled? ("another estimate is already sold or has an active job")
 
-- **Symptom:** On the proposal preview, the **Send Proposal** button (or **Resend Proposal**, if it was sent before) is disabled, and hovering it shows "Another estimate in this project is already sold, so this proposal can no longer be sent."
-- **Cause:** Once one estimate in a project is Sold, that project's proposal cycle is closed. The other estimates in the project can no longer send their proposals — the send is blocked up front rather than failing after the fact.
-- **Resolution:** If this estimate should be the winner instead, move the currently sold estimate in the project out of **Sold** first (which needs management-level permissions); the send then becomes available again.
+- **Symptom:** On the proposal preview, the **Send Proposal** button (or **Resend Proposal**, if it was sent before) and **Present to Client** are disabled, and hovering **Send** shows "Another estimate in this project is already sold or has an active job, so this proposal can't be sent or presented."
+- **Cause:** Once one estimate in a project is the winner — either Sold, or holding an active (not closed or cancelled) job — that project's proposal cycle is closed. The other estimates in the project can no longer send *or* present their proposals; presenting is held back too because it ends in the customer's signature, which is refused for the same reason. The block is applied up front rather than failing after the fact.
+- **Resolution:** If this estimate should be the winner instead, move the current winner out of **Sold** (which needs management-level permissions) and cancel its job if it already has one; **Send** and **Present** then become available again. Re-selling or re-sending the current winner is never blocked.
 
 ---
 
@@ -174,9 +174,9 @@ This page covers every rule in the estimate Calculator flow that blocks, disable
 
 ### Why can't I delete this estimate? ("signed, cannot be deleted")
 
-- **Symptom:** The delete button is present, but its tooltip reads "This estimate was signed and cannot be deleted," or the server rejects with "Cannot delete an estimate with a signed proposal."
-- **Cause:** An estimate whose proposal has been signed can't be deleted. Separately, a **Sold** estimate can't be deleted either ("Sold estimates cannot be deleted.").
-- **Resolution:** For a signed estimate, remove the signature first (which requires management-level permissions). A **Sold** estimate can't be deleted at all this way — change its status first if appropriate.
+- **Symptom:** The delete button is present, but its tooltip reads "This estimate was signed and cannot be deleted," or the server rejects with "Cannot delete an estimate with a signed proposal." It can also reject with "This estimate has an active job. Cancel the job before deleting the estimate."
+- **Cause:** An estimate whose proposal has been signed can't be deleted. Separately, a **Sold** estimate can't be deleted either ("Sold estimates cannot be deleted."). And an estimate that still has an active (not closed or cancelled) job can't be deleted — deleting it would strand that job and keep every other estimate in the project from selling.
+- **Resolution:** For a signed estimate, remove the signature first (which requires management-level permissions). A **Sold** estimate can't be deleted this way — change its status first if appropriate. If the estimate has an active job, cancel the job before deleting the estimate.
 
 ---
 

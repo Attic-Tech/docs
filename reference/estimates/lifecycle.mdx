@@ -40,13 +40,13 @@ The table below shows the allowed moves between statuses, the condition for each
 | --- | --- | --- |
 | (new estimate) | In Progress | The default when an estimate is created. Subject to the per-user open-estimate cap. |
 | (new estimate) | Sold | An estimate may be created already Sold; this records both sold dates at creation. |
-| In Progress | Sold | Anyone allowed to set Sold. Creates the job and work order. Blocked if another estimate in the same project is already Sold. |
+| In Progress | Sold | Anyone allowed to set Sold. Creates the job and work order. Blocked if another estimate in the same project is already Sold or still has an active (not closed or cancelled) job. |
 | In Progress | Released / Lost / Secondary Estimate / Deleted | Anyone allowed to set that target status. Ops Manager is specifically not allowed to set these. |
-| Released | Sold | Anyone allowed to set Sold. Because the estimate was previously released, the existing job (if any) is reactivated. Blocked if another estimate in the same project is already Sold. |
+| Released | Sold | Anyone allowed to set Sold. Because the estimate was previously released, the existing job (if any) is reactivated. Blocked if another estimate in the same project is already Sold or still has an active (not closed or cancelled) job. |
 | Sold | any other status | Requires management-level permissions: Sales Admin, Ops Manager, or Admin. |
 | Sold | Lost | As above, plus an extra rule: blocked if the related job is already Closed. On success the related job is cancelled. |
 | Sold | In Progress (to re-edit) | Management-level permissions only. If the proposal is signed, the user must confirm the reopen in **Start a change order?** and enter required **Change order notes**; re-editing then removes the signature. |
-| any (except Sold) | Deleted | Through the delete action only. Blocked if the estimate is Sold, or if its proposal is signed. |
+| any (except Sold) | Deleted | Through the delete action only. Blocked if the estimate is Sold, if its proposal is signed, or if it still has an active (not closed or cancelled) job. |
 | Sold | Sold (re-sale) | When the estimate was previously In Progress or Released and a job already exists, re-selling reactivates and re-syncs that job. |
 
 ## Rules
@@ -93,11 +93,11 @@ This happens automatically as a result of the sale — anyone allowed to set Sol
 
 When someone marks an estimate Sold and its proposal has not been signed by the customer, the status menu doesn't commit the change immediately — it first opens a **Mark as Sold without a signature?** dialog, because Sold sits next to Lost in the menu and a misclick would otherwise commit a sale. Selling without a signature is still allowed (the customer may have accepted another way, such as a signed paper contract); the change is only applied once the user confirms with **Mark as Sold**. Cancelling leaves the status unchanged. If the proposal is already signed, Sold is applied right away with no prompt. This confirmation is a safeguard on the action only — it does not change any of the sale's side effects or permission rules.
 
-### Only one estimate per project can be Sold
+### Only one estimate per project can be the winner
 
-A project can hold several estimates, but only one can be Sold at a time — the winner. Once one estimate in a project is Sold, no *other* estimate in that same project can be marked Sold. The Sold option is greyed out in the status menu, and attempting the change anyway is rejected with a message naming the estimate that already won ("This project already has a sold estimate…"). This applies however the sale is triggered — a team member setting the status, or a customer signing that estimate's proposal. To sell a different estimate, move the current winner out of Sold first.
+A project can hold several estimates, but only one can be the winner at a time. An estimate counts as the winner while it is **Sold**, *or* while it still has an **active job** — one that is not closed or cancelled. Once a project has a winner, no *other* estimate in that same project can be marked Sold. The Sold option is greyed out in the status menu, and attempting the change anyway is rejected with a message naming the blocking estimate — "This project already has a sold estimate…" when that estimate is Sold, or "This project already has an active job for "…"" when the winner was reopened for a change order but its job is still running. This applies however the sale is triggered — a team member setting the status, or a customer signing that estimate's proposal.
 
-The rule excludes the estimate itself, so re-selling the current winner (for example, for a change order) still works. It also closes the proposal path for the project's other estimates: while one estimate is Sold, the others can no longer have their proposals sent.
+The rule excludes the estimate itself, so re-selling the current winner (for example, for a change order) still works. It also closes the proposal path for the project's other estimates: while one estimate is the winner, the others can no longer have their proposals sent or presented. To make a different estimate the winner, move the current winner out of Sold first — and if it already has a job, cancel that job too, because an active job keeps the block in place on its own.
 
 ### Re-selling reactivates the existing job
 
@@ -137,9 +137,9 @@ When an estimate is created, the system saves a snapshot of the pricing and conf
 
 Saving edits and rebuilding the snapshot from the current catalog at the same time requires management-level permissions (Sales Admin, Ops Manager, or Admin). The save and the rebuild happen independently — if the rebuild fails after the save succeeds, the edits are kept and the previous snapshot stays in place, and the failure is reported.
 
-### Estimates are soft-deleted; signed or Sold estimates can't be deleted
+### Estimates are soft-deleted; signed, Sold, or active-job estimates can't be deleted
 
-Deleting an estimate is a soft delete — the estimate is hidden from lists and project lookups, and its proposal is preserved in case it needs to be restored. Deletion is blocked if the estimate's proposal is signed, and blocked if the estimate is Sold. Deletion is available to management-level roles.
+Deleting an estimate is a soft delete — the estimate is hidden from lists and project lookups, and its proposal is preserved in case it needs to be restored. Deletion is blocked if the estimate's proposal is signed, if the estimate is Sold, and if it still has an active (not closed or cancelled) job — deleting it would strand that job and keep the project's other estimates from selling. Deletion is available to management-level roles.
 
 ### Re-editing a signed estimate reopens it for a change order
 
