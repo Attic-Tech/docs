@@ -44,7 +44,7 @@ If you start from a brand-new preview and haven't saved a draft yet, sending cre
 </Note>
 
 <Warning>
-If another estimate in the same project has already been **sold**, this proposal can no longer be sent — that project's proposal cycle is closed. The **Send Proposal** button (or **Resend Proposal**, if it was sent before) is disabled, and hovering it explains: *"Another estimate in this project is already sold, so this proposal can no longer be sent."* Only one estimate per project can be sold; to work a different estimate, move the sold one out of **Sold** first.
+If another estimate in the same project is already the **winner** — either sold, or holding an active (not closed or cancelled) job — this proposal can no longer be sent or presented, because that project's proposal cycle is closed. The **Send Proposal** button (or **Resend Proposal**, if it was sent before) and **Present to Client** are disabled, and hovering **Send** explains: *"Another estimate in this project is already sold or has an active job, so this proposal can't be sent or presented."* To work a different estimate, move the current winner out of **Sold** first — and cancel its job if it already has one.
 </Warning>
 
 ## What sending does
@@ -88,6 +88,8 @@ You don't set an expiration date yourself; it's built into the secure link. Here
 ## Present to the customer in person
 
 Sitting with the customer? As soon as the proposal exists — saved as a draft or sent — open the **More actions** menu (or the **Present to Client** button on mobile) and choose **Present to Client**. This opens the live customer-facing proposal right on your device, so you can walk through it together and even capture the signature on the spot.
+
+**Present to Client** is disabled whenever another estimate in the project is already the winner (sold or holding an active job) — the same rule that blocks sending, because presenting ends in the customer's signature. See the warning above.
 
 You don't have to send the proposal before presenting it:
 
