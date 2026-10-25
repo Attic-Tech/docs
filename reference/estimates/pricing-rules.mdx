@@ -136,7 +136,7 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
 
 - **What it governs:** A multiplier range maps a band of job cost to a markup. The selected range's markup is applied to the standard true cost.
 - **How it works:** Each multiplier range covers a cost band with a minimum and maximum cost and a markup value. The system selects the first range whose band contains the standard true cost (both bounds inclusive; an open-ended top range has no maximum). That range's markup is then used to compute retail.
-- **Notes:** There must be a range that covers the job's cost — if no range matches, pricing cannot complete. When configuring ranges (Settings → Price book), ranges within a branch must not overlap, the minimum must not exceed the maximum, and the lower markup must not exceed the higher markup.
+- **Notes:** There must be a range that covers the job's cost — if no range matches, pricing cannot complete. When configuring ranges (Settings → Price book), ranges within a branch must not overlap, the minimum must not exceed the maximum, and the multiplier must be between 0 and 10.
 
 ---
 
