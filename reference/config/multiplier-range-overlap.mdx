@@ -1,6 +1,6 @@
 ---
 title: "Multiplier range overlap"
-description: "How multiplier ranges map a job's cost to its pricing multipliers, and the overlap, coverage, and field rules that keep a branch's pricing unambiguous."
+description: "How multiplier ranges map a job's cost to its pricing multiplier, and the overlap, coverage, and field rules that keep a branch's pricing unambiguous."
 keywords: ["multiplier ranges","pricing multipliers","price book","range overlap","pricing gap","cost ranges"]
 ---
 
@@ -10,7 +10,7 @@ Multiplier ranges live under **Settings → Price book → Multiplier ranges**.
 
 ## What a multiplier range is
 
-A multiplier range maps a job's total cost to a pair of pricing multipliers. Each range covers a band of cost and, for any job whose cost falls in that band, supplies a lowest and highest multiplier used to price the job.
+A multiplier range maps a job's total cost to a pricing multiplier. Each range covers a band of cost and, for any job whose cost falls in that band, supplies the multiplier used to price the job.
 
 ### Fields on a range
 
@@ -19,11 +19,11 @@ Each multiplier range has these fields:
 - **Name** — a display label, for example "$0 - $1,000". Required, up to 200 characters.
 - **Minimum cost** — the inclusive lower end of the cost band. Required, and cannot be negative.
 - **Maximum cost** — the inclusive upper end of the cost band. Optional. Leave it empty on the highest range to mean "no maximum" — that range then covers every cost at or above its minimum.
-- **Lowest multiplier** and **Highest multiplier** — the two multipliers applied to jobs in this band. Both required, and each must be between 0 and 10.
+- **Multiplier** — the multiplier applied to jobs in this band. Required, and must be between 0 and 10.
 
 ### How a range is matched to a job
 
-The cost band is inclusive at both ends. When a job is priced, the first range whose band contains the job's total cost is selected, and its lowest and highest multipliers are read back. A range with no maximum matches every cost at or above its minimum.
+The cost band is inclusive at both ends. When a job is priced, the first range whose band contains the job's total cost is selected, and its multiplier is read back. A range with no maximum matches every cost at or above its minimum.
 
 Because both ends are inclusive, your ranges must form a clean, non-overlapping cover of every possible cost. If two ranges both contain a cost, pricing is ambiguous; if no range contains a cost, that job cannot be priced.
 
@@ -88,8 +88,7 @@ Independent of overlap and coverage, each individual range must be internally we
 
 <Card title="Field rules for a single range">
 - **Maximum cost** must be greater than or equal to **minimum cost** (when a maximum is set).
-- **Highest multiplier** must be greater than or equal to **lowest multiplier**.
-- Each multiplier must be between **0 and 10**.
+- The **multiplier** must be between **0 and 10**.
 </Card>
 
 ### Field error messages
@@ -97,8 +96,7 @@ Independent of overlap and coverage, each individual range must be internally we
 | Message | What it means |
 | --- | --- |
 | **Maximum cost must be greater than or equal to minimum cost.** | The maximum you entered is below the minimum. |
-| **Highest multiplier must be greater than or equal to lowest multiplier.** | The highest multiplier you entered is below the lowest. |
-| **Multiplier values must be between 0 and 10.** | A multiplier is outside the allowed 0–10 range. |
+| **Multiplier must be between 0 and 10.** | The multiplier is outside the allowed 0–10 range. |
 
 ## Related references
 
