@@ -1,10 +1,10 @@
 ---
 title: "Multiplier ranges"
-description: "Set up cost-based pricing multipliers in the Price Book so larger jobs price differently from smaller ones — define each cost band's low and high multiplier, keep ranges from overlapping, and edit or remove them safely."
+description: "Set up cost-based pricing multipliers in the Price Book so larger jobs price differently from smaller ones — set each cost band's multiplier, keep ranges from overlapping, and edit or remove them safely."
 icon: "percent"
 ---
 
-**Multiplier ranges** let your pricing scale with the size of a job. Each range covers a band of job cost (for example, jobs from `$0` to `$1,000`) and carries a low and a high pricing multiplier. When an estimate is built, the system looks at the total cost of the work, finds the range that band falls into, and uses its multipliers to help calculate the customer-facing price. This is how a small job and a large job can be priced on different terms without anyone doing the math by hand.
+**Multiplier ranges** let your pricing scale with the size of a job. Each range covers a band of job cost (for example, jobs from `$0` to `$1,000`) and carries a single pricing multiplier. When an estimate is built, the system looks at the total cost of the work, finds the range that band falls into, and uses its multiplier to help calculate the customer-facing price. This is how a small job and a large job can be priced on different terms without anyone doing the math by hand.
 
 You manage multiplier ranges in **Settings → Price book → Multiplier ranges**.
 
@@ -14,15 +14,14 @@ Multiplier ranges live in the Price Book, which is part of your workspace's admi
 
 ## How a multiplier range works
 
-Each range has five pieces:
+Each range has four pieces:
 
 - **Name** — a label you'll recognize in the list, usually describing the cost band (for example, `$0 – $1,000`).
 - **Minimum cost** — the bottom of the cost band. A job's cost has to reach this amount to fall into the range.
 - **Maximum cost** — the top of the cost band. Leave it blank to mean "no maximum," which is how you cap your highest band so very large jobs always have a range to land in.
-- **Lowest multiplier** — the low end of the pricing multiplier for jobs in this band.
-- **Highest multiplier** — the high end of the pricing multiplier for jobs in this band.
+- **Multiplier** — the pricing multiplier for jobs in this band.
 
-When an estimate's total cost lands inside a range, that range's lowest and highest multipliers feed into the retail price calculation. Smaller bands and larger bands can carry different multipliers, so your pricing can ease up or tighten as jobs grow.
+When an estimate's total cost lands inside a range, that range's multiplier feeds into the retail price calculation. Smaller bands and larger bands can carry different multipliers, so your pricing can ease up or tighten as jobs grow.
 
 <Tip>
 Think of your ranges as a ladder of cost bands with no gaps and no overlaps: one band ends where the next begins, and the top band is left open (blank maximum) so it catches every large job.
@@ -35,7 +34,7 @@ Think of your ranges as a ladder of cost bands with no gaps and no overlaps: one
     Go to **Settings**, then choose **Price book**.
   </Step>
   <Step title="Open the Multiplier ranges tab">
-    Select **Multiplier ranges** from the Price Book tabs. You'll see a table of every range with its **Name**, **Min cost**, **Max cost**, **Lowest multiplier**, and **Highest multiplier**.
+    Select **Multiplier ranges** from the Price Book tabs. You'll see a table of every range with its **Name**, **Min cost**, **Max cost**, and **Multiplier**.
   </Step>
 </Steps>
 
@@ -53,8 +52,8 @@ A range with no upper limit shows **No maximum** in the **Max cost** column. You
   <Step title="Set the cost band">
     Enter the **Minimum cost** for this band. Then enter the **Maximum cost**, or leave it blank to mean no maximum (use this for your top band). The maximum can't be lower than the minimum.
   </Step>
-  <Step title="Set the multipliers">
-    Enter the **Lowest multiplier** and the **Highest multiplier** for this band. The highest can't be lower than the lowest. Multipliers can be any value from 0 up to the allowed maximum.
+  <Step title="Set the multiplier">
+    Enter the **Multiplier** for this band. It can be any value from 0 up to the allowed maximum.
   </Step>
   <Step title="Save it">
     Click **Create**. The new range appears in the table and is ready to use in pricing.
@@ -72,7 +71,7 @@ A new range can't overlap a band you've already set up where ranges are in use t
     In the table, find the range and click the **pencil** icon on its row. On a smaller screen, open the row's menu and choose **Edit**.
   </Step>
   <Step title="Make your changes">
-    Update the **Name**, the cost band, or the multipliers in the **Edit Multiplier Range** window. The same rules apply: the maximum can't be below the minimum, the highest multiplier can't be below the lowest, and the band can't overlap another range.
+    Update the **Name**, the cost band, or the multiplier in the **Edit Multiplier Range** window. The same rules apply: the maximum can't be below the minimum, and the band can't overlap another range.
   </Step>
   <Step title="Save">
     Click **Save Changes**.
