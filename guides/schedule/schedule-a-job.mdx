@@ -56,7 +56,7 @@ Each day of work is its own tab. You start on **Day 1**. For the selected day, f
 - **Shift Title** — An optional label for the day, for example *Day 1 - Smith Residence*. If you leave it blank, the day is simply called "Day 1," "Day 2," and so on.
 - **Team Lead** — The crew leader running the day. Pick from the list of available leads.
 - **Job Date** — Click the date button and choose the day on the calendar.
-- **Start Time** and **End Time** — Set when the shift begins and ends.
+- **Start Time** and **End Time** — Set when the shift begins and ends. A new day you haven't set a time on yet opens at the branch's working hours for that date — its opening time through its closing time — so most days are ready as they are. On a day the branch is closed, it opens at 6:00 AM for eight hours instead. These follow the **Job Date** until you pick a time of your own, so changing the date moves them to that day's hours. See [Branch Working Hours](/guides/settings/branches#branch-working-hours).
 - **Shift Notes** — Optional notes for anything the crew should know about that day.
 
 ## Assign the crew
@@ -98,6 +98,10 @@ Many jobs run across several days. To add another:
 ## Save a draft or publish
 
 The buttons at the bottom of the panel decide what happens next.
+
+<Note>
+If any day ends before it starts, that day shows **End must be after start** and both **Save Draft** and **Publish Job** stay unavailable until it's fixed — even when the day with the problem isn't the one you have open. In that case a reminder reads "Another day ends before it starts. Fix its times to save."
+</Note>
 
 ### Save as a draft
 
