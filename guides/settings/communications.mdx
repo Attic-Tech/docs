@@ -104,7 +104,7 @@ Click a line to open its page. At the top you see the line's name with its badge
 - **Open inbox** takes you to the [inbox](/guides/calls/inbox).
 - **Test call** calls the line from your dialer.
 
-The line page has five tabs: **General**, **People**, **Business hours**, **Call flow**, and **Call handling**.
+The line page has **General**, **People**, **Line hours**, and **Call handling** tabs. Workspaces in the call flow beta also get a **Call flow** tab and an **AI receptionist** tab (see [Call flow and AI receptionist](#call-flow-and-ai-receptionist)).
 
 ### General
 
@@ -134,7 +134,7 @@ Tick what each person or role can do on this number. Each row has these columns:
 | **Calls** | This person can take and place calls on the line. |
 | **Text** | This person can text from the line. |
 | **Voicemail** | This person can see the line's voicemail. |
-| **Recordings** | Marks this person for access to the line's call recordings. Recordings are kept, but there's no place to play them back in Menaia yet. |
+| **Recordings** | This person can play back the line's call recordings. A recorded call shows a **Play** button in the inbox conversation, and on a lead's **Calls** section, for anyone with this access. |
 | **Masked** | This person's personal number stays hidden, in both directions (see below). |
 | **Ring order** | This row's place in line when a call comes in. |
 | **Remove** | Takes this person or role off the line. |
@@ -156,13 +156,13 @@ When someone calls a line that has people on it, Menaia rings down the **Ring or
 If a line has nobody who can ring (no people at all, or no row with **Answer** and **Calls** on and **Masked** off), calls ring your workspace's **Client Coordinators** instead. The line's branch coordinators ring first, and if the branch has none, coordinators across the workspace ring. The names on the **Lines** card come from this same group.
 </Note>
 
-### Business hours
+### Line hours
 
 Set **Opens** and **Closes** for each day, or tick **Closed**. Then click **Save Changes**. This schedule belongs to the line and is separate from your workspace business hours.
 
-### Call flow
+### Call flow and AI receptionist
 
-This tab shows **Call flow is coming soon**. It's where visual call routing (phone menus, greetings, and after-hours handling) will live for each line.
+These two tabs appear only for workspaces in the call flow beta. **Call flow** opens a visual editor for routing calls on that line — its greeting, phone menu, ringing, voicemail, and after-hours handling. **AI receptionist** sets up an AI that can answer the line's calls, take messages, capture leads, and book appointments. They're rolling out gradually, so if you don't see them they aren't turned on for your workspace yet.
 
 ### Call handling
 
