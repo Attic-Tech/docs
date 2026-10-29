@@ -55,7 +55,7 @@ The table below shows the allowed moves between statuses, the condition for each
 
 An estimate's pricing and scope can be edited only while it is In Progress. In every other status (except Deleted) those fields are read-only — the user must move the estimate back to In Progress first. Crew notes are the one exception (see below).
 
-If someone tries to edit an estimate that is no longer In Progress, the edit is rejected with a "this estimate is read-only" error. Anyone with permission to edit estimates can make edits while In Progress (Sales Member and above), provided they have access to the relevant branch.
+If someone tries to edit an estimate that is no longer In Progress, the edit is rejected with a "this estimate is read-only" error. Anyone with permission to edit estimates can make edits while In Progress (Sales Member and above), provided they have access to the relevant branch — with one scope limit: a **Sales Member** or **Crew Leader** (who see only the clients they work on) can edit, send, and save only the estimates **they own**. Another salesperson's estimate — even one on a client they both work on — opens read-only for them; only its owner or a manager (a role that sees every client) can edit it, save it from the Calculator, or send its proposal.
 
 ### Status changes go through a dedicated action
 
@@ -167,7 +167,7 @@ Secondary Estimate is simply a status value. It follows the same per-role rules 
 
 ### Baseline access
 
-Underneath the per-status rules above, baseline access to estimates is scoped to the user's organization and gated by role: reading is available to organization members; creating and updating are available to crew-management-level roles; deleting is available to management-level roles. The per-status rules on this page apply on top of this baseline.
+Underneath the per-status rules above, baseline access to estimates is scoped to the user's organization and gated by role: reading is available to organization members; creating and updating are available to crew-management-level roles; deleting is available to management-level roles. The per-status rules on this page apply on top of this baseline. A further scope applies to **Sales Member** and **Crew Leader**: they see only estimates on the clients they work on, and can edit or send only the estimates they own (see [Only In Progress is editable](#only-in-progress-is-editable)).
 
 ## Notes on edge cases
 

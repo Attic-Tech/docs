@@ -17,13 +17,15 @@ All viewing and editing of clients, properties, and projects is bounded by the o
 - A user who belongs to no organization sees nothing and can edit nothing.
 - If a user has selected a specific organization (tenant) and has access to it, results are narrowed to exactly that organization. Otherwise, results span all of the user's organizations.
 
-**Organization membership is the hard boundary.** Belonging to the organization is what determines whether a user can access these records at all. On top of that, some screens are additionally scoped to your **active branch**: the Clients list defaults to the branch you're currently working in, but a **Branch** filter lets you switch the list to any other branch you belong to — and, if you can see all clients, to clients that don't have a project yet (**Unassigned**). Opening a client's summary while the Branch filter points at another branch switches your active branch to match, and opening a project that belongs to a different branch prompts a branch switch (or shows "not found" if you don't have access to that branch).
+**Organization membership is the outer boundary.** Belonging to the organization is what determines whether a user can access these records at all. On top of that, some screens are additionally scoped to your **active branch**: the Clients list defaults to the branch you're currently working in, but a **Branch** filter lets you switch the list to any other branch you belong to — and, if you can see all clients, to clients that don't have a project yet (**Unassigned**). Opening a client's summary while the Branch filter points at another branch switches your active branch to match, and opening a project that belongs to a different branch prompts a branch switch (or shows "not found" if you don't have access to that branch).
+
+**Sales Members and Crew Leaders see only the clients they work on.** On top of the organization and branch scope, the roles outside Branch Management — **Sales Member** and **Crew Leader** — see only the **clients they work on** and the records that hang off those clients (projects, properties, estimates, jobs, and so on). A client, property, or project they don't work on answers "No access - contact an administrator or manager to be assigned to this project." instead of opening; a record that was deleted shows the ordinary "not found". You **work on a client** when you're involved with one of its projects — you're on one of its jobs' crew, you're assigned to the project, you're assigned a lead activity on its lead, you own an estimate on it, you work a published shift on one of its jobs, you're assigned a published task on it, or you're the salesperson on its proposal. Branch Management roles (Admin, Ops Manager, Sales Admin, Client Coordinator) see every client in the branch.
 
 ## Clients
 
 ### Viewing clients
 
-Any signed-in user may view clients within their organization. No specific role is required to view — every role can see the clients in organizations they belong to.
+Branch Management roles (Admin, Ops Manager, Sales Admin, Client Coordinator) can view every client within their organization and branch. **Sales Member** and **Crew Leader** see only the **clients they work on** (see [above](#how-access-is-scoped)); a client they don't work on answers "No access". Crew Members don't have the Clients area at all.
 
 ### Creating clients
 
@@ -31,7 +33,7 @@ Clients are normally created by converting a lead (publishing a lead activity), 
 
 ### Editing clients
 
-**Every role** can edit a client, scoped to the user's organization(s).
+**Every role** with the Clients area can edit a client, scoped to the user's organization(s) — and, for **Sales Member** and **Crew Leader**, only the clients they work on.
 
 ### Deleting clients
 
@@ -41,7 +43,7 @@ Deleting a client requires one of: **Admin**, **Ops Manager**, or **Sales Admin*
 
 ### Viewing properties
 
-Any signed-in user may view properties within their organization. No specific role is required to view.
+Branch Management roles can view every property within their organization. **Sales Member** and **Crew Leader** see only the properties of the **clients they work on**; a property on a client they don't work on answers "No access".
 
 ### Creating properties
 
@@ -49,7 +51,7 @@ Creating a property is limited to **Admin**, under an organization the user belo
 
 ### Editing properties
 
-**Every role** can edit a property, scoped to the user's organization(s).
+**Every role** can edit a property, scoped to the user's organization(s) — and, for **Sales Member** and **Crew Leader**, only properties on the clients they work on.
 
 ### Deleting properties
 
@@ -63,11 +65,11 @@ When a property's address changes, its location (latitude/longitude) is updated 
 
 ### Viewing projects
 
-Any signed-in user may view projects within their organization. No specific role is required to view.
+Branch Management roles can view every project within their organization. **Sales Member** and **Crew Leader** see only the projects of the **clients they work on**; a project on a client they don't work on answers "No access". This covers everything hanging off the project too — its details, events, assignees, media, comments, expenses, forms, and reviews.
 
 ### Creating projects
 
-Creating a project requires one of: **Admin**, **Sales Admin**, **Sales Member**, or **Client Coordinator**, under an organization the user belongs to.
+Creating a project requires one of: **Admin**, **Sales Admin**, **Sales Member**, or **Client Coordinator**, under an organization the user belongs to. A **Sales Member** can only create a project for a client they already work on.
 
 <Note>
 **Ops Manager** and **Crew Leader** cannot create projects.
@@ -75,7 +77,7 @@ Creating a project requires one of: **Admin**, **Sales Admin**, **Sales Member**
 
 ### Editing projects
 
-Editing a project requires one of: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, or **Client Coordinator**, scoped to the user's organization(s).
+Editing a project requires one of: **Admin**, **Ops Manager**, **Sales Admin**, **Sales Member**, or **Client Coordinator**, scoped to the user's organization(s) — and, for a **Sales Member**, only on the clients they work on. Changing a project's **Assigned Team** is limited to the roles that see every client (Admin, Ops Manager, Sales Admin, Client Coordinator); a Sales Member can't reassign a project's team.
 
 ### Deleting projects
 
@@ -85,7 +87,7 @@ Deleting a project requires one of: **Admin**, **Sales Admin**, or **Sales Membe
 
 | Action | Who can do it |
 | --- | --- |
-| View client / property / project | Every role, within their organization |
+| View client / property / project | Branch Management, every record in their organization; Sales Member and Crew Leader, only the clients they work on |
 | Create a client | Admin (clients are normally created via lead conversion) |
 | Edit a client | Every role |
 | Delete a client | Admin, Ops Manager, Sales Admin |
@@ -98,7 +100,7 @@ Deleting a project requires one of: **Admin**, **Sales Admin**, or **Sales Membe
 
 ## Notable points
 
-- **Viewing and editing** clients and properties are open to all roles (within the user's organization), but **creating** and **deleting** are tightly role-gated as shown above.
+- **Viewing and editing** clients and properties are open to all roles with the Clients area (within the user's organization), but **Sales Member** and **Crew Leader** see and edit only the clients they work on, and **creating** and **deleting** are tightly role-gated as shown above.
 - **Creating clients and properties** is reserved for **Admin** — and clients in practice are created by converting a lead, not through a standalone create action.
 - **Project deletion** is the sales roles (Admin, Sales Admin, Sales Member); Ops Manager and Client Coordinator can edit projects but cannot delete them.
-- **Organization membership is the hard access boundary** for clients, properties, and projects — but client lists and project pages are additionally scoped to your active branch. On the Clients list, the **Branch** filter lets you see another branch's clients directly; elsewhere, switch branches to see another branch's records.
+- **Organization membership is the outer access boundary** for clients, properties, and projects — but client lists and project pages are additionally scoped to your active branch, and **Sales Member** and **Crew Leader** are scoped further to the clients they work on. On the Clients list, the **Branch** filter lets you see another branch's clients directly (for roles that see every client); elsewhere, switch branches to see another branch's records.
