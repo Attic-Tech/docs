@@ -81,17 +81,19 @@ Click **Create New** to open a blank **New Item** form. When you add the line, t
 - **Image** — for a new item, click the image box to upload a picture. It appears next to the line on the proposal. You can't change an existing item's image from here.
 - **Item Name** — what the customer sees on the proposal.
 - **Unit Type** — the unit the item is measured in, such as square feet or each.
-- **Unit** — how many units this job needs, for example `300`. This is the line's quantity.
-- **Costs** — what the item costs you.
-- **Total Price** — the price for the whole line, before any discount. It isn't multiplied by the quantity — the unit price is worked out for you.
-- **Markup %** — your markup over **Costs**. **Total Price** and **Markup %** stay in step: change one and the other updates to match.
+- **Quantity** — how many units this job needs, for example `300`.
+- **Cost per unit** — what one unit of the item costs you.
+- **Markup** — your markup over the **Cost per unit**. Use the **%** / **×** toggle next to the field to set it as a percentage on top of the cost (type `25` for +25%) or as a multiplier of the cost (type `2.5` for cost × 2.5). Markup stays switched off until you enter a **Cost per unit**, since there's nothing to mark up. **Markup** and **Price per unit** stay in step: change one and the other updates to match. A line just below spells out the math, for example "$80.00 + 25% = $100.00 per unit."
+- **Price per unit** — the sell price of a single unit, before any discount.
 - **Description** — shown under the item on the client proposal.
 - **Discount** — a percentage taken off this line.
 - **Taxable Item** — turn on if tax applies to this line. See [Choose the tax](#choose-the-tax).
 
+At the bottom, a read-only **Line total** shows what the line comes to — the **Quantity** times the **Price per unit**, less any discount — with the working shown alongside, for example "5 × $100.00 − 10% discount."
+
 Click **Add Item** to add the line, or **Cancel** to close without saving. You'll see "Item added" once it's on the proposal.
 
-To save, a line needs an **Item Name**, a **Unit Type**, a **Unit** greater than 0, and a **Total Price** greater than 0. If one is missing, a message appears under the field — for example, "Enter a total price greater than 0."
+To save, a line needs an **Item Name**, a **Unit Type**, a **Quantity** greater than 0, and a **Price per unit** greater than 0. If one is missing, a message appears under the field — for example, "Enter a price per unit greater than 0."
 
 <Warning>
 Each item can only be on an estimate once. If you pick an item that's already there, you'll see "That item is already on the estimate" and "Edit the existing line instead of adding it again." Use **Edit Item** on the existing line to change its quantity or price.
