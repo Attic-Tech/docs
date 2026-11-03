@@ -304,7 +304,7 @@ The first time a Zap uses Menaia, Zapier asks you to sign in to Menaia and appro
 
 <Steps>
   <Step title="Review what Zapier can do">
-    The screen lists the permissions Zapier is asking for, each with a checkbox, all ticked. Only permissions your own role already has are listed. Leave the lead, client, and message permissions ticked for the Menaia steps you plan to use — if you untick one, Zaps can't do that. The screen also shows the email address you're connecting as.
+    The screen lists the permissions Zapier is asking for, each with a checkbox, all ticked. Only permissions your own role already has are listed. Leave the lead, client, message, estimate, and invoice permissions ticked for the Menaia steps and triggers you plan to use — if you untick one, Zaps can't do that. The screen also shows the email address you're connecting as.
   </Step>
   <Step title="Pick the organization">
     If you belong to more than one organization, choose one under **Organization** ("Select an organization"). Your Zaps work in that organization only.
@@ -335,6 +335,8 @@ If the authorization screen shows one of these messages instead, close the windo
 | **New Client** | A new client is created. |
 | **New Outbound Message** | A teammate replies in a **Communications** inbox conversation that came from another platform (such as Yelp or Angi), so a Zap can send the reply back to that platform. When the Thumbtack integration is connected, replies on Thumbtack conversations go through it instead. |
 
+Two more triggers report completed sales to your ad platforms — see [Send sales and payments to your ad platforms](#send-sales-and-payments-to-your-ad-platforms) below.
+
 **Actions** do something in Menaia:
 
 - **Create Lead** — creates a lead. Choose its **Branch** and enter the primary contact's **First Name** and **Last Name** (all required), plus an **Email** or **Phone** (at least one). **Notes**, **Address**, **City**, **State**, and **Postal Code** are optional.
@@ -347,6 +349,23 @@ If the authorization screen shows one of these messages instead, close the windo
 - **Find Client** — finds a client by the contact's email or phone (at least one).
 
 If a **Create Lead**, **Create Client**, or **Find Client** step has neither an email nor a phone, it stops with "Provide an email or a phone for the contact."
+
+### Send sales and payments to your ad platforms
+
+Two more triggers let you report completed sales back to the ad platforms that drove them — such as Google Ads and Facebook (Meta) — so those platforms can tie a sale to the ad click that first brought the customer in. This is what ad tools call an **offline conversion**.
+
+| Trigger | Starts when |
+| --- | --- |
+| Estimate sold | An estimate is marked **Sold** for the first time. A later change order that re-sells the same estimate doesn't start it again. |
+| Invoice paid | An invoice is fully paid for the first time. An invoice settled only by a credit note isn't a sale and doesn't start it. |
+
+Each of these carries the sale amount (with tax shown separately), the customer's contact details, and — when the sale traces back to a lead that came from your website — that lead's ad-click details: the Google Ads click ID (gclid, plus the gbraid and wbraid IDs used for iOS traffic), the Facebook click ID, and the campaign (UTM) tags recorded when the lead came in. Each also carries a stable conversion ID, so if the same sale reaches the ad platform more than once it's counted as one conversion rather than double-counted. Build a Zap on one of these triggers and pass its details to Google Ads or Facebook to record the conversion.
+
+The ad-click details come from what your website's lead form captured when the lead was created, so a lead entered by hand, or from a source that doesn't pass those details through, won't have them.
+
+<Note>
+These two triggers need a connection that can see **every** estimate, invoice, and client in your organization — the whole-organization access an Admin has. A connection made by someone who only sees their own records (for example, a Sales Member) isn't offered them.
+</Note>
 
 ## Data Sources
 
