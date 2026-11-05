@@ -2,7 +2,7 @@
 title: "Meni Dashboard"
 description: "Use the Dashboard to see what Meni flagged for your attention, read your morning briefing, approve Meni's drafts, and keep live charts you pinned from Meni."
 icon: "table-columns"
-keywords: ["Meni dashboard", "dashboard", "pinned views", "pin to dashboard", "unpin view", "rename view", "needs your attention", "signals", "morning briefing", "waiting for you", "approvals", "drill down", "time range", "granularity", "live view", "stale view", "access blocked", "get started with Meni"]
+keywords: ["Meni dashboard", "dashboard", "pinned views", "pin to dashboard", "unpin view", "rename view", "needs your attention", "signals", "morning briefing", "waiting for you", "approvals", "drill down", "time range", "granularity", "live view", "stale view", "access blocked", "get started with Meni", "export to CSV", "download table", "download chart", "export dashboard data", "CSV download"]
 ---
 
 The **Dashboard** is Meni's home in Menaia. It brings together the things Meni noticed that need your attention, your daily briefing, drafts waiting for your approval, and the live charts and reports you've pinned from your conversations with Meni.
@@ -147,6 +147,18 @@ A live view always runs with your current permissions, so it never shows you dat
 ### Workspace data views for Admins
 
 When it's turned on for your workspace, Admins can ask Meni for charts and reports on nearly anything in the workspace — including text messages, calls, and voicemails — not just the standard lists like leads, estimates, and jobs. These views show **Workspace data** as their source. They pin and refresh like any other view, and they re-check your permissions each time they run. If you're no longer an Admin, the view shows **Access blocked**.
+
+## Download a table or chart
+
+When you open one of your dashboards, each table and chart on it has a **CSV** download button in the block's header. Click it to save the block's data as a spreadsheet file:
+
+- You get **every row behind the block**, not just the page you can see on screen, with the dashboard's filters already applied — so the file matches what the dashboard is showing.
+- A table block downloads the whole table; a chart block downloads the data the chart is drawn from.
+- Values come out as the raw numbers behind the view rather than the way they're formatted on the page, so a spreadsheet can total and sort them.
+- The file is named after the dashboard and the block.
+- You can only download data your role is allowed to see. If you don't have access to what's behind a block, the download is refused.
+
+A single file holds up to 10,000 rows. If a block has more rows than that, Menaia still downloads the file with as many as it can and tells you it exported only part of the block, so you know the file stops short of the full data.
 
 ## Getting started
 
