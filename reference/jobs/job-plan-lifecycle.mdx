@@ -175,7 +175,7 @@ The read-only view shows the submitter's name and the submitted date, and only a
 ### Other safeguards on the builder
 
 - **Save Draft** is disabled when there are no changes or while a save is running.
-- **Submit** is disabled unless the plan is ready, has changes, and isn't already processing.
+- **Submit** is available whenever the plan has unsaved changes, isn't already processing, and the work-order quantities still match. It no longer waits for the plan to be complete: pressing Submit on a plan that isn't ready lists what's still needed instead of submitting.
 - Navigating away with unsaved edits warns you first.
 - A plan can only point at a job in your own organization; trying otherwise reports the job as not found.
 

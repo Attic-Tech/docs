@@ -37,7 +37,7 @@ This page covers every rule in the estimate Calculator flow that blocks, disable
 
 ### Why can't I move past the "Select Work Area" step?
 
-- **Symptom:** The "Continue" button is disabled on the work-area selection step.
+- **Symptom:** You press "Continue" on the work-area selection step and the wizard doesn't move on — the missing field is highlighted instead.
 - **Cause:** Two things must be true to continue. First, the work area needs at least one service, and when there's exactly one service it must have a work-area type selected. Second, both a client and a project must be selected.
 - **Resolution:** Pick a work-area type for the service, and make sure both a client and a project are selected.
 
@@ -45,7 +45,7 @@ This page covers every rule in the estimate Calculator flow that blocks, disable
 
 ### Why can't I continue past the "Items" step? ("Add at least one item")
 
-- **Symptom:** "Continue" is disabled on the Items step for the current work area.
+- **Symptom:** You press "Continue" on the Items step and the wizard doesn't move on — a message says to add an item to continue.
 - **Cause:** The current work area has no items, or every item has a quantity of zero. Each work area needs at least one item with a quantity greater than zero.
 - **Resolution:** Add at least one item with a quantity greater than zero to the current work area before continuing.
 
