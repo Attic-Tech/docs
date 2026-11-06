@@ -345,6 +345,7 @@ Two more triggers report completed sales to your ad platforms — see [Send sale
 - **Create Lead** — creates a lead. Choose its **Branch** and enter the primary contact's **First Name** and **Last Name** (all required), plus an **Email** or **Phone** (at least one). **Notes**, **Address**, **City**, **State**, **Postal Code**, and **Lead Source** are optional. For **Lead Source**, pick one of your active lead sources, or map a custom value from your trigger (for example, "Website"); Menaia matches it to one of your lead sources by name, and if nothing matches, adds a new lead source with that name. Optional ad-click fields — the Google and Facebook click IDs, **Source URL**, and the UTM tags — keep the ad details a lead came in with, so a later sale can be reported back to the ad platform (see [Send sales and payments to your ad platforms](#send-sales-and-payments-to-your-ad-platforms)). A lead a Zap creates alerts your team just like a lead that arrives automatically: it triggers your workspace's **Lead Ingested** notification, with a **View Summary** link to the new lead. See [Notification rules](/guides/settings/notification-rules).
 - **Create Client** — creates a client from a **First Name**, **Last Name**, and an **Email** or **Phone** (at least one). If a client already has that email or phone, Menaia returns that client instead of creating a duplicate.
 - **Create Inbox Message** — adds a message from another platform to your **Communications** inbox, starting a conversation if there isn't one yet. Enter the **Source Platform** (Yelp, Google Business Profile, Google Local Services Ads, Thumbtack, Angi, Facebook, or Other — the field's help text lists the exact value to use), the **External Thread ID**, and the **Message Body**. Messages with the same thread ID land in the same conversation. Optionally add an **External Message ID** (recommended — it stops the same message from being added twice), a **Sender Name**, a **Customer Name** (shown as the conversation's name), and **Sent At** (defaults to now).
+- **Add Ad Click to Call** — attaches a call tracker's ad click (such as CallRail's) to the matching call on your Menaia line, and to the lead that call is linked to, so a sale from a phone lead can be reported back to the ad platform (see [Send sales and payments to your ad platforms](#send-sales-and-payments-to-your-ad-platforms)). Enter the **Caller Phone** and when the call started, plus the ad-click fields — the Google and Facebook click IDs, **Source URL**, and the UTM tags. Optionally add the Menaia number the call reached, to narrow the match when the caller dialed more than one of your numbers. Menaia finds the call by the caller's number and time; it only touches calls on lines you can see, and the first ad click already on a call or lead is kept. If you connect [CallRail](#callrail) directly, you don't need this action.
 
 **Searches** look something up so later steps can use it:
 
@@ -364,11 +365,53 @@ Two more triggers let you report completed sales back to the ad platforms that d
 
 Each of these carries the sale amount (with tax shown separately), the customer's contact details, and — when the sale traces back to a lead that came in with ad-click details — those details: the Google Ads click IDs, the Facebook click ID, and the campaign (UTM) tags recorded when the lead came in. Each also carries a **Conversion ID**. Map it to Google Ads' "Order ID" (Facebook: "Event ID") so the same sale is counted once, even if it reaches the ad platform more than once.
 
-The ad-click details come from what was captured when the lead was created — for example by your website's lead form, or by a **Create Lead** step that maps them — so a lead entered by hand, or from a source that doesn't pass those details through, won't have them.
+The ad-click details come from what was captured when the lead was created — for example by your website's lead form, or by a **Create Lead** step that maps them. A phone lead can pick them up too, from the ad click behind the call, once you connect [CallRail](#callrail) or use the **Add Ad Click to Call** action above. A lead entered by hand, or from a source that doesn't pass those details through, won't have them.
 
 <Note>
 These two triggers need a connection that can see **every** estimate, invoice, and client in your organization — the whole-organization access an Admin has. A connection made by someone who only sees their own records (for example, a Sales Member) can't use them.
 </Note>
+
+## CallRail
+
+**CallRail** keeps the ad click behind every tracked phone call, so jobs you sell from phone leads can count as ad conversions. You'll find it under the **Automations** category. It appears in the marketplace when your workspace has the **Communications** inbox (calls) turned on. CallRail is free to connect.
+
+CallRail gives each visitor who comes from an ad its own tracking number and remembers which ad click brought them. When that customer calls, CallRail forwards the call to your Menaia line and, after the call ends, tells Menaia which ad click was behind it. Menaia saves the Google Ads click ID, landing page, and campaign (UTM) tags on the call. A lead you create from that call, or link it to, keeps them too — so the **Estimate Sold** and **Invoice Paid** triggers can report the sale back to Google Ads (see [Send sales and payments to your ad platforms](#send-sales-and-payments-to-your-ad-platforms)).
+
+<Note>
+CallRail is an admin area — you'll need an **Admin** role to connect it. You set it up by pasting Menaia's webhook details into your own CallRail account, so you'll need access to that too.
+</Note>
+
+### Connect CallRail
+
+<Steps>
+  <Step title="Open the CallRail page">
+    From the marketplace, open the **CallRail** card. Its **Webhook URL** card shows a web address unique to your workspace, with a copy button.
+  </Step>
+  <Step title="Add Menaia as a webhook in CallRail">
+    In CallRail, open **Settings › Integrations › Webhooks**, paste the copied address into the **Post-Call** webhook field, and save.
+  </Step>
+  <Step title="Paste the signing key back into Menaia">
+    Copy the webhook's **signing key** from CallRail, paste it into the **CallRail signing key** box in the **Get Started** panel, and click **Connect CallRail**. The panel shows a **Connected** badge.
+  </Step>
+  <Step title="Keep caller ID on in CallRail">
+    Leave CallRail's caller ID set to show the caller's number (its default). Menaia matches each call by the caller's number and when it started, so it needs that number to come through.
+  </Step>
+</Steps>
+
+### What changes once CallRail is connected
+
+- **Calls answered on your Menaia line keep their ad click.** For each tracked call CallRail forwards and you answer, Menaia stores the Google Ads click ID, landing page, and UTM tags on that call.
+- **Leads keep the click too.** A lead you create from one of those calls, or link an existing lead to, picks up the call's ad click.
+- **The first ad click wins.** If a call or lead already has an ad click, CallRail never replaces it — the ad that first brought the customer in keeps the credit.
+- **Sales can report back to Google Ads.** Once a lead carries an ad click, the **Estimate Sold** and **Invoice Paid** triggers send the completed sale back as an offline conversion — see [Send sales and payments to your ad platforms](#send-sales-and-payments-to-your-ad-platforms).
+
+<Tip>
+Already piping CallRail through Zapier? You can attach a call's ad click with the **Add Ad Click to Call** action instead of connecting CallRail directly — see [What Zaps can do with Menaia](#what-zaps-can-do-with-menaia).
+</Tip>
+
+### Disconnect CallRail
+
+Open the CallRail page again and click **Disconnect**. It takes effect right away, with no confirmation step. Menaia stops accepting calls from CallRail and forgets the signing key, so you'll paste a fresh one from CallRail if you reconnect later. Ad clicks already saved on your calls and leads stay put.
 
 ## Data Sources
 
