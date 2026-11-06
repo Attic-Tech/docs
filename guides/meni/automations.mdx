@@ -2,10 +2,10 @@
 title: "Automations"
 description: "Have Meni watch your numbers and react to business events — set up playbooks and watch rules, then approve, edit, or dismiss the drafts Meni queues for you. Admins can also shape the Meni daily insight email."
 icon: "bolt"
-keywords: ["Meni automations", "automations", "playbook", "create playbook", "watch rule", "keep an eye on", "alert me when", "approval queue", "waiting for you", "approve and send", "clear all", "pause playbook", "resume playbook", "active automations", "Meni daily insight", "daily insight email", "context for Meni", "Meni settings"]
+keywords: ["Meni automations", "automations", "playbook", "create playbook", "playbook triggers", "require approval", "run without approval", "wait before running", "playbook delay", "recent runs", "max actions per day", "watch rule", "keep an eye on", "alert me when", "approval queue", "waiting for you", "approve and send", "clear all", "pause playbook", "resume playbook", "Meni daily insight", "daily insight email", "context for Meni", "Meni settings"]
 ---
 
-On the **Automations** page, you tell Meni what to watch for and what to do about it. Meni does the research and drafts the work, and every draft waits for your approval. Nothing reaches a customer or changes a record until you say so.
+On the **Automations** page, you tell Meni what to watch for and what to do about it. Meni does the research and drafts the work. By default every draft waits for your approval — nothing reaches a customer or changes a record until you say so — but you can let a playbook you trust run its actions on its own.
 
 There are two kinds of automation:
 
@@ -61,19 +61,25 @@ You can also ask Meni in the chat panel — "every time a lead comes in, draft a
 | Field | What it does |
 | --- | --- |
 | **Playbook name** | A short name so you can recognize it. |
-| **Trigger — when this happens** | What starts the playbook: **When a lead comes in**, **When a ride-along wraps up**, **When a customer review changes**, **When a comment is posted**, or **When a watch rule fires**. |
+| **Trigger — when this happens** | The business event that starts the playbook. Choose from: **When a lead comes in**, **When a lead moves to a status**, **When a ride-along wraps up**, **When a customer review changes**, **When a comment is posted**, **When a watch rule fires**, **When a job moves to a status**, **When an estimate moves to a status**, **When a job is created**, **When a client opens a proposal**, **When a client asks for proposal changes**, **When a client signs a proposal**, **When a client declines a proposal**, **When a client signs a contract**, **When an appointment is booked**, **When an invoice is paid**, **When an invoice becomes overdue**, **When a payment comes in**, **When a call is missed**, **When a voicemail comes in**, **When the AI receptionist takes a message**, or **When a text comes in**. |
 | **Watch rule** | Only for **When a watch rule fires** — pick which of your watch rules starts it. |
+| **Lead status / Job status / Estimate status** | Only for a status trigger — pick the status the record must move to for the playbook to run. |
+| **Wait before running** | How long Meni waits after the trigger before it runs: **Right away**, or a number of **Minutes**, **Hours**, or **Days** (up to 30 days). For a status trigger, Meni only runs if the record is still in that status once the wait is over. |
 | **What Meni should do** | Your instructions, in plain words, up to 4,000 characters. |
-| **Meni is allowed to draft** | The kinds of work Meni may prepare: **Change lead status**, **Change lead statuses**, **Send follow-up email**, **Schedule lead activity**, and **Create lead**. Pick at least one. |
-| **Notify me when this playbook fires** | Get a notification each time it runs. |
-| **Daily draft cap** | The most drafts it can create in a day, from 1 to 100. The default is 20. |
+| **Meni is allowed to** | The kinds of work Meni may do: **Change lead status**, **Change lead statuses**, **Send follow-up email**, **Schedule lead activity**, **Create lead**, **Schedule task**, **Change job status**, **Change estimate status**, **Send push notification**, and **Send in-app notification** (the last two notify teammates you choose). Pick at least one. |
+| **Approval** | Leave **Require approval before each action runs** on (the default) and every action waits for you in the queue. Turn it off and Meni runs each action as soon as it drafts it, using your permissions — you then review what it did under **Recent runs**. |
+| **Notify me when a run does nothing or fails** | Get a notification when a run produces no action or hits an error. |
+| **Max actions per day** | The most actions Meni can draft or run for this playbook in one day, from 1 to 100 (the default is 20). A single run can do more than one action; past the limit Meni skips this playbook's actions until the next day. |
 
 ### What happens when a playbook runs
 
-When the trigger happens, Meni looks into it using read-only access, then drafts only the kinds of work you allowed — or nothing, if it doesn't find enough to go on. It stops once it reaches the daily draft cap. Every draft lands in [Waiting for you](#waiting-for-you).
+When the trigger happens — after any wait you set — Meni looks into it using read-only access, then prepares only the kinds of work you allowed, or nothing if it doesn't find enough to go on. It stops once it reaches the day's **Max actions per day**. What happens next depends on the playbook's **Approval** setting:
+
+- **Approval on** (the default) — every action lands in [Waiting for you](#waiting-for-you) for you to approve, edit, or dismiss.
+- **Approval off** — Meni runs each action as soon as it drafts it, using your permissions. Nothing waits in the queue; you review what ran under **Recent runs** on the playbook.
 
 <Note>
-Meni drafts, never sends. A playbook can't send an email, change a status, or create a record by itself — each draft needs your approval first.
+With approval on, Meni drafts, never sends — a playbook can't send an email, change a status, or create a record until you approve each draft. Turn approval off only for a playbook you trust to act on its own.
 </Note>
 
 ## Watch rules
@@ -134,11 +140,15 @@ Click **Clear all**, then click **Really clear all 152?** (the button names how 
 
 ## Manage your automations
 
-Once you have a playbook or watch rule, a slim **Automations** bar on the right edge of the page (at the top on a phone) shows how many are on. Click it — or **View all playbooks** under the text box — to open **Active Automations**.
+Once you have a playbook or watch rule, the page splits into three tabs:
 
-The sheet has two tabs, **Playbooks** and **On watch**. A dot shows whether each one is on, and a number shows how many drafts a playbook has waiting. Click any item to open it.
+- **Approvals** — the [Waiting for you](#waiting-for-you) queue and the signals Meni has surfaced.
+- **Playbooks** — all your playbooks, with the count next to the tab. A dot shows whether each is on, and a number shows how many drafts it has waiting.
+- **On watch** — all your watch rules, with the count next to the tab. A dot shows each one's status.
 
-**A playbook** shows whether it's **Running** or **Paused** with a switch to pause or resume it, when it last fired (or **New · waiting for first fire**), and how many drafts are waiting from it. You can change any of its settings, then click **Done**. **Delete playbook** asks you to confirm — Meni stops running it, but drafts it already made stay in your queue.
+Click **View all playbooks** under the text box to jump to the **Playbooks** tab, or click any item to open it.
+
+**A playbook** shows whether it's **Running** or **Paused** with a switch to pause or resume it, when it last fired (or **New · waiting for first fire**), how many drafts are waiting from it, and a **Recent runs** list where each run is tagged **Ran**, **Drafted**, **Did nothing**, **Not created**, or **Failed**. You can change any of its settings, then click **Done**. **Delete playbook** asks you to confirm — Meni stops running it, but drafts it already made stay in your queue.
 
 **A watch rule** shows whether it's **Active** or **Paused** with a switch, when it last ran and last fired, and what it watches. You can rename it or change **Notify me when this fires**, then click **Done**. Changes apply to the next check. **Delete watch rule** asks you to confirm.
 
