@@ -59,7 +59,7 @@
             "guides/settings/overview",
             { "group": "Company & branches", "pages": ["guides/settings/organization", "guides/settings/branches"] },
             { "group": "Your team", "pages": ["guides/settings/users", "guides/settings/roles-branches"] },
-            { "group": "Communications", "pages": ["guides/settings/communications"] },
+            { "group": "Communications", "pages": ["guides/settings/communications", "guides/settings/trust-center"] },
             { "group": "Price book", "pages": ["guides/settings/price-book/items", "guides/settings/price-book/item-categories", "guides/settings/price-book/factors-additional-costs", "guides/settings/price-book/multiplier-ranges", "guides/settings/price-book/work-areas"] },
             { "group": "Proposal & invoice setup", "pages": ["guides/settings/proposal-content", "guides/settings/payment-methods-financing", "guides/settings/invoice-content-automations", "guides/settings/payment-terms", "guides/settings/taxes", "guides/settings/credit-void-reasons"] },
             { "group": "Lists & lifecycles", "pages": ["guides/settings/statuses", "guides/settings/lead-sources", "guides/settings/tags", "guides/settings/subcontractors", "guides/settings/expense-types", "guides/settings/task-types", "guides/settings/equipment-vehicles", "guides/settings/forms", "guides/settings/media-folders", "guides/settings/client-portal"] },

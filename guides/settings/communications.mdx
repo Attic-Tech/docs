@@ -8,30 +8,38 @@ keywords: ["phone settings", "phone lines", "business phone number", "set up you
 **Communications** is where you set up your business phone in Menaia. You get a phone number (or bring one you already own), decide who each line rings, and choose what callers hear when they call in. Your team then calls and texts from the [inbox](/guides/calls/inbox) and the [dialer](/guides/calls/use-the-dialer).
 
 <Note>
-Communications is part of Settings, which only **Admins** can open. To find it, open **Settings** from the main navigation and choose **Communications** under **General**.
+Communications is part of Settings, which only **Admins** can open. To find it, open **Settings** from the main navigation and choose **Communications** under **General**. The page itself is headed **Phone**.
 </Note>
 
 The page has three parts, from top to bottom:
 
-1. **Lines**: every number your workspace has. Click a line to open its own settings.
-2. **Port a number**: bring a number over from another carrier.
-3. **Workspace call settings**: greeting, phone menu, business hours, voicemail, forwarding, ringing, recording, and after-hours handling. These apply to every call your workspace receives.
+1. **Add number** and **Port a number**: buttons to get a new number or bring one over from another carrier.
+2. **Shared numbers & access**: every number your workspace has, grouped by branch, including numbers still being ported in. Click a line to open its own settings.
+3. **Workspace call settings**: greeting, phone menu, business hours, voicemail, forwarding, ringing, recording, and after-hours handling. These apply to every call your workspace receives. On workspaces in the call flow beta, this part is just the **Blocked Numbers** list (see [Workspace call settings](#workspace-call-settings)).
 
 Where your texting and caller ID stand with the phone carriers has its own page in Settings, the **Trust center**. See [Carrier registrations](#carrier-registrations).
 
 ## Lines
 
-The **Lines** card lists every number your workspace has, along with its branch and who answers it. Each row shows:
+The **Shared numbers & access** card (marked **Admins only**) lists every number your workspace has and who is on it. Numbers are grouped by branch, with numbers that have no branch last under **No branch**. Each group's heading shows how many numbers and people it has, for example "2 numbers · 9 people", or "1 number · nobody can use it" when nobody is on its lines.
+
+Use the search box ("Search by number, name or people") to find a line by its number, its inbox name, or the name of someone on it.
+
+Each row shows:
 
 | Part of the row | What it tells you |
 | --- | --- |
 | Name | The line's **Inbox name**. If it has none, you see the number instead. |
-| Number | Shown next to the name when the line has an inbox name. |
+| Number | Shown under the name when the line has an inbox name. |
 | **Local** or **Toll-free** | The type of number. |
 | **Primary** | This is the main number for its branch. |
 | Status | **Provisioning**, **Active**, **Error**, or **Released** (see below). |
-| People | Up to four names, then "+N more". If nobody is listed, you see "No one is on this line yet". |
-| Branch | The branch the line belongs to. Hidden if the line has no branch. |
+| Texting | **Voice only, texting pending** while the line's texting registration is with the carriers. **Voice only** when no approved registration covers the line, so it can call but not text. No badge means the line can text. |
+| People | The first two names, then "and N more", next to their pictures. If nobody is on the line, you see "No people". |
+
+Below the list, a note reminds you that people only see the calls, texts, and voicemails of the numbers they are on.
+
+On workspaces in the call flow beta, a line nobody is on shows "Nobody rings on this number. Calls go to voicemail or the AI receptionist, as its call flow says."
 
 Line statuses:
 
@@ -44,9 +52,11 @@ Line statuses:
 
 Click anywhere on a row to open that line's settings.
 
+Numbers you're porting in from another carrier also appear in the list, in their branch's group, with a dashed outline. They show the number, "Coming over from your current carrier", a **Porting** badge (or **Rejected**), and where the request stands, for example "In progress · Submitted Oct 9, 2026". You can't open them until the port completes. See [Port a number](#port-a-number).
+
 ### Set up your phone
 
-The first time your workspace sets up its phone, the **Lines** card says "No lines yet. Set up your phone to get a number for calls and texts." Click **Set up your phone** to open a short wizard that gets you a number for calls and files everything for texting with the phone carriers in one place. You answer the questions once, for both calls and texts. Nothing is bought or filed until you submit the last step, and your answers are saved as you go — if you leave partway through, the **Lines** card shows **Finish setting up your phone** with a **Continue setup** button so you can pick up where you left off.
+The first time your workspace sets up its phone, the numbers list says "No lines yet. Set up your phone to get a number for calls and texts." Click **Set up your phone** to open a short wizard that gets you a number for calls and files everything for texting with the phone carriers in one place. You answer the questions once, for both calls and texts. Nothing is bought or filed until you submit the last step, and your answers are saved as you go — if you leave partway through, the numbers list shows **Finish setting up your phone** with a **Continue setup** button so you can pick up where you left off.
 
 <Note>
 Only an **Admin** can set up the phone, buy numbers, or file texting. Everyone else sees "Ask an admin to set up your phone."
@@ -95,39 +105,19 @@ Once your workspace is set up, click **Add number** instead. This opens a quick 
     Search by area code or city for a local number, or pick from the available toll-free numbers. Numbers are held for you for 15 minutes.
   </Step>
   <Step title="Buy the number">
-    Click **Buy number**, then confirm. The number appears on the **Lines** card and can make and receive calls right away. You see "Number added and ready to use" when it can also text right away, or "Number added" with a note on when texting starts.
+    Click **Buy number**, then confirm. The number appears in the numbers list and can make and receive calls right away. You see "Number added and ready to use" when it can also text right away, or "Number added" with a note on when texting starts.
   </Step>
 </Steps>
 
 <Note>
-**Add number** is unavailable while your workspace's first number is still being bought — it becomes available once that number is set up.
+**Add number** is unavailable while your workspace's first number is still being bought. The reason, "You can add more numbers once your first one is set up.", shows under the button.
 </Note>
 
 ## Carrier registrations
 
-Where your texting and caller ID stand with the phone carriers is shown on its own page: open **Settings** and choose **Trust center** under **General**. Registrations cover your whole workspace, not one line. They show up once your workspace has set up its phone, with one section per registration:
+Where your texting and caller ID stand with the phone carriers is shown on its own page: open **Settings** and choose **Trust center** under **General**. Registrations cover your whole workspace, not one line, so they aren't on this page. The Trust center has one section for each toll-free number, one for your local numbers, and one for caller ID, each with its status and the one action it needs: filing again, registering your local numbers, or choosing your caller ID name.
 
-- **Texting from your toll-free number** — one section per toll-free number, each reviewed on its own.
-- **Texting from your local numbers** — the one registration that covers all your local numbers.
-- **Caller ID on all your numbers** — the name customers see when you call them.
-
-Each texting registration shows a status badge and a short explanation of where it stands:
-
-| Status | What it means |
-| --- | --- |
-| **Setting up** | Menaia is buying your number and preparing its registration. |
-| **Under review** | The carriers are reviewing your details. A local registration usually takes 10 to 15 days; a toll-free one, a few days. Your numbers make and receive calls the whole time. |
-| **Approved** | Your workspace can send and receive texts from the numbers this registration covers. |
-| **Not approved** | The carriers didn't approve the registration. Your numbers still make and receive calls. |
-| **Needs attention** | Something went wrong before the registration reached the carriers. |
-| **Not registered** | Your local numbers make and receive calls but aren't registered for texting yet. |
-
-When a registration needs something from you, it shows the one action to take:
-
-- **Review and file again** on a toll-free registration the carriers couldn't confirm. You correct the details they flagged and file that number's registration again. There's a limit on how many times you can file, and the section shows how many filings are left and when you can file next. Your corrections apply only to that number's registration; registrations that are already approved aren't filed again.
-- **Register local numbers** if your workspace started on a toll-free number and hasn't registered its local numbers for texting yet. This reuses your business details and files the local registration.
-- **Choose your caller ID name** (or **Change name**) to set or update the name customers see when you call. The carriers review it, and phones start showing it 2 to 3 days after it's approved.
-- **Contact support** when a registration wasn't approved or needs attention, so the team can go through it with you and file it again.
+See [Trust center](/guides/settings/trust-center) for every status and action.
 
 ## Line settings
 
@@ -141,14 +131,21 @@ The line page has **General**, **People**, **Line hours**, and **Call handling**
 
 ### General
 
-Each change saves when you leave the field, and a message confirms it saved.
+Change what you need, then click **Save Changes** at the bottom of the tab. A message confirms the line's settings saved.
 
 | Setting | What it does |
 | --- | --- |
 | **Inbox name** | What your team sees in the inbox for this line, for example "Front desk". Leave it blank to show the number. |
 | **Branch** | The branch this line belongs to. Only people in this branch can be added on the **People** tab. Choose **No branch** to unassign. |
-| **Caller ID name** | What customers see when you call them. |
+| **Lead source** | Leads created from this line's calls and texts start with this source. |
+| **Caller ID name** | What customers see when you call them. It's your workspace's name on caller ID, so it's the same on every line and is shown here without a box to edit. Click **Change it in the Trust center** to change it. See [Trust center](/guides/settings/trust-center#choose-or-change-your-caller-id-name). |
 | **Primary number of the branch** | New conversations start from this number. When you turn it on for one line, it turns off on any other line in the same branch, because each branch has one primary number. |
+
+Workspaces in the call flow beta also see these on the **General** tab:
+
+- **Greeting, voicemail, forwarding and auto-text** with an **Open call flow** button, because all call routing for the line lives in its call flow.
+- A **Call recording** card with **Record incoming calls** and **Record outgoing calls** for this line. Callers hear "This call may be recorded for quality and training purposes." before they're connected.
+- A **Call intelligence** card with **Transcribe recorded calls** (a transcript for every recorded call; recording must be on for that direction) and **AI call summary** (a short summary and next steps from the transcript; needs transcription on). These use Meni tokens.
 
 ### People
 
@@ -165,14 +162,14 @@ Tick what each person or role can do on this number. Each row has these columns:
 | --- | --- |
 | **Answer** | This person can answer calls to the line. |
 | **Calls** | This person can take and place calls on the line. |
-| **Text** | This person can text from the line. |
+| **Texts** | This person can text from the line. |
 | **Voicemail** | This person can see the line's voicemail. |
 | **Recordings** | This person can play back the line's call recordings. A recorded call shows a player in the inbox conversation, and on a lead's **Calls** section, for anyone with this access. |
 | **Masked** | This person's personal number stays hidden, in both directions (see below). |
 | **Ring order** | This row's place in line when a call comes in. |
 | **Remove** | Takes this person or role off the line. |
 
-**Masked** hides personal numbers both ways. When a masked person calls a client from a job, the client sees the line's masking number instead of the person's cell, and the masked person never sees the client's cell either. Turn it on for a role and everyone in that role is masked. A masked person has no inbox, so **Answer**, **Calls**, **Text**, and **Voicemail** switch off and lock. Only **Recordings** stays available. You also can't set a ring order for a masked row. To choose which number clients see and whether masked calls are recorded, go to [Call handling](#call-handling).
+**Masked** hides personal numbers both ways. When a masked person calls a client from a job, the client sees the line's masking number instead of the person's cell, and the masked person never sees the client's cell either. Turn it on for a role and everyone in that role is masked. A masked person has no inbox, so **Answer**, **Calls**, **Texts**, and **Voicemail** switch off and lock. Only **Recordings** stays available. You also can't set a ring order for a masked row. To choose which number clients see and whether masked calls are recorded, go to [Call handling](#call-handling).
 
 #### How ringing works
 
@@ -186,7 +183,7 @@ When someone calls a line that has people on it, Menaia rings down the **Ring or
 - **Nobody is available.** If the line has people who could ring but none of them are available, Menaia doesn't fall back to anyone else. The caller is held in the queue if the queue is on. Otherwise they hear that no one is available and the call ends.
 
 <Note>
-If a line has nobody who can ring (no people at all, or no row with **Answer** and **Calls** on and **Masked** off), calls ring your workspace's **Client Coordinators** instead. The line's branch coordinators ring first, and if the branch has none, coordinators across the workspace ring. The names on the **Lines** card come from this same group.
+If a line has nobody who can ring (no people at all, or no row with **Answer** and **Calls** on and **Masked** off), calls ring your workspace's **Client Coordinators** instead. The line's branch coordinators ring first, and if the branch has none, coordinators across the workspace ring. The names in the numbers list come from this same group.
 </Note>
 
 ### Line hours
@@ -219,7 +216,11 @@ Right now, incoming calls follow your **workspace** greeting, business hours, an
 
 ## Workspace call settings
 
-Below the **Port a number** card, a set of cards controls how your workspace handles calls. Change what you need, then click **Save Changes** at the bottom. The **Blocked Numbers** switch and list are the exception, since they save immediately.
+Below the numbers list, a set of cards controls how your workspace handles calls. Change what you need, then click **Save Changes** at the bottom. The **Blocked Numbers** switch and list are the exception, since they save immediately.
+
+<Note>
+On workspaces in the call flow beta, each line handles its own calls through its [call flow](#call-flow-and-ai-receptionist), so these cards aren't shown. The only one left below the numbers list is [Blocked numbers](#blocked-numbers), because blocked callers are turned away before a call reaches any line.
+</Note>
 
 The cards appear in this order.
 
@@ -330,15 +331,15 @@ This card sets what happens when someone calls outside your business hours. Unde
 
 ## Port a number
 
-Use **Port a number** to bring a number you already own over from your current carrier. This card only appears if Communications is turned on for your workspace.
+Use **Port a number** to bring a number you already own over from your current carrier. The **Port a number** button sits next to **Add number** at the top of the page.
 
 <Note>
-The **Port a number** button stays disabled until texting is turned on for your workspace — that is, until you've [set up your phone](#set-up-your-phone). A ported number follows the kind of number it is: a ported local number joins your registration for local numbers, and a ported toll-free number gets its own texting review. Until texting is turned on, you see "Porting unlocks once texting is turned on. A ported local number joins your registration for local numbers, and a ported toll-free number gets its own texting review."
+The **Port a number** button stays disabled until texting is turned on for your workspace — that is, until you've [set up your phone](#set-up-your-phone). A ported number follows the kind of number it is: a ported local number joins your registration for local numbers, and a ported toll-free number gets its own texting review. Until texting is turned on, you see "Porting unlocks once texting is turned on. A ported local number joins your registration for local numbers, and a ported toll-free number gets its own texting review." under the button.
 </Note>
 
 <Steps>
   <Step title="Open the port window">
-    On the **Port a number** card, click **Port a number**.
+    Click **Port a number** at the top of the page.
   </Step>
   <Step title="Check each number">
     Under **Numbers to port**, enter a number and click **Check**.
@@ -356,19 +357,19 @@ The **Port a number** button stays disabled until texting is turned on for your 
     Upload a **Signed letter of authorization (LOA)** and a **Recent carrier bill**. Both are required. Each must be a PDF, JPEG, or PNG up to 10 MB.
   </Step>
   <Step title="Submit">
-    Click **Submit port request**. You see "Port request submitted" and the request appears on the card.
+    Click **Submit port request**. You see "Port request submitted", and each number in the request appears in the numbers list with a **Porting** badge.
   </Step>
 </Steps>
 
-Each request on the card shows its numbers, a status, and the date it was submitted.
+While a number is on its way, its row in the numbers list shows where the request stands and the date it was submitted, for example "Submitted Oct 9, 2026" or "In progress · Submitted Oct 9, 2026".
 
 | Status | Meaning |
 | --- | --- |
-| **Submitted** | Your request has been sent to the carrier. |
+| **Submitted** | Your request has been sent to the carrier. The row shows the **Porting** badge and the date. |
 | **In progress** | The transfer is underway. |
-| **Completed** | The number has moved. It appears on the **Lines** card as an **Active** line. |
-| **Rejected** | The transfer was refused. The reason appears under the request as "Rejected: *reason*". |
-| **Canceled** | The request was canceled. |
+| **Completed** | The number has moved. Its porting row is replaced by the line itself, as an **Active** line. |
+| **Rejected** | The transfer was refused. The row shows a **Rejected** badge and "Rejected: *reason*". |
+| **Canceled** | The request was canceled, and the number leaves the list. |
 
 A ported number starts without a branch, and it becomes **Primary** if it's your workspace's first number. To assign it a branch, open the line and go to the **General** tab.
 
@@ -387,7 +388,7 @@ Being on a line through a role counts. If the caller is **Masked** on the chosen
 | Action | Who |
 | --- | --- |
 | Open Communications, manage lines, people, and call settings | Admin |
-| Set up your phone, buy numbers, and manage carrier registrations | Admin |
+| Set up your phone, buy numbers, and manage carrier registrations in the [Trust center](/guides/settings/trust-center) | Admin |
 | Port a number | Admin, once texting is turned on for your workspace |
 
 ## What's next
@@ -398,5 +399,8 @@ Being on a line through a role counts. If the caller is **Masked** on the chosen
   </Card>
   <Card title="Make and take calls" icon="phone-volume" href="/guides/calls/use-the-dialer">
     Place and take calls from anywhere in Menaia.
+  </Card>
+  <Card title="Trust center" icon="shield-check" href="/guides/settings/trust-center">
+    See where your texting and caller ID registrations stand with the carriers.
   </Card>
 </CardGroup>
