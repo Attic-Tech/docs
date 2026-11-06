@@ -2,7 +2,7 @@
 title: "Make and take calls"
 description: "Call customers from Menaia, answer incoming calls in your browser, put callers on hold, bring in or transfer to a teammate, and control when calls ring you."
 icon: "phone-volume"
-keywords: ["make a call", "call a client", "answer a call", "incoming call", "decline call", "hold", "mute", "transfer a call", "warm transfer", "cold transfer", "add someone to a call", "three-way call", "keypad", "call recording", "availability", "unavailable", "on a call", "calls not ringing", "microphone"]
+keywords: ["make a call", "call a client", "answer a call", "incoming call", "decline call", "hold", "mute", "transfer a call", "warm transfer", "cold transfer", "add someone to a call", "three-way call", "keypad", "call recording", "availability", "unavailable", "on a call", "calls not ringing", "microphone", "out of tokens", "calls paused", "call button locked"]
 ---
 
 Menaia has a built-in phone. You call customers from their conversation, answer incoming calls right in your browser, and hand calls to teammates without switching apps. Calls use your workspace's business numbers, so customers see your business, not your personal cell.
@@ -29,6 +29,16 @@ A call button is grayed out when you can't call. Hover over it to see why:
 | "You are already on a call" | Finish your current call first. |
 
 When you click a call button, the call screen opens and shows **Calling…**, then **Ringing…**, then a timer once the person answers.
+
+### When your workspace is out of tokens
+
+On workspaces that use token billing, outbound calls pause when the workspace runs out of Meni tokens. Every call button shows a lock instead of its phone icon: **Call** in a conversation's header, **Call back**, the call button on a client's contact details (and **Call** in the confirmation that follows it), and **Test call**. Hovering over it reads "Calls and texts are paused". Clicking it doesn't place the call. Instead it explains "Calls and texts are paused until your workspace gets more tokens." and offers a way to top up:
+
+- **Upgrade plan** for an Admin on a trial.
+- **Buy tokens** for an Admin on a paid plan.
+- **Ask your admin to upgrade** for everyone else. It sends your admins a request.
+
+Calls resume once an Admin tops up the balance. See [Meni tokens](/reference/platform/ai-features-and-limits#meni-tokens-power-ai-features).
 
 ### Which number the customer sees
 
@@ -118,13 +128,14 @@ When you switch back to **Active** and callers are waiting in the queue, the nex
 
 ## Test a line
 
-Admins can check a number works by opening it in [Communications settings](/guides/settings/communications) and clicking **Test call**.
+Admins can check a number works by opening it in [Communications settings](/guides/settings/communications) and clicking **Test call**. Like other call buttons, **Test call** locks while your workspace is out of tokens.
 
 ## Troubleshooting
 
 - **"Microphone unavailable"**: allow microphone access for Menaia in your browser, then try again.
 - **"Calling unavailable" / "The dialer is not ready yet. Try again in a moment."**: your phone is still connecting. Wait a few seconds and click the call button again.
 - **"Call failed"**: the call couldn't be completed. Try again.
+- **A lock on the call button**: your workspace is out of tokens, so calls are paused. Click the lock to top up or ask your admin. See [When your workspace is out of tokens](#when-your-workspace-is-out-of-tokens).
 - **Calls aren't ringing you**: check that your availability is **Active** and that Menaia is open in your browser. If it still doesn't ring, ask your admin whether you're on the number that's being called.
 
 ## What's next

@@ -4,10 +4,14 @@ description: "Find any job and see where it stands using the Jobs page — searc
 icon: "list-checks"
 ---
 
-The **Jobs** page is your pipeline. Every job your branch is working on lives here, and each row tells you where that job stands and what it needs next. From this one screen you can search for a job, narrow the list by status or date, view jobs on a map, and click straight through to the next step.
+The **Jobs** page is your pipeline. Every job your branch is working on lives here — or, if your role only sees the clients you work on, the jobs on those clients — and each row tells you where that job stands and what it needs next. From this one screen you can search for a job, narrow the list by status or date, view jobs on a map, and click straight through to the next step.
 
 <Note>
 The Jobs page opens with a short reminder right under the title: "View job info, status, and any action items." That's exactly what this page is for.
+</Note>
+
+<Note>
+If your role sees only the clients you work on (**Sales Member** or **Crew Leader**), the Jobs list, map, and status counts show only the jobs on **your clients**. Opening a job you don't work on shows "No access - contact an administrator or manager to be assigned to this project." Branch Management roles see every job in the branch.
 </Note>
 
 <Frame caption="Video: Viewing and Updating Job Statuses (1:24)">
@@ -52,6 +56,8 @@ There are two ways to focus on the jobs you care about.
 
 Across the top of the list you'll find a row of tabs. **All Jobs** shows everything, and each remaining tab matches one status — with a count next to it so you can see how many jobs sit in each stage at a glance. Click a tab to show only those jobs.
 
+The counts follow your role: a **Crew Leader** sees the number of **their own assigned jobs** in each stage, while other roles get totals for every job they can see in the list. Which roles see all jobs is covered in the [Permissions roles matrix](/reference/platform/permissions-roles-matrix#jobs-and-schedule).
+
 There's one tab per status, in the order a job moves through the pipeline — from **Requires Crew Lead** through to **Closed Job**, plus **Cancelled**. For what each status means, see [Job status lifecycle](/reference/jobs/job-status-lifecycle).
 
 ### Filters panel
@@ -62,12 +68,13 @@ For more control, open the filters panel on the list. It has several sections:
 - **Crew Lead** — show only jobs led by a particular crew lead.
 - **Sales Person** — show only jobs whose estimate was created by a particular sales person.
 - **Work Area** — show only jobs that cover the work areas you pick.
+- **Tags** — show only jobs whose project carries any of the project tags you pick. Start typing to search your active project tags and choose one or more. Crew Leaders don't see this section.
 - **Date Created** — choose a date range to show only jobs created in that window. The control reads "Select date range."
 - **Closed Date** — narrow to jobs closed within a date range.
 - **Updated At** — narrow to jobs last updated within a date range.
 
 <Note>
-By default the list hides **Cancelled** jobs so your pipeline stays focused on active work. Choose the **Cancelled** tab, or select it in the **Status** filter, when you need to see them.
+**All Jobs** includes **Cancelled** jobs, so a job you've cancelled still appears in the list — and still turns up when you search — instead of looking deleted. To focus on just cancelled work, choose the **Cancelled** tab, or select **Cancelled** in the **Status** filter.
 </Note>
 
 ## Change a job's status

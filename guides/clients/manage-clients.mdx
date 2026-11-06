@@ -9,7 +9,7 @@ The **Clients** page is where every customer you've taken on lives. From here yo
 <Note>
 A client is created when you convert a lead into one. If your list is empty, start by converting a lead — the new client then appears here automatically.
 
-Clients can also arrive from QuickBooks: if you turn on **Import existing customers** while connecting QuickBooks, your existing QuickBooks customers are pulled in as clients when you finish setup. They don't have projects yet, so find them by setting the **Branch** filter to **Unassigned**. Customers without an email address or phone number are skipped.
+Clients can also arrive from QuickBooks: if you turn on **Import existing customers** while connecting QuickBooks, your existing QuickBooks customers are pulled in as clients when you finish setup. They don't have projects yet, so find them by ticking **Unassigned** in the **Branch** filter. Customers without an email address or phone number are skipped.
 </Note>
 
 <Frame caption="Video: Managing Clients in Menaia (1:02)">
@@ -31,6 +31,10 @@ At the top of the page, a **Table / Insights** switch changes how you look at yo
 - **Table** — the full client list, with search and filters. This is the view the rest of this section covers.
 - **Insights** — an AI-written read of your clients for your active branch: a headline takeaway, a few supporting points, a recommended next action, and a chart. Use **New insight** to regenerate it from a fresh angle.
 
+<Note>
+**Insights** is available only to roles that see every client (Admin, Ops Manager, Sales Admin, Client Coordinator). If you see only the clients you work on (**Sales Member** or **Crew Leader**), the page shows just the Table.
+</Note>
+
 <Steps>
   <Step title="Open the Clients page">
     Go to **Clients** from the main navigation. The heading reads **Clients**, and the page lists everyone you work with.
@@ -43,7 +47,7 @@ At the top of the page, a **Table / Insights** switch changes how you look at yo
   </Step>
 </Steps>
 
-The list shows each client's **Name**, **Company**, **Email**, **Phone**, and **Last Updated** (how long ago their record last changed), plus a **View Summary** button, so you can scan for the right person at a glance.
+The list shows each client's **Name**, **Company**, **Email**, **Phone**, **Branch** (every branch the client has a project in, or a dash when they have no projects yet), **Project Tags** (the tags on that client's projects in the branches you're viewing — the first two, then a **+1**-style counter for the rest; a deactivated tag still shows, dimmed), and **Last Updated** (how long ago their record last changed), plus a **View Summary** button, so you can scan for the right person at a glance.
 
 ### Sort and customize the list
 
@@ -53,7 +57,13 @@ The list shows each client's **Name**, **Company**, **Email**, **Phone**, and **
 Your sort and column choices are remembered on that browser and device.
 
 <Note>
-By default the list shows the clients of your **active branch**. Open the filters and use the **Branch** filter to view the clients of another branch you belong to — or, if you can see all clients, clients that don't have a project yet (**Unassigned**). When you open **View Summary** for a client while the Branch filter points at another branch, your active branch switches to that branch first.
+By default the list shows the clients of your **active branch**. Open the filters and use the **Branch** filter — a checklist — to tick one or more branches you belong to and see their clients together, or, if you can see all clients, clients that don't have a project yet (**Unassigned**). At least one branch always stays ticked. When you open a client who has no project in your active branch, your active branch switches to one of their branches first — preferring a branch you've ticked in the filter.
+
+If your role sees only the clients you work on (**Sales Member** or **Crew Leader**), the list — and everything you can open from it — is limited to those clients. Opening a client you don't work on shows "No access - contact an administrator or manager to be assigned to this project." You work on a client when you're on one of its jobs, assigned to its project, own an estimate on it, or are otherwise involved in its work. Admins, Ops Managers, Sales Admins, and Client Coordinators see every client in the branch.
+</Note>
+
+<Note>
+The filters also include **Tags** — start typing to search your active project tags and pick one or more to show only clients who have a project carrying any of them. Only projects in the ticked branches count.
 </Note>
 
 
@@ -62,7 +72,8 @@ By default the list shows the clients of your **active branch**. Open the filter
 Opening a client brings you to their summary header, which gathers the essentials in one place:
 
 - Their **name** and a **Client since** date.
-- Quick-tap **email**, **phone**, and **address** links — tap the email to start a message, the phone to call, or the address to open it in maps.
+- Quick-tap **email** and **address** links — tap the email to start a message, or the address to open it in maps.
+- The **phone** number, with **Call** and **Text** buttons beside it. When your workspace has a business line for calling and texting from Menaia, **Call** places the call inside Menaia after a quick confirmation that shows the line it goes out on, and **Text** opens this client's conversation in [Communications](/guides/calls/inbox). If your workspace has no business line, the buttons hand off to your device's own phone and messaging apps instead.
 - Their projects, which you can open to dig into individual jobs.
 
 <Tip>

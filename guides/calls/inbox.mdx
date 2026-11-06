@@ -2,7 +2,7 @@
 title: "Use the Communications inbox"
 description: "Text clients, keep every call, voicemail, and marketplace message with the person it belongs to, and reply faster with snippets and AI drafts."
 icon: "inbox"
-keywords: ["communications", "inbox", "texting", "text a client", "sms", "mms", "send a photo by text", "turn on texting", "texting pending", "snippets", "saved replies", "ai reply", "voicemail", "thumbtack messages", "yelp messages", "convert to lead", "unread messages", "number switcher"]
+keywords: ["communications", "inbox", "texting", "text a client", "sms", "mms", "send a photo by text", "turn on texting", "phone setup", "texting pending", "registration under review", "reply from another number", "snippets", "saved replies", "ai reply", "voicemail", "thumbtack messages", "yelp messages", "convert to lead", "unread messages", "mark as unread", "mark conversation unread", "number switcher", "lead requests", "angi messages", "zapier messages", "web form leads", "notifications", "out of tokens"]
 ---
 
 The **Communications** inbox is where your team talks to customers. Texts, calls, and voicemails with the same person land in one conversation, and messages from marketplaces such as Thumbtack or Yelp show up here too. You can reply, call back, and turn a promising conversation into a lead without leaving the page.
@@ -11,56 +11,36 @@ The **Communications** inbox is where your team talks to customers. Texts, calls
 Open **Communications** from the main navigation. It's available to every role except **Crew Member**. If you don't see it, it isn't turned on for your workspace. See [Feature availability](/reference/platform/feature-availability#communications).
 </Note>
 
-A badge on **Communications** in the navigation shows how many conversations have unread messages. Unread is shared by your whole team: once anyone opens a conversation, it's marked read for everyone.
+A badge on **Communications** in the navigation shows how many conversations have unread messages. Unread is shared by your whole team: once anyone opens a conversation, it's marked read for everyone. You can also [mark a conversation unread again](#mark-a-conversation-as-unread) so the team knows to come back to it.
 
 ## Turn on texting
 
-Until texting is turned on for your workspace, Communications shows **Turn on texting for** *your business* with a short list of what texting gives you. Texting from your own number, calling, and voicemail all need texting to be set up first.
+The inbox always opens, whether or not texting is turned on. Calls, voicemails, and [marketplace conversations](#messages-from-marketplaces) work without it — texting only controls sending messages from your own number.
 
-- **Admins** see a **Turn on texting** button.
+Until texting is turned on for your workspace, a banner at the top of the inbox reads **Turn on texting to send messages from your own number**, and the message box on your own text conversations is off.
+
+- **Admins** see a **Turn on texting** button. It takes you to the phone setup in [Communications settings](/guides/settings/communications#set-up-your-phone), where you pick your number and file everything with the carriers in one short wizard. Admins also see a **Connect lead sources** button next to it.
 - **Everyone else** sees "Ask an admin to turn on texting."
 
-<Note>
-If marketplace conversations (Thumbtack, Yelp, and the like) have already landed in your workspace, the inbox opens even before texting is turned on, so you can read and reply to those. A banner at the top invites you to **Turn on texting to send messages from your own number**, and the message box on your own text conversations stays off until texting is approved. See [Messages from marketplaces](#messages-from-marketplaces).
-</Note>
+Once setup is submitted, the carriers review it — usually a few days for a toll-free number, 10 to 15 days for a local one. During that time the inbox stays open, and a slim notice at the top shows where your registration stands, with a **Registration details** button that opens the [Trust center](/guides/settings/trust-center). The message box on a text conversation tells you why you can't send from that conversation's number yet:
 
-<Steps>
-  <Step title="Open the form">
-    Click **Turn on texting**. The **Turn on texting** window opens.
-  </Step>
-  <Step title="Fill in your business details">
-    Only **Business name** is required, and it starts filled in with your workspace name. The other fields help carriers approve your number faster:
-
-    - **Business website**
-    - **Business registration number or EIN**
-    - **Registration country**
-    - **Contact name**, **Phone number**, and **Email**
-    - **Estimated monthly message volume**
-  </Step>
-  <Step title="Submit">
-    Click **Submit Details**. You'll see "Texting setup submitted".
-  </Step>
-</Steps>
-
-After you submit, Communications shows one of these screens until your number is ready:
-
-| Screen | What it means |
+| While... | The message box says |
 | --- | --- |
-| **Setting up your phone number** | Your number is being set up and verified. It usually takes a few days, and you don't need to check back. |
-| **Your SMS Application Was Rejected** | Carriers didn't approve texting for your business. Use **Contact Support** to find out why. |
-| **Something went wrong setting up texting** | Setup hit a problem. Use **Contact Support** to get it fixed. |
+| The number's registration is under review | "You can reply from this number once the carriers approve its texting registration." |
+| The carriers didn't approve it, or it needs attention | "Texting from this number stays off until its registration is sorted out." |
+| The number isn't registered for texting | "This number cannot send texts yet. It can still make and receive calls." |
 
-If your workspace already has marketplace conversations, you won't see these full-page screens. The inbox opens instead so you can keep reading and replying to those, with a short note in the message box for your own text conversations: while your number is being set up, it says the inbox opens for texting as soon as your registration is approved; if setup was rejected, it says texting stays off until it's sorted out. Sending from your own number turns on once texting is approved.
+If a conversation's own number can't text yet but you're on another number that can, a **Reply from another number** button lets you move the whole conversation — texts and calls — to that number. Marketplace conversations keep their own reply box the whole time, since they don't go through your texting number.
 
-Once your number is approved, the inbox opens. To add more numbers, choose who each one rings, or set up voicemail and call recording, see [Communications settings](/guides/settings/communications).
+Once a number's registration is approved, the message box turns on and you can text from that number. To add more numbers, choose who each one rings, or set up voicemail and call recording, see [Communications settings](/guides/settings/communications).
 
 ## Find your way around
 
 Along the top of the inbox you'll find:
 
 - **Tabs** that filter what's listed:
-  - **All**: every conversation, whether its latest activity is a text, a call, or a voicemail.
-  - **Messages**: text conversations only.
+  - **All**: every conversation, whether its latest activity is a text, a call, or a voicemail. This includes your lead requests — conversations from marketplaces and other outside sources — which you can filter to on their own. See [Switch between your numbers](#switch-between-your-numbers).
+  - **Messages**: your own phone-line text conversations only. Lead requests aren't listed here; look for them on the **All** tab. See [Messages from marketplaces](#messages-from-marketplaces).
   - **Calls**: conversations that include at least one call. See [Review calls and voicemails](/guides/calls/browse-and-review-calls).
   - **Voicemails**: every voicemail, with a player and transcript.
 - **Snippets**: opens your saved replies. See [Snippets](#snippets).
@@ -70,11 +50,25 @@ Each list has a search box. Type part of a contact's name or phone number to nar
 
 Each conversation in the list shows the contact's name (or their number if nobody matched), when the last activity happened, a preview, and an unread count. An icon marks conversations whose latest activity was a call, a missed call, a blocked call, or a voicemail. A small **Auto** tag marks a text Menaia sent automatically, such as a [missed-call auto-text](/guides/settings/communications#missed-call-auto-text).
 
+<Note>
+If your role sees only the clients you work on (**Sales Member** or **Crew Leader**), the inbox shows conversations, calls, voicemails, and recordings only with the contacts of **your clients, leads, and projects** — on top of which phone lines you're on. A number that no client or lead is attached to stays visible to the team until someone else answers it, and you always keep the calls you personally made or answered.
+</Note>
+
+### Mark a conversation as unread
+
+To flag a conversation for the team to follow up on, hover over it in the list — on the **All**, **Messages**, or **Calls** tab — and click the three-dots **Conversation actions** button on the right, then **Mark as unread**. The conversation's unread count goes back up and the badge on **Communications** returns.
+
+Because unread is shared by your whole team, marking a conversation unread marks it unread for everyone, not just you. If you mark the conversation you currently have open, it closes so it isn't read again straight away.
+
+A call-only thread with no texts can't be marked unread. On those, **Mark as unread** is grayed out with "Only threads with texts can be unread".
+
 ### Switch between your numbers
 
-If you're on one or more of your workspace's phone lines, the **All** and **Calls** tabs show a number switcher above the search box. It starts on **All my numbers**, with a count of your numbers and branches.
+If you're on one or more of your workspace's phone lines, the **All** and **Calls** tabs show a number switcher above the search box. On the **All** tab it also appears when you have lead requests, even if you aren't on any line. It starts on **All my numbers**, with a count of your numbers and branches.
 
 Click it to pick a single number and see only that number's conversations. Numbers are grouped by branch, and each one shows its unread count. A number that belongs to a different branch than the one you're working in is labeled "Outside your current branch".
+
+On the **All** tab, the switcher also has a **Lead requests** entry just below **All my numbers**, labeled "Thumbtack, Angi, Zapier and web forms". Pick it to see only your lead requests — the conversations that come from marketplaces and other outside lead sources rather than one of your own numbers. It has its own unread count, which is also included in the **All my numbers** total. Lead requests are text only, so this entry doesn't appear on the **Calls** tab. See [Messages from marketplaces](#messages-from-marketplaces).
 
 ## Start a new conversation
 
@@ -91,6 +85,10 @@ Click it to pick a single number and see only that number's conversations. Numbe
   </Step>
 </Steps>
 
+<Note>
+If your workspace has run out of Meni tokens, **Start conversation** on the **New Number** tab shows a lock instead. Clicking it explains "Calls and texts are paused until your workspace gets more tokens." and offers a way to top up. Picking an existing contact still opens the conversation, where the message box shows the same lock. See [Meni tokens](/reference/platform/ai-features-and-limits#meni-tokens-power-ai-features).
+</Note>
+
 ## Work a conversation
 
 Click a conversation to open it. Texts, calls, and voicemails with that person appear in order, grouped by day.
@@ -100,10 +98,8 @@ Click a conversation to open it. Texts, calls, and voicemails with that person a
 The header shows the contact's name and number. Next to them you'll find:
 
 - **Call**: calls this person. See [Make and take calls](/guides/calls/use-the-dialer).
-- **View Client Page**: opens the client this number belongs to. It's grayed out, with "No client is linked to this number yet", when the number doesn't match a client.
-- **More actions** (the three dots): **Copy Number**, and, when the conversation includes a call, a **Call options** menu for the most recent call. Use it to create a lead from the call or link it to a lead, client, or project. See [Link a call to a lead, client, or project](/guides/calls/browse-and-review-calls#link-a-call-to-a-lead-client-or-project).
-
-Below the header, **Quick Actions** hand the conversation to [Meni](/guides/meni/ask-meni) so it can help with the next step: **Add as Lead**, **Schedule Event**, **Create Estimate**, or **Ask Meni** for a summary of where things stand. Meni reads the conversation and uses the real details from it, and proposes what to create for you to confirm.
+- **View Client Page**: opens the client this number belongs to. When the number doesn't match a client but a call in the conversation is tied to a lead, this button becomes **View Lead** and opens that lead — including when the lead is on an earlier call rather than the most recent one, so a repeat caller's conversation still links to their lead. It's grayed out, with "No client is linked to this number yet", only when there's neither a matching client nor a linked lead.
+- **More actions** (the three dots): **Copy Number**, **Create New Lead**, and, when the conversation includes a call, **Link to existing** for the most recent call, to link it to a lead, client, or project. **Create New Lead** works on text-only conversations too, and it's hidden once the conversation is already tied to a contact or a client, so you don't create a duplicate. See [Link a call to a lead, client, or project](/guides/calls/browse-and-review-calls#link-a-call-to-a-lead-client-or-project).
 
 ### Send a text
 
@@ -112,6 +108,7 @@ Type in the message box and press **Enter** to send. Press **Shift+Enter** for a
 - **Photos.** Click the paperclip to attach up to 10 images (JPEG, PNG, or GIF, up to 5 MB each). Wait for them to finish uploading before you send.
 - **The From line.** When a conversation is tied to one of your numbers, a **From** line above the message box shows that number with a lock. Hover over it to see why: the customer wrote to that line, so the conversation stays locked to it, and calls you place from the conversation go out on it too.
 - **Failed texts.** If a text doesn't go through, it's marked **Failed**. Click **Retry** to send it again.
+- **Out of tokens.** On workspaces that use token billing, outbound texting pauses when the balance runs out. The send button becomes a lock; clicking it — or pressing **Enter** — explains "Calls and texts are paused until your workspace gets more tokens." and offers a way to top up. **Retry** on a failed text locks the same way, since a retry is a fresh send. Your draft stays in the box, and texting resumes once an Admin tops up the balance. See [Meni tokens](/reference/platform/ai-features-and-limits#meni-tokens-power-ai-features).
 
 ### Use the command menu
 
@@ -166,6 +163,8 @@ Snippets are grouped by category, and each shows how many times it's been used. 
 
 Conversations that come from outside platforms show a source badge in the list, such as **Thumbtack**, **Yelp**, **Angi's List**, **Google Business Profile**, **Google Local Services Ads**, or **Facebook Business Page**. In the open conversation, the header says "via" followed by the platform.
 
+These are your **lead requests**. They show on the **All** tab alongside your texts and calls, not on the **Messages** tab, and you can see just them by picking **Lead requests** in the [number switcher](#switch-between-your-numbers). When you don't have any yet, the list shows "No lead requests yet" with a **Connect lead sources** button that opens [Integrations](/guides/settings/integrations), where you can connect [Thumbtack](/guides/settings/integrations#thumbtack), [Zapier](/guides/settings/integrations#zapier), and other lead sources.
+
 These conversations work a little differently from texts:
 
 - **They don't depend on your own texting number.** Because a reply goes back through the platform rather than your workspace's number, you can read and reply to a marketplace conversation even when texting isn't turned on yet, or while your registration is still being set up. Only your own text conversations wait on texting being approved.
@@ -196,15 +195,24 @@ Click a voicemail to open it:
 
 - **Play** it. The first time anyone plays a voicemail, it's marked heard for everyone.
 - Read the **AI TRANSCRIPT** below the player, when one is available. While it's still being processed you'll see "Transcribing…".
-- **Delete** it with the trash icon, then confirm with **Delete**.
+- **Delete** it with the trash icon, then confirm with **Delete**. Deleting a voicemail loses it for everyone, so it's limited to managers (Admin, Ops Manager, Sales Admin, Client Coordinator) — if you don't see the trash icon, your role doesn't include it.
 
 Voicemails also appear inside the caller's conversation with a player, the transcript, and a **Call back** button.
+
+## Get notified of new messages
+
+If you're on a phone line and use the Menaia mobile app, Menaia pushes a notification to your phone when a customer texts that line, including messages from marketplaces such as Thumbtack. Texts are **push only** — the inbox is your feed for them, so they don't show in the in-app notification feed. On a busy conversation you're notified at most once a minute while it stays unread, and texts that arrive well after they were sent (such as a backfill) don't buzz your phone.
+
+You're also told about [missed calls](/guides/calls/browse-and-review-calls#follow-up-on-missed-calls) and new voicemails on your lines.
+
+You only get these for conversations your role lets you read, and only if you've installed the mobile app, signed in, and allowed notifications on your device.
 
 ## Who can do what
 
 | Action | Who |
 | --- | --- |
-| Open Communications, read and send texts, use snippets and AI drafts, delete voicemails | Every role except Crew Member |
+| Open Communications, read and send texts, mark conversations unread, use snippets and AI drafts | Every role except Crew Member |
+| Delete a voicemail | Admin, Ops Manager, Sales Admin, Client Coordinator |
 | Turn on texting | Admin |
 | Convert a marketplace conversation to a lead | Admin, Sales Admin, Ops Manager, Client Coordinator |
 | Change phone lines, voicemail, recording, and other call settings | Admin, in [Communications settings](/guides/settings/communications) |

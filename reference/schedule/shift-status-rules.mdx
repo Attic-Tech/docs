@@ -52,15 +52,17 @@ There is no forced order beyond this. Breaks happen inside an In Progress shift 
 - For a **scheduled job shift**, you must be assigned to that shift's team — unless you are a manager (Admin or Ops Manager), who can clock in on a crew member's behalf.
   - Not assigned and not a manager → "You are not assigned to this shift."
   - The shift has no assigned team members and you aren't assigned → "This shift has no assigned team members."
-- For a **scheduled task**, you must be the task's assignee — unless you are a manager.
-  - Not the assignee and not a manager → "You are not assigned to this task."
-  - The task isn't set up to track time → "This task is not configured for shift tracking."
+- For a **scheduled task**, you must be one of the task's assignees **whose shift choice is turned on** — unless you are a manager. A task can be shared by several people, and only the ones marked to clock in have a shift to clock into.
+  - Not on the task and not a manager → "You are not assigned to this task."
+  - The task is **unassigned** (nobody assigned) → "This task has no assignee." No time can be tracked against an unassigned task — not even by a manager — until someone is assigned to it.
+  - You're on the task but your shift choice is off (while others on it do clock in) → "You don't clock in on this task."
+  - Nobody on the task is set up to track time → "This task is not configured for shift tracking."
 
 If no scheduled shift or task is supplied, clock-in is rejected with "Invalid clock-in request."
 
 ### Clocking in for someone else
 
-A manager clocking in can target a specific assigned crew member. If they don't pick one, the shift defaults to the first assigned team member (for tasks, it defaults to the task's assignee).
+A manager clocking in can target a specific assigned crew member. If they don't pick one, the shift defaults to the first assigned team member. For a **task**, a manager can name any person on the task (naming someone who isn't on it returns "The selected person is not assigned to this task."); if they don't name one, the shift defaults to the first person on the task who clocks in on it.
 
 ### One active shift at a time
 
@@ -110,7 +112,7 @@ A crew member can edit their **own** shift only while it is **Pending Approval**
 
 Editing recomputes the hours and keeps the shift at **Pending Approval**. On success you see "Shift updated successfully."
 
-The **Submit Changes** button stays disabled until the form is valid. The editor enforces:
+The **Submit Changes** button stays pressable, but it won't submit until the form is valid — pressing it with something off jumps to the first field to fix. The editor enforces:
 
 - A modification note is present (crew members only — managers are exempt).
 - Clock-out is after clock-in: "Clock out time must be after clock in time."
@@ -197,8 +199,11 @@ A time-tracked shift can still be created or updated even on a **closed** job, s
 |---|---|
 | You are not assigned to this shift. | A non-manager clocking into a scheduled shift they're not on. |
 | This shift has no assigned team members. | The scheduled shift has an empty team and you aren't assigned. |
-| You are not assigned to this task. | A non-manager clocking into a task they're not assigned. |
-| This task is not configured for shift tracking. | The task isn't set up to track time. |
+| This task has no assignee. | Clocking into a task that has nobody assigned — assign someone first. |
+| You are not assigned to this task. | A non-manager clocking into a task they're not on. |
+| You don't clock in on this task. | You're on the task, but your shift choice is off while others on it do clock in. |
+| The selected person is not assigned to this task. | A manager names someone who isn't on the task to clock in for. |
+| This task is not configured for shift tracking. | Nobody on the task is set up to track time. |
 | Invalid clock-in request. | Neither a scheduled shift nor a task was supplied. |
 | You already have an active shift. Please clock out first. | You have an active shift on a different slot. |
 | You already have an active shift. | Switching shifts while you already have an active shift. |
