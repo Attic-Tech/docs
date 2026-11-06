@@ -54,6 +54,9 @@ Every role except **Crew Member** can view, add, edit, and delete project expens
   <Step title="Decide whether it affects bonuses">
     Check **Affect Bonuses** only if this cost should come out of the crew's bonus for the job. See [How expenses affect crew bonuses](#how-expenses-affect-crew-bonuses) before you turn this on.
   </Step>
+  <Step title="Choose the account it was paid from (QuickBooks only)">
+    If your workspace syncs expenses to QuickBooks, a **Paid from** picker appears. Leave it on **Default account** to use the account set in your QuickBooks sync settings, or pick the specific bank or credit card account this expense was paid from. On a new expense it starts on the account you last used. See [Expenses and QuickBooks](#expenses-and-quickbooks).
+  </Step>
   <Step title="Save it">
     Click **Add Expense**. The expense appears in the table and the total updates.
   </Step>
@@ -70,6 +73,7 @@ Every role except **Crew Member** can view, add, edit, and delete project expens
 | **Note** | An optional note about the expense. It shows as **Description** in the table. |
 | **Affect Bonuses** | When checked, the cost reduces the bonus payouts tied to this job. |
 | **Portion applied to bonuses** | Appears once **Affect Bonuses** is checked. Choose **25%**, **50%**, **75%**, or **100%** of the amount to apply. It starts at **100%**. |
+| **Paid from** | Appears only when your workspace syncs expenses to QuickBooks. The QuickBooks bank or credit card account this expense is recorded against. **Default account** uses the account set in your sync settings. |
 | **Attachments** | Photos, videos, and documents such as receipts and invoices. |
 
 ### Create an expense type as you go
@@ -178,12 +182,13 @@ Bonuses stop changing once a job is past the **Bonus Payout Cutoff (Days)** set 
 
 If your workspace has connected **QuickBooks** and turned on **Expense Sync**, Menaia sends your project expenses to QuickBooks for you:
 
-- **Adding or editing an expense** creates or updates a matching expense in QuickBooks. It's recorded against the project's client, paid from the account you chose in your sync settings, and categorized under an expense account named after the expense type.
+- **Adding or editing an expense** creates or updates a matching expense in QuickBooks. It's recorded against the project's client, categorized under an expense account named after the expense type, and paid from the account named in the **Paid from** picker.
+- **Paid from decides the account.** Each expense is recorded against the bank or credit card account you pick in **Paid from**. Leaving it on **Default account** uses the account set in your QuickBooks sync settings. The picker starts on the account you last used, so the account you log most expenses from is already selected.
 - **Status doesn't hold anything back.** Expenses sync whatever their status, including **Budgeted**.
 - **Deleting an expense** that has already synced also deletes it in QuickBooks.
-- **If no pay-from account is set**, nothing is sent and the expense shows a warning in the QuickBooks **Sync Log**. Choose the account in the expense sync settings, then edit the expense to try again.
+- **A missing or unusable account stops that expense.** If the account can't be used — it was left on **Default account** but no default account is set, or the chosen account no longer exists in QuickBooks, is inactive there, or isn't a bank or credit card account — nothing is sent and the expense shows a warning in the QuickBooks **Sync Log** explaining which. Pick another account in **Paid from** (or set the default in your sync settings), then save the expense to try again.
 
-To turn expense sync on or off, or change the account expenses are paid from, see [Integrations](/guides/settings/integrations#quickbooks).
+To turn expense sync on or off, or change the default account expenses are paid from, see [Integrations](/guides/settings/integrations#quickbooks).
 
 ## What's next
 
