@@ -105,9 +105,9 @@ These guards protect the integrity of the hours math. Each one maps to a message
 - **Only pending-approval or approved shifts can be reset** — otherwise: **"Only shifts that are pending approval or approved can be reset."**
 - **Shifts on a closed job can't be created or edited** — fails with **"Cannot create or update job shifts for a closed job."**
 
-### Edit-form guards (the Submit / Edit & Approve button stays disabled until…)
+### Edit-form guards (what the Submit / Edit & Approve button checks before it submits)
 
-When editing a shift, the action button stays disabled until the times make sense:
+When editing a shift, the action button stays pressable, but it won't submit until the times make sense — pressing it otherwise jumps to the first field to fix:
 
 - Clock-out must be strictly **after** clock-in.
 - Every break must have an end time, must start **at or after** clock-in, must end **at or before** clock-out, and its end must be **after** its start.

@@ -1,22 +1,25 @@
 ---
 title: "Ai features and limits"
 description: "What Menaia's AI helpers do, the length and size limits on each one, and how every AI suggestion is reviewed before it's used."
-keywords: ["Meni", "AI assistant", "Meni memory", "Meni actions", "Meni dashboard", "Meni automations", "Meni daily insight", "AI crew notes", "AI proposal email", "AI win post", "AI text reply", "AI response", "draft a text reply", "ride along insights", "AI character limits", "why is AI feature not available", "does AI send automatically"]
+keywords: ["Meni", "AI assistant", "Meni memory", "Meni actions", "Meni dashboard", "Meni automations", "Meni daily insight", "AI crew notes", "AI proposal email", "AI win post", "AI text reply", "AI response", "draft a text reply", "ride along insights", "AI receptionist", "AI phone answering", "AI character limits", "why is AI feature not available", "does AI send automatically"]
 ---
 
 This reference explains Menaia's AI-assisted features, the limits on what you can submit to each one, and the rules that keep AI output a draft you review rather than something applied automatically.
 
 ## What the AI features are
 
-Menaia's AI helpers fall into three groups:
+Menaia's AI helpers fall into four groups:
 
 - **Meni, the AI assistant** — a chat panel that answers questions, looks up and charts your data, remembers context, prepares changes for your approval, and runs automations that draft work for you.
 - **Drafting and writing helpers** that propose text you then review and edit — crew notes, the proposal email, text replies in the inbox, and win celebration posts.
 - **Analysis helpers** that summarize a recorded sales conversation — ride-along insights.
+- **The AI receptionist** — a voice agent that answers inbound phone calls on your behalf and acts on a live call. It's the one helper that takes action without a review step (see below).
 
-### Nothing the AI produces is applied automatically
+### The drafting and analysis helpers are never applied automatically
 
-Every AI feature returns a **suggestion**. The result is never sent, saved, or applied on its own. The screen always drops the output into an editable field, an undo-able replacement, or a review step first. See [Always review AI output](#always-review-ai-output) below.
+The drafting, writing, and analysis helpers each return a **suggestion**. The result is never sent, saved, or applied on its own. The screen always drops the output into an editable field, an undo-able replacement, or a review step first. See [Always review AI output](#always-review-ai-output) below.
+
+The **AI receptionist** is the exception: it talks to callers live and, within the limits you set, takes a message, captures a lead, or transfers the call during the call rather than drafting something for you to approve afterward. You control what it's allowed to do, and every call it handles is recorded in the inbox with a summary and transcript. See [AI receptionist](#ai-receptionist) below.
 
 ## What each feature does
 
@@ -92,6 +95,15 @@ The **AI Ride Along** recorder captures an in-person sales conversation. After y
 - The analysis is organized into sections: **Summary**, **Strengths**, **Next Steps** (or **Follow-up** if the deal closed on the spot), **Coaching** insights, **Tone** and communication analysis (talk-time percentage, confidence, engagement, hesitations), **Patterns**, and ready-to-send **Drafts** for a follow-up email or text.
 - Per-speaker tone, confidence, and engagement come from voice analysis. When that voice data isn't available, those fields are shown as empty rather than guessed.
 
+### AI receptionist
+
+The **AI receptionist** answers inbound phone calls for your business. An Admin turns it on and sets it up under [Communications settings](/guides/settings/communications#ai-receptionist) — or, on workspaces in the call flow beta, on each line's **AI receptionist** tab: when it answers, the voice it uses, the language, the greeting, whether it discloses the recording and that it's an AI, and which actions it's allowed to take.
+
+- Unlike the drafting helpers, it **acts on a live call** rather than drafting for later review. Within the actions you allow, it can take a message, capture the caller as a lead, and transfer the call to a person. A line's receptionist can also book an estimate on the schedule.
+- It only does what you've allowed. If you don't tick an action, it won't do it, and transfers go only to the people you choose.
+- The caller can be told up front that the call may be recorded and that they're speaking with an AI — on by default, with a line you can customize.
+- Every call it handles is kept in the [inbox](/guides/calls/inbox) with a summary and full transcript, so you can see exactly what it said and did. When it takes a message, captures a lead, or transfers a caller, the people on the line are notified.
+
 ## Usage limits
 
 ### Length and size limits
@@ -118,12 +130,12 @@ The **AI Ride Along** recorder captures an in-person sales conversation. After y
 
 ## Meni tokens power AI features
 
-On workspaces that use token billing, Meni and every AI feature draw from a shared workspace **token balance**. Each AI action spends tokens from that balance — as do outbound calls and texts — and the activity shows up in your **Usage history** under **Settings → Billing**.
+On workspaces that use token billing, Meni and every AI feature draw from a shared workspace **token balance**. Each AI action spends tokens from that balance — as do outbound calls and texts, and the calls the AI receptionist answers — and the activity shows up in your **Usage history** under **Settings → Billing**.
 
 - Your plan includes a monthly token allowance, and a **Trial** workspace starts with a pool of trial tokens.
 - When the balance runs low you'll see a warning; when it reaches **zero**, Meni, the AI drafting and analysis helpers, and outbound calling and texting **pause** until you top up. Your core business tools — scheduling, clients, proposals, invoices, and everything else — keep working and never pause.
 - If an AI action is refused because the balance is empty, you'll see a message that your workspace is out of Meni tokens and needs more to keep using AI features and outbound calling and texting.
-- Admins top up under **Settings → Billing** — either **Buy tokens** or by turning on automatic token reloads (auto-reload). Not every workspace uses token billing; where it isn't in use, AI features aren't limited by a token balance.
+- Admins top up under **Settings → Billing** — either **Buy tokens** or by turning on automatic token reloads (auto-reload). If you're not an admin, you'll see **Ask your admin to upgrade** instead, which emails your workspace's admins a request; once it's sent, it shows **Request sent**. Not every workspace uses token billing; where it isn't in use, AI features aren't limited by a token balance.
 
 ## Who can use each AI feature
 
@@ -134,6 +146,7 @@ AI features are turned on per workspace and, in some cases, depend on your role,
 - **The text reply helper** appears in the inbox composer for people who can send texts, and only once texting has been turned on for your workspace.
 - **Ride-Alongs** must be turned on for your workspace. The voice tone analysis depends on an additional voice-analysis setting being turned on for your workspace.
 - **AI win posts** require win channels to be turned on. With them off, you'll see "This feature is not available for your organization."
+- **The AI receptionist** is set up by an **Admin** under [Communications settings](/guides/settings/communications#ai-receptionist) and answers calls for your business numbers. If your workspace's token balance is empty, it can't answer and the caller goes to voicemail instead.
 
 If an AI feature you expect is missing, it's almost always because the feature isn't turned on for your workspace, or your role can't edit the underlying record. If an AI feature is available but suddenly refuses to run, check your **token balance** — AI features pause when it reaches zero. See [Permissions and roles](/reference/platform/permissions-roles-matrix).
 

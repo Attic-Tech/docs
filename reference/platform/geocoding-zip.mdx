@@ -52,6 +52,10 @@ A property created from free-text with no resolvable city, state, or ZIP is stil
 
 Properties, leads, and branch base addresses that have an address but no coordinates can be filled in later by a maintenance pass that resolves them in bulk. Records that still can't be resolved are skipped and reported, and one failure never stops the rest of the run.
 
+### Pricing an estimate can also fill in a property's missing coordinates
+
+A property that has an address but no coordinates — most often an imported one — can also get them when an estimate for it is priced and the platform looks up its address along the way. The coordinates are saved only when that lookup lands on a single, precise location and the address still matches the one saved on the property. This only ever fills in coordinates that were missing — it never changes coordinates a property already has.
+
 ## The address and sales tax
 
 ### Sales tax isn't based on the state or ZIP code
@@ -68,19 +72,19 @@ There is no fixed ZIP-to-territory table in the platform. "Territory" here is co
 
 ### Inbound leads are auto-assigned to the nearest branch by driving distance
 
-When a lead comes in, the platform measures the driving distance from each of the workspace's branches (those that have a base address) to the lead's address, and assigns the lead to the closest one.
+When a lead comes into a workspace with **more than one branch**, the platform measures the driving distance from each branch (those that have a base address) to the lead's address and assigns the lead to the closest one. A workspace with a **single branch** skips the distance check — every automated lead that has an address goes to that one branch.
 
 ### A lead with no address is created without a branch
 
-If a lead has no address, branch matching is skipped and the lead is still created — just without a branch. Likewise, if no branch can be matched by distance, the lead proceeds without a branch rather than failing.
+If a lead has no address, branch matching is skipped and the lead is still created — just without a branch. In a multi-branch workspace, the same goes for an address too vague to locate, such as a street with no city and no ZIP: the lead is created without a branch rather than routed to a guess. Likewise, if no branch can be matched by distance, the lead proceeds without a branch rather than failing. (A single-branch workspace assigns its one branch even when the lead's address is too vague to place.)
 
 ### A branch needs a base address to be a routing candidate
 
-Only branches that have a base address are considered when matching. A branch with no base address set can never be the matched branch. Set a branch's base address under its configuration so it can receive routed leads.
+When a workspace has more than one branch, only branches that have a base address are considered when matching, and a branch with no base address set can never be the matched branch. Set a branch's base address under its configuration so it can receive routed leads. The exception is a workspace with a single branch, which receives every automated lead with an address whether or not the branch has a base address.
 
 ### Driving distance shown on a property
 
-Driving distance is measured in miles from the branch's base address to the property. When either address is missing, the distance reads as unavailable. On a property's details, the distance and directions link only appear when there is a valid distance and both the branch and property addresses are present.
+Driving distance is measured in miles from the branch's base address to the property. On a project's property details, the directions link appears whenever both the branch and property addresses are present — it is a shortcut to directions, not gated on the mileage. When the driving distance can be worked out, the link is captioned with it (for example, "12 miles from branch"); when it can't, the link still appears and reads "Directions from branch" instead.
 
 ### Map and directions links use the address text
 
@@ -91,9 +95,10 @@ Driving distance is measured in miles from the branch's base address to the prop
 - **What carries coordinates:** properties, leads, and branch base addresses — resolved from the address on save, re-resolved only when the address changes.
 - **Minimum to locate an address:** at least a city or a ZIP. Lookups are United States only.
 - **A failed lookup never blocks a save** and never overwrites existing coordinates.
+- **A property missing coordinates can also get them** when an estimate for it is priced, if the address resolves to a single precise location and still matches the property.
 - **Sales tax:** chosen in the tax selector, not decided by the address. Only a TaxJar rate is looked up from the property address, and it needs at least a ZIP code.
-- **Lead routing:** nearest branch by driving distance — not by ZIP. A lead with no address, or no matchable branch, is still created without a branch.
-- **Branch must have a base address** to be a routing candidate or to show a driving distance.
+- **Lead routing:** in a multi-branch workspace, the nearest branch by driving distance — not by ZIP. A lead with no address, a too-vague address, or no matchable branch is still created without a branch. A single-branch workspace assigns its one branch to every automated lead that has an address.
+- **Branch must have a base address** to be a routing candidate (in a multi-branch workspace) or to show a driving distance.
 
 ## Related references
 

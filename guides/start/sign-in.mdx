@@ -1,11 +1,11 @@
 ---
 title: "Sign in"
-description: "Sign in to Menaia with a one-time code from your email, your Google account, or a password — pick a workspace if you belong to more than one, and get back in if you forget your password."
+description: "Sign in to Menaia with your email and password, your Google account, or a one-time code emailed to you — pick a workspace if you belong to more than one, and get back in if you forget your password."
 icon: "right-to-bracket"
-keywords: ["sign in", "log in", "login", "one-time code", "email code", "6-digit code", "code didn't arrive", "continue with google", "use a password instead", "forgot password", "reset password", "reset link expired", "select organization", "switch workspace", "sign out", "account not registered", "account blocked", "link invalid"]
+keywords: ["sign in", "log in", "login", "password", "continue with google", "one-time code", "email code", "6-digit code", "code didn't arrive", "email me a one-time code instead", "use a password instead", "forgot password", "reset password", "reset link expired", "select organization", "switch workspace", "sign out", "no workspace found", "account blocked", "link invalid"]
 ---
 
-You don't need a password to use Menaia. By default you sign in with a one-time code that Menaia emails you. You can also continue with Google, or use a password if you've set one.
+The **Sign in** page opens with your email and password, and a **Continue with Google** button at the top. Don't have a password? You can switch to a one-time code that Menaia emails you instead — no password needed.
 
 <Frame caption="Video: How to Sign In to Menaia (1:02)">
   <iframe
@@ -19,11 +19,35 @@ You don't need a password to use Menaia. By default you sign in with a one-time 
   ></iframe>
 </Frame>
 
-## Sign in with an email code
+## Sign in with a password
+
+The **Sign in** page opens on the password form, titled "Sign in to your team's Menaia workspace."
 
 <Steps>
-  <Step title="Open the sign-in page">
-    The **Sign in** page says "We'll email you a one-time code — no password needed."
+  <Step title="Enter your email and password">
+    Fill in **Email** and **Password**, then press **Sign in**.
+  </Step>
+</Steps>
+
+If you belong to one workspace, it opens right away. If you belong to more than one, you choose one first (see [Pick a workspace](#pick-a-workspace)).
+
+Forgotten your password? See [Forgot your password?](#forgot-your-password). You can set or change your password yourself on the **Security** tab of your profile. See [Your profile](/guides/start/your-profile#security).
+
+## Continue with Google
+
+Press **Continue with Google** at the top of the sign-in page and choose your Google account. The Google account's email has to match the email you were added to Menaia with.
+
+<Tip>
+Belong to more than one workspace? Sign in with an email code or your password. Those show you the workspace picker, so you can choose where to go.
+</Tip>
+
+## Sign in with an email code
+
+Prefer not to use a password? Menaia can email you a one-time code instead.
+
+<Steps>
+  <Step title="Switch to the email code form">
+    Below the password form, press **Email me a one-time code instead**. The form changes to "We'll email you a one-time code — no password needed."
   </Step>
   <Step title="Enter your work email">
     Type the email your administrator added you with in **Work email**, then press **Email me a code**.
@@ -40,30 +64,7 @@ On the **Check your email** screen you can also:
 - Press **Resend code** to get a new code. You'll see "We sent you a fresh code."
 - Press **Use a different email** to go back and fix a typo.
 
-## Continue with Google
-
-Press **Continue with Google** at the top of the sign-in page and choose your Google account. The Google account's email has to match the email you were added to Menaia with.
-
-<Tip>
-Belong to more than one workspace? Sign in with an email code or your password. Those show you the workspace picker, so you can choose where to go.
-</Tip>
-
-## Sign in with a password
-
-If you've set a password, you can use it instead of a code.
-
-<Steps>
-  <Step title="Switch to password sign-in">
-    Below the code form, press **Use a password instead**.
-  </Step>
-  <Step title="Enter your email and password">
-    Fill in **Email** and **Password**, then press **Sign in**.
-  </Step>
-</Steps>
-
-To go back to codes, press **Email me a one-time code instead**.
-
-You can set or change your password yourself on the **Security** tab of your profile. See [Your profile](/guides/start/your-profile#security).
+To go back to the password form, press **Use a password instead**.
 
 ## Pick a workspace
 
@@ -144,8 +145,8 @@ If the code email doesn't show up, check your spam or junk folder. Make sure you
 
 | What you see | What it means |
 | --- | --- |
-| "This account is not registered in the application. Contact your administrator." | You signed in, but your email isn't part of any Menaia workspace. Ask an Admin to add you. |
-| "This account has been blocked. Contact your administrator." | An Admin blocked your account. Only an Admin can unblock it. See [Block or unblock a user](/guides/settings/users#block-or-unblock-a-user). |
+| "We couldn't find a Menaia workspace for that email. If your team already uses Menaia, ask your admin to invite you." | You signed in, but your email isn't part of any Menaia workspace. Ask an Admin to add you. Signing in never creates a new workspace — only **Start free** does (see [Create your workspace](/guides/start/create-your-workspace)). |
+| "This account has been blocked. Contact your administrator." | An Admin blocked your account. You'll see this message however you try to get in — with an email code, with a password, or by opening a password reset link — not a "link expired" or generic sign-in error. Only an Admin can unblock it. See [Block or unblock a user](/guides/settings/users#block-or-unblock-a-user). |
 | "You do not have access to any branches, please contact your administrator." | Your account isn't assigned to a branch. An Admin needs to add you to one. |
 | "You do not have access to any organizations, please contact your administrator." | Your account isn't part of any workspace. An Admin needs to add you. |
 

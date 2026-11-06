@@ -2,7 +2,7 @@
 title: "Review calls and voicemails"
 description: "Find past calls in the Communications inbox, call back missed callers, listen to voicemails, and link calls to the right lead, client, or project."
 icon: "list"
-keywords: ["call history", "past calls", "missed calls", "call back", "voicemail", "voicemail transcript", "link a call to a lead", "link call to project", "recent calls", "who called", "blocked call", "transferred call"]
+keywords: ["call history", "past calls", "missed calls", "call back", "voicemail", "voicemail transcript", "link a call to a lead", "link call to project", "recent calls", "who called", "blocked call", "transferred call", "call recording", "listen to a call", "play a recording", "ai receptionist", "missed call notification"]
 ---
 
 Every call to or from your business numbers is kept in Menaia, in the conversation with the person you talked to. This guide shows you how to find past calls, follow up on missed ones, and connect calls to the lead, client, or project they're about.
@@ -32,10 +32,15 @@ Each call shows as an entry in the conversation:
 | **Missed call** | This person called and nobody answered. Has a **Call back** button. |
 | **Blocked call** | The number is on your blocked list, so the call didn't ring. See [Blocked numbers](/guides/settings/communications#blocked-numbers). |
 | **Transferred to** | The call was transferred to a teammate. |
+| **AI receptionist answered** | The [AI receptionist](/guides/settings/communications#ai-receptionist) took the call. The entry shows a tag for what it did (**Message taken**, **Lead captured**, **Transferred**, **Booked**, or **No action**), a short summary, and **View transcript**, which opens the full back-and-forth between the caller and the receptionist. |
+
+If your workspace records calls and you have access to a line's recordings, a completed call shows a player so you can listen to the recording right in the conversation. See [who can hear recordings](/guides/settings/communications#people).
 
 ## Follow up on missed calls
 
 Click **Call back** on a missed call to call the person straight away. See [Make and take calls](/guides/calls/use-the-dialer).
+
+When a call to one of your lines goes unanswered, everyone on that line who can take calls is notified — in Menaia's notification feed and, on the Menaia mobile app, as a **Missed call** push with a **Call back** action. Menaia waits a short moment first: if the caller leaves a voicemail or the AI receptionist takes a message, you're told about that instead of the missed call.
 
 Depending on your workspace's settings, a missed caller may also:
 
@@ -46,7 +51,7 @@ Depending on your workspace's settings, a missed caller may also:
 
 A voicemail shows in the caller's conversation with a **Play** button, its length, a **Call back** button, and the **AI TRANSCRIPT** once it's ready. While the transcript is still being prepared, you'll see "Transcribing…".
 
-To see every voicemail in one place, open the **Voicemails** tab. Unheard voicemails are bold with a dot, and the first time anyone plays one, it's marked heard for everyone. You can also delete voicemails from there. See [Voicemails](/guides/calls/inbox#voicemails).
+To see every voicemail in one place, open the **Voicemails** tab. Unheard voicemails are bold with a dot, and the first time anyone plays one, it's marked heard for everyone. Managers can also delete voicemails from there (deleting one loses it for everyone). See [Voicemails](/guides/calls/inbox#voicemails).
 
 ## Link a call to a lead, client, or project
 
@@ -56,8 +61,8 @@ When a call comes in or goes out, Menaia connects it to the contact with that ph
   <Step title="Open the conversation">
     Open the conversation with the call. If you're linking a voicemail's call, open the voicemail from the **Voicemails** tab.
   </Step>
-  <Step title="Open Call options">
-    Click **More actions** (the three dots) in the header, then click **Call options**. The menu applies to the most recent call in the conversation.
+  <Step title="Open More actions">
+    Click **More actions** (the three dots) in the header. The link options apply to the most recent call in the conversation.
   </Step>
   <Step title="Pick where it belongs">
     Under **Link to existing**, choose a **Lead**, **Client**, or **Project**. Menaia lists the leads, clients, and projects whose contacts have this phone number. You'll see "Call linked".
@@ -86,6 +91,7 @@ If no calls are linked to the project yet, the card says "No calls yet."
 | Action | Who |
 | --- | --- |
 | See calls and voicemails, call back, link a call to an existing lead, client, or project | Every role except Crew Member |
+| Delete a voicemail | Admin, Ops Manager, Sales Admin, Client Coordinator |
 | Create a new lead from a call | Admin, Ops Manager, Sales Admin, Client Coordinator |
 
 ## What's next

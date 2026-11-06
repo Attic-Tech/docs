@@ -52,11 +52,13 @@ Folders are set up per branch, but a folder with the same name in several branch
 
 ### Starter and system folders
 
-Every new branch starts with the same set of folders: **Inspection**, **Existing Damage**, **HVAC**, **Roofing**, **Setup**, **Completion**, **Documents**, **All Media**, **Client Collection**, **Forms**, and **Competing Proposals**.
+Every new branch starts with the same set of folders: **Inspection**, **Existing Damage**, **Setup**, **Completion**, **Documents**, **All Media**, **Client Collection**, **Forms**, and **Competing Proposals**.
+
+Two more — **HVAC** and **Roofing** — only back the inspection report's roof and HVAC photo panels. They appear in the folders list only when your workspace uses inspection reports; without that feature, they stay hidden everywhere folders are listed. See [Feature availability](/reference/platform/feature-availability#inspection-report-step).
 
 Some of these are **system folders**. Menaia files media into them automatically, so they're locked in every branch:
 
-- **Inspection**, **HVAC**, **Roofing**, **All Media**, **Forms**, and **Competing Proposals** can't be renamed, deactivated, or deleted. Their row has no trash icon, and opening one shows the details read-only with the note "These folders are automatically added to every branch and can't be changed."
+- **Inspection**, **All Media**, **Forms**, and **Competing Proposals** — and **HVAC** and **Roofing** when they're shown — can't be renamed, deactivated, or deleted. Their row has no trash icon, and opening one shows the details read-only with the note "These folders are automatically added to every branch and can't be changed."
 - **Existing Damage**, **Setup**, **Completion**, **Documents**, and **Client Collection** are ordinary starter folders. You can rename, deactivate, or delete them like any folder you create.
 
 You can still share a system folder with customers using its **Client Portal** switch.
@@ -83,6 +85,8 @@ You can still share a system folder with customers using its **Client Portal** s
 
 A branch can't have two folders with the same name. If one of your branches already has a folder with that name, you'll see "A folder named … already exists in this branch." New folders aren't shared with customers until you turn on their **Client Portal** switch.
 
+When your workspace doesn't use inspection reports, **HVAC** and **Roofing** are hidden from the list but their names are still reserved — naming a new folder either of those shows "… is a reserved folder name.", so pick a different name.
+
 ## Edit a folder
 
 <Steps>
@@ -102,6 +106,8 @@ Keep in mind:
 - **Adding a branch** adds the folder to that branch's project galleries. If the folder is shared with customers, it's shared in the new branch too.
 - **Removing a branch** deletes the folder from that branch. Any files in it on that branch's projects move to **All Media**.
 
+If any [forms](/guides/settings/forms) are set to upload into this folder in a branch you're removing — or if you turn the folder off (see [Deactivate a folder](#deactivate-a-folder)) — you'll see a warning naming those forms before you save. Their uploads fall back to the branch's **Forms** folder. The warning doesn't stop you from saving.
+
 ## Deactivate a folder
 
 To retire a folder without losing track of what's in it, edit it, turn off **Is Active**, and save. The folder shows an **Inactive** badge. While it's inactive:
@@ -112,6 +118,8 @@ To retire a folder without losing track of what's in it, edit it, turn off **Is 
 
 Turn **Is Active** back on at any time to bring the folder and its files back into view. System folders can't be deactivated.
 
+If any [forms](/guides/settings/forms) upload into the folder, a warning names them before you save. While the folder is inactive, those forms' uploads go to the branch's **Forms** folder instead, and return to this folder once you reactivate it.
+
 ## Delete a folder
 
 <Steps>
@@ -119,7 +127,7 @@ Turn **Is Active** back on at any time to bring the folder and its files back in
     Click the **trash** icon on the folder's row. System folders don't offer this option.
   </Step>
   <Step title="Confirm">
-    The **Are you sure you want to delete this folder?** window warns that all images in the folder will be moved to the **All Media** folder. Click **Yes, delete**.
+    The **Are you sure you want to delete this folder?** window warns that all images in the folder will be moved to the **All Media** folder. If any [forms](/guides/settings/forms) upload into the folder, it also names them — their uploads will go to the branch's **Forms** folder instead. Click **Yes, delete**.
   </Step>
 </Steps>
 
