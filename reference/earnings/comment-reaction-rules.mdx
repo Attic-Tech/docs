@@ -10,7 +10,7 @@ The user-facing roles referenced below are: **Admin**, **Ops Manager**, **Sales 
 
 ## Where comments live
 
-Comments appear in two places today: on a **project's discussion** and on **group feed posts**. Reactions attach to any comment, no matter which of those two places it lives in.
+Comments appear in three places today: on a **project's discussion**, on a **lead's discussion** (the **Comments** tab of a lead summary), and on **group feed posts**. Reactions attach to any comment, no matter which of those places it lives in.
 
 ## Who can comment and react
 
@@ -56,6 +56,12 @@ A staff role having permission to comment is not enough on its own — you also 
   To comment or react on a project, you must belong to that project's branch. A project with no branch, or one outside your branches, returns "You do not have access to this project." A project that does not exist (or belongs to another workspace) returns a not-found error.
 </Card>
 
+### Lead comments require access to the lead
+
+<Card title="You must be able to open the lead">
+  To comment or react on a lead, you must be able to open that lead — the same access its summary page requires. **Admin, Ops Manager, Sales Admin, and Client Coordinator** can open a lead that has no branch or a branch they belong to; **Sales Member, Crew Leader, and Crew Member** have no lead access. A lead you can't open returns a not-found error, as does one that doesn't exist or belongs to another workspace.
+</Card>
+
 ### Post comments require access to the group
 
 <Card title="You must be able to see the group">
@@ -63,7 +69,7 @@ A staff role having permission to comment is not enough on its own — you also 
 </Card>
 
 <Note>
-  This access check runs on every comment and reaction action — posting, editing, deleting, listing comments, listing replies, toggling a reaction, and viewing reaction summaries or who-reacted lists. If you lose access to a project's branch or to a group, you also lose the ability to react and to read its comments.
+  This access check runs on every comment and reaction action — posting, editing, deleting, listing comments, listing replies, toggling a reaction, and viewing reaction summaries or who-reacted lists. If you lose access to a project's branch, to a lead, or to a group, you also lose the ability to react and to read its comments.
 </Note>
 
 ## Reactions
@@ -95,7 +101,7 @@ These limits apply when you post a comment and when you edit one.
 </Card>
 
 <Card title="GIFs are only allowed on group posts">
-  You can add a GIF to a group feed post comment, but not to a project comment. A GIF on a project comment is rejected with "GIFs are not allowed on project comments."
+  You can add a GIF to a group feed post comment, but not to a project or lead comment. A GIF on one of those is rejected — for example "GIFs are not allowed on project comments" or "GIFs are not allowed on lead comments."
 </Card>
 
 <Card title="GIFs must come from a supported source">
@@ -129,13 +135,13 @@ These limits apply when you post a comment and when you edit one.
 ### A reply stays with its parent
 
 <Card title="Replies match their parent">
-  A reply has to belong to the same project or post as the comment it answers. A mismatch is rejected with "Reply entity does not match the parent comment."
+  A reply has to belong to the same project, lead, or post as the comment it answers. A mismatch is rejected with "Reply entity does not match the parent comment."
 </Card>
 
 ### Marking a win is a group-post feature
 
 <Card title="Posting a win is group-posts only">
-  Tagging a comment as a posted win is only supported on group feed posts, not on project comments.
+  Tagging a comment as a posted win is only supported on group feed posts, not on project or lead comments.
 </Card>
 
 ## Notifications
@@ -146,6 +152,10 @@ These limits apply when you post a comment and when you edit one.
   When you mention someone in a comment, they get notified — except you don't notify yourself by mentioning yourself. When you edit a comment, only people you newly added are notified; people who were already mentioned aren't notified again.
 </Card>
 
+<Note>
+  On a **lead**, mentioning someone who can't open the lead won't notify them — the notification is withheld because they couldn't reach the lead it links to. (On a project, mentions notify everyone you tag who belongs to your organization.)
+</Note>
+
 ### Replies notify the parent author
 
 <Card title="The original author is notified of a reply">
@@ -154,7 +164,7 @@ These limits apply when you post a comment and when you edit one.
 
 ## Meni in comments
 
-Meni is Menaia's built-in AI assistant. When this feature is turned on for your workspace, anyone who can comment can ask Meni a question inside a thread — on a project discussion or a group feed post — and Meni posts its answer back into that same thread.
+Meni is Menaia's built-in AI assistant. When this feature is turned on for your workspace, anyone who can comment can ask Meni a question inside a thread — on a project discussion, a lead discussion, or a group feed post — and Meni posts its answer back into that same thread.
 
 ### Mentioning Meni asks it a question
 
@@ -171,7 +181,7 @@ Meni is Menaia's built-in AI assistant. When this feature is turned on for your 
 ### Meni's answer is a public comment
 
 <Card title="Everyone in the thread can read it">
-  Meni's reply is a normal comment that everyone with access to the project or post can read. Meni answers only the question in the comment that mentioned it, and treats earlier comments in the thread as background — it will not follow an instruction buried in an earlier comment.
+  Meni's reply is a normal comment that everyone with access to the project, lead, or post can read. Meni answers only the question in the comment that mentioned it, and treats earlier comments in the thread as background — it will not follow an instruction buried in an earlier comment.
 </Card>
 
 ### Meni's answers can't be edited
@@ -200,7 +210,7 @@ Meni is Menaia's built-in AI assistant. When this feature is turned on for your 
 - **Meni's answers:** no one can edit them; the person who asked (or an Admin) can delete them. Ask Meni by mentioning **@Meni** in a comment; up to three answers per person can be in progress at once.
 - **GIFs:** group feed posts only, from a supported provider, over a secure connection.
 - **Limits:** at most 25 mentions, 10,000 characters, 8 attachments, and a fixed set of eight reaction emoji.
-- **Replies:** one level deep, and must stay with their parent project or post.
+- **Replies:** one level deep, and must stay with their parent project, lead, or post.
 
 ## Related references
 
