@@ -334,11 +334,22 @@ If the authorization screen shows one of these messages instead, close the windo
 | Trigger | Starts when |
 | --- | --- |
 | **New Lead** | A new lead is created. |
-| **Updated Lead** | A lead is updated. |
+| **Updated Lead** | A lead is updated. By default it runs on every change; you can narrow it to the fields you care about — see [Run the Updated Lead trigger only on the fields you choose](#run-the-updated-lead-trigger-only-on-the-fields-you-choose) below. |
 | **New Client** | A new client is created. |
 | **New Outbound Message** | A teammate replies in a **Communications** inbox conversation that came from another platform (such as Yelp or Angi), so a Zap can send the reply back to that platform. When the Thumbtack integration is connected, replies on Thumbtack conversations go through it instead. |
+| **Lead Activity Scheduled** | A lead activity (site visit) is published to the schedule. It carries the appointment time, who it's assigned to, and the lead — including the lead's ad-click details. A draft that's never published doesn't start it. |
+
+<Note>
+The **Lead Activity Scheduled** trigger needs a connection that can see **every** lead activity in your organization — the whole-organization access an Admin has. A connection made by someone who only sees their own records (for example, a Sales Member) can't use it.
+</Note>
 
 Two more triggers report completed sales to your ad platforms — see [Send sales and payments to your ad platforms](#send-sales-and-payments-to-your-ad-platforms) below.
+
+#### Run the Updated Lead trigger only on the fields you choose
+
+The **Updated Lead** trigger runs on every change to a lead by default. Because each Zap run is a Zapier task, you can narrow it to just the fields you care about: on the trigger, set **Only When These Fields Change** and pick any of **Status**, **Lead Source**, **Branch**, **Confidence Level**, **Client Coordinator**, **Salesperson Referrer**, **Primary Contact**, **Secondary Contacts**, **Referral Contact**, **Tags**, **Address**, or **Notes**. The Zap then runs only when at least one of the fields you picked changes. Leave the option empty to keep running on every change.
+
+Every **Updated Lead** run also includes a **Changed Fields** list naming which of those fields changed, so a later step can branch on it.
 
 **Actions** do something in Menaia:
 
