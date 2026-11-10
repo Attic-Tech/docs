@@ -1,10 +1,12 @@
 ---
 title: "Project expenses"
-description: "Log the costs on a project — materials, subcontractors, dumpsters, and more — attach receipts, track each cost from Budgeted to Paid, and choose whether a cost comes out of the crew's bonus."
+description: "Log the costs on a project — materials, subcontractors, dumpsters, and more — attach receipts, track each cost from Budgeted to Paid, collect and sign subcontractor bids, charge receipts against them, and choose whether a cost comes out of the crew's bonus."
 icon: "receipt"
 ---
 
-The **Expenses** tab on a project is where you record what the job costs you. Each expense has a type, an amount, and a status, and you can attach receipts, link the subcontractor you paid, and decide whether the cost should reduce the crew's bonus. The tab keeps a running total, and your expenses feed the project's **Financial Summary**.
+The **Expenses** tab on a project is where you record what the job costs you. Each expense has a type, an amount, and a status, and you can attach receipts, tie the cost to a subcontractor, and decide whether it should reduce the crew's bonus. The tab keeps a running total, and your expenses feed the project's **Financial Summary**.
+
+The same tab also holds your **Bids** — the prices you collect from subcontractors. Once a bid is signed, you can charge receipts against it instead of adding fresh cost to the project. See [Subcontractor bids](#subcontractor-bids).
 
 <Note>
 Every role except **Crew Member** can view, add, edit, and delete project expenses. If you don't see an **Expenses** tab on a project, expenses aren't turned on for your workspace — see [Feature availability](/reference/platform/feature-availability#project-expenses).
@@ -29,7 +31,7 @@ Every role except **Crew Member** can view, add, edit, and delete project expens
     Open the project from the client, the same way you'd open any project.
   </Step>
   <Step title="Click Expenses">
-    Select the **Expenses** tab. You'll see **Expense Management** with every expense logged on the project, or "No expenses for this project" if nothing has been added yet.
+    Select the **Expenses** tab. You'll see **Expense Management** with every expense logged on the project, or "No expenses for this project" if nothing has been added yet. If you can view bids, an **Expenses** / **Bids** switch appears at the top of the tab — see [Subcontractor bids](#subcontractor-bids).
   </Step>
 </Steps>
 
@@ -37,22 +39,28 @@ Every role except **Crew Member** can view, add, edit, and delete project expens
 
 <Steps>
   <Step title="Start a new expense">
-    Click **+ Add Expense**. The **Add Expense** window opens.
+    Click **+ Add Expense**. Menaia first asks **What is this expense for?** and offers three cards:
+
+    - **Project expense** — a cost the company carries, with no subcontractor attached.
+    - **Subcontractor, no bid** — a sub you hired for this one job, without a signed bid behind it.
+    - **Subcontractor bid** — charge the receipt against a subcontractor's signed bid. This card is only available when the project has a signed bid and you have permission to manage bids; otherwise it's greyed out with a one-line reason. See [Charge an expense to a bid](#charge-an-expense-to-a-bid).
+
+    Pick a card and the **Add Expense** window opens. You can reopen this question with **Back** in the window's footer.
   </Step>
   <Step title="Pick the expense type">
     In **Expense Type**, choose the category that fits the cost. Start typing to search the list. If the type you need doesn't exist yet, you can create it right here — see [Create an expense type as you go](#create-an-expense-type-as-you-go).
   </Step>
-  <Step title="Link a subcontractor (optional)">
-    If the cost was paid to a subcontractor, pick them in **Subcontractor**. Leave it on **No subcontractor** otherwise.
+  <Step title="Pick the subcontractor (Subcontractor, no bid only)">
+    On the **Subcontractor, no bid** path, choose who you paid in **Subcontractor**. On the other two paths there's nothing to pick — a project expense has no sub, and a bid already names one.
   </Step>
   <Step title="Enter the amount and status">
-    Type the **Amount**, then set the **Status** to **Budgeted**, **Confirmed**, or **Paid**.
+    Type the **Amount**, then set the **Status** to **Budgeted**, **Confirmed**, or **Paid**. (**Cancelled** is reached later, from an existing expense — see [Cancel an expense](#cancel-an-expense).)
   </Step>
   <Step title="Add a note and attachments (optional)">
     Use **Note** for any detail worth keeping, and drop receipts or documents into **Attachments**.
   </Step>
   <Step title="Decide whether it affects bonuses">
-    Check **Affect Bonuses** only if this cost should come out of the crew's bonus for the job. See [How expenses affect crew bonuses](#how-expenses-affect-crew-bonuses) before you turn this on.
+    Check **Affect Bonuses** only if this cost should come out of the crew's bonus for the job. See [How expenses affect crew bonuses](#how-expenses-affect-crew-bonuses) before you turn this on. This option isn't shown when you're charging the receipt to a bid — a bid expense settles a commitment that already exists, so it never feeds the bonus deduction.
   </Step>
   <Step title="Save it">
     Click **Add Expense**. The expense appears in the table and the total updates.
@@ -64,9 +72,9 @@ Every role except **Crew Member** can view, add, edit, and delete project expens
 | Field | What it's for |
 | --- | --- |
 | **Expense Type** (required) | The category of cost. Only active expense types are offered. |
-| **Subcontractor** | The subcontractor the expense was paid to. The list shows active subcontractors on your branch, and you can clear it to remove the link. |
+| **Subcontractor** | Shown only on the **Subcontractor, no bid** path: the subcontractor the expense was paid to. The list shows active subcontractors on your branch, and you can clear it to remove the link. |
 | **Amount** (required) | What the cost was, or is expected to be. It must be greater than zero. |
-| **Status** (required) | Where the cost stands: **Budgeted**, **Confirmed**, or **Paid**. New expenses start as **Budgeted**. |
+| **Status** (required) | Where the cost stands: **Budgeted**, **Confirmed**, or **Paid**. New expenses start as **Budgeted**. **Cancelled** is set later on an existing expense — see [Cancel an expense](#cancel-an-expense). |
 | **Note** | An optional note about the expense. It shows as **Description** in the table. |
 | **Affect Bonuses** | When checked, the cost reduces the bonus payouts tied to this job. |
 | **Portion applied to bonuses** | Appears once **Affect Bonuses** is checked. Choose **25%**, **50%**, **75%**, or **100%** of the amount to apply. It starts at **100%**. |
@@ -103,7 +111,7 @@ In the table, click **View Attachment** on a row to open that expense's files in
 Each row in the table is one expense. The columns are:
 
 - **Expense Type**
-- **Subcontractor** — shows a dash when none is linked.
+- **Subcontractor** — the sub this cost belongs to, or a dash when none. For a receipt charged to a bid, this shows the bid's subcontractor.
 - **Amount**
 - **Description** — the note you added.
 - **Created By** — who logged it, with the date.
@@ -111,14 +119,16 @@ Each row in the table is one expense. The columns are:
 - **Attachments** — a **View Attachment** link, or a dash when there are none.
 - **Status**
 
-The footer shows **Total Expenses**, the sum of every expense on the project whatever its status. On a phone, each expense shows as a card with the same details.
+The footer shows **Total Expenses**, the sum of every expense on the project except cancelled ones. When some receipts are charged to bids, the footer also splits that total into **Charged to bids** and **Company pays**, so a receipt charged to a bid isn't double-counted as fresh project cost. On a phone, each expense shows as a card with the same details.
+
+A **Cancelled** expense stays in the table for the record but is dimmed, with its amount struck through, and counts for nothing — see [Cancel an expense](#cancel-an-expense).
 
 ## Change an expense's status
 
-You can update a status without opening the expense. Click the status in the row and pick **Budgeted**, **Confirmed**, or **Paid**. The change saves right away, and you'll see "Status updated successfully."
+You can update a status without opening the expense. Click the status in the row and pick **Budgeted**, **Confirmed**, **Paid**, or **Cancelled**. The change saves right away, and you'll see "Status updated successfully."
 
 <Note>
-Status matters for your numbers. The project's **Financial Summary** counts every expense in its **Expenses** card, but **Gross Profit** only subtracts expenses marked **Paid**.
+Status matters for your numbers. The project's **Financial Summary** counts every expense that isn't cancelled in its **Expenses** card, but **Gross Profit** only subtracts expenses marked **Paid**.
 </Note>
 
 ## Edit an expense
@@ -128,7 +138,7 @@ Status matters for your numbers. The project's **Financial Summary** counts ever
     Click the **pencil** icon on the expense's row. The **Edit Expense** window opens with the current details.
   </Step>
   <Step title="Make your changes">
-    Change any field, add or remove attachments, or clear the subcontractor.
+    Change any field, or add and remove attachments. At the top of the window, a line names what the expense is charged to — **Project expense**, **Subcontractor, no bid**, or **Subcontractor bid** — with a **Change** link that reopens the **What is this expense for?** chooser, so you can move the receipt between the company, a plain sub, and a signed bid.
   </Step>
   <Step title="Save">
     Click **Save Changes**.
@@ -138,6 +148,19 @@ Status matters for your numbers. The project's **Financial Summary** counts ever
 <Tip>
 If an expense type has been deactivated since the expense was logged, the expense keeps it — you can still edit other details. You just can't switch another expense to that type.
 </Tip>
+
+## Cancel an expense
+
+Cancelling keeps the expense on record but takes it out of every total — the opposite of deleting, which removes it entirely. Set an expense's **Status** to **Cancelled**, either from the status control on its row or in the **Edit Expense** window.
+
+A cancelled expense:
+
+- stays in the table, dimmed and with its amount struck through, so the history is intact;
+- drops out of **Total Expenses**, the project's **Financial Summary**, and any crew-bonus deduction it was making;
+- stops counting against any subcontractor bid it was charged to; and
+- leaves QuickBooks if it was synced there — see [Expenses and QuickBooks](#expenses-and-quickbooks).
+
+While an expense is cancelled it's frozen: the window shows "This expense is cancelled. Change its status to edit anything else," and only the status can be changed. Switch it back to **Budgeted**, **Confirmed**, or **Paid** to edit the rest or to bring it back into your totals.
 
 ## Delete an expense
 
@@ -152,6 +175,95 @@ If an expense type has been deactivated since the expense was logged, the expens
 
 The expense disappears from the table and from the project total. If it was affecting bonuses, the crew's bonus is recalculated without it. See [Soft delete](/reference/platform/soft-delete) for what deleting does behind the scenes.
 
+## Subcontractor bids
+
+A **bid** is a price you collect from a subcontractor for one piece of work — a *scope* — on the project. Bids are the cost of record: you gather quotes from several subs for the same scope, sign the one you choose, and from then on charge receipts against that signed bid instead of adding fresh cost to the project. Bids share the project's **Expenses** tab — switch to **Bids** at the top of the tab.
+
+<Note>
+Viewing the **Bids** tab needs the expenses tab turned on plus permission to read bids. Adding and editing bids needs permission to manage bids — **Admin**, **Ops Manager**, and **Sales Admin** can; **Sales Member**, **Client Coordinator**, and **Crew Leader** can view them; **Crew Member** has no access. See the [permissions matrix](/reference/platform/permissions-roles-matrix#billing-and-expenses).
+</Note>
+
+### Read the bids list
+
+Bids are grouped by **scope**, so the competing quotes for one piece of work sit together under a heading. Each group shows how many bids it holds and whether any is signed. For every bid you see the subcontractor, a status badge, and three figures:
+
+- **Bid** — the agreed price. If extras have been charged on top of a signed bid, a smaller "+ extras" line shows underneath.
+- **Charged** — how much has been charged against the bid so far (shown only once the bid is signed).
+- **Remaining** — the price minus what's been charged. It turns red and goes negative when more has been charged than the bid was worth, meaning the sub owes the company back.
+
+The footer sums the signed bids only: **Committed (signed only)** and **Remaining on signed bids**.
+
+### Add a bid
+
+<Steps>
+  <Step title="Start a new bid">
+    On the **Bids** tab, click **+ Add Bid**. The **Add Bid** window opens.
+  </Step>
+  <Step title="Fill in the details">
+    Pick the **Subcontractor**, choose or type a **Scope**, enter the **Bid Amount**, set the **Status**, and add **Notes** if you like. New bids start at **Bid received**.
+  </Step>
+  <Step title="Save">
+    Click **Add Bid**. To attach the sub's written quote or the signed subcontract, open the bid again with **Edit** and add files under **Documents**.
+  </Step>
+</Steps>
+
+<Tip>
+Pick an existing **Scope** from the list rather than retyping it. Scope groups the competing bids together, so "Deck framing" typed two slightly different ways would split one job into two.
+</Tip>
+
+### Bid statuses
+
+A bid moves through these statuses:
+
+| Status | What it means |
+| --- | --- |
+| **Draft** | A placeholder you're still putting together. |
+| **Sent to sub** | You've asked the sub for a price. |
+| **Bid received** | The sub has given you a number. New bids start here. |
+| **Signed** | The price is agreed and committed. **Only a signed bid can have expenses charged to it.** |
+| **Not awarded** | You went with someone else for this scope. |
+| **Sub declined** | The sub pulled out. |
+| **Cancelled** | The bid is off. |
+
+Bids are closed by setting one of the last three statuses rather than deleted, so the history of who quoted what stays intact.
+
+### Signing is one bid per scope
+
+Only one bid can be **Signed** for a given scope — a project commits to one price for one piece of work. If you sign a bid for a scope another signed bid already holds, Menaia warns **"Another bid holds this scope"** and names the current holder:
+
+- **Sign this bid** moves the other bid to **Not awarded** and signs this one.
+- **Keep the current one** leaves things as they are.
+
+You can't displace a signed bid that already has expenses charged to it — move or remove those charges first.
+
+## Charge an expense to a bid
+
+Once a bid is **Signed**, a receipt can come off it instead of adding to project cost. When you click **+ Add Expense** and choose **Subcontractor bid**:
+
+<Steps>
+  <Step title="Pick the bid">
+    If the project has more than one signed bid, Menaia asks **Which bid?** and lists each one with its contract value and what's still owed. With exactly one signed bid, this step is skipped.
+  </Step>
+  <Step title="Fill in the expense">
+    Enter the expense type, amount, status, and so on as usual. The subcontractor isn't asked — the bid already names them.
+  </Step>
+  <Step title="Say how it affects the bid">
+    Under **How does this affect the bid?**, choose:
+
+    - **Comes off the bid** — you paid something the sub owes, so he gets paid less. By default the whole receipt comes off the bid; use **Only part of it comes off the bid** to split it, and the company absorbs the rest.
+    - **Extra on top** — work beyond his price, so he gets paid more. The full amount is added to what he's owed.
+
+    A line underneath previews what the sub will be owed after this charge.
+  </Step>
+  <Step title="Save">
+    Click **Add Expense**. The receipt shows under the bid's **Charged** total and in the expenses table, where the footer splits **Charged to bids** from **Company pays**.
+  </Step>
+</Steps>
+
+<Note>
+A deduction larger than what's left on the bid is still allowed — Menaia warns that the sub would owe the company the difference, and the bid's **Remaining** goes negative. To move a receipt off a bid later, open it, use **Change** at the top of the window, and pick a different target.
+</Note>
+
 ## How expenses affect crew bonuses
 
 Crew bonuses come from finishing a job in fewer hours than the estimate allowed. The hours saved create a bonus pool for the job, and the pool is split among the crew by the hours each person worked. Your crew can follow their share in their [Wallet](/guides/earnings/wallet).
@@ -160,11 +272,11 @@ When you check **Affect Bonuses**, the expense comes out of that pool before it'
 
 - **The amount taken out** is the expense amount times the portion you chose. A $400 expense at **50%** takes $200 out of the pool.
 - **Everyone shares the cost** in proportion to their hours, just as they share the bonus.
-- **Every status counts.** A bonus-affecting expense reduces the pool whether it's **Budgeted**, **Confirmed**, or **Paid**.
+- **Budgeted, Confirmed, and Paid all count.** A bonus-affecting expense reduces the pool in any of those statuses. Only **Cancelled** takes it back out, since a cancelled cost is money that never left.
 - **It applies to the project's most recently closed job.** If the project has several jobs, only the latest closed one is affected.
 - **A pool can go below zero.** If expenses are larger than the bonus the crew earned, their payout for the job becomes a deduction.
 
-The bonus is recalculated whenever a bonus-affecting expense is added, deleted, or has its amount or portion changed — and when you turn **Affect Bonuses** on or off. Crew members see the change in their **Wallet**.
+The bonus is recalculated whenever a bonus-affecting expense is added, deleted, cancelled or un-cancelled, or has its amount or portion changed — and when you turn **Affect Bonuses** on or off. Crew members see the change in their **Wallet**.
 
 <Warning>
 You can only turn on **Affect Bonuses** once the project has a closed job with its crew's hours recorded. Otherwise the expense won't save, and you'll see "Unable to save expense. No job exists to affect bonus payouts." or "Unable to save expense. Missing the information needed to apply a bonus impact." Leave the box unchecked for now and edit the expense once the job has closed.
@@ -178,10 +290,11 @@ Bonuses stop changing once a job is past the **Bonus Payout Cutoff (Days)** set 
 
 If your workspace has connected **QuickBooks** and turned on **Expense Sync**, Menaia sends your project expenses to QuickBooks for you:
 
-- **Adding or editing an expense** creates or updates a matching expense in QuickBooks. It's recorded against the project's client, paid from the account you chose in your sync settings, and categorized under an expense account named after the expense type.
-- **Status doesn't hold anything back.** Expenses sync whatever their status, including **Budgeted**.
-- **Deleting an expense** that has already synced also deletes it in QuickBooks.
-- **If no pay-from account is set**, nothing is sent and the expense shows a warning in the QuickBooks **Sync Log**. Choose the account in the expense sync settings, then edit the expense to try again.
+- **Only Paid expenses reach QuickBooks.** A sync records money that has actually left the bank, so a **Budgeted** or **Confirmed** expense stays in Menaia and nothing is sent yet.
+- **Marking an expense Paid** creates or updates a matching expense in QuickBooks. It's recorded against the project's client, paid from the account you chose on the expense (or your default sync account), and categorized under an expense account named after the expense type.
+- **Moving an expense off Paid** — back to **Budgeted** or **Confirmed**, or to **Cancelled** — removes it from QuickBooks again. The **Sync Log** notes why ("Removed from QuickBooks because this expense is no longer Paid in Menaia. It goes back when it is marked Paid again," or, for a cancellation, "Removed from QuickBooks because this expense was cancelled in Menaia"). Mark it **Paid** again and a fresh entry is created.
+- **Deleting a Paid expense** that has already synced also deletes it in QuickBooks.
+- **If no pay-from account is set**, nothing is sent and the expense shows a warning in the QuickBooks **Sync Log**. Choose the account on the expense or in the expense sync settings, then edit the expense to try again.
 
 To turn expense sync on or off, or change the account expenses are paid from, see [Integrations](/guides/settings/integrations#quickbooks).
 

@@ -30,7 +30,7 @@ The Financial Summary tab is for **Admins**, the same as the rest of billing. If
 | **Collected** | How much of the project's invoices has been paid down, meaning payments and credits applied, less any refunds. |
 | **Due** | The balance still owed on invoices that are **Open** or **Partially Paid**. |
 | **Overdue** | The part of **Due** that sits on invoices past their due date. An invoice counts as overdue once its due date has passed, going by today's date in your branch's time zone. |
-| **Expenses** | The total of every expense logged on the project, whatever its status. |
+| **Expenses** | The total of every expense logged on the project in any status except **Cancelled**. A cancelled expense stays on the project for the record but drops out of this total. |
 | **Gross Profit** | **Collected** minus the project's expenses marked **Paid**. Hover the info icon on the card for a reminder of how it's worked out. |
 
 <Note>
@@ -43,6 +43,7 @@ The **Expenses** and **Gross Profit** cards only appear when project expenses ar
 - **Voided invoices** don't count at all.
 - **Estimates that aren't Sold**, such as In Progress, Lost, Released, or Secondary Estimate, don't add to **Project Value**.
 - **Expenses that aren't Paid** still count toward **Expenses**, but they aren't subtracted in **Gross Profit** until you mark them Paid.
+- **Cancelled expenses** count toward neither **Expenses** nor **Gross Profit** — they're left out of both.
 
 <Tip>
 If **Not Invoiced** is higher than you expect, check whether the remaining invoice is still a draft. A draft doesn't count as invoiced until it's finalized.
