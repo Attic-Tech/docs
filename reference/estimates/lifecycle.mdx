@@ -2,7 +2,7 @@
 title: "Estimate lifecycle & statuses (reference)"
 description: "Every estimate status, the transitions between them, what each one triggers, and which fields lock when."
 icon: "arrows-spin"
-keywords: ["estimate status", "sold", "released", "lost", "secondary estimate", "deleted", "status transition", "first sold date", "effective sold date", "change sold date", "who can change status", "permissions", "one sold estimate per project", "only one estimate can be sold"]
+keywords: ["estimate status", "sold", "released", "lost", "secondary estimate", "deleted", "status transition", "first sold date", "effective sold date", "change sold date", "who can change status", "permissions", "one sold estimate per project", "only one estimate can be sold", "rename estimate", "change estimate name"]
 ---
 
 This page is the complete reference for an estimate's lifecycle: every status it can be in, how it moves between statuses, what each move triggers, and which fields lock when.
@@ -53,7 +53,7 @@ The table below shows the allowed moves between statuses, the condition for each
 
 ### Only In Progress is editable
 
-An estimate's pricing and scope can be edited only while it is In Progress. In every other status (except Deleted) those fields are read-only — the user must move the estimate back to In Progress first. Crew notes are the one exception (see below).
+An estimate's pricing and scope can be edited only while it is In Progress. In every other status (except Deleted) those fields are read-only — the user must move the estimate back to In Progress first. Crew notes and the estimate's name are the two exceptions (see below).
 
 If someone tries to edit an estimate that is no longer In Progress, the edit is rejected with a "this estimate is read-only" error. Anyone with permission to edit estimates can make edits while In Progress (Sales Member and above), provided they have access to the relevant branch — with one scope limit: a **Sales Member** (who sees only the clients they work on) can edit, send, and save only the estimates **they own**. Another salesperson's estimate — even one on a client they both work on — opens read-only for them; only its owner or a manager (a role that sees every client) can edit it, save it from the Calculator, or send its proposal.
 
@@ -128,6 +128,12 @@ The effective sold date is the date used for sales reporting. It starts out equa
 Crew notes are an annotation, not part of pricing or scope, so they can be updated in any status except Deleted — even when the estimate is otherwise read-only (such as Sold). This is the one exception to the "only In Progress is editable" rule. Crew notes are limited to 5,000 characters.
 
 Crew notes can be edited by Sales Member, Client Coordinator, Crew Leader, Ops Manager, Sales Admin, and Admin. Note that Crew Leader can edit crew notes even though they cannot otherwise edit estimates.
+
+### The name can be changed in any status except Deleted
+
+An estimate's name is a label, not part of its pricing or scope, so it can be renamed in any status except Deleted — even when the estimate is otherwise read-only (such as Sold, Released, or Lost). This is the second exception to the "only In Progress is editable" rule, alongside crew notes. Renaming is done in place from the Estimates list or a project's Estimates tab, without reopening the estimate; an empty or blank name is rejected.
+
+Renaming requires the ordinary permission to edit estimates (Sales Member and above — a Crew Leader, who can edit only crew notes, cannot rename) and follows the same owner-or-manager scope as every estimate edit: a Sales Member can rename only the estimates they own, while a manager can rename any. It is a labelling change only and never touches pricing, scope, or status.
 
 ### Each estimate keeps an immutable snapshot of its pricing
 
