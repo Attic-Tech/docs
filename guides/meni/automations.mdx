@@ -76,6 +76,10 @@ When the trigger happens, Meni looks into it using read-only access, then drafts
 Meni drafts, never sends. A playbook can't send an email, change a status, or create a record by itself — each draft needs your approval first.
 </Note>
 
+<Note>
+Meni won't draft outreach — a follow-up email or text — to a homeowner who has declined automated contact, and skips that lead when a playbook runs (the run summary notes it). The lead's contact shows a **No automated contact** badge. Consent like this comes from lead sources that capture it, such as [Angi](/guides/settings/integrations#homeowners-who-decline-automated-contact). If a homeowner withdraws consent after Meni drafts an email, approving that draft is refused too.
+</Note>
+
 ## Watch rules
 
 A watch rule is a standing "keep an eye on this and tell me when…" check. Create one by asking Meni in the chat panel, for example "Tell me when we have more than 10 overdue invoices" or "Watch for new leads that mention a roof leak."
