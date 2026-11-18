@@ -155,7 +155,9 @@ When an estimate moves from a non-sold status to Sold, the system evaluates whet
 
 ### Cap on open estimates
 
-When a new In Progress estimate is created, if the branch sets a maximum number of open estimates, creation is rejected once the user already has that many open. "Open" is counted as In Progress plus Released estimates for that user and branch. This applies to everyone creating estimates, regardless of role.
+When a new In Progress estimate is created, if a maximum number of open estimates applies, creation is rejected once the user already has that many open. "Open" is counted as In Progress plus Released estimates for that user and branch. This applies to everyone creating estimates, regardless of role.
+
+The limit used is the user's **personal** max open estimates when one has been set on their profile (by an Admin or Ops Manager); otherwise the branch's **Default Max Open Estimates** applies. A personal limit overrides the branch default for that person.
 
 ### Estimate history is tracked on update
 

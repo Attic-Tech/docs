@@ -93,9 +93,19 @@ Both **Roles** and **Branches** are required — every team member needs at leas
     Select **Edit** to open the **Edit User** window.
   </Step>
   <Step title="Update and save">
-    Change any of their details — name, email, phone, payroll ID, pay structure, roles, or branches — and add an optional **About** note. Click **Save Changes** when you're done. The **Save Changes** button stays disabled until you actually change something.
+    Change any of their details — name, email, phone, payroll ID, pay structure, roles, or branches — add an optional **About** note, and optionally set a personal **Max Open Estimates** limit (see below). Click **Save Changes** when you're done. The **Save Changes** button stays disabled until you actually change something.
   </Step>
 </Steps>
+
+### Set a personal open-estimates limit
+
+The **Edit User** window has a **Max Open Estimates** field that sets how many open estimates (not yet marked Sold or Lost) this one person can have at once. It overrides the branch's **Default Max Open Estimates** for that person.
+
+- Enter a whole number from **1 to 100,000** to give the person their own limit.
+- **Leave it blank** to use the branch default — the field shows "Branch limit" as a hint when no personal limit is set.
+- Only **Admins** and **Ops Managers** can set or change this limit.
+
+Once set, the personal limit is what's checked when that person tries to start a new estimate. Clearing it returns them to the branch default.
 
 ## Manage access and security
 
