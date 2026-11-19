@@ -1,6 +1,6 @@
 ---
 title: "View the schedule"
-description: "Open the Schedule, switch between Day, Week, and Month, group by people or jobs, jump to any date, and read what's on the calendar — all from one screen."
+description: "Open the Schedule, switch between Day, Week, and Month, choose a mode (User, Job, Phase, or Calendar), jump to any date, and read what's on the calendar — all from one screen."
 icon: "calendar"
 ---
 
@@ -29,9 +29,15 @@ You don't change anything just by looking. Switching views, grouping, or jumping
     Choose **Schedule** from the main navigation. The calendar opens to the current period with today already in view.
   </Step>
   <Step title="Get your bearings">
-    The controls live in a bar across the top. On the left you'll find **Today** and the date arrows; on the right you'll find the grouping and view menus and the **Filters** button. The calendar fills the rest of the screen.
+    The controls live in a bar across the top. On the left you'll find **Today** and the date arrows; on the right you'll find the **Mode** and **View** menus and the **Filters** button. The calendar fills the rest of the screen.
   </Step>
 </Steps>
+
+<Note>
+The Schedule remembers the view you pick. The next time you open it, it comes back the way you last left it — the same time span (**Day**, **Week**, or **Month**), the same **User** or **Job** grouping, and the same **Group** choice. Only the date starts fresh at today; what's remembered is the layout, not where you'd browsed to.
+
+This is kept just for you, and the web app and the mobile app remember separately, so each can open the way that suits it. A link that opens the Schedule to a particular view — for example one shared with you — still opens on that view rather than your remembered one.
+</Note>
 
 ## Choose how much you see: Day, Week, or Month
 
@@ -45,22 +51,20 @@ Use the view menu (the one showing **Day**, **Week**, or **Month**) on the right
 Start in **Week** for everyday work and drop into **Day** when a particular day looks packed.
 </Tip>
 
-## Group by people or by jobs
+## Choose a mode: User, Job, Phase, or Calendar
 
-Next to the view menu is a second menu that switches between **User** and **Job**.
+Next to the view menu is the **Mode** switcher, which changes how the calendar is organized. It offers **User**, **Job**, **Phase**, and **Calendar**.
 
-- **User** lays the calendar out one row per person, so you can see each team member's day. Active subcontractors get their own rows too, shown with a **Subcontractor** label under the name — so a job staffed only by a subcontractor still appears. A subcontractor's row holds jobs only, not tasks or time off. If you can see the whole team's schedule, an **Unassigned** row sits at the top, gathering jobs, tasks, and lead activities that have nobody assigned yet — handy for spotting work that still needs an owner. The Unassigned row never holds time off, which always belongs to someone.
+- **User** lays the calendar out one row per person, so you can see each team member's day. Active subcontractors get their own rows too, shown with a **Subcontractor** label under the name — so a job staffed only by a subcontractor still appears. A subcontractor's row holds jobs only, not tasks or time off. If you can see the whole team's schedule, an **Unassigned** row sits at the top, gathering jobs, tasks, and lead activities that have nobody assigned yet — handy for spotting work that still needs an owner. The Unassigned row never holds time off, which always belongs to someone. When the AI receptionist has booked visits nobody has taken yet, an **AI receptionist** row (marked with a sparkles icon) sits just below Unassigned, gathering the lead activities it booked. It holds those visits only — no jobs, tasks, or time off — and as soon as you assign one to someone it moves to that person's row. It too shows only if you can see the whole team's schedule.
 - **Job** groups events by the job they belong to, and shows the assigned people — including any subcontractors — as small avatars on each event, useful when you care more about "who's on this job" than "what is this person doing."
+- **Phase** builds on **Job**: in the **Day** and **Week** views it splits each job's shifts into a row per phase (for example *Prep*, *Install*, *Cleanup*), each phase in its own colour, so you can see how a multi-phase job is spread across the days. In the **Month** view, Phase lays out the same as Job.
+- **Calendar** draws the hours of the day down the left edge and places each event at its real start and end time, like a classic day or week calendar. It's available in the **Day** and **Week** views; in **Month**, the calendar falls back to the standard month layout.
 
 Pick whichever matches the question you're trying to answer.
 
 <Note>
 Someone who's been **blocked** still keeps a row while they have past work in view, so their history stays readable — their name shows marked **(blocked)**. That row is read-only: you can open its existing jobs, tasks, and time off, but you can't schedule anything new onto a blocked person.
 </Note>
-
-### Group job shifts by phase
-
-In **Job** grouping, on the **Day** and **Week** views, a third menu appears with **Group: None** and **Group: Phase**. Choose **Group: Phase** to lay each job's shifts out under their phase (for example *Prep*, *Install*, *Cleanup*), each phase in its own colour, so you can see how a multi-phase job is spread across the week. This menu isn't shown in the Month view or in **User** grouping.
 
 ## Move around in time
 
@@ -70,7 +74,7 @@ In **Job** grouping, on the **Day** and **Week** views, a third menu appears wit
 
 ## Read the calendar
 
-Everything on the calendar is a colored card. The color tells you the activity type, and the card itself shows the essentials — usually the client or title and the time range.
+Everything on the calendar is a colored card. The color tells you the activity type, and the card itself shows the essentials — usually the client or title and the time range. Exactly which other fields a card shows is set per branch by an admin (see [Choose what cards show](#choose-what-cards-show-admins)); the examples below describe the out-of-the-box fields.
 
 - **Jobs** show the client and job, plus assigned people (as avatars) in Job grouping.
 - **Lead Activities** show the lead's name. A green check means the customer has confirmed the visit, a flame icon marks a hot (high-priority) lead, and a shuffle icon marks a flexible client.
@@ -85,9 +89,17 @@ Select any card to open its details, where you can review or edit it.
 If nothing is scheduled for the range you're viewing, you'll see **Nothing scheduled** along with a **Create New** button so you can add something right away.
 </Note>
 
+## Choose what cards show (admins)
+
+The fields on each calendar card aren't fixed — an **Admin** can choose them for the whole branch. The gear icon (**Calendar settings**) next to **Filters** opens a panel where you pick, separately for **Jobs**, **Tasks**, and **Lead Activities**, which fields appear on their cards. The card's title is always shown and isn't one of the choices.
+
+For example, Job cards can show the phase and day, time, crew, crew lead, address, ZIP code, job name and number, shift notes, lead source, job status, or client phone; Task and Lead Activity cards have their own matching sets.
+
+Cards show the chosen fields in a fixed order and leave off the last ones when there isn't room on a small card — hover a card to see all of them. Leaving a type's fields empty shows just the title. Click **Save** to apply the change for everyone in the branch; these settings are per branch, so each branch can show different fields.
+
 ## Narrow it down with Filters
 
-When the calendar is crowded, the **Filters** button opens a panel where you can limit what shows. You can filter by **People** (team members and subcontractors together — plus an **Unassigned** option, if you can see the whole team's schedule, to show only work nobody is assigned to), **Clients**, **Role**, **Activity Types** (Jobs, Lead Activities, Tasks, Time-Off), and **Status** (Published or Unpublished). A number next to the **Filters** button tells you how many filters are currently on, and **Clear Filters** resets them.
+When the calendar is crowded, the **Filters** button opens a panel where you can limit what shows. You can filter by **People** (team members and subcontractors together — plus an **Unassigned** option, if you can see the whole team's schedule, to show only work nobody is assigned to, and an **AI receptionist** option, which appears once the AI receptionist has booked a visit, to show only the visits it booked that nobody has taken), **Clients**, **Role**, **Activity Types** (Jobs, Lead Activities, Tasks, Time-Off), and **Status** (Published or Unpublished). In the **Job** and **Phase** modes, a **Jobs** filter also appears, so you can narrow the calendar to specific jobs. A number next to the **Filters** button tells you how many filters are currently on, and **Clear Filters** resets them.
 
 If you find yourself setting the same filters again and again, you can save them as a reusable view.
 

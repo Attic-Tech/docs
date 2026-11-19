@@ -11,11 +11,12 @@ keywords: ["phone settings", "phone lines", "business phone number", "set up you
 Communications is part of Settings, which only **Admins** can open. To find it, open **Settings** from the main navigation and choose **Communications** under **General**. The page itself is headed **Phone**.
 </Note>
 
-The page has three parts, from top to bottom:
+The page has these parts, from top to bottom:
 
 1. **Add number** and **Port a number**: buttons to get a new number or bring one over from another carrier.
 2. **Shared numbers & access**: every number your workspace has, grouped by branch, including numbers still being ported in. Click a line to open its own settings.
 3. **Workspace call settings**: greeting, phone menu, business hours, voicemail, forwarding, ringing, recording, and after-hours handling. These apply to every call your workspace receives. On workspaces in the call flow beta, this part is just the **Blocked Numbers** list (see [Workspace call settings](#workspace-call-settings)).
+4. **Lead source on incoming calls**: a single card at the very bottom that decides whether a caller's lead source shows while the phone rings. It appears for every workspace (see [Lead source on incoming calls](#lead-source-on-incoming-calls)).
 
 Where your texting and caller ID stand with the phone carriers has its own page in Settings, the **Trust center**. See [Carrier registrations](#carrier-registrations).
 
@@ -192,7 +193,7 @@ Set **Opens** and **Closes** for each day, or tick **Closed**. Then click **Save
 
 ### Call flow and AI receptionist
 
-These two tabs appear only for workspaces in the call flow beta. **Call flow** opens a visual editor for routing calls on that line — its greeting, phone menu, ringing, voicemail, and after-hours handling. **AI receptionist** (marked **Beta**) sets up an AI that can answer the line's calls, take messages, qualify leads, and book estimates on the schedule. They're rolling out gradually, so if you don't see them they aren't turned on for your workspace yet.
+These two tabs appear only for workspaces in the call flow beta. **Call flow** opens a visual editor for routing calls on that line — its greeting, phone menu, ringing, voicemail, and after-hours handling. **AI receptionist** sets up an AI that can answer the line's calls, take messages, qualify leads, and book estimates on the schedule. They're rolling out gradually, so if you don't see them they aren't turned on for your workspace yet.
 
 ### Call handling
 
@@ -328,6 +329,17 @@ This card sets what happens when someone calls outside your business hours. Unde
 
 - **Send to voicemail**
 - **Play a message**, which plays the **After-hours message** you write and then ends the call.
+
+## Lead source on incoming calls
+
+At the very bottom of the Phone page, the **Lead source on incoming calls** card controls whether a caller's lead source is shown while the phone rings. This card appears for every workspace, including those in the call flow beta.
+
+Turn on **Show lead source on incoming calls** and, when Menaia knows where a caller came from, their lead source — such as **Yelp** or **Google Ads** — shows as a tag under the caller's name on the ringing and active call screens, on the web and in the mobile app. The source comes from one of two places:
+
+- A **CallRail** tracking number the caller dialed, when you've connected CallRail. Each tracking number stands for a marketing channel, so the tag tells you which one brought the call. See [Integrations](/guides/settings/integrations).
+- Otherwise, the **Lead source** set on the line the caller reached, from the line's **General** tab (see [General](#general)).
+
+The switch is on to start. Turning it off hides the tag only: callers and leads still get their lead source either way, and leads you create from those calls keep it.
 
 ## Port a number
 

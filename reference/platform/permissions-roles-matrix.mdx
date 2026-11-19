@@ -188,9 +188,11 @@ See also: [/reference/leads/status-lifecycle](/reference/leads/status-lifecycle)
 | Payments | Manage | No access | No access | No access | No access | No access | No access |
 | Credit notes | Manage | No access | No access | No access | No access | No access | No access |
 | Project expenses | Manage | Manage | Manage | Manage | Manage | Manage | No access |
+| Subcontractor bids | Manage | Manage | Manage | View | View | View | No access |
 
 - **Invoices, payments, and credit notes are Admin only.** They also depend on the invoicing feature being turned on.
 - **Project expenses** can be managed by every role except **Crew Member**.
+- **Subcontractor bids** share the project's **Expenses** tab. **Admin**, **Ops Manager**, and **Sales Admin** can add and edit bids; the other roles that can open expenses can view bids but not change them. Only someone who can manage bids can charge an expense against one.
 - Deleting an expense warns that the expense "will be permanently deleted. This action cannot be undone."
 
 ### Sales metrics, bonuses, and performance
@@ -205,7 +207,7 @@ See also: [/reference/leads/status-lifecycle](/reference/leads/status-lifecycle)
 
 ### Comments
 
-Every staff role can add and read comments on a project and attach media to them. Anyone can edit or delete **their own** comments, but not someone else's.
+Every staff role can add and read comments on a project and attach media to them. Comments also appear on a lead's **Comments** tab and on group feed posts; on a lead, only people who can open the lead can read or comment — Admin, Ops Manager, Sales Admin, and Client Coordinator on leads in their branches, and a Sales Member on the leads they're the salesperson on, created, or have a lead activity on. Crew Leader and Crew Member can't. Anyone can edit or delete **their own** comments, but not someone else's.
 
 ## Settings
 

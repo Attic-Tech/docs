@@ -80,8 +80,8 @@ Once QuickBooks is connected, a confirmation appears inviting you to **Set up sy
   - **Import existing customers** brings your existing QuickBooks customers into Menaia as clients, once, when you finish setup. Customers without an email address or phone number are skipped.
 - **Item Sync** — whether your items are created in QuickBooks the first time they're used on an invoice. Only items created from scratch are updated back from QuickBooks; price book items stay managed in Menaia. With **Item Sync** off, every invoice line syncs under one fallback product/service in QuickBooks — an existing one from your QuickBooks catalog, or a new item called "Services" if you have none.
 - **Invoice Sync** — whether invoices sync, and when: when they're created, when they're sent, or when they're marked as paid. Voided invoices are voided in QuickBooks automatically. Details on how invoices and credit notes land in QuickBooks are in [Invoices and credit notes in QuickBooks](#invoices-and-credit-notes-in-quickbooks).
-- **Payment Sync** — whether payments sync, and which QuickBooks bank account your Menaia Pay payouts are deposited to. Payments are matched to their invoices so balances stay accurate in both systems, and processing fees and bank deposits are recorded too. A payment is only sent when the amounts applied to its invoices add up exactly to the payment. If they don't, nothing is sent — QuickBooks would otherwise book the difference as unapplied credit — and a **Warning** in the [Sync log](#sync-log) shows both amounts. Offline payments recorded in QuickBooks also come back into Menaia — see [Payments recorded in QuickBooks](#payments-recorded-in-quickbooks).
-- **Expense Sync** — whether expenses logged to a project sync, and which QuickBooks bank or credit card account they're paid from.
+- **Payment Sync** — whether payments sync, and which QuickBooks bank account your Menaia Pay payouts are deposited to. Payments are matched to their invoices so balances stay accurate in both systems, and processing fees and bank deposits are recorded too. If you pass card processing fees on to clients, you also choose **where card fees paid by clients are recorded** — leave it on the default and Menaia books them in a **Card Processing Fees** income account it finds or creates for you, or pick one of your own QuickBooks income accounts instead. A payment is only sent when the amounts applied to its invoices add up exactly to the payment. If they don't, nothing is sent — QuickBooks would otherwise book the difference as unapplied credit — and a **Warning** in the [Sync log](#sync-log) shows both amounts. Offline payments recorded in QuickBooks also come back into Menaia — see [Payments recorded in QuickBooks](#payments-recorded-in-quickbooks).
+- **Expense Sync** — whether expenses logged to a project sync, and the default QuickBooks bank or credit card account they're paid from. Each expense can be recorded against a different account with its **Paid from** picker — see [Expenses and QuickBooks](/guides/projects/expenses#expenses-and-quickbooks); this setting is the account used when that picker is left on **Default account**.
 
 A **Review** step lets you confirm every choice before you select **Finish setup**. The initial sync can take from 30 minutes up to 48 hours depending on how much data you have — you can keep working in the meantime. If you chose to import your existing customers, every Admin gets a notification (in-app and by email) when the import finishes.
 
@@ -290,6 +290,51 @@ Open the Thumbtack page and click **Disconnect**. It takes effect right away, wi
 - **"Thumbtack did not complete the authorization. Try again."** — you canceled on Thumbtack, or Thumbtack didn't approve the connection.
 - **"Could not start Thumbtack connect"**, **"Could not refresh businesses"**, **"Could not update business"**, or **"Failed to disconnect Thumbtack"** — the action didn't go through. Try again.
 
+## Angi
+
+**Angi** — which includes HomeAdvisor — connects homeowners with local pros. You'll find it under the **Lead sources** category. Once it's connected, every new Angi lead lands in Menaia automatically, the moment it comes in, as a new lead matched to your nearest branch. Angi is free to connect.
+
+Unlike Thumbtack, Angi leads arrive in your **Leads** list rather than the Communications inbox. They set off the same follow-ups as any other new lead — your notification rules, your Meni playbooks, and your outbound automations all run on them.
+
+### Connect Angi
+
+Angi links your account on its own side, so connecting is a short request rather than a sign-in window. You'll need two things from your Angi for Pros account: your **Angi ID** and the **company name** on the account.
+
+<Steps>
+  <Step title="Find your Angi ID">
+    In Angi for Pros, select your company name at the top right. Your ID is shown next to your city and state — it's a number.
+  </Step>
+  <Step title="Enter your details">
+    From the marketplace, open the **Angi** card. In the **Get Started** panel, enter your **Angi ID** (digits only) and your **Company name on Angi** exactly as it appears there, then click **Connect Angi**.
+  </Step>
+  <Step title="Wait for Angi to link it">
+    Menaia asks Angi to link your account. Angi usually does this within 24 hours. Until then the panel shows a **Waiting for Angi** badge. Once Angi links it, the badge turns to **Connected** and new leads start arriving automatically.
+  </Step>
+</Steps>
+
+<Note>
+Connecting Angi is an admin action. You'll need an **Admin** role to enter your details and send the request.
+</Note>
+
+### Your Angi account and activity
+
+While Angi is connected, its page shows two cards:
+
+- **Your Angi account** — the Angi ID and company name you entered, the name Angi puts on your leads (shown only when it differs from what you entered), and the date Angi linked the account. Use **Change details** to correct the Angi ID or company name, then **Send to Angi again**.
+- **Activity** — when your last Angi lead arrived and how many you've received in the last 30 days.
+
+### If Angi can't link your account
+
+If Angi can't match the details you entered, the page shows a **Needs attention** badge and explains why. Check your **Angi ID** and **Company name on Angi**, correct them, and send them again.
+
+### Homeowners who decline automated contact
+
+Angi tells Menaia whether each homeowner agreed to automated contact. When a homeowner hasn't, that lead's contact shows a **No automated contact** badge and Meni won't draft outreach — such as a follow-up email or text — for the lead, even from a playbook. Everything else about the lead works as normal, and your team can still contact the homeowner directly. See [Automations](/guides/meni/automations#what-happens-when-a-playbook-runs).
+
+### Disconnect Angi
+
+Open the Angi page and click **Disconnect**. You'll be asked to confirm, because Menaia then asks Angi to stop sending your leads. Leads already in Menaia are kept. You can connect again at any time.
+
 ## Zapier
 
 **Zapier** is the marketplace's automation integration — you'll find it under the **Automations** category. It links Menaia to over 10,000 apps so you can automate the busywork around your leads and clients: capture new leads automatically, keep client records in sync across your other tools, and cut out manual copy-and-paste. Set up an automation (a "Zap") once and it keeps running on its own.
@@ -334,17 +379,29 @@ If the authorization screen shows one of these messages instead, close the windo
 | Trigger | Starts when |
 | --- | --- |
 | **New Lead** | A new lead is created. |
-| **Updated Lead** | A lead is updated. |
+| **Updated Lead** | A lead is updated. By default it runs on every change; you can narrow it to the fields you care about — see [Run the Updated Lead trigger only on the fields you choose](#run-the-updated-lead-trigger-only-on-the-fields-you-choose) below. |
 | **New Client** | A new client is created. |
 | **New Outbound Message** | A teammate replies in a **Communications** inbox conversation that came from another platform (such as Yelp or Angi), so a Zap can send the reply back to that platform. When the Thumbtack integration is connected, replies on Thumbtack conversations go through it instead. |
+| **Lead Activity Scheduled** | A lead activity (site visit) is published to the schedule. It carries the appointment time, who it's assigned to, and the lead — including the lead's ad-click details. A draft that's never published doesn't start it. |
+
+<Note>
+The **Lead Activity Scheduled** trigger needs a connection that can see **every** lead activity in your organization — the whole-organization access an Admin has. A connection made by someone who only sees their own records (for example, a Sales Member) can't use it.
+</Note>
 
 Two more triggers report completed sales to your ad platforms — see [Send sales and payments to your ad platforms](#send-sales-and-payments-to-your-ad-platforms) below.
+
+#### Run the Updated Lead trigger only on the fields you choose
+
+The **Updated Lead** trigger runs on every change to a lead by default. Because each Zap run is a Zapier task, you can narrow it to just the fields you care about: on the trigger, set **Only When These Fields Change** and pick any of **Status**, **Lead Source**, **Branch**, **Confidence Level**, **Client Coordinator**, **Salesperson Referrer**, **Primary Contact**, **Secondary Contacts**, **Referral Contact**, **Tags**, **Address**, or **Notes**. The Zap then runs only when at least one of the fields you picked changes. Leave the option empty to keep running on every change.
+
+Every **Updated Lead** run also includes a **Changed Fields** list naming which of those fields changed, so a later step can branch on it.
 
 **Actions** do something in Menaia:
 
 - **Create Lead** — creates a lead. Choose its **Branch** and enter the primary contact's **First Name** and **Last Name** (all required), plus an **Email** or **Phone** (at least one). **Notes**, **Address**, **City**, **State**, **Postal Code**, and **Lead Source** are optional. For **Lead Source**, pick one of your active lead sources, or map a custom value from your trigger (for example, "Website"); Menaia matches it to one of your lead sources by name, and if nothing matches, adds a new lead source with that name. Optional ad-click fields — the Google and Facebook click IDs, **Source URL**, and the UTM tags — keep the ad details a lead came in with, so a later sale can be reported back to the ad platform (see [Send sales and payments to your ad platforms](#send-sales-and-payments-to-your-ad-platforms)). A lead a Zap creates alerts your team just like a lead that arrives automatically: it triggers your workspace's **Lead Ingested** notification, with a **View Summary** link to the new lead. See [Notification rules](/guides/settings/notification-rules).
 - **Create Client** — creates a client from a **First Name**, **Last Name**, and an **Email** or **Phone** (at least one). If a client already has that email or phone, Menaia returns that client instead of creating a duplicate.
 - **Create Inbox Message** — adds a message from another platform to your **Communications** inbox, starting a conversation if there isn't one yet. Enter the **Source Platform** (Yelp, Google Business Profile, Google Local Services Ads, Thumbtack, Angi, Facebook, or Other — the field's help text lists the exact value to use), the **External Thread ID**, and the **Message Body**. Messages with the same thread ID land in the same conversation. Optionally add an **External Message ID** (recommended — it stops the same message from being added twice), a **Sender Name**, a **Customer Name** (shown as the conversation's name), and **Sent At** (defaults to now).
+- **Add Ad Click to Call** — attaches a call tracker's ad click (such as CallRail's) to the matching call on your Menaia line, and to the lead that call is linked to, so a sale from a phone lead can be reported back to the ad platform (see [Send sales and payments to your ad platforms](#send-sales-and-payments-to-your-ad-platforms)). Enter the **Caller Phone** and when the call started, plus the ad-click fields — the Google and Facebook click IDs, **Source URL**, and the UTM tags. Optionally add the Menaia number the call reached, to narrow the match when the caller dialed more than one of your numbers. Menaia finds the call by the caller's number and time; it only touches calls on lines you can see, and the first ad click already on a call or lead is kept. If you connect [CallRail](#callrail) directly, you don't need this action.
 
 **Searches** look something up so later steps can use it:
 
@@ -364,11 +421,53 @@ Two more triggers let you report completed sales back to the ad platforms that d
 
 Each of these carries the sale amount (with tax shown separately), the customer's contact details, and — when the sale traces back to a lead that came in with ad-click details — those details: the Google Ads click IDs, the Facebook click ID, and the campaign (UTM) tags recorded when the lead came in. Each also carries a **Conversion ID**. Map it to Google Ads' "Order ID" (Facebook: "Event ID") so the same sale is counted once, even if it reaches the ad platform more than once.
 
-The ad-click details come from what was captured when the lead was created — for example by your website's lead form, or by a **Create Lead** step that maps them — so a lead entered by hand, or from a source that doesn't pass those details through, won't have them.
+The ad-click details come from what was captured when the lead was created — for example by your website's lead form, or by a **Create Lead** step that maps them. A phone lead can pick them up too, from the ad click behind the call, once you connect [CallRail](#callrail) or use the **Add Ad Click to Call** action above. A lead entered by hand, or from a source that doesn't pass those details through, won't have them.
 
 <Note>
 These two triggers need a connection that can see **every** estimate, invoice, and client in your organization — the whole-organization access an Admin has. A connection made by someone who only sees their own records (for example, a Sales Member) can't use them.
 </Note>
+
+## CallRail
+
+**CallRail** keeps the ad click behind every tracked phone call, so jobs you sell from phone leads can count as ad conversions. You'll find it under the **Automations** category. It appears in the marketplace when your workspace has the **Communications** inbox (calls) turned on. CallRail is free to connect.
+
+CallRail gives each visitor who comes from an ad its own tracking number and remembers which ad click brought them. When that customer calls, CallRail forwards the call to your Menaia line and, after the call ends, tells Menaia which ad click was behind it. Menaia saves the Google Ads click ID, landing page, and campaign (UTM) tags on the call. A lead you create from that call, or link it to, keeps them too — so the **Estimate Sold** and **Invoice Paid** triggers can report the sale back to Google Ads (see [Send sales and payments to your ad platforms](#send-sales-and-payments-to-your-ad-platforms)).
+
+<Note>
+CallRail is an admin area — you'll need an **Admin** role to connect it. You set it up by pasting Menaia's webhook details into your own CallRail account, so you'll need access to that too.
+</Note>
+
+### Connect CallRail
+
+<Steps>
+  <Step title="Open the CallRail page">
+    From the marketplace, open the **CallRail** card. Its **Webhook URL** card shows a web address unique to your workspace, with a copy button.
+  </Step>
+  <Step title="Add Menaia as a webhook in CallRail">
+    In CallRail, open **Settings › Integrations › Webhooks**, paste the copied address into the **Post-Call** webhook field, and save.
+  </Step>
+  <Step title="Paste the signing key back into Menaia">
+    Copy the webhook's **signing key** from CallRail, paste it into the **CallRail signing key** box in the **Get Started** panel, and click **Connect CallRail**. The panel shows a **Connected** badge.
+  </Step>
+  <Step title="Keep caller ID on in CallRail">
+    Leave CallRail's caller ID set to show the caller's number (its default). Menaia matches each call by the caller's number and when it started, so it needs that number to come through.
+  </Step>
+</Steps>
+
+### What changes once CallRail is connected
+
+- **Calls answered on your Menaia line keep their ad click.** For each tracked call CallRail forwards and you answer, Menaia stores the Google Ads click ID, landing page, and UTM tags on that call.
+- **Leads keep the click too.** A lead you create from one of those calls, or link an existing lead to, picks up the call's ad click.
+- **The first ad click wins.** If a call or lead already has an ad click, CallRail never replaces it — the ad that first brought the customer in keeps the credit.
+- **Sales can report back to Google Ads.** Once a lead carries an ad click, the **Estimate Sold** and **Invoice Paid** triggers send the completed sale back as an offline conversion — see [Send sales and payments to your ad platforms](#send-sales-and-payments-to-your-ad-platforms).
+
+<Tip>
+Already piping CallRail through Zapier? You can attach a call's ad click with the **Add Ad Click to Call** action instead of connecting CallRail directly — see [What Zaps can do with Menaia](#what-zaps-can-do-with-menaia).
+</Tip>
+
+### Disconnect CallRail
+
+Open the CallRail page again and click **Disconnect**. It takes effect right away, with no confirmation step. Menaia stops accepting calls from CallRail and forgets the signing key, so you'll paste a fresh one from CallRail if you reconnect later. Ad clicks already saved on your calls and leads stay put.
 
 ## Data Sources
 

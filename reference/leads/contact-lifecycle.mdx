@@ -119,6 +119,10 @@ Contacts on clients and projects are reused by identity, not by fuzzy name or em
 
 Anything else creates a new contact (typed as **client**). Adding one of the client's contacts to a project counts as an addition, so it doesn't require permission to remove contacts, and the same person can't end up listed twice on the project.
 
+### A reused contact's empty company can be filled in
+
+A contact that is reused rather than created is otherwise left as it is — it's shared with the client's other projects. The one exception is the **Company**: when you reuse a contact that has no company yet and you enter one, that company is saved to the contact. A company that's already set is never overwritten this way, so you can't blank or replace another project's value by leaving the field empty or typing a different one.
+
 ### Duplicate-lead guard
 
 To stop automated intake from creating duplicate leads, a new lead is blocked if a recent lead in the same workspace shares the same primary-contact email or phone. The guard only applies when an email or phone is supplied.

@@ -84,9 +84,44 @@ With Menaia Pay active, payment options become available on your invoices. From 
 Online payment collection is enabled **per branch**. If one of your branches can't collect payments after Menaia Pay is connected, reach out to Menaia to have online payments enabled for that branch.
 </Note>
 
+<Note>
+Connecting Menaia Pay also turns on **service plans** — recurring maintenance plans you can attach to a proposal and bill on a schedule, charged automatically or billed by invoice through your Menaia Pay account. Until Menaia Pay is set up, service plans aren't available. See [Feature availability](/reference/platform/feature-availability#service-plans).
+</Note>
+
 <Tip>
 If a customer can't see a way to pay an invoice, check that your payment methods are turned on, that Menaia Pay still shows as active under **Integrations**, and that online payments are enabled for the invoice's branch.
 </Tip>
+
+## Charge clients a card processing fee
+
+Once Menaia Pay is connected, you can pass the cost of card processing on to the customers who choose to pay by card. Customers who pay by bank always pay the invoice amount only. You'll find this on the **Menaia Pay** page itself, in the **Card processing fee** card.
+
+<Note>
+Changing this setting takes an **Admin** role — the same access that lets you manage workspace settings.
+</Note>
+
+<Steps>
+  <Step title="Turn the fee on">
+    On the Menaia Pay page, find the **Card processing fee** card and check **Pass card fees to clients**.
+  </Step>
+  <Step title="Set the rate">
+    In **Fee (%)**, enter the percentage to add on top of the invoice — for example, **3**.
+  </Step>
+  <Step title="Save">
+    Click **Save**. If you turn the fee off later, Menaia keeps the rate you saved, so you can switch it back on without re-entering it.
+  </Step>
+</Steps>
+
+Once the fee is on:
+
+- When a customer opens the pay-online link, they first choose **how to pay**. **Pay by card** shows the invoice amount plus the fee; **Pay by bank** — when your account accepts bank payments — shows the invoice amount only.
+- The fee a customer paid is shown on the payment, on both the payments list and the payment's details, noted as paid by the client and not applied to the invoice.
+- The payment receipt the customer receives lists the **Card Processing Fee** separately from the amount paid.
+- If you sync payments with QuickBooks, each card fee is recorded there in an income account — see [QuickBooks payment sync](/guides/settings/integrations#quickbooks).
+
+<Warning>
+You're responsible for following the card-fee rules where you do business. Some states and card networks limit or regulate adding a fee for paying by card.
+</Warning>
 
 ## What's next
 

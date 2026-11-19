@@ -52,7 +52,7 @@ See [Meni Dashboard](/guides/meni/dashboard).
 
 ### Meni automations and daily insight
 
-Playbooks react to business events and watch rules check your data on a schedule. Both draft into an approval queue — Meni drafts, never sends. Admins also receive a **Meni daily insight** email, which they can steer with **Context for Meni** under **Settings → Meni**.
+Playbooks react to business events and watch rules check your data on a schedule. By default both draft into an approval queue — Meni drafts, never sends — but a playbook can be set to run its actions on its own, using its owner's permissions, and each one runs with the owner's access only. Admins also receive a **Meni daily insight** email, which they can steer with **Context for Meni** under **Settings → Meni**.
 
 See [Automations](/guides/meni/automations).
 
@@ -94,6 +94,8 @@ The **AI Ride Along** recorder captures an in-person sales conversation. After y
 - The recorder explains: "Record your in-person sales conversation. When you're done, AI will analyze the conversation and provide coaching insights."
 - The analysis is organized into sections: **Summary**, **Strengths**, **Next Steps** (or **Follow-up** if the deal closed on the spot), **Coaching** insights, **Tone** and communication analysis (talk-time percentage, confidence, engagement, hesitations), **Patterns**, and ready-to-send **Drafts** for a follow-up email or text.
 - Per-speaker tone, confidence, and engagement come from voice analysis. When that voice data isn't available, those fields are shown as empty rather than guessed.
+- The analysis also rates the visit's **opportunity temperature** — **Hot** (ready to close, or just needs another push), **Warm** (real interest with open questions), or **Normal** (no clear buying signal yet). It shows as a badge on the results and in the **Temperature** column on the Ride-Alongs list, which you can also filter by. Visits that aren't rated show a dash.
+- Each branch can steer this coaching with a **Sales guide** (under **Settings → Ride Along**) describing how it sells; the analysis follows that branch's guide when it rates the visit and writes the coaching.
 
 ### AI receptionist
 
@@ -156,7 +158,7 @@ AI output is a draft to check, not a finished artifact — and this is enforced 
 
 ### Meni changes wait for your approval
 
-Every change Meni prepares — in the chat or from a playbook — is an approval card or a queued draft. Meni re-checks your permissions and the current record when you approve, and refuses if the record changed in the meantime. Approving a follow-up email from the automation queue asks for a second confirmation because it reaches the customer right away.
+Every change Meni prepares — in the chat or from a playbook — is an approval card or a queued draft, unless the playbook is set to run without approval (see [Automations](/guides/meni/automations#what-happens-when-a-playbook-runs)). Meni re-checks your permissions and the current record when you approve, and refuses if the record changed in the meantime. Meni also won't draft or send outreach — a follow-up email or text — to a homeowner who has declined automated contact, so an outreach draft is refused at approval if consent was withdrawn in the meantime. Approving a follow-up email from the automation queue asks for a second confirmation because it reaches the customer right away.
 
 ### Text replacements are undo-able
 

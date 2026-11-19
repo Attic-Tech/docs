@@ -84,9 +84,9 @@ Roles referenced below: **Admin, Ops Manager, Sales Admin, Sales Member, Client 
 - **Resolution:** Use a lead-management role, and be a member of the lead's branch.
 
 ### B8. "Why is the 'Schedule Lead Activity' button disabled?"
-- **Symptom:** The button is greyed out with the tooltip: *"Please complete all required fields (First Name, Last Name, Address, and either Phone Number or Email) before scheduling a lead activity."*
-- **Cause:** Scheduling requires all of: a primary contact with first name and last name and (phone or email), plus the lead's address, city, state, and branch.
-- **Resolution:** Fill in the contact name, an address (street/city/state), a phone or email, and assign a branch.
+- **Symptom:** The button is greyed out, and its tooltip now names exactly the fields still missing — for example *"Please complete the following field before scheduling a lead activity: Branch."* or *"Please complete the following fields before scheduling a lead activity: City, State and Branch."* (If the specific fields can't be worked out, it falls back to *"Please complete the lead's required fields before scheduling a lead activity."*)
+- **Cause:** Scheduling requires all of: a primary contact with first name and last name and (phone or email), plus the lead's address, city, state, and branch. Any of these still missing is listed by name in the tooltip — and in the warning banner on the lead's Overview tab.
+- **Resolution:** Fill in whichever fields the tooltip names — the contact name, a phone or email, the street/city/state address, and the branch.
 
 ### B9. "Why don't my filter results / map pins show all leads?"
 - **Symptom:** A lead exists but doesn't appear in the list or on the map.
