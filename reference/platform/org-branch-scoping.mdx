@@ -15,7 +15,7 @@ There are two levels in the data hierarchy:
 - **Workspace (organization)** — the tenant. This is a hard isolation boundary: records in one workspace are never visible from another, full stop.
 - **Branch** — a location or sub-unit inside a workspace. Branch narrows what most lists show and stamps new records, but it is **not** a security wall.
 
-A single user can belong to more than one workspace, and to more than one branch within a workspace. At any moment your session has exactly one **active workspace** and one **active branch**.
+A single user can belong to more than one workspace, and to more than one branch within a workspace. At any moment your session has exactly one **active workspace**. For your branch you either have one **active branch**, or — if you belong to more than one branch — you can pick **All branches** to work across every branch you belong to at once (see [Working across all your branches](#working-across-all-your-branches)).
 
 ### Workspace is a hard boundary; branch is a soft filter
 
@@ -47,6 +47,18 @@ Your active branch is your own per-user preference. It controls which records mo
 <Note>
 Your branch selection persists across sessions until you change it. If your saved branch ever points somewhere no longer valid (for example a branch in a workspace you've since switched away from), the product silently falls back to your first branch in the active workspace instead of showing an error — branch is a convenience filter, and workspace isolation already keeps tenants separate.
 </Note>
+
+### Working across all your branches
+
+If you belong to **more than one branch**, the sidebar branch selector offers an **All branches** option alongside the individual branches. Picking it widens most lists to span every branch you belong to at once, instead of a single active branch. It needs no special permission — any multi-branch user has it — and it never reaches a branch you aren't a member of. If you belong to only one branch, the option doesn't appear.
+
+While **All branches** is picked:
+
+- **Lists span all your branches.** Lists like Clients, Jobs, Estimates, Invoices, Payments, Shifts, and the Schedule show records from every branch you belong to, and add a **Branch** column (or, on the Schedule, group rows by branch) so you can tell them apart.
+- **Creating is paused until you pick a branch.** Because a new record has no single branch to land in, most create buttons are disabled and prompt **"Pick a branch in the sidebar to create."** On the Schedule, creating a new event instead asks **"Which branch?"** so you can choose where it is saved. Switch the selector back to a single branch (or pick that branch when prompted) to create.
+- **Record pages still open.** Opening a record from any of your branches works without switching first; the record loads its own branch's details (pickers, timezone, payment methods).
+
+Behind the scenes your last single-branch choice is remembered, so switching **All branches** off returns you to that branch.
 
 ## What changing your active branch changes
 
@@ -80,16 +92,11 @@ On the **Sales Overview** dashboard:
 
 ### Seeing all your branches on the Schedule
 
-The **Schedule** can show shifts across **all the branches you belong to** at once, but only when both are true:
-
-1. Your workspace has **cross-branch calendar sync** turned on (a workspace-level setting), **and**
-2. You belong to more than one branch.
-
-Otherwise the Schedule shows only your active branch. Even with cross-branch calendar sync on, the view is limited to the branches you belong to — you never see branches you aren't a member of.
+If you belong to **more than one branch**, the **Schedule** shows your own bookings across all those branches automatically — there is no workspace setting to turn on. While a single branch is selected, use the **Branches** filter to bring other branches' events onto the same calendar, or pick **All branches** in the sidebar to see every branch you belong to grouped together. Either way the view is limited to the branches you belong to — you never see branches you aren't a member of. For the full rules, including which events are read-only, see [Access cross branch](/reference/schedule/access-cross-branch).
 
 ### Viewing another branch's clients
 
-The **Clients** list has a **Branch** filter. It defaults to your active branch, but you can switch it to any other branch you belong to and review that branch's clients in place — without changing your active branch first, and without any special permission. Users who can see all clients also get an **Unassigned** option for clients that don't have a project yet. Opening a client's summary while the filter points at another branch switches your active branch to that branch first, since the summary itself follows your active branch.
+The **Clients** list has a **Branch** filter. It defaults to your active branch (or, under [All branches](#working-across-all-your-branches), to every branch you belong to), but you can switch it to any other branch you belong to and review that branch's clients in place — without changing your active branch first, and without any special permission. Users who can see all clients also get an **Unassigned** option for clients that don't have a project yet. Opening a client's summary while the filter points at another branch switches your active branch to that branch first, since the summary itself follows your active branch.
 
 ### You can't be assigned to a branch you don't belong to
 
@@ -122,9 +129,10 @@ Whenever an action targets a specific branch — assigning a record's branch, fi
 
 - **Workspace = hard boundary.** You never see another workspace's data, regardless of role.
 - **Branch = soft filter.** It scopes most lists and stamps new records, but isn't a security wall.
-- **One active workspace and one active branch** at a time; both are remembered between sessions.
+- **One active workspace** at a time; for your branch, one active branch, or **All branches** if you belong to more than one. All are remembered between sessions.
 - **A stale branch falls back to a default** instead of erroring.
-- **Cross-branch visibility is the exception** — granted by the cross-branch sales-reporting permission on Sales Overview, by cross-branch calendar sync on the Schedule for multi-branch users, and by the **Branch** filter on the Clients list — and only ever across branches you belong to.
+- **All branches** widens most lists to span every branch you belong to; while it's on, creating pauses until you pick a single branch.
+- **Cross-branch visibility is the exception** — granted by the cross-branch sales-reporting permission on Sales Overview, automatically on the Schedule for multi-branch users, by the **All branches** option, and by the **Branch** filter on the Clients list — and only ever across branches you belong to.
 
 ## Related references
 
