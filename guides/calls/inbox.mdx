@@ -157,7 +157,15 @@ Snippets are grouped by category, and each shows how many times it's been used. 
   </Step>
 </Steps>
 
-**Placeholders.** When you insert a snippet into a conversation, `{{first_name}}` is replaced with the contact's first name and `{{company_name}}` with your company name. The other placeholders (`{{project_address}}`, `{{tech_name}}`, and `{{review_link}}`) stay in the text as typed, so replace them before you send.
+**Placeholders.** When you insert a snippet into a conversation, Menaia fills each placeholder from that conversation's details:
+
+- `{{first_name}}` — the contact's first name.
+- `{{company_name}}` — your company name.
+- `{{tech_name}}` — your own first name.
+- `{{project_address}}` — the address of the project this contact is tied to.
+- `{{review_link}}` — the review link set for the number's branch (see [Branches](/guides/settings/branches#branch-details)).
+
+If a placeholder has nothing to fill it — the contact isn't on a project, or no review link is set for the branch — it stays in the text as `{{…}}`. The message box then holds the send and shows a note naming what's left, for example `Fill in {{review_link}} before sending this message.` Replace it (or delete that part of the message) and you can send. This hold applies however you got there, including inserting a snippet and leaving a token unfilled.
 
 ## Messages from marketplaces
 
