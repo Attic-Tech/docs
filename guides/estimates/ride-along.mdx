@@ -46,6 +46,7 @@ Each row is one recording, with these columns:
 - **Duration** — how long the recording runs.
 - **Talk Ratio** — a bar showing how much of the conversation each of the top two speakers did, with their percentages.
 - **Key Insight** — the top coaching insight, with a badge for how serious it is.
+- **Temperature** — the opportunity temperature the AI gave the visit: **Hot** (ready to close, or just needs another push), **Warm** (real interest with open questions), or **Normal** (no clear buying signal yet). A dash until the visit is analyzed, or when the AI couldn't rate it.
 - **Status** — **Recording**, **Paused**, **Processing**, **Completed**, or **Failed**.
 - **Date** — how long ago it was recorded.
 
@@ -54,12 +55,25 @@ A dash means there's nothing to show — for example, the recording isn't linked
 ### Search, filter, and sort
 
 - **Search** — Use **Search by client, lead, project, or summary…** to find a recording.
-- **Filters** — Narrow by a **Date** range. Managers can also filter by **Salesperson**.
+- **Filters** — Narrow by a **Date** range, or by **Temperature** — tick **Hot**, **Warm**, or **Normal** (one or several) to show only visits the AI rated that way. Managers can also filter by **Salesperson**.
 - **Sort** — Click the sort button (the up-and-down arrows) to open **Sort by**, then pick **Date created** or **Last updated**. Pick the same option again to flip the direction, or click **Reset to Default** to go back to the newest recordings first.
 
 ### Customize the columns
 
 Click **Customize View** (the sliders icon) to show or hide columns, drag them into a different order, or click **Reset to Default**. See [Customize the columns](/guides/leads/browse-filter-map#customize-the-columns) for the full walkthrough. Your sort and column choices are remembered on that browser and device.
+
+## Find a visit from a lead, project, or appointment
+
+A ride-along can be attached to the lead, project, or scheduled appointment it belongs to. Wherever it's linked, a **Recorded Visits** section shows up on that record so you can open the visit without going back to the Ride-Alongs page:
+
+- On a **lead's** page and a **project's** page.
+- On a scheduled **appointment**, when you open it from the schedule.
+
+Each entry shows the date and the AI's read of the visit; open one to see the full coaching. If a visit isn't linked yet, it won't appear here — it's still on the Ride-Alongs page.
+
+## Tune the coaching for your branch
+
+The AI coach rates every visit and writes its coaching against a **Sales guide** — a short description of how your branch sells. If you manage workspace settings, open **Settings → Ride Along** and write the guide for a branch: what to push, what to avoid, and how the coach should sound (for example, *coach an educational, never pushy, style; walk every room before talking price; offer financing on jobs over $5,000*). Pick a different branch from the selector to give each one its own guide. Every visit recorded in that branch is analyzed against its guide.
 
 ## If something goes wrong
 
