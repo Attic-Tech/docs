@@ -130,19 +130,34 @@ A new estimate starts with your branch's default tax rate. To change it, open th
 
 ## Give a discount
 
-In the **Price Summary**, type a percentage in the **Discount** field and press Enter (or click away). The discount amount shows next to it in green.
+In the **Price Summary**, enter the discount in the **Discount** field and press Enter (or click away). The discount amount shows next to it in green.
+
+On a priced estimate, a dropdown next to the field lets you choose how to enter the discount:
+
+- **Percent off** — a percentage taken off the price.
+- **Amount off** — a dollar amount to take off.
+- **Final price before tax** — the price you want to land on, before tax.
+- **Final price after tax** — the price you want to land on, with tax included. This option only appears when the estimate is taxed (it has taxable items and a tax rate).
+
+Whichever way you enter it, a small caption under the field shows the other reading — for example "$1,500.00 off" while you're entering a percent, or "20% off" while you're entering an amount or a target price. Only the percentage is saved, so switching between these modes re-reads the same discount in the new terms.
+
+A discount can only bring the price down. If you enter an amount or a target price higher than what the job already comes to, it's refused and the field explains the most you can take off.
 
 How much you can give depends on your role:
 
 - **Admins, Ops Managers, and Sales Admins** can give any discount, up to 100%.
-- **Everyone else** can give up to your branch's **Max Discount**. If you type more, the discount is lowered to the limit and you see "Your role can give up to 10%" (with your branch's limit).
+- **Everyone else** can give up to your branch's **Max Discount**. If you enter more, the discount is lowered to the limit and you see "Your role can give up to 10%" (with your branch's limit). When you're entering an amount or a target price, the note also shows that limit in dollars.
+
+<Note>
+The dropdown that chooses how you enter the discount only shows on wider screens, and only when you can see the estimate's pricing. On a narrow screen, or when your role can't see pricing, you enter the discount as a percentage.
+</Note>
 
 ### Contractor prices
 
-When you're quoting another contractor or business, turn on **Contractor prices** next to the discount. The discount is set to your branch's **B2B Max Discount** and locked there. Turn it off and the discount goes back to 0.
+When you're quoting another contractor or business, open the pricing dropdown next to the discount and pick **Contractor prices**. The discount is set to your branch's **B2B Max Discount** and locked there. Switch back to **Retail prices** and the discount goes back to 0.
 
 <Note>
-On the web, **Contractor prices** only shows on wider screens. On a phone, use the mobile app, which always shows it.
+On the web, the pricing dropdown only shows on wider screens. On a phone, use the mobile app, which always shows it.
 </Note>
 
 See [Branches](/guides/settings/branches) to set **Max Discount** and **B2B Max Discount**.

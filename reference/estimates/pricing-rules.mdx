@@ -181,7 +181,8 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
 ### Maximum discount (who can discount how much)
 
 - **What it governs:** The largest discount a user can enter, based on role and B2B context.
-- **How it works:** Users with permission to manage estimates can discount up to 100%. Other users are capped at the branch's configured maximum discount. A typed discount is limited to between 0 and your maximum. The **Contractor prices** switch on the proposal (desktop only) sets the discount to the branch's configured B2B maximum discount even when that's above your maximum (or 0 when turned off), and a higher discount a manager already saved is kept.
+- **How it works:** Users with permission to manage estimates can discount up to 100%. Other users are capped at the branch's configured maximum discount. A typed discount is limited to between 0 and your maximum. The pricing dropdown on the proposal (desktop only) switches between **Retail prices** and **Contractor prices**; picking **Contractor prices** sets the discount to the branch's configured B2B maximum discount even when that's above your maximum (switching back to **Retail prices** sets it to 0), and a higher discount a manager already saved is kept.
+- **Entering the discount:** Only the discount percentage is ever stored, but on a priced estimate it can be entered as a **percent off**, a dollar **amount off**, a **final price before tax**, or a **final price after tax** (the after-tax option appears only when the estimate is taxed — it has taxable items and a tax rate). The app converts each of these to the stored percentage against the estimate's undiscounted totals. An amount or target price that would raise the price above what the job already comes to is refused rather than applied.
 - **Inputs:** the branch's maximum discount and B2B maximum discount, and the user's role.
 
 ---
