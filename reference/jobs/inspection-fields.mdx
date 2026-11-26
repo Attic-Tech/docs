@@ -8,6 +8,8 @@ keywords:
   - "why can't I edit the inspection report"
   - "how do I make an inspection report read-only"
   - "can I add roof and HVAC photos to an inspection report"
+  - "where is the inspection report"
+  - "why can't I send the proposal without an inspection report"
 ---
 
 This reference explains the inspection report that a salesperson completes for an estimate: what it records, which fields are required, who can create or change it, and the rules that govern when it can be saved or edited.
@@ -22,7 +24,7 @@ There is exactly **one inspection report per estimate**. The report is tied to a
 
 The report is organized into themed sections:
 
-- Scheduling & Job Setup
+- Scheduling and Job Setup
 - Customer Profile
 - Property Details
 - Walkthrough Notes
@@ -32,10 +34,14 @@ The report is organized into themed sections:
 
 ## When the inspection report is available
 
-The inspection report only appears when your workspace has the inspection-report feature turned on.
+The inspection report only exists when inspection reports are turned on for your workspace, and only on estimates built from your price book. Estimates built from scratch never have one.
 
-- **If the feature is off**, the report step is skipped in the estimate wizard, and any attempt to open the report view sends the user back to the estimate breakdown.
-- **If the feature is on**, the report is the final step of the estimate wizard, reached after the last work area. The button to advance into it from the items step reads **Proceed to Report**.
+When the feature is on:
+
+- **You open the report from the estimate's proposal.** On the web, open the proposal's **⋮** (**More actions**) menu and choose **Inspection Report**. In the mobile app, it's in the ⋮ menu at the top of the proposal. The menu item shows a **Done** or **Not started** badge; any report that isn't complete counts as **Not started**.
+- **The report is required.** Until it's complete, the proposal can't be sent or presented to the client, and the estimate can't be moved to **Released** or **Sold**. The proposal shows a **Fill in the inspection report before sending** banner, with a **Fill in inspection report** link that opens the report.
+
+For how this fits into building an estimate, see [Build an estimate](/guides/estimates/create).
 
 ## Who can create or change a report
 
@@ -44,18 +50,20 @@ The inspection report only appears when your workspace has the inspection-report
 </Note>
 
 - **Create and edit:** Admin, Ops Manager, Sales Admin, Sales Member, and Client Coordinator.
+- **Your own estimates only:** on another salesperson's estimate, the report is read-only unless your role can see every client.
 - **View:** scoped to the user's own organization; most staff roles can read a report, and some roles are read-only.
 - **Delete:** inspection reports are not deletable through the product; they are removed only by Menaia platform staff.
 
 ## What the report records
 
-The lists below note which fields are **required** before the report can be left. A few fields are required by the form even though the saved record itself would accept them empty — those are called out as "required in the form."
+The lists below note which fields are **required** before the report can be saved. A few fields are required by the form even though the saved record itself would accept them empty — those are called out as "required in the form."
 
-### Scheduling & Job Setup
+### Scheduling and Job Setup
 
 - Whether the customer is flexible on scheduling — **required**.
-- An estimated number of days of work — **required**. This value lives on the estimate and is shown here. It is hidden when every selected item is a sub-contracted item.
 - Whether anything needs to happen before the crews arrive (for example, sprinklers, abatement, or roof work) — **required** free text.
+
+The estimated days of work is no longer part of the report. It's set under **Job setup → Days of work** on the estimate's proposal, where it drives travel, load and unload time, and gas.
 
 ### Customer Profile
 
@@ -105,21 +113,26 @@ HVAC photos and videos can be attached in this section. The upload controls are 
 
 ### Crew Notes
 
-- Free-text notes about what is unique about the job or home (for example, the home layout, tight spaces, hidden attics, or a detail-oriented homeowner) — **required**, and capped at a maximum length. Leaving it empty is rejected with "This field is required," and exceeding the cap with "Crew notes must be N characters or fewer."
+- Free-text notes about what is unique about the job or home (for example, the home layout, tight spaces, hidden attics, or a detail-oriented homeowner) — **required**, and capped at a maximum length. Leaving it empty is rejected with "This field is required," and exceeding the cap with "Crew notes must be 5000 characters or fewer."
 - Crew notes have an optional AI assist:
   - **Enhance with AI** appears when notes already exist.
   - **Suggest with AI** appears when notes are empty but other context is present (demeanor, concerns, special instructions).
   - The AI control is unavailable when there is neither notes nor context, and it is hidden entirely in read-only view.
 - If AI enhancement fails, an "Enhancement failed" message appears and the notes are left as they were. An applied AI suggestion can be undone.
+- Crew notes belong to the estimate, so you can also view or add them outside the report: from the **Crew Notes** column on the project's **Estimates** tab, or from the estimate's menu in the mobile app. Those screens have no AI assist.
 
 ## Completion and submission rules
 
 <Card title="Required-field gate" icon="list-check">
-  To advance past the report, the required fields must be filled. If validation fails, the named error messages above appear and navigation is blocked. Required-but-empty selections and free-text fields each surface their own specific message.
+  To save the report, the required fields must be filled. If any are missing, **Save Report** shows **Report incomplete** ("Answer the required questions before saving.") and each missing field shows its own message.
 </Card>
 
-<Card title="The report saves with the estimate" icon="floppy-disk">
-  The report is not submitted on its own — it is saved as part of saving the estimate, and only when the inspection-report feature is enabled. If the report save fails, the whole save fails with "Failed to save inspection report."
+<Card title="The report saves on its own" icon="floppy-disk">
+  The report has its own **Save Report** button and is saved separately from the estimate's pricing. Saving stores the report answers, the crew notes, and the property details together. If the save fails, you see **Unable to save report**.
+</Card>
+
+<Card title="When a report counts as complete" icon="circle-check">
+  A report is complete when it was saved on the current question set and its required answers are filled in. A report saved on the older question set counts as **Not started** until someone opens it, answers the current questions, and saves it again.
 </Card>
 
 <Card title="One report per estimate" icon="link">
@@ -131,29 +144,27 @@ HVAC photos and videos can be attached in this section. The upload controls are 
 </Card>
 
 <Card title="The estimate must exist" icon="circle-exclamation">
-  Saving a report for an estimate that cannot be found (or that is not in the user's organization) is rejected with "Job estimate not found."
+  Saving a report for an estimate that cannot be found (or that is not in the user's organization) is rejected because the estimate can't be found.
 </Card>
 
 ## Read-only viewing
 
-- An existing estimate that is **not In Progress**, or the dedicated report-viewer mode, opens the report **read-only**: a print-style summary (job name, salesperson, date, client info, work details) with a Print button, every field disabled, and the photo-upload controls hidden.
-- In read-only mode, the wizard deliberately skips required-field validation when paging through, so an older report saved before a field became required can still be viewed.
+- A saved report always opens as a read-only document first: **Inspection Report:** followed by the estimate name, the salesperson and date, and a **Print** button. If you can edit it, click **Edit Report** to switch to the form.
+- The report stays **read-only** when your role can't edit the estimate, when it's another salesperson's estimate you can't edit, or once the estimate is no longer **In Progress** (for example **Released**, **Sold**, or **Lost**) or its proposal is signed. If nothing was saved yet, it reads "No inspection report has been filled in yet."
+- Photos and videos show in the read-only view, without the upload controls.
 - Reports saved before the current question set was introduced keep showing their original question set when viewed read-only (including the earlier questions about scheduling factors, special materials, occupancy, obstacles or hazards, and structural features). Opening such a report to edit switches it to the current questions, and saving upgrades it to the current version.
 - On a read-only report, the Roof Information and HVAC Information sections are hidden when they hold no answers, so an older report that skipped them is not shown padded with empty sections.
-- To make changes to a read-only estimate's report, set the estimate back to **In Progress** from the estimates list. Attempting to edit while read-only shows "This estimate is read-only. Change its status to In Progress from the estimates list to make changes."
-
-## Related AI estimate review
-
-When the AI-calculator feature is enabled, the inspection report's contents are fed into an automated estimate-quality review that can surface info, warning, or error notes and item suggestions. It returns no warnings when the estimate looks fine. This review is **advisory only** and does not block submission.
+- To make changes to a locked estimate's report, change the estimate's status back to **In Progress** from the status menu next to the proposal's title. On a signed proposal, this starts a change order.
 
 ## Quick reference
 
 - **One inspection report per estimate**, captured by the salesperson during the walkthrough.
 - **Create or edit:** Admin, Ops Manager, Sales Admin, Sales Member, Client Coordinator. Reports are not deletable in the product.
-- **Available only when the inspection-report feature is on**; it is the final step of the estimate wizard.
-- **Saved with the estimate**, never on its own; required fields are enforced by the form before the report can be left.
-- **Locked once the estimate is Sold**; opens **read-only** for any estimate that is not In Progress.
-- Roof and HVAC sections accept **photos and videos**, hidden in read-only view.
+- **Available only when inspection reports are turned on for your workspace**, and only on estimates built from your price book. Open it from the proposal's **⋮** menu → **Inspection Report**.
+- **Required before sending:** until it's complete, the proposal can't be sent or presented, and the estimate can't be Released or Sold.
+- **Saved on its own** with **Save Report**; required fields are enforced by the form before it saves.
+- **Locked once the estimate is Sold**; opens **read-only** for any estimate that is not In Progress or whose proposal is signed.
+- Roof and HVAC sections accept **photos and videos**; the upload controls are hidden in read-only view.
 
 ## Related references
 

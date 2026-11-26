@@ -2,125 +2,120 @@
 title: "Troubleshooting: why can't I…? (reference)"
 description: "Why an estimate action is blocked, disabled, or failing — cause and resolution for each case."
 icon: "circle-question"
-keywords: ["why is blocked", "why disabled", "greyed out", "button disabled", "permission denied", "cannot delete estimate", "cannot save estimate", "void", "sold estimate", "signed proposal", "roles", "permissions", "read only", "one sold estimate per project", "cannot mark sold", "send proposal disabled", "present to client disabled", "active job", "one active job per project", "estimate has an active job"]
+keywords: ["why is blocked", "inspection report required", "fill in the inspection report first", "this estimate changed", "update to current pricing", "discount limit", "calculator", "why disabled", "greyed out", "button disabled", "permission denied", "cannot delete estimate", "cannot save estimate", "void", "sold estimate", "signed proposal", "roles", "permissions", "read only", "one sold estimate per project", "cannot mark sold", "send proposal disabled", "present to client disabled", "active job", "one active job per project", "estimate has an active job"]
 ---
 
-This page covers every rule in the estimate Calculator flow that blocks, disables, warns, or requires permission — what you see, why it happens, and how to resolve it.
-
----
-
-### Why can't I open the Calculator page at all?
-
-- **Symptom:** The Calculator wizard won't open. Either the "Calculator" / "New Estimate" entry point is missing and access is denied, or **New Estimate** skips the Calculator and takes you straight into a from-scratch proposal.
-- **Cause:** Two things can put the Calculator out of reach:
-  - **Your role.** Calculator access is granted only to certain roles — Admin, Ops Manager, Sales Admin, Sales Member, Client Coordinator, and Crew Leader. A role without calculator access can't reach the page at all.
-  - **Your plan.** Even with a role that would normally allow it, your plan may not include the price book and Calculator — for example, on a free trial. When that's the case the Calculator is locked: **New Estimate** offers only the **From Scratch** option, and opening a Calculator link sends you into the from-scratch flow instead.
-- **Resolution:** If it's your role, ask an admin to grant you a role that includes calculator access. If it's your plan, build estimates with the [From Scratch](/guides/estimates/create-from-scratch) option, or ask an admin about upgrading your plan to add the price book and Calculator.
+This page covers every rule that blocks, disables, warns, or requires permission when you create, edit, and move estimates — what you see, why it happens, and how to resolve it.
 
 ---
 
-### Why does my estimate open as a proposal instead of the Calculator?
+### Where did the Calculator go?
 
-- **Symptom:** You open an estimate — from the estimates list or a saved link — and it lands on its editable proposal rather than in the Calculator wizard.
-- **Cause:** The estimate was created with the **From Scratch** option instead of the Calculator. A from-scratch estimate isn't built from your price book, so there's no Calculator pricing to reopen — you add and edit its line items and pricing directly on the proposal. See [Create an Estimate from Scratch](/guides/estimates/create-from-scratch).
-- **Resolution:** This is expected. Edit a from-scratch estimate's items, prices, and details on its proposal. If you want the guided Calculator instead, start a new estimate with the **From Pricebook** option.
+- **Symptom:** You can't find the Calculator, or an old Calculator link or bookmark opens an estimate's proposal or the **Create Estimate** dialog instead.
+- **Cause:** The step-by-step Calculator has been replaced. You now build a price-book estimate directly on its proposal page. Old links still work: a link to a specific estimate opens that estimate's proposal, and any other Calculator link opens **Create Estimate**.
+- **Resolution:** Start new estimates with **New Estimate** → **From Pricebook**, and edit existing ones from their proposal. See [Build an estimate](/guides/estimates/create).
+
+---
+
+### Why don't I see the "From Pricebook" option?
+
+- **Symptom:** In the **Create Estimate** dialog, only **From Scratch** is offered.
+- **Cause:** Two things can put price-book estimates out of reach:
+  - **Your role.** Only certain roles can build estimates from the price book.
+  - **Your plan.** Your plan may not include the price book — for example, on a free trial. Existing price-book estimates then show **Editing this proposal isn't included in your plan**: you can still view and send them, but not change them.
+- **Resolution:** If it's your role, ask an admin for a role that can build price-book estimates. If it's your plan, build estimates with the [From Scratch](/guides/estimates/create-from-scratch) option, or ask an admin about upgrading your plan to add the price book.
 
 ---
 
 ### Why am I told I've hit the limit of open estimates?
 
-- **Symptom:** A red banner at the top of the wizard reads: "You have exceeded the limit of open estimates. Please move an existing estimate to *Sold* or *Lost*." The Continue / Generate Proposal buttons are disabled.
+- **Symptom:** When you create an estimate, the **Create Estimate** dialog shows a red message: "You have reached the maximum of N open estimates for this branch."
 - **Cause:** When you create a *new* estimate, your open estimates for the branch (those in **In Progress** or **Released** status) are counted against your open-estimates limit. That limit is your branch's **Default Max Open Estimates**, unless an Admin has set a personal limit on your profile, which takes precedence. Once you reach that limit, you can't start another new estimate until you clear one.
 - **Resolution:** Move one of your existing **In Progress** / **Released** estimates to **Sold** or **Lost**, then start the new estimate. The limit only applies to creating new estimates — editing an existing one is never affected.
 
 ---
 
-### Why can't I move past the "Select Work Area" step?
+### Why can't I edit this estimate? (read-only banners)
 
-- **Symptom:** You press "Continue" on the work-area selection step and the wizard doesn't move on — the missing field is highlighted instead.
-- **Cause:** Two things must be true to continue. First, the work area needs at least one service, and when there's exactly one service it must have a work-area type selected. Second, both a client and a project must be selected.
-- **Resolution:** Pick a work-area type for the service, and make sure both a client and a project are selected.
-
----
-
-### Why can't I continue past the "Items" step? ("Add at least one item")
-
-- **Symptom:** You press "Continue" on the Items step and the wizard doesn't move on — a message says to add an item to continue.
-- **Cause:** The current work area has no items, or every item has a quantity of zero. Each work area needs at least one item with a quantity greater than zero.
-- **Resolution:** Add at least one item with a quantity greater than zero to the current work area before continuing.
+- **Symptom:** The estimate's proposal opens with no editing tools — no **Add work area**, **Edit Item**, or **Delete Item** — and a banner at the top explains why.
+- **Cause:** It depends on the banner:
+  - **This proposal is Sold, so it can't be edited** (or Released, Lost, and so on) — only **In Progress** estimates can be edited. Any other status (**Sold**, **Released**, **Lost**, **Secondary Estimate**) is read-only.
+  - **This proposal is signed, so it can't be edited** — a signed proposal is never editable.
+  - **View only** — your role can view the proposal but not change it, or the estimate belongs to another salesperson (a **Sales Member** can edit only their own estimates).
+  - **Editing this proposal isn't included in your plan** — see the card above.
+- **Resolution:** Change the estimate's status back to **In Progress** from the status badge at the top of the proposal, or from the estimates list. This requires the right role. If the proposal is signed, this starts a change order (see below). Until you send the proposal again, the customer sees "This proposal is currently being updated."
 
 ---
 
-### Why can't I submit the Job step? (job-detail required fields)
+### Why does my change fail with "Only In Progress estimates can be edited"?
 
-- **Symptom:** The form won't submit, and "required" errors appear under the job name, client name/email/phone, or property fields.
-- **Cause:** The Job step requires a job name; the client's first name, last name, a valid email, and a valid phone number; and the property's address, property type, and parking. The form will not advance until all required fields are valid.
-- **Resolution:** Fill in every required job, client, and property field with valid values (including correctly formatted email and phone numbers).
-
----
-
-### Why can't I complete the Inspection Report step? (required report fields)
-
-- **Symptom:** The inspection report won't submit, with "required" errors on customer demeanor, customer concerns, what needs to happen before the crews arrive, the home/attic/crawlspace square footage, the square-footage explanation, special instructions, or crew notes — or a length error on crew notes.
-- **Cause:** The inspection report requires customer demeanor, customer concerns, what needs to happen before the crews arrive, the home/attic/crawlspace square footage (each a whole number greater than zero), the square-footage explanation, special instructions, and crew notes. Crew notes are also limited to a maximum length, with a message like "Crew notes must be N characters or fewer."
-- **Resolution:** Fill in the required report fields and keep crew notes within the length limit.
-- **Note:** A read-only estimate lets you navigate through a report that was saved before some of these fields became required, without forcing them to be filled in. This is intentional and not a bug.
+- **Symptom:** An edit is rejected with "Only In Progress estimates can be edited."
+- **Cause:** The estimate's status is no longer **In Progress** — for example, someone changed it while you had the proposal open. Edits are only allowed on **In Progress** estimates, and this is checked again each time a change is saved, even if the page still looked editable.
+- **Resolution:** Reload the proposal. If you still need to make the change, set the status back to **In Progress** first.
 
 ---
 
-### Why is the whole estimate read-only / why are all fields greyed out?
+### Why did my edit disappear with "This estimate changed"?
 
-- **Symptom:** The estimate opens with no editable fields — only navigation works. There's no "Save Estimate" or "Add Work Area" button.
-- **Cause:** An existing estimate is editable only while its status is **In Progress**. Any other status (**Sold**, **Released**, **Lost**, **Secondary Estimate**) opens the calculator in read-only mode, which hides the Save button, the Add Work Area button, and the proposal-generate action. (Opening an inspection report in view mode is also read-only.)
-- **Resolution:** Change the estimate's status back to **In Progress** from the estimates list before editing. This requires the right role, and if the proposal is signed, the signature must be removed first (see below).
-
----
-
-### Why does saving an existing estimate fail with "This estimate is read-only"?
-
-- **Symptom:** Saving fails with "This estimate is read-only. Change the status to In Progress before editing."
-- **Cause:** The estimate's status is no longer **In Progress** — for example, someone changed it while you were editing. Saves are only allowed on **In Progress** estimates, and this is checked again when you save, even if the screen still looked editable.
-- **Resolution:** Set the status back to **In Progress**, then retry the save.
+- **Symptom:** After an edit, a message reads **This estimate changed** — "Someone else saved a change. We reloaded the latest version — make your edit again."
+- **Cause:** Changes on the proposal save automatically. Someone else saved a change to the same estimate after you opened it, so your edit wasn't applied on top of theirs.
+- **Resolution:** Check the reloaded estimate, then make your edit again.
 
 ---
 
-### Why is the "Save Estimate" button disabled? (no changes to save)
+### Why can't I save changes to a work area? ("isn't in this estimate's price book")
 
-- **Symptom:** On the Overall Job Breakdown step of an existing estimate, "Save Estimate" is disabled even though the form looks complete.
-- **Cause:** The estimate already exists and has no pending changes. The Save button stays disabled until you make a real change, so unchanged data isn't re-saved.
-- **Resolution:** Make a real change — quantities, items, job details, or breakdown fields. This never applies to brand-new estimates.
-
----
-
-### Why does the Save button say "Loading Breakdown..." and stay disabled?
-
-- **Symptom:** On the breakdown step the primary button reads "Loading Breakdown..." (or "Generate Proposal" is disabled) and can't be clicked.
-- **Cause:** The job breakdown hasn't finished calculating yet. The button label switches to "Save Estimate" and becomes clickable once the breakdown is ready.
-- **Resolution:** Wait for the breakdown to finish loading. If you try to save before it's ready, you'll see "The job breakdown is still loading. Please wait and try again."
+- **Symptom:** A change fails with "“Area name” isn't in this estimate's price book, so changes can't be saved. Use Update to current pricing first."
+- **Cause:** Each estimate keeps a copy of the price book from when it was created. The work area isn't in that copy — for example, it was added to your price book later.
+- **Resolution:** A manager can choose **Update to current pricing** in the proposal's **⋮** menu to bring the estimate up to date, then try again. This also updates the estimate's other prices and settings to your current ones.
 
 ---
 
-### Why am I asked "How would you like to handle pricing?" when I save? (regenerate dialog)
+### Why can't I use "Update to current pricing"?
 
-- **Symptom:** When you save an existing In-Progress estimate, a "Save changes" dialog appears: "There have been changes since you created this estimate. How would you like to handle pricing?" with "Keep original pricing and settings" (the default) versus "Use up to date information."
-- **Cause:** This prompt appears only when the estimate already exists, is still editable (**In Progress**), has actual saved changes, and you have permission to refresh pricing. "Keep original" preserves the prices, labels, tax, and branch settings locked in when the estimate was created. "Use up to date information" rebuilds those from the current catalog.
-- **Resolution:** Choose "Keep original" to keep the locked-in pricing and settings, or "Use up to date information" to refresh from the current catalog. The default is "Keep," so refreshing pricing is always a deliberate choice. If your role can edit but not refresh pricing, this dialog is hidden because the refresh option wouldn't be permitted.
-
----
-
-### Why is there an "impact" warning before save on some estimates?
-
-- **Symptom:** A scheduled-job impact dialog appears before the pricing dialog when you save.
-- **Cause:** When the estimate is linked to a scheduled job and you've made saved changes, you're warned first that your edits could affect that linked job. An estimate with no real changes skips both this warning and the pricing dialog.
-- **Resolution:** Confirm the impact dialog to continue (it then leads into the pricing dialog when applicable), or cancel to leave your changes unsaved.
+- **Symptom:** The **⋮** menu on the proposal has no **Update to current pricing** option.
+- **Cause:** It's available only to managers (Admin, Ops Manager, Sales Admin), only on estimates built from the price book, and only while the estimate can still be edited (**In Progress** and not signed).
+- **Resolution:** Ask a manager to update the pricing, or move the estimate back to **In Progress** first.
 
 ---
 
-### Why is the "Back" button disabled?
+### Why won't my discount go higher? ("Your role can give up to N%")
 
-- **Symptom:** "Back" can't be clicked.
-- **Cause:** You're on the very first work-area step, so there's nowhere to go back to. Back is also disabled while a save or step submission is in progress.
-- **Resolution:** This is expected on the first step. Otherwise, wait for the in-progress save or submission to finish.
+- **Symptom:** You enter a discount and it drops back to a lower number, with the note "Your role can give up to N%."
+- **Cause:** Your branch's **Max Discount** caps the discount you can give. Managers can give up to 100%. A higher discount a manager already set stays in place unless you change it.
+- **Resolution:** Use a discount within your limit, or ask a manager to set a higher one.
+
+---
+
+### Why don't I see the "Contractor prices" switch?
+
+- **Symptom:** The **Contractor prices** switch next to the discount is missing on the web app.
+- **Cause:** On the web app, the switch is hidden on narrow, phone-sized screens.
+- **Resolution:** Widen the browser window or use a larger screen. The switch is also available in the mobile app.
+
+---
+
+### Why can't I send or present the proposal? ("Fill in the inspection report first")
+
+- **Symptom:** **Send Proposal** and **Present to Client** are disabled with the note **Fill in the inspection report first**, and a banner reads **Fill in the inspection report before sending**. **Released** and **Sold** are greyed out in the status menu with the same note, and changing the status from the estimates list fails with "Fill in the inspection report first."
+- **Cause:** If inspection reports are turned on for your workspace, every estimate built from the price book needs a completed inspection report before its proposal can be sent or presented, and before it can be moved to **Released** or **Sold**. Estimates created **From Scratch** never need one.
+- **Resolution:** Click **Fill in inspection report →** in the banner (or choose **Inspection Report** in the **⋮** menu), answer the required questions, and click **Save Report**. The menu then shows the report as **Done**.
+
+---
+
+### Why can't I save the inspection report? ("Report incomplete")
+
+- **Symptom:** Clicking **Save Report** shows **Report incomplete** — "Answer the required questions before saving."
+- **Cause:** The report requires what needs to happen before the crews arrive, customer demeanor, customer concerns, the home, attic, and crawlspace square footage (each a whole number greater than zero), why the square footages differ, the number of stories, the parking distance, any concerning pets, special instructions, and crew notes. Crew notes also have a length limit ("Crew notes must be 5000 characters or fewer.").
+- **Resolution:** Fill in every required question, keep crew notes within the limit, and save again.
+
+---
+
+### Why can't I edit the inspection report?
+
+- **Symptom:** The inspection report opens read-only with no **Edit Report** button, or shows "No inspection report has been filled in yet."
+- **Cause:** The report can be changed only while the estimate is editable: **In Progress**, not signed, and by someone allowed to edit the estimate. In any other status, or once the proposal is signed, the report is read-only.
+- **Resolution:** Move the estimate back to **In Progress** if you need to change the report.
 
 ---
 

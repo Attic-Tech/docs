@@ -1,10 +1,10 @@
 ---
-title: "Factors additional costs"
+title: "Factors and additional costs"
 description: "Set up factors and additional costs in your Price Book so estimates pick up the right markups and extra charges automatically."
 icon: "sliders"
 ---
 
-**Factors** and **Additional costs** are two Price Book tools that adjust the price of an estimate beyond the items themselves. A **factor** raises or lowers an item's material cost, labor hours, or price by a percentage you set. An **additional cost** is a flat dollar amount added on top. Set them up once and the Calculator applies them to estimates for you.
+**Factors** and **Additional costs** are two Price Book tools that adjust the price of an estimate beyond the items themselves. A **factor** raises or lowers an item's material cost, labor hours, or price by a percentage you set. An **additional cost** is a flat dollar amount added on top. Set them up once, and they're ready on every estimate you build from your price book.
 
 <Note>
 These are admin settings. You'll find them under **Settings → Price book**, and you need workspace settings access to view or change them. If you don't see the Settings area, ask an admin on your team.
@@ -29,10 +29,10 @@ A factor is a percentage adjustment up or down. Use factors for things like a su
 
 When you create or edit a factor, you'll fill in:
 
-- **Name** — what the factor is, in plain language (for example, *Remote jobsite surcharge*). This is how it shows up in the list and, when relevant, in the Calculator.
+- **Name** — what the factor is, in plain language (for example, *Remote jobsite surcharge*). This is how it shows up in the list and, when estimators can pick it, on the estimate.
 - **Change** — how much the factor raises or lowers what it acts on, entered as a percent: `30` adds 30%, `-10` takes 10% off. The lowest you can enter is `-100` (which zeroes out what it changes). Factors stack by multiplying, so two `+30%` factors add 69%, not 60%.
 - **Changes** — what the factor acts on. Pick one or more of **Material cost**, **Labor hours**, and **Price**. A single factor can change any mix of the three at the same value. **Material cost** and **Labor hours** scale the underlying cost the price is built from, while **Price** moves a line's price directly — including an item sold at a [fixed price](/guides/settings/price-book/items#pricing-fields), which no other factor or multiplier touches.
-- **Always enabled** — a checkbox. When it's on, the factor is applied automatically on every matching estimate and is hidden from the Calculator, so estimators can't switch it off. When it's off, the factor is available in the Calculator for estimators to turn on per estimate.
+- **Always enabled** — a checkbox. When it's on, the factor is applied automatically on every matching estimate and is never offered as a choice, so estimators can't switch it off. When it's off, estimators can tick it on an estimate when it applies. See [How factors and additional costs reach an estimate](#how-factors-and-additional-costs-reach-an-estimate).
 
 <Tip>
 Use **Always enabled** for adjustments that should never be skipped — a standard markup, for example. Leave it off when it's a situational charge that an estimator should decide on job by job.
@@ -110,7 +110,15 @@ Use the **search** box at the top of either list to find a factor or cost by nam
 
 ## How factors and additional costs reach an estimate
 
-You set these up once here, and the Calculator does the rest. When an estimator builds an estimate, **Always enabled** factors are applied automatically, optional factors can be turned on for that estimate, and additional costs are added where they apply. The estimate's breakdown reflects all of it in the final price — no manual math required.
+You set these up once here. Estimators use them when they [build an estimate](/guides/estimates/create) on its proposal page:
+
+- **Always enabled** factors apply on their own wherever they're attached: to an item, an item category, or a work area. Estimators never see a checkbox for them.
+- **Work area factors** that aren't always enabled are offered when an estimator adds that work area to the estimate, and later from the area's **+ Factor** button. A factor picked there applies to every item in that area.
+- **Item factors** that aren't always enabled are offered as checkboxes under **Item factors** when an estimator adds or edits that item.
+- **Item category factors** apply only when they're **Always enabled**. Estimators aren't asked about category factors on an estimate.
+- **Additional costs** attached to an item are offered as checkboxes under **Additional costs** when an estimator adds or edits that item. None are ticked to start.
+
+The price updates as soon as an estimator makes a change, so there's no manual math. Factors and additional costs are team-only details: your client sees the items, quantities, and prices, not the factors or costs behind them. Only roles that can see costs see how much each factor changes.
 
 ## What's next
 
@@ -122,6 +130,6 @@ You set these up once here, and the Calculator does the rest. When an estimator 
     Define how prices scale across quantity or size ranges.
   </Card>
   <Card title="Work areas" icon="layer-group" href="/guides/settings/price-book/work-areas">
-    Manage the areas of a job that estimators choose from in the Calculator.
+    Manage the areas of a job that estimators add to an estimate.
   </Card>
 </CardGroup>

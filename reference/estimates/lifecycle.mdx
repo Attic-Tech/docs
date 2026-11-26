@@ -2,7 +2,7 @@
 title: "Estimate lifecycle & statuses (reference)"
 description: "Every estimate status, the transitions between them, what each one triggers, and which fields lock when."
 icon: "arrows-spin"
-keywords: ["estimate status", "sold", "released", "lost", "secondary estimate", "deleted", "status transition", "first sold date", "effective sold date", "change sold date", "who can change status", "permissions", "one sold estimate per project", "only one estimate can be sold", "rename estimate", "change estimate name"]
+keywords: ["estimate status", "inspection report required", "update to current pricing", "sold", "released", "lost", "secondary estimate", "deleted", "status transition", "first sold date", "effective sold date", "change sold date", "who can change status", "permissions", "one sold estimate per project", "only one estimate can be sold", "rename estimate", "change estimate name"]
 ---
 
 This page is the complete reference for an estimate's lifecycle: every status it can be in, how it moves between statuses, what each move triggers, and which fields lock when.
@@ -40,9 +40,9 @@ The table below shows the allowed moves between statuses, the condition for each
 | --- | --- | --- |
 | (new estimate) | In Progress | The default when an estimate is created. Subject to the per-user open-estimate cap. |
 | (new estimate) | Sold | An estimate may be created already Sold; this records both sold dates at creation. |
-| In Progress | Sold | Anyone allowed to set Sold. Creates the job and work order. Blocked if another estimate in the same project is already Sold or still has an active (not closed or cancelled) job. |
-| In Progress | Released / Lost / Secondary Estimate / Deleted | Anyone allowed to set that target status. Ops Manager is specifically not allowed to set these. |
-| Released | Sold | Anyone allowed to set Sold. Because the estimate was previously released, the existing job (if any) is reactivated. Blocked if another estimate in the same project is already Sold or still has an active (not closed or cancelled) job. |
+| In Progress | Sold | Anyone allowed to set Sold. Creates the job and work order. Blocked if another estimate in the same project is already Sold or still has an active (not closed or cancelled) job. Where inspection reports are turned on, a price-book estimate also needs a completed inspection report. |
+| In Progress | Released / Lost / Secondary Estimate / Deleted | Anyone allowed to set that target status. Ops Manager is specifically not allowed to set these. Where inspection reports are turned on, moving a price-book estimate to Released needs a completed inspection report. |
+| Released | Sold | Anyone allowed to set Sold. Because the estimate was previously released, the existing job (if any) is reactivated. Blocked if another estimate in the same project is already Sold or still has an active (not closed or cancelled) job, or (where inspection reports are turned on) if a price-book estimate's inspection report isn't complete. |
 | Sold | any other status | Requires management-level permissions: Sales Admin, Ops Manager, or Admin. |
 | Sold | Lost | As above, plus an extra rule: blocked if the related job is already Closed. On success the related job is cancelled. |
 | Sold | In Progress (to re-edit) | Management-level permissions only. If the proposal is signed, the user must confirm the reopen in **Start a change order?** and enter required **Change order notes**; re-editing then removes the signature. |
@@ -53,9 +53,9 @@ The table below shows the allowed moves between statuses, the condition for each
 
 ### Only In Progress is editable
 
-An estimate's pricing and scope can be edited only while it is In Progress. In every other status (except Deleted) those fields are read-only — the user must move the estimate back to In Progress first. Crew notes and the estimate's name are the two exceptions (see below).
+An estimate's pricing and scope can be edited only while it is In Progress, and never while its proposal is signed. In every other status (except Deleted) those fields are read-only — the user must move the estimate back to In Progress first. Crew notes and the estimate's name are the two exceptions (see below).
 
-If someone tries to edit an estimate that is no longer In Progress, the edit is rejected with a "this estimate is read-only" error. Anyone with permission to edit estimates can make edits while In Progress (Sales Member and above), provided they have access to the relevant branch — with one scope limit: a **Sales Member** (who sees only the clients they work on) can edit, send, and save only the estimates **they own**. Another salesperson's estimate — even one on a client they both work on — opens read-only for them; only its owner or a manager (a role that sees every client) can edit it, save it from the Calculator, or send its proposal.
+Pricing and scope are edited on the estimate's proposal page. On a read-only estimate, that page shows a banner explaining why — for example "This proposal is Sold, so it can't be edited", "This proposal is signed, so it can't be edited", or **View only** for a role that can't edit. If someone tries to edit an estimate that is no longer In Progress, the edit is rejected with "Only In Progress estimates can be edited." Anyone with permission to edit estimates can make edits while In Progress (Sales Member and above), provided they have access to the relevant branch — with one scope limit: a **Sales Member** (who sees only the clients they work on) can edit, send, and save only the estimates **they own**. Another salesperson's estimate — even one on a client they both work on — opens read-only for them; only its owner or a manager (a role that sees every client) can edit it or send its proposal.
 
 ### Status changes go through a dedicated action
 
@@ -139,9 +139,13 @@ Renaming requires the ordinary permission to edit estimates (Sales Member and ab
 
 When an estimate is created, the system saves a snapshot of the pricing and configuration it was built from — financing terms, payment methods, branding, and reviews. The snapshot doesn't include tax: the estimate keeps its own saved copy of the applied tax rate instead (see [Sales tax](/reference/billing/sales-tax#the-saved-copy-of-the-rate)). The snapshot is what the work order's line items are built from when the estimate is sold.
 
-### Rebuilding the snapshot requires management-level permissions
+### Edits save automatically
 
-Saving edits and rebuilding the snapshot from the current catalog at the same time requires management-level permissions (Sales Admin, Ops Manager, or Admin). The save and the rebuild happen independently — if the rebuild fails after the save succeeds, the edits are kept and the previous snapshot stays in place, and the failure is reported.
+Every change to a price-book estimate's work areas, items, days of work, and discount is saved as soon as it's made, and the prices are recalculated by the system. There is no separate save step. If someone else saved a change to the same estimate in the meantime, the edit is rejected with **This estimate changed**, the latest version is reloaded, and the edit has to be made again.
+
+### Refreshing the snapshot requires management-level permissions
+
+Rebuilding an estimate's snapshot from the current catalog is a separate action, **Update to current pricing**, in the proposal's **⋮** menu. It's available only to management-level roles (Sales Admin, Ops Manager, or Admin), only on price-book estimates, and only while the estimate can still be edited. It brings in the latest prices, labels, tax rules, branch settings, and related items; items already on the estimate that were removed from the catalog are kept. Ordinary edits never rebuild the snapshot.
 
 ### Estimates are soft-deleted; signed, Sold, or active-job estimates can't be deleted
 
@@ -154,6 +158,10 @@ If an estimate's proposal is signed and someone wants to move it back to In Prog
 ### Signing or selling saves a read-only proposal version
 
 Where version history is turned on, the estimate's proposal is saved as a new numbered, read-only version each time the customer signs it, and each time the estimate becomes Sold while its proposal is unsigned (shown as "Marked sold"). A sale that follows a signature doesn't save a second version. Saved versions never change: a change order edits the next version, which is saved in turn when it's signed or sold. If a proposal signed before version history existed is reopened for a change order, its current state is saved as Version 1 first. Each version after the first stores a summary of what changed since the previous one. Photos and videos used by a saved version are kept even if they're deleted from the project's media. See [Version history and change details](/guides/proposals/client-response#version-history-and-change-details).
+
+### Released and Sold can require an inspection report
+
+Where inspection reports are turned on for the workspace, an estimate built from the price book needs a completed inspection report before it can be moved to Released or Sold, and before its proposal can be sent or presented. Attempts are rejected with "Fill in the inspection report first." Estimates created from scratch never need one. A report counts as complete once it's saved with all of its required questions answered. A customer signing through a link they were already sent isn't checked again, because the proposal was checked when it was sent.
 
 ### Selling an estimate can award badges
 

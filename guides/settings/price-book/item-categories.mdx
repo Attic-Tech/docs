@@ -1,11 +1,11 @@
 ---
 title: "Item categories"
-description: "Group your Price Book items into categories — the buckets estimators browse in the Calculator, and the link that connects items to the work areas and factors that use them."
+description: "Group your Price Book items into categories — the buckets estimators browse when they add items to an estimate, and the link that connects items to the work areas and factors that use them."
 icon: "folder-tree"
-keywords: ["item categories", "price book", "categories", "items", "calculator", "work areas", "factors"]
+keywords: ["item categories", "price book", "categories", "items", "estimates", "work areas", "factors"]
 ---
 
-An **item category** is a bucket you group your items into — *Insulation*, *Disposal*, *Labor*, and so on. Categories are how items are organized in the Calculator: an estimator opens a category and sees the items inside it, instead of scrolling one long flat list. Every item must belong to at least one category, so categories are the foundation the rest of the Price Book builds on.
+An **item category** is a bucket you group your items into — *Insulation*, *Disposal*, *Labor*, and so on. Categories are how items are organized when an estimator adds items to an estimate: the **Add Item** window lists your categories down the side, so they can open one and see just the items inside it instead of scrolling one long flat list. Every item must belong to at least one category, so categories are the foundation the rest of the Price Book builds on.
 
 This page lives under **Settings → Price Book → Item Categories**.
 
@@ -19,7 +19,7 @@ A category sits between your items and the parts of a job that use them:
 
 - **Items** — the priced building blocks that belong to the category. An item can sit in more than one category.
 - **Work Areas** — the parts of a job (an attic, a crawl space) that offer this category's items to estimators.
-- **Factors** — the Yes / No questions that can adjust pricing for items in this category.
+- **Factors** — adjustments that apply to every item in this category. Only factors marked **Always enabled** apply here. Estimators aren't asked about category factors on an estimate; they pick factors per work area and per item instead.
 
 Because items can't be saved without a category, this is usually the **first** thing you set up in the Price Book — create the categories you need, then add items into them.
 
@@ -41,13 +41,13 @@ Because items can't be saved without a category, this is usually the **first** t
     On the **Item Categories** tab, click **Create New** in the top-right. This opens the **Create Item Category** form.
   </Step>
   <Step title="Name the category">
-    Type a clear **Name** — for example, *Attic insulation*. This is the label estimators see in the Calculator, so keep it plain and recognizable.
+    Type a clear **Name** — for example, *Attic insulation*. This is the label estimators see in the **Add Item** window, so keep it plain and recognizable.
   </Step>
   <Step title="Add items (optional)">
     In **Available items**, search and tick the items that belong in this category. Selected items move up into the **Selected items** card so you can see the full set and remove any from there. You can also attach an item to a category later from the item itself.
   </Step>
   <Step title="Attach factors (optional)">
-    In **Factors**, tick the Yes / No questions that should apply to items in this category. Use **Select all** or **Clear all** to set them in one click.
+    In **Factors**, tick the factors that should apply to items in this category. Only **Always enabled** factors take effect at the category level. Use **Select all** or **Clear all** to set them in one click.
   </Step>
   <Step title="Review work areas">
     The **Work Areas** panel shows which work areas already include this category. This list is set by editing each work area's category list, so it's read-only here — it's there so you can see where the category is used.
@@ -100,7 +100,7 @@ In every case, **proposals you've already created are not affected**. The Delete
     Set up the parts of a job that offer each category's items to estimators.
   </Card>
   <Card title="Factors and additional costs" icon="sliders" href="/guides/settings/price-book/factors-additional-costs">
-    Define the Yes / No factors and extra costs you can attach to a category's items.
+    Define the factors and extra costs you can attach to a category's items.
   </Card>
   <Card title="Multiplier ranges" icon="percent" href="/guides/settings/price-book/multiplier-ranges">
     Set the branch pricing that turns an item's raw costs into a customer price.

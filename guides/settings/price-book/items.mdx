@@ -4,7 +4,7 @@ description: "Build and maintain the items in your Price Book — the priced bui
 icon: "package"
 ---
 
-**Items** are the priced building blocks of every estimate. Each item — a material, a service, or a line of labor — carries its own unit, costs, and pricing rules. When an estimator builds an estimate in the Calculator, they pick from this list, and the price you set up here is what flows into the breakdown.
+**Items** are the priced building blocks of every estimate. Each item — a material, a service, or a line of labor — carries its own unit, costs, and pricing rules. When an estimator [builds an estimate](/guides/estimates/create) from your price book, they add items from this list, and the price you set up here is what flows into the estimate.
 
 This page lives under **Settings → Price Book → Items**, the first tab in the Price Book.
 
@@ -34,11 +34,11 @@ An item can belong to more than one category. When it does, the list shows the f
 
 When you start a new item you first choose what **type** of item to create:
 
-- **Calculator Item** — the full item, with labor hours and material overhead, for better reports and customization. This is the item estimators build with in the Calculator, and it's what the rest of this section walks through.
+- **Calculator Item** — the full item, with labor hours and material overhead, for better reports and customization. This is the item estimators add when they build an estimate from your price book, and it's what the rest of this section walks through.
 - **Quick Item** — a lightweight item you can add to a proposal fast, with no labor hours or overhead. See [Quick items](#quick-items) below.
 
 <Note>
-**For a Calculator Item, set up at least one Item Category first.** A calculator item must belong to at least one category, so you can't save one until a category exists to put it in. If you haven't created any yet, head to the [Item Categories](/guides/settings/price-book/item-categories) tab and add one, then come back here. (Quick items don't need a category — they're filed automatically in the system **Custom** category.)
+**For a Calculator Item, set up at least one Item Category first.** A Calculator Item must belong to at least one category, so you can't save one until a category exists to put it in. If you haven't created any yet, head to the [Item Categories](/guides/settings/price-book/item-categories) tab and add one, then come back here. (Quick items don't need a category — they're filed automatically in the system **Custom** category.)
 </Note>
 
 <Steps>
@@ -49,14 +49,14 @@ When you start a new item you first choose what **type** of item to create:
     In the first card, set:
 
     - **Item Name** — what estimators see when they search for it.
-    - **Item Category** — pick one or more [categories](/guides/settings/price-book/item-categories). At least one is required; categories are how the item is grouped in the Calculator.
-    - **Description** — optional text that shows up in the Calculator and on client proposals. Use it to explain what the item covers.
+    - **Item Category** — pick one or more [categories](/guides/settings/price-book/item-categories). At least one is required; categories are how the item is grouped in the **Add Item** window on an estimate.
+    - **Description** — optional text that shows up in the item's details when estimators add it to an estimate, and on client proposals. Use it to explain what the item covers.
   </Step>
   <Step title="Set the pricing">
     In the **Pricing** card, set how the item is priced (see [Pricing fields](#pricing-fields) below for what each one does).
   </Step>
   <Step title="Add an image (optional)">
-    In the **Item Media** card on the right, click or drag to upload a picture or short video of the item. This is what appears alongside the item in the Calculator. Images can be up to 20MB; videos up to 50MB.
+    In the **Item Media** card on the right, click or drag to upload a picture or short video of the item. This is what appears alongside the item when estimators add it to an estimate. Images can be up to 20MB; videos up to 50MB.
   </Step>
   <Step title="Save">
     Click **Create Item**. The item is saved and you're returned to the list, where it's ready for estimators to use right away.
@@ -65,7 +65,7 @@ When you start a new item you first choose what **type** of item to create:
 
 ### Quick items
 
-A **Quick Item** is a stripped-down item for adding to a proposal quickly, without the labor hours, overhead, factors, or categories a Calculator Item carries. It's a good fit for one-off or simple line items. Quick items don't appear in the Calculator — they're for proposals built from scratch.
+A **Quick Item** is a stripped-down item for adding to a proposal quickly, without the labor hours, overhead, factors, or categories a Calculator Item carries. It's a good fit for one-off or simple line items. Quick items aren't offered when you build an estimate from your price book — they're for [proposals built from scratch](/guides/estimates/create-from-scratch).
 
 <Steps>
   <Step title="Start a Quick Item">
@@ -78,7 +78,7 @@ A **Quick Item** is a stripped-down item for adding to a proposal quickly, witho
     - **Unit Type** — the unit the item is measured and sold in. Required.
     - **Description** — optional text that shows up on client proposals.
     - **Cost (per unit)** — the cost for one unit. Required.
-    - **Fixed Price (per unit)** — optionally sell the item at an exact price per unit, whatever the multiplier, factors, or payment method would otherwise do. Leave it blank to price from cost.
+    - **Fixed Price (per unit)** — optionally sell the item at an exact price per unit, whatever the multiplier or factors would otherwise do. Leave it blank to price from cost.
     - **Taxable Item** — turn on to mark the item as taxable when it's added to a proposal or estimate. Off by default.
     - **Image** — optionally upload a picture of the item.
   </Step>
@@ -94,10 +94,10 @@ The **Pricing** card is where you tell the system how to price the item. You don
 - **Unit Type** — the unit the item is measured and sold in (for example, square feet or each). Required.
 - **Material Cost (per unit)** — the cost of materials for one unit. Required.
 - **Labor Time** — how long the crew takes to do a batch of the item. Enter a number, pick **minutes** or **hours**, then set how many units that covers — for example, 15 minutes per 100 sq. ft. The form stores this as labor time per single unit and shows that figure below the field. The batch size itself isn't saved: when you reopen the item, the same rate is shown over the unit's default batch (100 for square feet, linear feet, and dollars; 1 for everything else). Required.
-- **Fixed Price (per unit)** — set this to sell the item at an exact price per unit instead of pricing it from cost. When it's filled in, the branch multiplier and the payment method don't change the line, and there's no material or labor cost for factors to scale — but a **Price** [factor](/guides/settings/price-book/factors-additional-costs#factors) and the customer discount still adjust it. Leave it blank to price the item from cost as usual; enter **0** for a free item. (The Material Cost and Labor Time you enter are still used for reporting and to work out the job's hours.)
+- **Fixed Price (per unit)** — set this to sell the item at an exact price per unit instead of pricing it from cost. When it's filled in, the branch multiplier doesn't change the line, and there's no material or labor cost for factors to scale — but a **Price** [factor](/guides/settings/price-book/factors-additional-costs#factors) and the customer discount still adjust it. Leave it blank to price the item from cost as usual; enter **0** for a free item. (The Material Cost and Labor Time you enter are still used for reporting and to work out the job's hours.)
 - **Multiplier Override** — only for items marked **Sub Item** (see [Item behavior](#item-behavior)) that don't have a fixed price. When set, it replaces your branch's **Sub Multiplier** for this one item: `×1.5` sells it at 1.5 times cost. It must be more than 0. Leave it blank to use the branch's Sub Multiplier; it's ignored when a Fixed Price is set.
-- **Factors** — optional conditions that adjust the item's price based on answers to the work-area questions on an estimate.
-- **Additional Costs** — optional extra costs attached to the item, such as a fee or a surcharge that always applies when it's used.
+- **Factors** — [factors](/guides/settings/price-book/factors-additional-costs#factors) for this item. When an estimator adds the item to an estimate, they can tick any of these under **Item factors**. Factors marked **Always enabled** apply on their own.
+- **Additional Costs** — [extra costs](/guides/settings/price-book/factors-additional-costs#additional-costs), such as a fee or a surcharge, that estimators can add to this item. They show as checkboxes under **Additional costs** when the item is added to an estimate, with none ticked to start.
 
 <Note>
 You set raw costs and hours here, not the price the customer sees. The customer-facing price is worked out from these numbers together with your branch's pricing — so the same item can price differently from one branch to another.
@@ -120,8 +120,8 @@ Some items automatically bring along a second item — for example, a material t
 
 A few optional settings change how the item shows up and behaves on a job:
 
-- **Sub Item** — lists the item under **Sub Services** in the job breakdown instead of with the main itemized costs. Use it for supporting items you want grouped separately.
-- **Requires Info** — prompts estimators to enter extra details (such as a measurement or a note) on this item whenever they add it to a job.
+- **Sub Item** — marks the item as subcontracted work. It's priced with the branch's **Sub Multiplier** (or the item's **Multiplier Override**) instead of the multiplier ranges, and it carries a **Sub service** badge in the estimate's **Job Breakdown**. A job made up only of sub items has no travel or load and unload time.
+- **Requires Info** — asks estimators for **Additional Info** (such as a measurement or a note) when they add the item to an estimate. Until it's filled in, the line shows an **Additional Info needed** badge.
 - **Taxable Item** — controls whether the item is included when sales tax is worked out. It's **off by default**, so a new item isn't included in sales tax until you turn this on. When it's off, the item is left out of the tax calculation on any estimate or proposal that uses it — and on invoices billed from that estimate — so the selected tax rate applies only to the taxable items. Turn it on for items you collect sales tax on.
 
 ## Edit an item
