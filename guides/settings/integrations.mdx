@@ -190,10 +190,9 @@ Enabling TaxJar doesn't turn it on for any branch. Every branch starts switched 
 
 ### How TaxJar tax works
 
-For a branch that uses TaxJar, the tax selector gains a **TaxJar** option at the top, above your **Saved rates** and **Tax Groups**. It shows the rate found for the property — for example "Renton, WA - 10.5%" — with **Calculated from property address** underneath. You'll find this selector in three places:
+For a branch that uses TaxJar, the tax selector gains a **TaxJar** option at the top, above your **Saved rates** and **Tax Groups**. It shows the rate found for the property — for example "Renton, WA - 10.5%" — with **Calculated from property address** underneath. You'll find this selector in two places:
 
-- **The estimate calculator** — the **Tax** row in the job breakdown. On a new estimate, TaxJar is selected for you.
-- **The proposal's price summary** — the **Tax** row, while the estimate is still **In Progress**.
+- **The proposal's price summary** — the **Tax** row, while the estimate is still **In Progress** and the proposal isn't signed. On a new estimate, TaxJar is selected for you.
 - **Invoices you create from scratch** — the **Tax** row in the line items breakdown. On a new invoice, TaxJar is selected for you.
 
 On a branch that uses TaxJar, it replaces the branch's default rate as the tax picked automatically. That includes estimates you build from scratch. You can switch any of these to a saved rate, a tax group, or **No Tax** at any time.
@@ -202,7 +201,7 @@ Some things to know about how the rate is found and applied:
 
 - **The property address drives the rate.** A ZIP code is the minimum TaxJar needs; the street, city, and state make the rate more precise. Addresses are looked up as US addresses.
 - **The rate is saved with the estimate or invoice.** Like any tax choice, it's applied to your taxable items only. It doesn't change on its own when rates change, or when you turn TaxJar off.
-- **The rate is looked up again** when you save an estimate with TaxJar selected, or refresh its pricing, so it reflects the current address and rates.
+- **The rate is looked up again** when you pick TaxJar on a proposal, or use **Update to current pricing**, so it reflects the current address and rates. Other changes to the estimate keep the saved percentage.
 - **Invoices created from an estimate** carry the estimate's tax — including a TaxJar rate — as a read-only line. The deposit invoice made when a proposal is signed does the same.
 - **Exemptions aren't considered.** TaxJar gives you the rate for the location. It doesn't know whether a customer or job is tax-exempt, or where your business is registered to collect tax. For an exempt job, choose **No Tax**.
 

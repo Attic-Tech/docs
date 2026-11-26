@@ -28,7 +28,7 @@ For how TaxJar finds a rate, see [TaxJar](/guides/settings/integrations#taxjar).
 
 Some records get a tax picked for you when they're created:
 
-- **New estimates in the Calculator** and **estimates built from scratch** get the branch's default rate.
+- **New estimates built from your price book** and **estimates built from scratch** get the branch's default rate.
 - **New invoices you create from scratch** get the branch's default rate too.
 - **On a branch that uses TaxJar**, TaxJar is picked instead of the default rate.
 
@@ -42,7 +42,7 @@ Tax is the taxable amount multiplied by the rate's percentage, rounded to the ce
 
 What counts as the taxable amount depends on how the estimate was built:
 
-- **Calculator estimates** — the final price after any discount, counting only the items marked **Taxable Item** in your price book. Estimates saved before items could be marked taxable are taxed on the whole final price.
+- **Price-book estimates** — the final price after any discount, counting only the items marked **Taxable Item** in your price book. Estimates saved before items could be marked taxable are taxed on the whole final price.
 - **Estimates built from scratch** — the subtotal of the lines marked taxable, after discounts.
 
 Items that aren't taxable are left out, so the rate applies only to the taxable part of the job. See [Items](/guides/settings/price-book/items) for the **Taxable Item** setting.
@@ -55,19 +55,18 @@ When a tax is applied, the estimate saves a copy of the rate's name and percenta
 
 The tax is worked out again, using your current rates, when:
 
-- **You pick a tax** in the selector — in the Calculator, or on the proposal while the estimate is **In Progress** and the proposal isn't signed.
-- **You save the estimate again in the Calculator** with a tax selected.
-- **You refresh the estimate's pricing.** The tax follows the new total.
+- **You pick a tax** in the selector on the proposal, while the estimate is **In Progress** and the proposal isn't signed.
+- **You use Update to current pricing** on the proposal. The tax follows the new total and the rate's current percentage.
 
-Editing the lines of an estimate built from scratch also recalculates the tax, but keeps the saved percentage.
+Editing an estimate on its proposal also recalculates the tax on the new total, but keeps the saved percentage. That covers changes to a price-book estimate's work areas, items, days, or discount, and edits to the lines of an estimate built from scratch.
 
 ## Older estimates
 
 Estimates taxed before tax rates existed have a stored tax amount but no saved rate. They keep that amount:
 
-- Saving them without choosing a tax, or refreshing their pricing, leaves the stored tax as it is.
+- Editing them without choosing a tax, or using **Update to current pricing**, leaves the stored tax as it is.
 - Their read-only proposal still shows the original **Local Tax** and **State Tax** lines.
-- If you reopen one in the Calculator on a branch that uses TaxJar, and TaxJar finds a rate for the property, the tax switches to TaxJar and is recalculated. Otherwise the stored amount stays.
+- Picking a tax in the selector replaces the stored amount with one worked out from the rate you pick.
 
 ## Tax on invoices
 

@@ -87,7 +87,7 @@ This section identifies the branch and connects it to your price book.
 - **Timezone** — used for scheduling and for the date ranges on dashboards in this branch. Set this to the branch's local time.
 - **Review Link** — an optional link to where customers leave a review for this branch, such as your Google or Yelp review page (any review site works). It fills the `{{review_link}}` placeholder in the snippets you text to customers. See [Snippets](/guides/calls/inbox#snippets). Enter a full link; Menaia adds `https://` if you leave it off, and flags anything that isn't a valid link.
 - **Branch Payroll ID** — an optional identifier that links this branch to your external payroll system.
-- **Multiplier Ranges** — the sold-price tiers this branch uses for pricing and bonuses. You must pick at least one; the estimate calculator needs a range to produce pricing.
+- **Multiplier Ranges** — the sold-price tiers this branch uses for pricing and bonuses. You must pick at least one; estimates built from your price book need a range to produce pricing.
 - **Work Areas** — the work areas estimators can choose on proposals for this branch.
 
 <Note>
@@ -110,7 +110,7 @@ For any day you turn on, the **end time must be later than the start time**, and
 
 ## Costs & Production
 
-These values are the cost basis the calculator uses to price a job. Together they turn labor, materials, and travel into a real number.
+These values are the cost basis Menaia uses to price an estimate built from your price book. Together they turn labor, materials, and travel into a real number.
 
 - **Base Hourly Rate** — the default hourly labor rate, used when no crew-specific rate applies.
 - **Average Work Day Hours** — a typical crew workday length. Used to translate labor hours into the number of days a job needs on the schedule.
@@ -119,7 +119,6 @@ These values are the cost basis the calculator uses to price a job. Together the
 - **Truck Average Miles Per Gallon** — fuel efficiency, combined with gas cost and driving distance to estimate fuel cost per job.
 - **Labor Hours Load / Unload** — fixed hours added to every job to cover loading and unloading.
 - **Sub Multiplier** — a multiplier applied to subcontracted material costs before they're added to the price.
-- **Cash Factor** — a factor applied to the price when the customer pays cash (for example, `0.95` gives a 5% cash discount).
 - **Max Discount** — the highest discount, as a percentage, a sales rep can apply without a manager override.
 - **Deposit Percent** — the percentage of the total required as a deposit (for example, `10` means 10%).
 - **Max Deposit Amount** — a dollar cap on the deposit. `0` means no cap.
@@ -128,12 +127,15 @@ These values are the cost basis the calculator uses to price a job. Together the
 
 These settings shape the final price and the financial rules for proposals.
 
-- **Credit Card Fee** — a factor applied to the price when the customer pays by credit card (for example, `1.03` adds a 3% surcharge).
 - **Min Retail Price** — the lowest dollar amount any proposal in this branch can be priced at.
 - **B2B Max Discount** — the discount automatically applied when contractor / business-to-business pricing is turned on for a proposal.
 - **Quality Control Visit Price** — a flat cost added to a job when a quality-control visit is included on the proposal.
 - **Bonus Pool Percentage** — the share of a job's bonus base that goes into the crew bonus pool.
 - **Bonus Payout Cutoff** — how many days after a job is closed its crew bonus can still be recalculated. Once that many days have passed since the close date, the bonus is locked and later changes to the job no longer update it. (The tooltip next to the field says the count starts from the scheduled date, but it's the close date that counts.)
+
+<Note>
+Branches no longer have a **Cash Factor** or **Credit Card Fee**. The payment method doesn't change an estimate's price any more: every estimate is priced as cash. To keep prices the same, each branch's old cash factor was built into its multiplier ranges, its **Sub Multiplier**, and item multiplier overrides. Where branches with different cash factors shared a multiplier range, the range was split into copies named after the original, so each branch kept its own prices. See [Multiplier ranges](/guides/settings/price-book/multiplier-ranges).
+</Note>
 
 ## System Customization
 
@@ -149,8 +151,8 @@ Don't worry about memorizing the math behind each field. Each one has a short on
 
 ## A few things to keep in mind
 
-- Changes to a branch's costs, factors, and defaults affect **new** estimates priced after you save. Estimates already saved keep the pricing they were built with unless you reopen them and choose to refresh.
-- Every branch needs at least one **Multiplier Range** selected, or the calculator can't produce a price for it.
+- Changes to a branch's costs and defaults affect **new** estimates created after you save. Existing estimates keep the pricing they were built with, unless someone uses **Update to current pricing** on the estimate's proposal.
+- Every branch needs at least one **Multiplier Range** selected, or estimates built from your price book can't be priced for it.
 - Because these settings drive real pricing and bonuses, treat changes carefully and double-check the values before saving.
 
 ## What's next

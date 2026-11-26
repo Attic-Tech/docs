@@ -66,7 +66,6 @@ Whether a role can open a given page in the app:
 | Leads | Yes | Yes | Yes | | Yes | | |
 | Clients | Yes | Yes | Yes | Yes | Yes | Yes | |
 | Estimates | Yes | Yes | Yes | Yes | Yes | | |
-| Calculator | Yes | Yes | Yes | Yes | Yes | Yes | |
 | Jobs | Yes | Yes | Yes | Yes | Yes | Yes | |
 | Schedule | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
 | Shifts | Yes | Yes | Yes | Yes | | Yes | Yes |
@@ -100,11 +99,22 @@ Whether a role can open a given page in the app:
 
 ## Estimate breakdown visibility
 
-What pricing detail you can see inside the Calculator depends on your role:
+You build a price-book estimate on its proposal page. What you can do there, and how much pricing detail you see, depends on your role:
 
-- **Cost breakdown** (underlying cost numbers): **Admin** only.
-- **Operational breakdown**: **Admin, Ops Manager, Crew Leader**.
-- **Retail pricing**: **Admin, Ops Manager, Sales Admin, Sales Member, Client Coordinator**.
+| | Admin | Ops Manager | Sales Admin | Sales Member | Client Coordinator | Crew Leader | Crew Member |
+|---|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| Build and edit price-book estimates (**From Pricebook**) | Yes | Yes | Yes | Yes (own) | Yes | View only | No access |
+| See prices | Yes | Yes | Yes | Yes | Yes | | |
+| **Job Breakdown**: costs, margin, and multiplier | Yes | Yes | | | | | |
+| **Job Breakdown**: hours, days, and travel | Yes | Yes | | | | Yes | |
+| Give a discount | Up to 100% | Up to 100% | Up to 100% | Up to the branch **Max Discount** | Up to the branch **Max Discount** | | |
+| **Update to current pricing** | Yes | Yes | Yes | | | | |
+
+- Building price-book estimates also needs the **Core** plan or higher. See [Feature availability](/reference/platform/feature-availability#price-book-estimates).
+- The **Job Breakdown** is for your team only; the client never sees it. Admins and Ops Managers see the full breakdown. A **Crew Leader** sees only the labor, days, and travel figures, with no money. Sales Admins, Sales Members, and Client Coordinators don't see the Job Breakdown at all.
+- A **Crew Leader** can open price-book estimates on the clients they work on, but view-only and without prices.
+- Factor effects (such as "Labor ×1.25") and item costs show only to Admins and Ops Managers. Everyone else sees just the factor's name.
+- If you type a discount above your role's limit, it's capped at that limit and a note shows it — for example, "Your role can give up to 10%".
 
 ## Resource permissions
 
@@ -153,10 +163,10 @@ See also: [/reference/leads/status-lifecycle](/reference/leads/status-lifecycle)
 - **Ops Manager** can manage estimates but **can't move an estimate's status** to Released, Sold, Lost, Secondary Estimate, or Deleted.
 - **Sales Member** and **Client Coordinator** can change an estimate's status only within an allowed set (In Progress, Released, Sold, Lost, Secondary Estimate, Deleted).
 - A **Sales Member** or **Crew Leader** sees only estimates, proposals, and inspection reports on the **clients they work on**; anything else answers "No access".
-- A **Sales Member** can edit an estimate, send its proposal, or save it from the Calculator only if they **own** it — another salesperson's estimate opens **read-only**, on web and mobile. Managers can edit any estimate.
+- A **Sales Member** can edit an estimate or send its proposal only if they **own** it — another salesperson's estimate opens **read-only**, on web and mobile. Managers can edit any estimate.
 - **Deleting an estimate** is limited to **Admin, Ops Manager, and Sales Admin**.
 - A **signed** estimate can't be deleted by anyone, regardless of role — you'll see "This estimate was signed and cannot be deleted."
-- A read-only estimate can't be saved from the Calculator: "This estimate is read-only and cannot be saved."
+- A price-book estimate you can't edit shows **View only** on its proposal page: "Your role can view this proposal but not change it."
 - Editing crew-facing notes on an estimate is available to **Ops Manager, Sales Member, Client Coordinator, and Crew Leader** (and Admin).
 - **Contracts** depend on the contracts feature being turned on. **Admin, Ops Manager, and Sales Admin** can also see the sensitive personal details on a finance-application contract (such as Social Security and driver's license numbers); **Sales Member** and **Client Coordinator** can create, view, edit, and delete contracts, but those fields stay masked for them. **Crew Leaders** can view contracts only, and **Crew Members** have no access.
 
@@ -214,7 +224,7 @@ Every staff role can add and read comments on a project and attach media to them
 
 The entire Settings area is controlled by a single permission, and only **Admin** has it among the assignable roles. Every settings change — branches, users, employees, vehicles, equipment, the price book, payment terms, financing terms, tags, lead sources, job types, and so on — requires Admin access. Two settings pages are open more widely: any teammate can view **Billing**, and Ops Managers and Sales Admins can open **Account Manager**.
 
-Other roles can **read** certain settings entities so the rest of the app works (for example, the price book and payment terms feed the Calculator and proposals), but they can't change them. In particular:
+Other roles can **read** certain settings entities so the rest of the app works (for example, the price book and payment terms feed estimates and proposals), but they can't change them. In particular:
 
 - **User administration** (adding or editing people) is **Admin** only. Other roles can see the list of users to fill in dropdowns, but can't create or edit them.
 - **Managing groups** is **Admin** only.
@@ -230,4 +240,4 @@ If the workspace settings feature is turned off, all settings changes are closed
 - **Sales Member** can view leads assigned to them — plus any lead with an activity assigned to them — read-only (no create, edit, or delete), works only their own lead activities, sees only their own schedule, and can edit only the **estimates they own**.
 - **Ops Manager** can manage estimates but can't move an estimate to Released, Sold, Lost, Secondary Estimate, or Deleted.
 - **A signed estimate can't be deleted by anyone.**
-- **Cost breakdown** in the Calculator is Admin only.
+- The full **Job Breakdown** (costs, margin, and multiplier) on an estimate is **Admin** and **Ops Manager** only.

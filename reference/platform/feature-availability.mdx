@@ -1,7 +1,7 @@
 ---
 title: "Feature availability"
 description: "Why some capabilities are turned on or off for your account, how to tell whether a feature is available to you, and what you see when it isn't."
-keywords: ["Meni not available", "Ask the docs only", "no Dashboard in menu", "no Automations in menu", "feature not showing up", "why can't I see this page", "feature not available", "page disappeared from menu", "this feature is not available", "missing menu item", "feature turned off for my workspace", "rollout", "why is this hidden", "no Best Match when scheduling a lead activity"]
+keywords: ["Meni not available", "Ask the docs only", "no Dashboard in menu", "no Automations in menu", "feature not showing up", "why can't I see this page", "feature not available", "page disappeared from menu", "this feature is not available", "missing menu item", "feature turned off for my workspace", "rollout", "why is this hidden", "no Best Match when scheduling a lead activity", "no From Pricebook option", "editing this proposal isn't included in your plan"]
 ---
 
 This reference explains why certain capabilities in the platform are turned on for some accounts and off for others, how to tell whether a feature is available to you, and what you see when it isn't.
@@ -41,6 +41,7 @@ Separate from the per-workspace targeting above, some capabilities require a min
 
 - **QuickBooks** connection needs the **Core** plan or higher; it isn't available on Starter or during the trial.
 - The cross-source **data integrations** that let Meni read across your other business tools need the **Pro** plan or higher.
+- **Price-book estimates** need the **Core** plan or higher. See [Price-book estimates](#price-book-estimates).
 
 Admins can review and change the plan under **Settings → Billing**. When Menaia has arranged a **Scale** plan for your workspace, it appears there as a ready-to-start plan with its price and monthly token allowance — an Admin adds a card to start it, and it then renews automatically.
 
@@ -120,11 +121,11 @@ An **Expenses** tab on project detail pages. When the capability is off, the tab
 
 A **Bonus Report** page that can be turned on or off.
 
-## Estimating, proposals, and calculator
+## Estimating and proposals
 
 ### Proposals
 
-Estimate proposal preview and view pages. When off, proposal views are hidden across the calculator, the estimates list, the estimate detail page, and project pages.
+Estimate proposal preview and view pages. When off, proposal views are hidden across the estimates list, the estimate detail page, and project pages.
 
 ### Payment schedules
 
@@ -134,9 +135,18 @@ An optional **Payment Schedule** section in the proposal Price Summary that brea
 
 Custom contracts and client signing: preparing documents such as a home-improvement contract or finance application from a project's **Contracts** card, signing them as the company, attaching them to a proposal email or sharing them with the customer to sign online. When off, the project's **Contracts** card is hidden and staff can't create, send, or manage contracts. A signing link already sent to a customer keeps working — turning the capability off doesn't revoke links that are already out.
 
-### Inspection Report step
+### Price-book estimates
 
-An Inspection Report step in the Time & Materials calculator wizard, plus its shortcut links. When off, the step and its shortcuts are removed from the wizard.
+Building an estimate from your price book: the **From Pricebook** option in the **Create Estimate** window, and editing the estimate's work areas and items on its proposal page. It depends on your plan and your role:
+
+- **Plan** — it needs the **Core** plan or higher. On Starter or during the trial, existing price-book estimates can still be viewed and sent but not changed; their proposal page shows **Editing this proposal isn't included in your plan**.
+- **Role** — Admin, Ops Manager, Sales Admin, Sales Member, and Client Coordinator can build and edit price-book estimates. See [Permissions roles matrix](/reference/platform/permissions-roles-matrix#estimate-breakdown-visibility).
+
+When it isn't available to you, the **Create Estimate** window offers only **From Scratch**.
+
+### Inspection Reports
+
+An **Inspection Report** on each price-book estimate, opened from the **More actions** (⋮) menu on the estimate's proposal page, plus its shortcut links. When it's on, a price-book estimate's proposal can't be sent, presented to the client, or marked **Released** or **Sold** until its report is filled in. Estimates built from scratch never need one. When off, the report and its shortcuts don't appear.
 
 ## Jobs, scheduling, and field operations
 

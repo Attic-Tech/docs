@@ -15,7 +15,7 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
 
 - **What it governs:** Which branch settings and multiplier ranges are used to price an estimate.
 - **How it works:** When you create a **new** estimate, pricing uses your branch's current (live) configuration and multiplier ranges. When you re-open or update an **existing** estimate, pricing uses an immutable snapshot of the branch configuration, work areas, and multiplier ranges that were in effect when the estimate was first created.
-- **What this means for you:** Changes to your price book or branch settings do **not** retroactively change an existing estimate. An existing estimate keeps its original (frozen) pricing until it is recreated. New estimates always reflect the latest settings.
+- **What this means for you:** Changes to your price book or branch settings do **not** retroactively change an existing estimate. An existing estimate keeps its original (frozen) pricing until someone with permission to manage estimates uses **Update to current pricing** on its proposal, which re-prices it against the current settings. New estimates always reflect the latest settings.
 
 ---
 
@@ -30,7 +30,7 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
 ### Number of days needed
 
 - **What it governs:** The job's day count, which drives load/unload labor, driving distance, and certain per-item labor.
-- **How it works:** If every selected item is a sub-contracted item, the job needs 0 days. Otherwise, the number of days is the value entered for the job (when it's a valid number greater than 0), or 1 by default.
+- **How it works:** If every selected item is a sub-contracted item, the job needs 0 days. Otherwise, the number of days is the **Days of work** chosen under **Job setup** on the estimate's proposal, or 1 by default. A range counts as its upper end: **2-3 days** prices as 3 days.
 - **What this means for you:** A fully sub-contracted job uses 0 days, so it incurs no driving or load/unload labor.
 
 ---
@@ -70,8 +70,8 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
 - **How it works:** Factors can be attached at three levels: the individual item, the item category, and the work area. Separately for material cost and for labor hours, the combined factor at each level starts at 1 and multiplies in:
   1. every **always-on** factor that targets that cost type, then
   2. every **user-selected** (toggled-on) factor that targets that cost type.
-  Always-on factors are applied automatically and are not shown as toggles; the remaining factors are selectable in the calculator. A **material cost** factor scales the item's material cost; a **labor hours** factor scales its labor hours, so the labor cost follows.
-- **Price factors:** A factor that targets **price** multiplies the line's retail price directly, *after* markup and the payment-method factor. The item, category, and work-area price factors all multiply onto the line. A price factor moves the line — including an item sold at a [fixed price](#fixed-price-items) — but it does **not** change true cost, labor hours, or which multiplier tier the job lands in.
+  Always-on factors are applied automatically and are never offered as a choice. The rest are picked on the estimate: work-area factors for each work area, and item factors for each item line. A **material cost** factor scales the item's material cost; a **labor hours** factor scales its labor hours, so the labor cost follows.
+- **Price factors:** A factor that targets **price** multiplies the line's retail price directly, *after* markup. The item, category, and work-area price factors all multiply onto the line. A price factor moves the line — including an item sold at a [fixed price](#fixed-price-items) — but it does **not** change true cost, labor hours, or which multiplier tier the job lands in.
 - **Notes:** Factors are multiplicative — a factor of 1 does nothing, less than 1 discounts, and greater than 1 marks up. Item-category factors apply their always-on factors only (there is no per-estimate selection of category factors). A factor is ignored for any target it doesn't name, and when a level has no applicable factors for a target, its combined factor for that target is 1. Factors saved before targets existed still behave as before: an older labor factor counts as a **labor hours** factor and an older material factor as a **material cost** factor.
 
 ---
@@ -81,7 +81,7 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
 - **What it governs:** An additional cost is a named flat amount added when selected on an item. Each cost **applies to** the item's material cost, its labor cost, or the line's **price**.
 - **How it works:**
   - A **material** or **labor** cost contributes its amount multiplied by the item's quantity, **added** to that cost after that level's factors are applied (additive, not multiplicative), and is then marked up along with the rest of the cost.
-  - A **price** cost is added directly to what the customer pays for the line, *after* the markup, the payment-method factor and any price factors. It is **never** treated as a cost, so it doesn't change true cost or which multiplier tier the job lands in. Unlike the other two it's charged **once per line** regardless of quantity, and it moves a [fixed-price line](#fixed-price-items) too.
+  - A **price** cost is added directly to what the customer pays for the line, *after* the markup and any price factors. It is **never** treated as a cost, so it doesn't change true cost or which multiplier tier the job lands in. Unlike the other two it's charged **once per line** regardless of quantity, and it moves a [fixed-price line](#fixed-price-items) too.
 - **Notes:** Only costs matching the pass (material vs. labor) are summed into that cost. Price costs instead ride on top of the line's retail, alongside the [price factors](#factors-named-multipliers), and show as their own row in the estimate breakdown.
 
 ---
@@ -143,15 +143,16 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
 
 ---
 
-### Retail price (markup + payment method + minimum floor)
+### Retail price (markup + minimum floor)
 
 - **What it governs:** The retail price, before any customer discount.
 - **How it works:**
   - **Standard portion:** the standard true cost multiplied by the selected range's markup.
   - **Sub-contracted portion:** each sub-contracted item's cost multiplied by its markup — the item's own markup override if set, otherwise the branch's default sub-contractor markup.
-  - These two portions are added together and multiplied by a **payment-method factor**: a cash factor for cash, the credit-card fee for credit, or the matching financing factor for 3-, 6-, or 12-month financing (all set in branch settings).
+  - These two portions are added together.
   - **Minimum retail floor:** for most jobs, the result is raised to at least the configured minimum retail price. This floor is skipped for fully sub-contracted jobs.
-- **Notes:** The payment-method factor applies to both the standard and sub-contracted portions. Markup is not applied to labor separately, because labor is already inside the standard true cost. Any [fixed-price lines](#fixed-price-items) are added on top *after* the payment-method factor (it never touches them), and any [price factors](#factors-named-multipliers) and [Price additional costs](#additional-costs-flat-add-ons) add their uplift after that too.
+- **Notes:** Markup is not applied to labor separately, because labor is already inside the standard true cost. Any [fixed-price lines](#fixed-price-items) are added on top, and any [price factors](#factors-named-multipliers) and [Price additional costs](#additional-costs-flat-add-ons) add their uplift after that.
+- **The payment method doesn't change the price.** Every estimate is priced as cash. Branches used to have a cash factor, a credit-card fee, and financing factors that multiplied the retail price by payment method. Those were removed: each branch's cash factor was built into its multiplier ranges, its sub-contractor markup, and item markup overrides, so prices stayed the same. Some shared multiplier ranges were split into copies so each branch kept its own values. An estimate priced before the change keeps its saved payment-method factor until its pricing is updated. When that factor isn't 1, the **Job Breakdown**'s **How the price is built** shows it as **× Payment method factor**.
 
 ---
 
@@ -159,7 +160,7 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
 
 - **What it governs:** An item given a **Fixed Price (per unit)** in the price book, which sells at that exact price instead of being priced from cost.
 - **How it works:**
-  - The line's retail is the fixed unit price × quantity. The branch multiplier and the payment-method factor do **not** apply to it, and a **fixed sub-contracted item** sells at its fixed price rather than the sub-contractor markup (it's still reported as sub-contracted revenue). A [price factor](#factors-named-multipliers) and the customer discount still adjust the line. A fixed price of 0 is a free line — 0 is a real price, not "unset."
+  - The line's retail is the fixed unit price × quantity. The branch multiplier does **not** apply to it, and a **fixed sub-contracted item** sells at its fixed price rather than the sub-contractor markup (it's still reported as sub-contracted revenue). A [price factor](#factors-named-multipliers) and the customer discount still adjust the line. A fixed price of 0 is a free line — 0 is a real price, not "unset."
   - The item's material cost and labor hours are still recorded: the hours count toward the estimate's total labor hours, and the cost stays in the company's true cost (real money the company spends). But that cost is **kept out of the true cost that picks the multiplier tier**, so a fixed item can't push the rest of the job into a higher markup band.
   - A fixed item carries none of the job's shared overhead. That overhead is redistributed across the remaining cost-priced lines instead.
 - **Notes:**
@@ -180,7 +181,7 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
 ### Maximum discount (who can discount how much)
 
 - **What it governs:** The largest discount a user can enter, based on role and B2B context.
-- **How it works:** Users with permission to manage estimates can discount up to 100%. Other users are capped at the branch's configured maximum discount. A discount entry is always clamped to between 0 and the applicable maximum. The "Apply contractor prices" toggle sets the discount to the branch's configured B2B maximum discount (or 0 when turned off).
+- **How it works:** Users with permission to manage estimates can discount up to 100%. Other users are capped at the branch's configured maximum discount. A discount entry is always clamped to between 0 and the applicable maximum. The **Contractor prices** switch on the proposal sets the discount to the branch's configured B2B maximum discount (or 0 when turned off).
 - **Inputs:** the branch's maximum discount and B2B maximum discount, and the user's role.
 
 ---
@@ -188,7 +189,7 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
 ### Tax (a chosen rate, applied to the taxable part of the final price)
 
 - **What it governs:** The sales tax amount saved on the estimate.
-- **How it works:** Pricing itself doesn't calculate tax. Tax comes from the rate picked in the tax selector — a saved tax rate, a tax group, TaxJar (on branches that use it), or **No Tax** — and is the **taxable amount × the rate**, rounded to the cent. For a Calculator estimate, the taxable amount is the part of the **final price** (after the customer discount) that belongs to items marked **Taxable Item** in the price book. Estimates saved before items could be marked taxable are taxed on the whole final price.
+- **How it works:** Pricing itself doesn't calculate tax. Tax comes from the rate picked in the tax selector — a saved tax rate, a tax group, TaxJar (on branches that use it), or **No Tax** — and is the **taxable amount × the rate**, rounded to the cent. For an estimate built from your price book, the taxable amount is the part of the **final price** (after the customer discount) that belongs to items marked **Taxable Item** in the price book. Estimates saved before items could be marked taxable are taxed on the whole final price.
 - **Notes:** There's no rule based on the state or ZIP code of the property — an estimate is taxed only when a tax is selected. A new estimate starts with the branch's default rate (or TaxJar on branches that use it). The estimate keeps a saved copy of the rate's name and percentage, so later changes to the rate in settings don't change it on their own. See [Sales tax](/reference/billing/sales-tax) for the full rules, including estimates built from scratch and older estimates.
 
 ---
@@ -216,7 +217,7 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
   - Overhead (the part of standard true cost not directly tied to a line item) is spread across the standard line items in proportion to each line's true cost.
   - Each standard line's retail is its true cost plus its overhead share, multiplied by the range markup.
   - Each sub-contracted line's retail is its cost multiplied by its markup (its own override, or the default sub-contractor markup).
-  - Each line is then adjusted by the payment-method factor and the discount.
+  - Each line is then adjusted by the discount (and, on an older estimate, by its saved payment-method factor).
   - Finally, the line items are scaled so their sum never exceeds the estimate's true retail total (scaling only reduces, never inflates). Repeated occurrences of an item split that item's cost evenly, and the unit price is the line total divided by quantity.
 - **Notes:** This is a presentation allocation only — it does not change the stored retail cost or final price of the estimate.
 
@@ -258,8 +259,8 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
 ### Branch pricing settings
 
 - **What it governs:** The branch-level configuration values that every formula above reads (set under Settings → Branch Management).
-- **The pricing-relevant settings include:** the base hourly rate, average work-day length, credit-card fee, gas cost, truck average MPG, load/unload hours, default sub-contractor markup, cash factor, financing factors (3, 6, and 12 months), minimum retail price, quality-control visit price, maximum discount, B2B maximum discount, deposit percentage (default 10%), and maximum deposit amount (default 0, meaning no cap).
-- **Notes:** An existing estimate prices against the frozen copy of these settings captured when it was created, not the live values. If a financing factor is left unset, that financing option effectively prices to 0 — make sure all financing factors are configured.
+- **The pricing-relevant settings include:** the base hourly rate, average work-day length, gas cost, truck average MPG, load/unload hours, default sub-contractor markup (**Sub Multiplier**), minimum retail price, quality-control visit price, maximum discount, B2B maximum discount, deposit percentage (default 10%), and maximum deposit amount (default 0, meaning no cap).
+- **Notes:** An existing estimate prices against the frozen copy of these settings captured when it was created, not the live values, until its pricing is updated.
 
 ---
 

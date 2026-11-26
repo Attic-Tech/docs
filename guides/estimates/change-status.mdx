@@ -4,7 +4,7 @@ description: "Mark estimates Sold, Lost, Released, and more — right from the E
 icon: "tags"
 ---
 
-An estimate's **status** tells you and your team where it stands — still being worked on, won, lost, and so on. You can change it directly from the **Estimates** list, no need to reopen the Calculator. The same status menu is also available on a project's **Estimates tab**, so you can change status there without leaving the project.
+An estimate's **status** tells you and your team where it stands — still being worked on, won, lost, and so on. You can change it directly from the **Estimates** list, without opening the estimate. The same status menu is also available on a project's **Estimates tab**, so you can change status there without leaving the project, and next to the title at the top of the estimate's proposal.
 
 ## The statuses
 
@@ -32,6 +32,15 @@ An estimate's **status** tells you and your team where it stands — still being
 Which statuses you can choose depends on your role. If an option isn't available to you, it won't appear as a choice.
 </Note>
 
+## Released and Sold need an inspection report
+
+If inspection reports are turned on for your workspace, an estimate built from your price book needs a completed inspection report before you can move it to **Released** or **Sold**. Estimates created **From Scratch** never need one.
+
+- On the estimate's proposal, **Released** and **Sold** are greyed out in the status menu, each with the note **Fill in the inspection report first**.
+- From the **Estimates** list or the board, the change is refused with an **Unable to update status** message that reads "Fill in the inspection report first."
+
+To fill in the report, open the estimate and choose **Inspection Report** from the **⋮** menu at the top of the proposal, or click **Fill in inspection report →** in the banner. Answer the required questions and click **Save Report**, then change the status again.
+
 ## Marking an estimate Sold
 
 When the customer accepts, set the estimate to **Sold**. Once it's sold, a **Sold Date** appears on the row. If you ever need to correct when the deal actually closed, you can adjust that date right on the sold estimate.
@@ -50,7 +59,7 @@ Moving an estimate **out of Sold** is a bigger deal, so it's more controlled —
 
 ## Editing again after a status change
 
-Only **In Progress** estimates can have their items and pricing edited. If you need to change the work on an estimate that's already Sold or in another status, switch it back to **In Progress** first.
+Only **In Progress** estimates can have their items and pricing edited. When an estimate is in any other status, its proposal shows a banner such as **This proposal is Sold, so it can't be edited**. To change the work, switch the estimate back to **In Progress** first. You can do it right from the status badge at the top of the proposal. Until you send the proposal again, the customer sees "This proposal is currently being updated" when they open it.
 
 <Note>
 If the estimate's proposal has already been **signed** by the customer, moving it back to In Progress reopens it for a **change order**. Before the signature is cleared, a **Start a change order?** dialog asks you to fill in **Change order notes** describing what's changing — they're required and visible to your client. Once you click **Start change order**, the signature is removed and the estimate becomes editable again. The signed proposal isn't lost: it's preserved as a read-only earlier version you can still refer back to. Reopening also resets the proposal's earlier sent, opened, and expiry state, so the next time you send it the customer starts fresh.

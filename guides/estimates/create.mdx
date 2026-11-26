@@ -1,126 +1,215 @@
 ---
-title: "Create an Estimate with the Calculator"
-description: "Build an accurate, client-ready estimate step by step using the Calculator wizard — pick work areas, add items, review the price, and mark it sold."
+title: "Build an Estimate from Your Price Book"
+description: "Price a job with your branch's price book right on the estimate's proposal — add work areas and items, set the days of work and discount, check the Job Breakdown, and send it."
 icon: "calculator"
 ---
 
-The **Calculator** is the guided, step-by-step wizard you use to build an estimate for a job. You tell it who the customer is, what work areas are involved, and what items and services go into each one. As you go, it calculates the price for you and turns everything into a clean breakdown you can save, print, and (if proposals are enabled for your branch) send to the customer.
+A **price-book estimate** is priced from your branch's price book. You build it right on the estimate's proposal page: add the work areas involved, fill each one with items from your price book, and Menaia works out the price for you. The page you build it on is the same page your customer will see, with your team-only details shown alongside.
 
 <Note>
-You don't need to know any pricing math. The Calculator handles the numbers — your job is to describe the work accurately.
+You don't need to know any pricing math. Menaia handles the numbers — your job is to describe the work accurately.
 </Note>
+
+## Before you start
+
+- **Who can build one.** Admins, Ops Managers, Sales Admins, Sales Members, and Client Coordinators can create and edit price-book estimates. Crew Leaders can open them to view only, without prices.
+- **Your plan.** Price-book estimates need the price book in your plan. Without it, you only see the **From Scratch** option — see [Create an estimate from scratch](/guides/estimates/create-from-scratch).
+- **Your price book.** The work areas, items, factors, and additional costs you pick from are set up in your price book settings — see [Work areas](/guides/settings/price-book/work-areas) and [Items](/guides/settings/price-book/items).
 
 ## Start a new estimate
 
 <Steps>
-  <Step title="Open the Estimates page">
-    Go to **Estimates** from the main navigation. This is your home base — every estimate you've started or finished lives here, and you can search, filter, and reopen any of them.
-  </Step>
   <Step title="Click New Estimate">
-    Press the **New Estimate** button in the top-right corner. If your workspace offers estimates built from scratch, the **Create Estimate** window opens first: pick the **Client** and **Project**, click **Continue**, choose **From Pricebook**, and click **Continue** again. The Calculator wizard opens on a blank estimate, with the client and project already filled in. Otherwise, **New Estimate** opens the Calculator wizard straight away.
+    Go to **Estimates** from the main navigation and click **New Estimate** in the top-right corner. The **Create Estimate** window opens.
+
+    You can also start from a client: with a project selected, open the **Create New** menu and choose **New Estimate**. Or open a project's **Estimates** tab and click **Create Estimate**. When you start from a project, the client and project are already filled in and the window skips straight to the next step.
+  </Step>
+  <Step title="Choose the client and project">
+    Pick the **Client**, then the project the estimate belongs to, and click **Continue**.
+  </Step>
+  <Step title="Choose From Pricebook">
+    Two cards appear. **From Pricebook** — "Use items from your branch workspace." — is selected by default. Click **Continue**. Use **Back** to change the client or project.
+  </Step>
+  <Step title="Land on the proposal">
+    Menaia creates a blank **In Progress** estimate and opens its **Proposal Preview** page. The **Service Breakdown** section is where you build the estimate. It starts empty: **No work areas yet**.
   </Step>
 </Steps>
 
 <Tip>
-The **From Scratch** card in the same window skips the Calculator: you type in your own line items and prices on the proposal instead. See [Create an estimate from scratch](/guides/estimates/create-from-scratch).
+There's a limit on how many estimates you can keep open at once. If you hit it, the **Create Estimate** window shows a message like "You have reached the maximum of 10 open estimates for this branch." Wrap up a few open estimates (mark them sold or lost) to free up room.
 </Tip>
 
-<Tip>
-To pick up where you left off, just open the Estimates list and click the estimate you want. An estimate you built here reopens in the Calculator exactly where it left off. (An estimate created with the **From Scratch** option instead opens on its editable proposal, since it isn't priced by the Calculator — see [Create an estimate from scratch](/guides/estimates/create-from-scratch).)
-</Tip>
-
-## Walk through the wizard
-
-The Calculator moves through a few steps. The buttons at the bottom of the screen — **Back** and **Continue** — carry you forward and back, and the final step's button becomes **Save Estimate**.
-
-### Step 1 — Client details and work area
-
-The first screen has two parts.
-
-**Client Details.** Choose the **Client Name** and the **project** this estimate belongs to. You'll fill in the rest of the customer and address details a little later.
-
-**Choose a work area.** Pick the area of the job you're estimating (for example, an attic or a crawl space). You can search for one if your branch has a long list.
-
-After you pick a work area, you can:
-
-- **Rename it** with an optional custom name, so a breakdown with several similar areas stays easy to read.
-- **Answer the work area factors** — simple **Yes / No** questions about the conditions in that area. These help the estimate reflect the real job.
-
-
-### Step 2 — Add items
-
-Now you fill the work area with the actual items and services.
-
-- The **category list** on the side lets you jump between groups of items.
-- The **search box** finds an item by name.
-- Set the **quantity** for each item you want to include.
-
-Need more than one area on the same estimate? Click **Add Work Area** and the wizard loops you back to pick another one and add its items. Repeat for as many areas as the job needs.
-
-<Tip>
-If you press **Continue** before adding anything, the wizard won't move on — it reminds you to give at least one item a quantity first. Add an item, and **Continue** takes you to the next step.
-</Tip>
-
-### Step 3 — Job and inspection details (when enabled)
-
-If your branch uses inspection reports, the wizard gives you a step to capture the fuller picture of the visit — job and customer details, property conditions, notes about what you saw, and anything the crew should know. Fill in what's relevant and continue. (If this step isn't part of your branch's flow, the wizard simply skips it.)
-
-### Step 4 — Review the breakdown
-
-The last step is the **Overall Job Breakdown**. This is the complete, itemized summary of the estimate, including the calculated total price.
-
-Here you can:
-
-- **Review the price** and the line-by-line breakdown.
-- **Choose the tax** in the **Tax** row. A new estimate starts with your branch's default rate (or TaxJar, if your branch uses it), and you can switch to another saved rate, a tax group, or **No Tax**. When tax applies, the breakdown adds **Total Tax** and **Final Proposal Price After Taxes**. See [Sales tax](/reference/billing/sales-tax) for how it's calculated.
-- **Add another work area** if you realize something's missing.
-- **Print** the breakdown for your records or to hand to the customer.
-- Add **Crew Notes** with anything the team should know about the job.
-
-## Helpful features
-
-### Enhance crew notes with AI
-
-When you write **Crew Notes** on the breakdown, AI can clean them up and round them out for you with one tap — see [Enhance crew notes with AI](/guides/estimates/enhance-crew-notes).
-
-### Record a ride-along
-
-If you're estimating in person, you can record the sales conversation and get AI coaching insights afterward — see [Record a ride-along](/guides/estimates/ride-along).
-
-## Finish: save and sell
-
-### Save the estimate
-
-On the breakdown step, the main button becomes **Save Estimate**. Click it to save your work. The estimate now lives in your **Estimates** list, where you can reopen, print, or update it any time.
+To come back to an estimate later, open the **Estimates** list, click **⋮** on its row, and choose **Edit Estimate** (or **View Estimate** once it's no longer In Progress). It opens on the same proposal page.
 
 <Note>
-If you reopen and edit an estimate you saved earlier, you may be asked how to handle pricing when you save again:
-
-- **Keep original pricing and settings** — your changes to items, quantities, and details apply, but prices and labels stay exactly as they were.
-- **Use up to date information** — pull in the latest prices, labels, and settings.
-
-When in doubt, **Keep original** is the safe choice.
+The mobile app works the same way: tap **+** on the **Estimates** screen, choose **From Pricebook**, and build the estimate on its proposal.
 </Note>
 
-### Turn it into a proposal
+## What your customer sees and what they don't
 
-If proposals are enabled for your branch, you'll see **Generate Proposal** on the breakdown step. This creates the polished, customer-facing version of the estimate that you can share. Once created, the button becomes **View Proposal** so you can open it again.
+At the top of the **Service Breakdown**, a banner reminds you: **Only your team sees the marked details**. Factors, additional costs, notes on automatic items, and the **Job Breakdown** are hidden from the customer. Anything marked with the crossed-out eye icon is for your team only.
 
-### Mark it sold
+The customer sees the items, their quantities, and the prices you switch on with **Client View Settings**: **Qty**, **Unit Price**, and **Total Price**. See [Personalize the note and price display](/guides/proposals/edit-notes-price-display).
 
-When the customer accepts, you mark the estimate as **Sold** from the **Estimates** list. "Sold" simply means the customer said yes — it's how you and your team track which estimates turned into real, won work. If you ever need to correct when the deal actually closed, you can adjust the sold date on a sold estimate.
+## Add a work area
+
+A work area is a part of the job you're pricing, such as an attic or a crawl space. Add one for each area the job involves.
+
+<Steps>
+  <Step title="Click Add work area">
+    Click **Add work area** and pick an area from your branch's list. Areas that have factors you can choose show how many, for example "2 factors".
+  </Step>
+  <Step title="Choose its factors (if it has any)">
+    If the area has factors, the **Add [area]** step opens first. Check the factors that describe the conditions in this area, then click **Continue to items**. Selected factors apply to every item in the area. Leave them all unchecked if none apply.
+
+    Areas without factors to choose skip this step.
+  </Step>
+  <Step title="Add its items">
+    The item picker opens so you can fill the area — see [Add items](#add-items).
+  </Step>
+</Steps>
+
+Factors that your branch has set to always apply aren't offered here. They're applied automatically.
+
+### Rename, adjust, or remove a work area
+
+Each work area has a header with its name and factors:
+
+- **Rename it.** Click the name, type a new one, and press Enter. This helps when the estimate has several similar areas. Press Esc to cancel.
+- **Change its factors.** The area's factors show as chips next to its name. Click the **×** on a chip to remove that factor, or click **+ Factor** to check more.
+- **Remove it.** Click the trash icon (**Remove work area**) and confirm with **Remove**. The area and all of its items are removed from the estimate.
+
+## Add items
+
+Click **Add Item** under a work area to open **Add Item to [area]**.
+
+<Steps>
+  <Step title="Find the item">
+    Use the category list on the left to narrow the list, or type in **Search items...**. Items already in this area appear first, under **Selected in this area**. Click an item's picture to see its **Photos and details**.
+  </Step>
+  <Step title="Fill in the item">
+    - **Quantity** — how much of the item this job needs, in the unit shown. It must be more than 0.
+    - **Item factors** — check any that apply to this item.
+    - **Additional costs** — check any extra charges that apply to this item.
+    - **Additional Info** — only for items that ask for it. Type the details the item needs.
+
+    If the item automatically adds another item, a line tells you how much, for example "Also adds Vapor Barrier — 1 per 100 sq ft (3 with this quantity)."
+  </Step>
+  <Step title="Add it">
+    Click **Add Item**. The line appears under the work area and the price updates.
+  </Step>
+</Steps>
+
+### Edit, delete, and reorder items
+
+Under each line, you'll find:
+
+- **Edit Item** — reopens the item so you can change its quantity, factors, additional costs, or info. Click **Save** when you're done.
+- **Delete Item** — removes the line right away. There's no confirmation step.
+- **Add Item** — on the last line of an area, adds another item to it.
+
+A line marked **Additional Info needed** is missing details the item asks for. Click **Edit Item** to fill them in.
+
+Items your price book adds automatically appear under the item that generated them, marked **Added automatically**. They change with their parent item, so you don't edit them yourself.
+
+To change the order of the lines, drag a line by its handle.
+
+## Set the days of work
+
+Below the work areas, the **Job setup** row has a **Days of work** selector. Pick how many days the job will take. It sets the travel, load and unload time, and gas in the price.
+
+A new estimate starts at **1 day**. A range is priced at its upper end, so **2-3 days** counts as 3 days.
+
+If every item on the estimate is a [sub item](/guides/settings/price-book/items#item-behavior), the row is hidden and no travel or load and unload time is added.
+
+## Choose the tax
+
+The **Price Summary** below the Service Breakdown shows the **Subtotal**, the discount, the tax, and the **Total Price**.
+
+A new estimate starts with your branch's default tax rate. To change it, open the tax selector and pick another saved rate, a tax group, or **No Tax**. See [Sales tax](/reference/billing/sales-tax) for how it's calculated.
+
+## Give a discount
+
+In the **Price Summary**, type a percentage in the **Discount** field and press Enter (or click away). The discount amount shows next to it in green.
+
+How much you can give depends on your role:
+
+- **Admins, Ops Managers, and Sales Admins** can give any discount, up to 100%.
+- **Everyone else** can give up to your branch's **Max Discount**. If you type more, the discount is lowered to the limit and you see "Your role can give up to 10%" (with your branch's limit).
+
+### Contractor prices
+
+When you're quoting another contractor or business, turn on **Contractor prices** next to the discount. The discount is set to your branch's **B2B Max Discount** and locked there. Turn it off and the discount goes back to 0.
+
+<Note>
+On the web, **Contractor prices** only shows on wider screens. On a phone, use the mobile app, which always shows it.
+</Note>
+
+See [Branches](/guides/settings/branches) to set **Max Discount** and **B2B Max Discount**.
+
+## Review the Job Breakdown
+
+The **Job Breakdown** card in the **Price Summary** shows your team where the money goes. It's marked **Only your team** and never appears on the customer's proposal.
+
+- **Admins and Ops Managers** see the full picture: a bar showing how the price splits into **Material**, **Labor**, **Travel**, **Other costs**, and **Profit**, plus tiles for **Job cost**, **Gross margin**, **Multiplier**, **Labor**, and **Travel**.
+- **Crew Leaders** see only the **Labor** and **Travel** tiles — hours, days, and miles, with no money.
+- **Sales Admins, Sales Members, and Client Coordinators** don't see the Job Breakdown.
+
+Click **See full breakdown →** for the details: the cost of each item by work area, travel and overhead, and **How the price is built**, step by step from cost to total price.
+
+## Your changes save automatically
+
+There's no save button for the estimate. Every change — adding an area or item, editing a line, changing the days of work, the discount, or contractor prices — saves right away, and the prices refresh. While they refresh, the amounts briefly show a loading placeholder.
+
+- If someone else changed the estimate at the same time, you'll see **This estimate changed**. Menaia loads the latest version; make your edit again.
+- If a change can't be saved, you'll see **Failed to save changes**. Try again.
+
+**Save as Draft** at the top of the page doesn't save pricing. It saves the **Client View Settings** and the order of your lines, and creates the proposal if it doesn't exist yet. See [Prepare your proposal](/guides/proposals/generate).
+
+### Update to current pricing
+
+An estimate keeps the prices and settings from when it was created, even if your price book changes later. To bring it up to date, Admins, Ops Managers, and Sales Admins can click **⋮** at the top of the page, choose **Update to current pricing**, and confirm with **Update pricing**. Items that were removed from the price book stay on the estimate.
+
+If you see a message that a work area "isn't in this estimate's price book", update to current pricing first, then make your change.
+
+## Fill in the inspection report
+
+If inspection reports are turned on for your workspace, every price-book estimate needs one before you can send it, present it, or mark it **Released** or **Sold**. Until it's done, a banner reads **Fill in the inspection report before sending**, and **Send Proposal** and **Present to Client** are turned off.
+
+To fill it in, click **Fill in inspection report →** in the banner, or click **⋮** at the top of the page and choose **Inspection Report**. The menu shows **Done** or **Not started** next to it. In the report, answer the questions about scheduling, the customer, the property, the walkthrough, the roof, and the HVAC system, add your **Crew Notes**, and click **Save Report**. The report saves on its own, separately from the estimate.
 
 <Tip>
-There's a limit on how many estimates you can keep open at once. If you hit it, the Calculator will let you know — wrap up a few open estimates (mark them sold or set them aside) to free up room for new ones.
+In the report's **Crew Notes**, AI can polish your notes or draft them for you — see [Enhance crew notes with AI](/guides/estimates/enhance-crew-notes).
 </Tip>
+
+## When the estimate locks
+
+You can change a price-book estimate only while it's **In Progress** and its proposal isn't signed. Otherwise, the Service Breakdown is read-only and a banner tells you why:
+
+- **This proposal is Released, so it can't be edited** (or Sold, Lost, and so on). Change the status back to **In Progress** to edit it. Your customer sees "This proposal is currently being updated" until you send it again. See [Change an estimate's status](/guides/estimates/change-status).
+- **This proposal is signed, so it can't be edited.** Change its status to reopen it as a change order — see [Handle the customer's response](/guides/proposals/client-response#the-customer-signed-approved).
+- **View only.** Your role can view the estimate but not change it.
+- **Editing this proposal isn't included in your plan.** You can still view and send the estimate, but not change it.
+
+Another salesperson's estimate also opens read-only. Only its owner or a manager can edit it.
+
+## Send and sell
+
+When the estimate is ready, click **Send Proposal** to email it to your customer, or **Present to Client** to go through it together in person. See [Send a proposal](/guides/proposals/send).
+
+When the customer accepts, mark the estimate **Sold** from the status menu next to the page title or from the **Estimates** list — see [Change an estimate's status](/guides/estimates/change-status).
+
+## Record a ride-along
+
+If you're estimating in person, you can record the sales conversation in the mobile app and get AI coaching insights afterward — see [Record a ride-along](/guides/estimates/ride-along).
 
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="Find and reopen estimates" icon="list">
-    Everything you build lives on the **Estimates** page. Search, filter, and reopen any estimate to keep editing or to check its status.
+  <Card title="Send a proposal" icon="paper-plane" href="/guides/proposals/send">
+    Email the proposal to your customer with a secure link to review and sign.
   </Card>
-  <Card title="Share a proposal" icon="paper-plane">
-    Turn a finished estimate into a client-ready proposal, then send it for the customer to review and accept.
+  <Card title="Browse & filter estimates" icon="list" href="/guides/estimates/browse-filter">
+    Search, filter, and reopen any estimate to keep editing or check its status.
   </Card>
 </CardGroup>
