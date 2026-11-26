@@ -17,7 +17,7 @@ These are admin settings. You'll find them under **Settings → Price book**, an
     Go to **Settings**, then open **Price book**. You'll see a row of tabs across the top: **Items**, **Work Areas**, **Item Categories**, **Factors**, **Additional Costs**, and **Multiplier Ranges**.
   </Step>
   <Step title="Pick the tab you need">
-    Click **Factors** to manage multipliers, or **Additional Costs** to manage flat extra charges. Each tab is its own list with its own search and Create button.
+    Click **Factors** to manage percentage adjustments, or **Additional Costs** to manage flat extra charges. Each tab is its own list with its own search and Create button.
   </Step>
 </Steps>
 
@@ -31,7 +31,7 @@ When you create or edit a factor, you'll fill in:
 
 - **Name** — what the factor is, in plain language (for example, *Remote jobsite surcharge*). This is how it shows up in the list and, when relevant, in the Calculator.
 - **Change** — how much the factor raises or lowers what it acts on, entered as a percent: `30` adds 30%, `-10` takes 10% off. The lowest you can enter is `-100` (which zeroes out what it changes). Factors stack by multiplying, so two `+30%` factors add 69%, not 60%.
-- **Changes** — what the multiplier acts on. Pick one or more of **Material cost**, **Labor hours**, and **Price**. A single factor can change any mix of the three at the same value. **Material cost** and **Labor hours** scale the underlying cost the price is built from, while **Price** moves a line's price directly — including an item sold at a [fixed price](/guides/settings/price-book/items#pricing-fields), which no other factor or multiplier touches.
+- **Changes** — what the factor acts on. Pick one or more of **Material cost**, **Labor hours**, and **Price**. A single factor can change any mix of the three at the same value. **Material cost** and **Labor hours** scale the underlying cost the price is built from, while **Price** moves a line's price directly — including an item sold at a [fixed price](/guides/settings/price-book/items#pricing-fields), which no other factor or multiplier touches.
 - **Always enabled** — a checkbox. When it's on, the factor is applied automatically on every matching estimate and is hidden from the Calculator, so estimators can't switch it off. When it's off, the factor is available in the Calculator for estimators to turn on per estimate.
 
 <Tip>
