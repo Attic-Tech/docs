@@ -481,6 +481,38 @@ Matching sources is part of workspace settings, so you'll need an **Admin** role
 The lead source you match here is also what shows while the phone rings, when **Lead source on incoming calls** is on — see [Lead source on incoming calls](/guides/settings/communications#lead-source-on-incoming-calls).
 </Tip>
 
+### Reply to CallRail texts
+
+When a customer texts one of your CallRail tracking numbers, that conversation lands in your **Communications** inbox. On its own it's read-only — you can read it, but you can't answer from Menaia. Add a CallRail **API key** to turn replies on: your answers then go out through CallRail, from the tracking number the customer texted, so they hear back on the number they wrote to. This is optional, and separate from connecting CallRail's webhook above.
+
+<Note>
+Turning on replies is an admin action — you'll need an **Admin** role, and a CallRail API key. Keys are created in CallRail under **Settings › API keys**.
+</Note>
+
+<Steps>
+  <Step title="Open the Reply to CallRail texts card">
+    On the CallRail page (CallRail must already be connected), find the **Reply to CallRail texts** card. While replies are off it shows a **Replies off** badge.
+  </Step>
+  <Step title="Check your API key">
+    Create an API key in CallRail under **Settings › API keys**, paste it into the **CallRail API key** box, and click **Check key**. Menaia checks the key with CallRail without saving it.
+  </Step>
+  <Step title="Pick the account and company to text from">
+    If the key can send from only one CallRail account and company, replies turn on straight away. If it can see more than one, pick the **CallRail account** and **CallRail company** your replies should go out from, then click **Turn on replies**.
+  </Step>
+</Steps>
+
+Once replies are on, the card shows a **Replies on** badge and names the account and company texts go out from.
+
+- **Answer from the inbox.** The message box opens on CallRail text conversations, so you reply the same way you text anyone else.
+- **Long replies go out as several texts.** CallRail sends at most 140 characters per text, so a longer reply is split across multiple texts, sent in order. As you type, a count under the box tells you how many it becomes — for example "Sends as 2 texts".
+- **Replies are text only.** You can't attach photos to a CallRail reply.
+
+<Note>
+If you don't add an API key, nothing else changes: CallRail text conversations stay read-only, and the message box points you to turn replies on here, or to text the customer from one of your own lines instead.
+</Note>
+
+To turn replies back off, click **Remove API key** on the card. CallRail text conversations go back to read-only, and the badge returns to **Replies off**. Your webhook connection stays as it is.
+
 ### Disconnect CallRail
 
 Open the CallRail page again and click **Disconnect**. It takes effect right away, with no confirmation step. Menaia stops accepting calls from CallRail and forgets the signing key, so you'll paste a fresh one from CallRail if you reconnect later. Ad clicks already saved on your calls and leads stay put.
