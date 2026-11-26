@@ -9,7 +9,7 @@ When a customer pays you, you record that payment on the invoice so the balance 
 This guide covers recording a payment, sending a receipt, fixing a payment you already entered, and spreading a single payment across several invoices.
 
 <Note>
-Recording a payment is for marking money you've already received (cash, check, card, transfer, and so on). It logs the payment for your records — it doesn't charge the customer's card.
+Recording a payment usually marks money you've **already received** (cash, check, card, transfer, and so on) and logs it for your records. If **Menaia Pay** is connected and you pick a **Card** method, you can also charge the client's card right from this window while they're on the phone — see [Charge a card now](#charge-a-card-now). With any other method, or when you choose **Already charged elsewhere**, recording a payment just logs it and doesn't move any money.
 </Note>
 
 <Note>
@@ -68,9 +68,41 @@ Your branch also needs at least one **payment method** set up (for example Cash,
 When the full balance is paid, the invoice marks itself as paid automatically — you don't need to flip a separate switch. Just record payments until the balance reaches zero.
 </Tip>
 
+## Charge a card now
+
+When **Menaia Pay** is connected and online payments are on for the invoice's branch, you can take a card payment right from the Record Payment window — handy for charging a client who's reading their card out over the phone. This option appears once you pick a **Card** payment method. (Not set up yet? See [Menaia Pay](/guides/settings/menaia-pay).)
+
+<Steps>
+  <Step title="Pick a Card method">
+    In the **Record Payment** window, choose a **Card** method from the **Method** list. A **Card payment** choice appears with two options:
+
+    - **Charge card now with Menaia Pay** — charge the client's card through Menaia (the default).
+    - **Already charged elsewhere** — you took the card payment some other way and only want to log it. This records the payment the same as any other method, without charging anything.
+  </Step>
+  <Step title="Choose the card">
+    With **Charge card now** selected, pick the card under **Card**:
+
+    - Any of the client's **saved cards** (newest first), each shown as its brand and last four digits. A card kept for a service plan is marked **Service plan**.
+    - **Use a new card** — type the card number, expiry, and security code the client reads out. Only a card can be entered here (no digital wallets or bank details).
+  </Step>
+  <Step title="Offer to save a new card">
+    When you enter a new card, tick **Client agreed to save this card for future payments** to keep it on file for next time. Only tick this with the client's agreement. Saved cards show up here on the next payment and on the client's [Cards on file](/guides/clients/manage-clients#cards-on-file).
+  </Step>
+  <Step title="Review the amount and any card fee">
+    The amount defaults to the full balance. You can charge less, but not more than the balance, and card charges start at a small minimum. If your workspace [passes card fees to clients](/guides/settings/menaia-pay#charge-clients-a-card-processing-fee), a **Card fee** and the **Total charged** are shown, with a reminder to tell the client about the fee before charging.
+  </Step>
+  <Step title="Charge the card">
+    Click **Charge $…** (the button shows the total). On success the payment lands on the invoice and the balance updates, the same as a recorded payment. If the bank is still processing, the payment shows as pending until it clears.
+  </Step>
+</Steps>
+
+<Note>
+If a charge is declined, the window shows **"This card wasn't charged"** with the bank's reason and invites you to try another card. If the bank needs the client to confirm the charge themselves (something they can't do on a call), you're told to send the client the invoice so they can pay online instead — see [Send or resend an invoice](/guides/billing/send-and-resend).
+</Note>
+
 ## See recorded payments
 
-Every payment, credit, and refund for an invoice is listed in the **Transaction History** section on the invoice. Each row shows the **Date**, the **Type** (Payment, Refund, or Credit Note), the **Method** (payments taken online show the card or payment type with a **Stripe** badge), a **Status** badge, the **Credit Reason** for credits, a **View Note** link when there's an internal note, the **Amount**, and the **Invoice** it applies to. Refund and credit amounts are shown as negative. This is your running record of what's been collected and when.
+Every payment, credit, and refund for an invoice is listed in the **Transaction History** section on the invoice. Each row shows the **Date**, the **Type** (Payment, Refund, or Credit Note), the **Method** (payments taken online show the card or payment type with a **Stripe** badge; under it, a payment notes who took it — **Charged by** for a card charged through Menaia, or **Recorded by** for one you entered), a **Status** badge, the **Credit Reason** for credits, a **View Note** link when there's an internal note, the **Amount**, and the **Invoice** it applies to. Refund and credit amounts are shown as negative. This is your running record of what's been collected and when.
 
 A refund row appears when you record a refund in Menaia, or automatically when an online payment is refunded in Stripe. Refund rows are a record only, with no actions menu of their own. To give money back on a payment, see [Refund a customer](/guides/billing/refund-a-customer).
 
