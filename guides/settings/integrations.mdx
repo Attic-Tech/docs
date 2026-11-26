@@ -272,7 +272,7 @@ Each Thumbtack lead becomes its own conversation in the **Communications** inbox
 - **A reply Thumbtack won't accept is marked Failed** — for example, when the lead was closed on Thumbtack, or the connection stopped working as the reply was being sent.
 - **Canceled requests are flagged.** Menaia checks about once an hour for leads the customer canceled on Thumbtack. When it finds one, the conversation gets a **Canceled** badge and a note such as "Jane Doe canceled this request on Thumbtack." You can't message it anymore: the reply box says "This lead was canceled on Thumbtack — you can no longer message it."
 
-Thumbtack conversations don't create leads on their own. When a conversation is worth pursuing, click **Convert to Lead** in its header and fill in the customer's contact details. The request category, location, and Thumbtack's answers are copied into the lead's notes, and the lead is credited to your ThumbTack lead source. After you convert, the header links to **View Lead** — or **View Client Page** once the lead has a client. For who can convert, which branch the lead lands in, and the required fields, see [Lead capture rules](/reference/leads/capture-rules#converting-an-inbox-conversation-to-a-lead).
+Thumbtack conversations don't create leads on their own. When a conversation is worth pursuing, open **More actions** (the three dots) in its header and click **Create New Lead**. A **Create New Lead** window opens pre-filled from the conversation — the customer's name and, when Thumbtack shares it, their phone number — and Menaia drafts the contact details and notes from the conversation for you to review. The request category, location, and Thumbtack's answers are copied into the lead's notes, and the lead is credited to your ThumbTack lead source. After the lead is created, the header links to **View Lead** — or **View Client Page** once the lead has a client. For who can do this, which branch the lead lands in, and the required fields, see [Lead capture rules](/reference/leads/capture-rules#converting-an-inbox-conversation-to-a-lead).
 
 Once a converted lead turns into a job, Menaia keeps Thumbtack updated on the job's progress: not yet scheduled, scheduled, complete (when the job is closed), or canceled.
 
@@ -444,7 +444,7 @@ CallRail is an admin area — you'll need an **Admin** role to connect it. You s
     From the marketplace, open the **CallRail** card. Its **Webhook URL** card shows a web address unique to your workspace, with a copy button.
   </Step>
   <Step title="Add Menaia as a webhook in CallRail">
-    In CallRail, open **Settings › Integrations › Webhooks**, paste the copied address into the **Post-Call** webhook field, and save.
+    In CallRail, open **Settings › Integrations › Webhooks**, paste the copied address, turn on the five events listed on the **Webhook URL** card (**Pre-call**, **Post-call**, **Text message received**, **Text message sent**, and **Form submission**), and save.
   </Step>
   <Step title="Paste the signing key back into Menaia">
     Copy the webhook's **signing key** from CallRail, paste it into the **CallRail signing key** box in the **Get Started** panel, and click **Connect CallRail**. The panel shows a **Connected** badge.
@@ -460,10 +460,59 @@ CallRail is an admin area — you'll need an **Admin** role to connect it. You s
 - **Leads keep the click too.** A lead you create from one of those calls, or link an existing lead to, picks up the call's ad click.
 - **The first ad click wins.** If a call or lead already has an ad click, CallRail never replaces it — the ad that first brought the customer in keeps the credit.
 - **Sales can report back to Google Ads.** Once a lead carries an ad click, the **Estimate Sold** and **Invoice Paid** triggers send the completed sale back as an offline conversion — see [Send sales and payments to your ad platforms](#send-sales-and-payments-to-your-ad-platforms).
+- **You can match each CallRail source to a lead source.** A **Lead sources** card appears on the CallRail page so you can credit calls, texts, and forms to the right lead source — see [Match CallRail sources to lead sources](#match-callrail-sources-to-lead-sources).
+- **Form leads come in clean.** Address fields from your website form fill the lead's address, and hidden technical fields are left out of the lead's notes.
 
 <Tip>
 Already piping CallRail through Zapier? You can attach a call's ad click with the **Add Ad Click to Call** action instead of connecting CallRail directly — see [What Zaps can do with Menaia](#what-zaps-can-do-with-menaia).
 </Tip>
+
+### Match CallRail sources to lead sources
+
+Once CallRail is connected, the CallRail page shows a **Lead sources** card. CallRail labels every call, text, and form with the marketing source behind it — such as **Yelp** or **Google Ads** — and this card is where you tell Menaia which of your [lead sources](/guides/settings/lead-sources) each CallRail source stands for.
+
+- **Pick a lead source for each CallRail source.** Every source CallRail has reported appears in the list — any that still need a match first, then the busiest — with how many calls it brought in the last 30 days. Choose the Menaia lead source it belongs to, and new calls, texts, and forms from that source are credited to it automatically. Earlier ones keep whatever source they already have.
+- **Match tracking numbers used for texts.** A CallRail text names only the number the customer texted, not a source, so texted tracking numbers get their own **Tracking numbers (texts)** list below. Pick the lead source each number's texts should get.
+- **Unmatched sources are flagged.** A source or tracking number with no lead source yet is highlighted, and the card warns you that calls or texts from it come in without a lead source until you pick one.
+- **A lead source named "CallRail" is never offered.** It says nothing about where the customer came from, so Menaia leaves it out — pick the channel itself.
+
+Matching sources is part of workspace settings, so only Admins can open this page and change it.
+
+<Tip>
+The lead source you match here is also what shows while the phone rings, when **Lead source on incoming calls** is on — see [Lead source on incoming calls](/guides/settings/communications#lead-source-on-incoming-calls).
+</Tip>
+
+### Reply to CallRail texts
+
+When a customer texts one of your CallRail tracking numbers, that conversation lands in your **Communications** inbox. On its own it's read-only — you can read it, but you can't answer from Menaia. Add a CallRail **API key** to turn replies on: your answers then go out through CallRail, from the tracking number the customer texted, so they hear back on the number they wrote to. This is optional, and separate from connecting CallRail's webhook above.
+
+<Note>
+Turning on replies is an admin action — you'll need an **Admin** role, and a CallRail API key. Keys are created in CallRail under **Settings › API keys**.
+</Note>
+
+<Steps>
+  <Step title="Open the Reply to CallRail texts card">
+    On the CallRail page (CallRail must already be connected), find the **Reply to CallRail texts** card. While replies are off it shows a **Replies off** badge.
+  </Step>
+  <Step title="Check your API key">
+    Create an API key in CallRail under **Settings › API keys**, paste it into the **CallRail API key** box, and click **Check key**. Menaia checks the key with CallRail without saving it.
+  </Step>
+  <Step title="Pick the account and company to text from">
+    If the key can send from only one CallRail account and company, replies turn on straight away. If it can see more than one, pick the **CallRail account** and **CallRail company** your replies should go out from, then click **Turn on replies**.
+  </Step>
+</Steps>
+
+Once replies are on, the card shows a **Replies on** badge and names the account and company texts go out from.
+
+- **Answer from the inbox.** The message box opens on CallRail text conversations, so you reply the same way you text anyone else.
+- **Long replies go out as several texts.** CallRail sends at most 140 characters per text, so a longer reply is split across multiple texts, sent in order. As you type, a count under the box tells you how many it becomes — for example "Sends as 2 texts".
+- **Replies are text only.** You can't attach photos to a CallRail reply.
+
+<Note>
+If you don't add an API key, nothing else changes: CallRail text conversations stay read-only, and the message box points you to turn replies on here, or to text the customer from one of your own lines instead.
+</Note>
+
+To turn replies back off, click **Remove API key** on the card. CallRail text conversations go back to read-only, and the badge returns to **Replies off**. Your webhook connection stays as it is.
 
 ### Disconnect CallRail
 

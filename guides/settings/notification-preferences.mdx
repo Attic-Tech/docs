@@ -64,7 +64,7 @@ The groups you may see are:
 
 - **Leads** — **New Lead**.
 - **Proposals** — **Proposal client opened**, **Proposal requested changes**, **Proposal client rejected**, and **Proposal client signed**.
-- **Calendar** — **Task Published**, **Lead Activity Published**, **Shift Published**, **Shift Published for Your Client**, **Time Off Saved**, **Time Off Published**, **Event Cancelled**, **Event Updated**, **Event Not Published (48 Hour Warning)**, and the three shift reminders: **Break Reminder**, **Break End Reminder**, and **Forgot To Clock Out**.
+- **Calendar** — **Task Published**, **Lead Activity Published**, **Shift Published**, **Shift Published for Your Client**, **Time Off Saved**, **Time Off Published**, **Event Cancelled**, **Event Updated**, **Event Starting Soon** (reminds the people assigned to a published event 30 minutes before it starts; starts as in-app only until you turn on other channels), **Event Not Published (48 Hour Warning)**, and the three shift reminders: **Break Reminder**, **Break End Reminder**, and **Forgot To Clock Out**.
 - **Jobs** — **New Job Assigned**, **Job Closed**, **Job Plan Changes Required**, **Job Plan Submitted For Review**, and **Job Plan Missing (2HR Reminder)**.
 - **Comments** — **Feed post mention** and **Feed post reply** (these also cover mentions and replies in [project comments](/guides/projects/comments)), and **Your requests** — an in-app notice to the person who reported a bug or requested a feature when it's solved. **Your requests** is in-app only.
 - **My Wallet** — **Wallet Change (Daily Update)**.
@@ -93,9 +93,9 @@ The **Shift Reminders** tab sets up the reminders crew members get while they're
 
 | Reminder | When it's sent | Threshold setting | Starting threshold |
 | --- | --- | --- | --- |
-| **Break Reminder** | When someone has been working without a break for the set time. The timer starts when they clock in and restarts when they end a break. | **Break Reminder Threshold Minutes** | 240 minutes |
-| **Break End Reminder** | When someone's break has lasted the set time. | **Break End Reminder Threshold Minutes** | 30 minutes |
-| **Forgot Clock Out** | When someone is still clocked in the set time after their shift was scheduled to end. | **Forgot Clock Out Threshold Minutes** | 60 minutes |
+| **Break Reminder** | When someone has been working without a break for the set time. The timer starts when they clock in and restarts when they end a break. | **Remind after working for** | 240 minutes |
+| **Break End Reminder** | When someone's break has lasted the set time. | **Remind after a break of** | 30 minutes |
+| **Forgot Clock Out** | When someone is still clocked in the set time after their shift was scheduled to end. | **Alert after the shift ends by** | 60 minutes |
 
 <Steps>
   <Step title="Turn on a reminder">

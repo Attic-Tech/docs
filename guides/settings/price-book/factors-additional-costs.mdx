@@ -4,7 +4,7 @@ description: "Set up factors and additional costs in your Price Book so estimate
 icon: "sliders"
 ---
 
-**Factors** and **Additional costs** are two Price Book tools that adjust the price of an estimate beyond the items themselves. A **factor** is a multiplier that scales an item's material cost, labor hours, or price up or down. An **additional cost** is a flat dollar amount added on top. Set them up once and the Calculator applies them to estimates for you.
+**Factors** and **Additional costs** are two Price Book tools that adjust the price of an estimate beyond the items themselves. A **factor** raises or lowers an item's material cost, labor hours, or price by a percentage you set. An **additional cost** is a flat dollar amount added on top. Set them up once and the Calculator applies them to estimates for you.
 
 <Note>
 These are admin settings. You'll find them under **Settings → Price book**, and you need workspace settings access to view or change them. If you don't see the Settings area, ask an admin on your team.
@@ -17,21 +17,21 @@ These are admin settings. You'll find them under **Settings → Price book**, an
     Go to **Settings**, then open **Price book**. You'll see a row of tabs across the top: **Items**, **Work Areas**, **Item Categories**, **Factors**, **Additional Costs**, and **Multiplier Ranges**.
   </Step>
   <Step title="Pick the tab you need">
-    Click **Factors** to manage multipliers, or **Additional Costs** to manage flat extra charges. Each tab is its own list with its own search and Create button.
+    Click **Factors** to manage percentage adjustments, or **Additional Costs** to manage flat extra charges. Each tab is its own list with its own search and Create button.
   </Step>
 </Steps>
 
 ## Factors
 
-A factor is a number that multiplies a cost. Use factors for things like a surcharge on remote jobs, a premium for difficult access, or any adjustment you want expressed as a multiplier rather than a fixed dollar amount.
+A factor is a percentage adjustment up or down. Use factors for things like a surcharge on remote jobs, a premium for difficult access, or any adjustment you want expressed as a percentage rather than a fixed dollar amount.
 
 ### What each field means
 
 When you create or edit a factor, you'll fill in:
 
 - **Name** — what the factor is, in plain language (for example, *Remote jobsite surcharge*). This is how it shows up in the list and, when relevant, in the Calculator.
-- **Factor** — the multiplier itself, entered as a number (zero or higher).
-- **Changes** — what the multiplier acts on. Pick one or more of **Material cost**, **Labor hours**, and **Price**. A single factor can change any mix of the three at the same value. **Material cost** and **Labor hours** scale the underlying cost the price is built from, while **Price** moves a line's price directly — including an item sold at a [fixed price](/guides/settings/price-book/items#pricing-fields), which no other factor or multiplier touches.
+- **Change** — how much the factor raises or lowers what it acts on, entered as a percent: `30` adds 30%, `-10` takes 10% off. The lowest you can enter is `-100` (which zeroes out what it changes). Factors stack by multiplying, so two `+30%` factors add 69%, not 60%.
+- **Changes** — what the factor acts on. Pick one or more of **Material cost**, **Labor hours**, and **Price**. A single factor can change any mix of the three at the same value. **Material cost** and **Labor hours** scale the underlying cost the price is built from, while **Price** moves a line's price directly — including an item sold at a [fixed price](/guides/settings/price-book/items#pricing-fields), which no other factor or multiplier touches.
 - **Always enabled** — a checkbox. When it's on, the factor is applied automatically on every matching estimate and is hidden from the Calculator, so estimators can't switch it off. When it's off, the factor is available in the Calculator for estimators to turn on per estimate.
 
 <Tip>
@@ -48,7 +48,7 @@ Use **Always enabled** for adjustments that should never be skipped — a standa
     Press **Create New** (top right of the list). The Create Factor window opens.
   </Step>
   <Step title="Fill in the details">
-    Enter a **Name**, the **Factor** value, choose what it **Changes** (one or more of Material cost, Labor hours, and Price), and decide whether **Always enabled** should be on.
+    Enter a **Name**, the **Change** percent, choose what it **Changes** (one or more of Material cost, Labor hours, and Price), and decide whether **Always enabled** should be on.
   </Step>
   <Step title="Save it">
     Click **Create**. The factor is saved and appears in the list right away.

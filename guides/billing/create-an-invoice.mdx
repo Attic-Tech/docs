@@ -4,7 +4,7 @@ description: "Bill a customer for a project — start from a sold estimate or bu
 icon: "file-invoice-dollar"
 ---
 
-An invoice is how you bill a customer for work on a project. You can build one in two ways: pull the line items straight from a sold estimate, or start fresh and add items yourself. Either way, you set the issue date and payment terms, choose what the customer sees, and finish by saving a draft or sending the invoice by email.
+An invoice is how you bill a customer for work on a project. You can build one in two ways: pull the line items straight from a sold estimate, or start fresh and add items yourself. Either way, you set the issue date and payment terms, choose what the customer sees, and finish by saving the invoice as a draft, saving it as an open invoice without sending, or sending it to the customer by email.
 
 <Note>
 You start every invoice by choosing a **client** and a **project** — an invoice always belongs to one project, so the work and the customer are clear.
@@ -135,7 +135,7 @@ If you don't see a **Payment Schedule** on the project's **Invoices** tab, payme
     Each payment that hasn't been billed yet has a **Create Invoice** button. Click it to open the invoice builder, with the client, project, and line items already filled in for that payment.
   </Step>
   <Step title="Review, then save or send">
-    Set the dates and terms, then **Save as Draft** or **Save and Send**, as described in [Save or send](#save-or-send).
+    Set the dates and terms, then save or send the invoice, as described in [Save or send](#save-or-send).
   </Step>
 </Steps>
 
@@ -162,19 +162,22 @@ The **Disclaimer** card holds any terms or notes you want printed on the invoice
 
 ## Save or send
 
-When the invoice looks right, use the buttons at the bottom of the screen:
+When the invoice looks right, use the buttons at the bottom of the screen. **Save and Send** is the main button; the arrow beside it opens two more choices — **Save** and **Save as Draft**.
 
 <Steps>
-  <Step title="Save as Draft">
-    Choose **Save as Draft** to store the invoice without sending it. It lands in your Invoices list as a draft, where you can reopen, finish, and send it later.
-  </Step>
   <Step title="Save and Send">
-    Choose **Save and Send** to email the invoice now. This opens a short email window where you confirm the **Recipients**, the **Subject**, and the **Body** — all pre-filled for you, including the customer's email and a friendly default message. Add or remove recipients as needed, then send.
+    Choose **Save and Send** to email the invoice now. This opens a short email window where you confirm the **Recipients**, the **Subject**, and the **Body** — all pre-filled for you, including the customer's email and a friendly default message. Add or remove recipients as needed, then send. The invoice is finalized and becomes **Open**. Like **Save**, it needs a payment term or a **Custom date** first.
+  </Step>
+  <Step title="Save (without sending)">
+    Open the arrow menu and choose **Save** to finalize the invoice without emailing anyone. It leaves the draft stage and becomes an **Open** invoice in your Invoices list — nothing goes to the customer, and you can send it later. Saving this way needs a due date, so pick a payment term or a **Custom date** first; otherwise you'll see **"Pick a payment term or a custom due date first."**
+  </Step>
+  <Step title="Save as Draft">
+    Open the arrow menu and choose **Save as Draft** to store the invoice without finalizing or sending it. It lands in your Invoices list as a draft, where you can reopen, finish, and send it later.
   </Step>
 </Steps>
 
 <Note>
-An invoice needs at least one line item before you can save it. Both **Save as Draft** and **Save and Send** stay unavailable until you've added an item — there has to be something to bill.
+An invoice needs at least one line item before you can save it. All three choices — **Save and Send**, **Save**, and **Save as Draft** — stay unavailable until you've added an item, because there has to be something to bill.
 </Note>
 
 <Tip>

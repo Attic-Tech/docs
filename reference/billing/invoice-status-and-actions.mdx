@@ -14,15 +14,15 @@ An invoice is always in exactly one of six statuses. The status is shown on the 
 
 | Status | Meaning |
 | --- | --- |
-| **Draft** | Created but not yet sent. This is the status of every newly created invoice. |
-| **Open** | Sent to the client; the full balance is outstanding. |
+| **Draft** | Saved but not yet finalized or sent. A new invoice usually starts here — unless you finalize it to **Open** as you create it, with **Save** or **Save and Send**. |
+| **Open** | Finalized and owed in full. Reached either by sending the invoice to the client, or by choosing **Save** to finalize it without sending. The full balance is outstanding. |
 | **Partially Paid** | Some, but not all, of the balance has been collected. |
 | **Paid** | The balance has been collected in full. |
 | **Refund Due** | The invoice owes the customer money. A credit note lowered it below what the customer had already paid, so the balance is below zero. |
 | **Voided** | Cancelled. The balance is forced to zero and the invoice no longer affects the workspace ledger. |
 
-<Card title="Status is automatic, never set by hand" icon="lock">
-You never pick an invoice's status directly. It is derived from whether the invoice has been sent (or finalized by a payment or credit) and how much of the balance has been collected. Recording a payment, adding a credit, sending, or voiding an invoice is what moves it between statuses.
+<Card title="Status follows what you do, not a status menu" icon="lock">
+There is no status field to set an invoice's status from. It follows from what you do: a new invoice is a **Draft** unless you finalize it to **Open** as you create it (with **Save** or **Save and Send**), and from then on it's derived from whether it's been sent or finalized by a payment or credit and how much of the balance has been collected. Recording a payment, adding a credit, sending, or voiding an invoice is what moves it between statuses after that.
 </Card>
 
 ### How the status is derived
@@ -38,7 +38,7 @@ After a payment or credit changes the balance, the status is recomputed automati
 
 ### "Overdue" is a flag, not a status
 
-Overdue is not one of the five statuses. It is a separate flag the invoice shows when both of these are true:
+Overdue is not one of the six statuses. It is a separate flag the invoice shows when both of these are true:
 
 - The status is **Open** or **Partially Paid**, and
 - The current date, in the branch's local time, is past the invoice's due date.
@@ -160,7 +160,7 @@ The **Invoices** page can be turned off for a workspace as a capability. When in
 
 ## Quick reference
 
-- **Six statuses:** Draft, Open, Partially Paid, Paid, Refund Due, Voided. Status is always derived, never chosen by hand.
+- **Six statuses:** Draft, Open, Partially Paid, Paid, Refund Due, Voided. There's no status field — status follows from what you do. The one deliberate choice is finalizing a new invoice to **Open** on creation with **Save** or **Save and Send**; everything after that is derived.
 - **Overdue** is a flag (Open or Partially Paid, past due date), not a sixth status.
 - **Send:** Draft, or re-send while Open, Partially Paid, or Paid. **Record Payment:** Draft, Open, or Partially Paid. **Add Credit:** any status except Voided. **Refund:** Refund Due only. On a Draft, both finalize the invoice after a confirmation. **Void:** Open only. **Edit / Delete:** Draft only. **Change due date:** any status except Voided.
 - **Paid** can still be re-sent, credited, and have its due date changed, but takes no payments; **Refund Due** is settled by recording a refund; **Voided** is a full end state with no further actions.

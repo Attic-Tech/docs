@@ -11,7 +11,7 @@ There are **three** ways a lead gets created, and a few rules differ between the
 
 - **Manual creation** — a signed-in team member fills out the **Create Lead** form.
 - **Automated creation** — a lead is created for you from an inbound web form or phone call. There is no acting user in this case.
-- **Converting an inbox conversation** — a signed-in team member turns a message thread from a connected messaging integration (such as Thumbtack, where enabled for your workspace) into a lead with **Convert to Lead**. This follows the same rules as manual creation, with the contact difference noted below.
+- **Converting an inbox conversation** — a signed-in team member turns a message thread from a connected messaging integration (such as Thumbtack, where enabled for your workspace) into a lead with **Create New Lead**. This uses the same **New Lead** form and the same rules as manual creation, with the details noted below.
 
 Where these differ, each rule below says so.
 
@@ -137,14 +137,11 @@ If there's nothing to match on at all, the lead is created with no source. Any p
 
 ## Converting an inbox conversation to a lead
 
-When a message thread comes in from a connected messaging integration (such as Thumbtack, where enabled for your workspace), you can turn it into a lead directly from the conversation with **Convert to Lead** in the message header. This is a manual action, so the same roles as manual creation apply (**Admin, Sales Admin, Ops Manager, and Client Coordinator**), and — like manual creation — the lead is assigned to your branch, so you must have a branch assigned.
+When a message thread comes in from a connected messaging integration (such as Thumbtack, where enabled for your workspace), you can turn it into a lead directly from the conversation with **Create New Lead** in the conversation's **More actions** menu. This is a manual action, so the same roles as manual creation apply (**Admin, Sales Admin, Ops Manager, and Client Coordinator**), and — like manual creation — the lead is assigned to your branch, so you must have a branch assigned.
 
-Because these platforms usually hide the customer's real contact details, the **Convert to Lead** form asks you to fill them in:
+It opens the standard **Create New Lead** form, so the same required fields as a manual lead apply — a **last name** and a **phone number** on the primary contact. The form is pre-filled from the conversation: the customer's name, the matching integration's lead source, and (for Thumbtack, when it shares them) the customer's real name and phone number. Because these platforms usually hide the customer's real contact details, Menaia also reads the conversation's texts and calls and drafts the lead's name, contact details, and notes for you to review before saving.
 
-- A **last name** is required; the first name is optional.
-- **At least one** of a phone number or an email is required. Unlike the **Create Lead** form — where a phone number is required — an email on its own is enough here.
-
-When the conversation already carries extra details (such as the request category and the customer's location), they're copied into the new lead's notes, and the lead's source is set to the matching integration source when your workspace has one. Once a conversation has been converted, the **Convert to Lead** button disappears and the header instead links to the lead it became (or to the client page once that lead has a client) — converting the same conversation twice won't create a duplicate lead.
+When the conversation already carries extra details (such as the request category and the customer's location), they're added to the new lead's notes after anything you typed, and the lead's source is set to the matching integration source when your workspace has one. Once a conversation has become a lead, **Create New Lead** disappears and the header instead links to the lead it became (or to the client page once that lead has a client) — creating a lead from the same conversation twice won't create a duplicate lead.
 
 ---
 

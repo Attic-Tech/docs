@@ -1,7 +1,7 @@
 ---
 title: "Ai features and limits"
 description: "What Menaia's AI helpers do, the length and size limits on each one, and how every AI suggestion is reviewed before it's used."
-keywords: ["Meni", "AI assistant", "Meni memory", "Meni actions", "Meni dashboard", "Meni automations", "Meni daily insight", "AI crew notes", "AI proposal email", "AI win post", "AI text reply", "AI response", "draft a text reply", "ride along insights", "AI receptionist", "AI phone answering", "AI character limits", "why is AI feature not available", "does AI send automatically"]
+keywords: ["Meni", "AI assistant", "Meni memory", "Meni actions", "Meni dashboard", "Meni automations", "Meni daily insight", "AI crew notes", "AI proposal email", "AI win post", "AI text reply", "AI response", "draft a text reply", "AI lead draft", "draft a lead from a conversation", "fill in lead from conversation", "ride along insights", "AI receptionist", "AI phone answering", "AI character limits", "why is AI feature not available", "does AI send automatically"]
 ---
 
 This reference explains Menaia's AI-assisted features, the limits on what you can submit to each one, and the rules that keep AI output a draft you review rather than something applied automatically.
@@ -11,7 +11,7 @@ This reference explains Menaia's AI-assisted features, the limits on what you ca
 Menaia's AI helpers fall into four groups:
 
 - **Meni, the AI assistant** — a chat panel that answers questions, looks up and charts your data, remembers context, prepares changes for your approval, and runs automations that draft work for you.
-- **Drafting and writing helpers** that propose text you then review and edit — crew notes, the proposal email, text replies in the inbox, and win celebration posts.
+- **Drafting and writing helpers** that propose text you then review and edit — crew notes, the proposal email, text replies in the inbox, a new lead drafted from an inbox conversation, and win celebration posts.
 - **Analysis helpers** that summarize a recorded sales conversation — ride-along insights.
 - **The AI receptionist** — a voice agent that answers inbound phone calls on your behalf and acts on a live call. It's the one helper that takes action without a review step (see below).
 
@@ -78,6 +78,16 @@ In the **Communications** inbox, when you're replying to a text conversation, th
 - The draft is placed in the composer as editable text — it is **never sent automatically**. Nothing goes out until you press send yourself.
 - The AI is told to use **only the names, services, addresses, dates, and times that actually appear in the conversation** — it won't invent details or leave placeholders. If the customer asked something that can't be answered from the conversation, the draft acknowledges it and says you'll confirm.
 - If any typed text is already in the composer, the draft is added at your cursor rather than replacing what you wrote.
+
+### Lead draft from a conversation
+
+When you create a lead from a **Communications** conversation — using **Create New Lead** in a thread's **More actions** menu — Menaia reads that conversation's texts, calls, and voicemails and drafts the new lead's **name, email, phone, and notes**.
+
+- The draft only fills fields you haven't already filled, and the **Create New Lead** form shows **Filling in details from the conversation…** while it works. Nothing is saved until you review the form and click **Create Lead**.
+- It uses **only what the conversation actually says** — it won't guess a name from an email address, use the business's own phone number, or invent details, and it leaves a field blank when the conversation doesn't state it.
+- A drafted email or phone number that isn't a valid address or US number is dropped rather than kept.
+
+See [Create a lead from a conversation](/guides/calls/inbox#create-a-lead-from-a-conversation).
 
 ### Win celebration post
 
@@ -146,6 +156,7 @@ AI features are turned on per workspace and, in some cases, depend on your role,
 - **Meni** — everyone can use **Ask the docs**. The full assistant, Meni memory, automations, and workspace data views are each turned on separately. The **Dashboard** is for Admins, Ops Managers, Crew Leaders, and Crew Members (and Sales Admins and Sales Members when the sales overview is on); **Automations** is for Admins, Ops Managers, Crew Leaders, and Crew Members; the daily insight email goes to Admins. See [Feature availability](/reference/platform/feature-availability#meni-assistant).
 - **Crew notes and the proposal email helper** appear where you can edit the underlying record — the inspection-report step and the proposal email, respectively.
 - **The text reply helper** appears in the inbox composer for people who can send texts, and only once texting has been turned on for your workspace.
+- **The lead-draft helper** runs when you create a lead from a conversation, for the roles that can create leads from the inbox (Admin, Sales Admin, Ops Manager, Client Coordinator).
 - **Ride-Alongs** must be turned on for your workspace. The voice tone analysis depends on an additional voice-analysis setting being turned on for your workspace.
 - **AI win posts** require win channels to be turned on. With them off, you'll see "This feature is not available for your organization."
 - **The AI receptionist** is set up by an **Admin** under [Communications settings](/guides/settings/communications#ai-receptionist) and answers calls for your business numbers. If your workspace's token balance is empty, it can't answer and the caller goes to voicemail instead.
@@ -173,6 +184,7 @@ A win post opens in an editor on a dedicated **Review & Post** step (with **Rege
 - Proposal emails must **not invent pricing, dates, guarantees, or legal terms**.
 - Win posts must **not invent details** that weren't provided.
 - Text replies must use **only the names, services, addresses, dates, and times that appear in the conversation**.
+- A lead drafted from a conversation must use **only the names, contact details, and facts stated in the conversation** — no guessing a name from an email address, no inventing details.
 - Meni must answer only from data it looked up for you, and must **never claim a change happened** unless it was approved and completed.
 
 ### Customer-typed text is treated as untrusted

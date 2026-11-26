@@ -63,7 +63,7 @@ If your workspace already has at least one other branch, the New Branch form off
 What gets copied and what doesn't:
 
 - **Copied** — the pricing, cost, finance, and system-customization values; working hours and minimum time between appointments; multiplier ranges and work areas; timezone; proposal content; invoice settings; payment methods, financing terms, and payment terms; shift reminders and notification preferences; and the media-folder setup (the folders themselves, not the files inside them).
-- **Not copied** — the new branch's own identity. **Branch Name**, **Branch Address**, **Branch Phone Number**, **Branch Website**, and **Branch Payroll ID** keep whatever you've already typed. The contractor license also starts blank, since it's specific to each branch.
+- **Not copied** — the new branch's own identity. **Branch Name**, **Branch Address**, **Branch Phone Number**, **Branch Website**, **Review Link**, and **Branch Payroll ID** keep whatever you've already typed. The contractor license also starts blank, since it's specific to each branch.
 
 <Note>
 Copying is a one-time starting point. The new branch gets its own independent copy of every setting, so editing one branch later never changes the other.
@@ -85,6 +85,7 @@ This section identifies the branch and connects it to your price book.
 - **Branch Address** — start typing and pick the address from the suggestions.
 - **Branch Phone Number** — the contact number for this location.
 - **Timezone** — used for scheduling and for the date ranges on dashboards in this branch. Set this to the branch's local time.
+- **Review Link** — an optional link to where customers leave a review for this branch, such as your Google or Yelp review page (any review site works). It fills the `{{review_link}}` placeholder in the snippets you text to customers. See [Snippets](/guides/calls/inbox#snippets). Enter a full link; Menaia adds `https://` if you leave it off, and flags anything that isn't a valid link.
 - **Branch Payroll ID** — an optional identifier that links this branch to your external payroll system.
 - **Multiplier Ranges** — the sold-price tiers this branch uses for pricing and bonuses. You must pick at least one; the estimate calculator needs a range to produce pricing.
 - **Work Areas** — the work areas estimators can choose on proposals for this branch.
@@ -100,6 +101,7 @@ These are the default hours the branch is open, used for scheduling. They also s
 When Best Match is turned on, it uses this section to suggest salespeople for lead activities. Best Match never suggests a day the branch is closed, and it keeps the **Minimum Time Between Appointments** free around booked events. On days the branch is open, suggestions follow each person's own hours from their **Working Preferences**. Their daily start point can also be this branch's address. See [Pick who goes with Best Match](/guides/leads/schedule-a-site-visit#pick-who-goes-with-best-match) and [Your profile](/guides/start/your-profile#working-preferences).
 
 - **Days of the week** — each day from Monday to Sunday has its own row. Turn a day **on** to mark the branch open that day, then set its **start** and **end** time. Leave a day **off** to mark it closed — its times are ignored while it's off.
+- **Copy to all** — every day's row has a **Copy to all** link. Press it to give every other day that day's hours and its open/closed state at once — handy when most of the week runs on the same schedule. Copy from an open day to set those hours on every day (and open any closed days to match); copy from a closed day to close the whole week. Afterwards each day stays editable on its own, so you can copy once and then tweak the days that differ. Nothing is saved until you press **Save**.
 - **Minimum Time Between Appointments** — an optional buffer, in whole minutes, to keep between one appointment and the next. Leave it blank for no buffer.
 
 <Note>
@@ -112,7 +114,7 @@ These values are the cost basis the calculator uses to price a job. Together the
 
 - **Base Hourly Rate** — the default hourly labor rate, used when no crew-specific rate applies.
 - **Average Work Day Hours** — a typical crew workday length. Used to translate labor hours into the number of days a job needs on the schedule.
-- **Waste Factor** — a material overage multiplier applied to materials (for example, `1` means no waste and `1.1` adds 10%).
+- **Material Waste** — the expected material overage, entered as a percent (for example, `0` means no waste and `10` adds 10% extra material).
 - **Gas Cost** — price per gallon of fuel.
 - **Truck Average Miles Per Gallon** — fuel efficiency, combined with gas cost and driving distance to estimate fuel cost per job.
 - **Labor Hours Load / Unload** — fixed hours added to every job to cover loading and unloading.
@@ -131,7 +133,7 @@ These settings shape the final price and the financial rules for proposals.
 - **B2B Max Discount** — the discount automatically applied when contractor / business-to-business pricing is turned on for a proposal.
 - **Quality Control Visit Price** — a flat cost added to a job when a quality-control visit is included on the proposal.
 - **Bonus Pool Percentage** — the share of a job's bonus base that goes into the crew bonus pool.
-- **Bonus Payout Cutoff (Days)** — how many days after a job is closed its crew bonus can still be recalculated. Once that many days have passed since the close date, the bonus is locked and later changes to the job no longer update it. (The tooltip next to the field says the count starts from the scheduled date, but it's the close date that counts.)
+- **Bonus Payout Cutoff** — how many days after a job is closed its crew bonus can still be recalculated. Once that many days have passed since the close date, the bonus is locked and later changes to the job no longer update it. (The tooltip next to the field says the count starts from the scheduled date, but it's the close date that counts.)
 
 ## System Customization
 
