@@ -272,7 +272,7 @@ Each Thumbtack lead becomes its own conversation in the **Communications** inbox
 - **A reply Thumbtack won't accept is marked Failed** — for example, when the lead was closed on Thumbtack, or the connection stopped working as the reply was being sent.
 - **Canceled requests are flagged.** Menaia checks about once an hour for leads the customer canceled on Thumbtack. When it finds one, the conversation gets a **Canceled** badge and a note such as "Jane Doe canceled this request on Thumbtack." You can't message it anymore: the reply box says "This lead was canceled on Thumbtack — you can no longer message it."
 
-Thumbtack conversations don't create leads on their own. When a conversation is worth pursuing, open **More actions** (the three dots) in its header and click **Create New Lead**. The **New Lead** form opens pre-filled from the conversation — the customer's name and, when Thumbtack shares it, their phone number — and Menaia drafts the contact details and notes from the conversation for you to review. The request category, location, and Thumbtack's answers are copied into the lead's notes, and the lead is credited to your ThumbTack lead source. After the lead is created, the header links to **View Lead** — or **View Client Page** once the lead has a client. For who can do this, which branch the lead lands in, and the required fields, see [Lead capture rules](/reference/leads/capture-rules#converting-an-inbox-conversation-to-a-lead).
+Thumbtack conversations don't create leads on their own. When a conversation is worth pursuing, open **More actions** (the three dots) in its header and click **Create New Lead**. A **Create New Lead** window opens pre-filled from the conversation — the customer's name and, when Thumbtack shares it, their phone number — and Menaia drafts the contact details and notes from the conversation for you to review. The request category, location, and Thumbtack's answers are copied into the lead's notes, and the lead is credited to your ThumbTack lead source. After the lead is created, the header links to **View Lead** — or **View Client Page** once the lead has a client. For who can do this, which branch the lead lands in, and the required fields, see [Lead capture rules](/reference/leads/capture-rules#converting-an-inbox-conversation-to-a-lead).
 
 Once a converted lead turns into a job, Menaia keeps Thumbtack updated on the job's progress: not yet scheduled, scheduled, complete (when the job is closed), or canceled.
 
@@ -444,7 +444,7 @@ CallRail is an admin area — you'll need an **Admin** role to connect it. You s
     From the marketplace, open the **CallRail** card. Its **Webhook URL** card shows a web address unique to your workspace, with a copy button.
   </Step>
   <Step title="Add Menaia as a webhook in CallRail">
-    In CallRail, open **Settings › Integrations › Webhooks**, paste the copied address into the **Post-Call** webhook field, and save.
+    In CallRail, open **Settings › Integrations › Webhooks**, paste the copied address, turn on the five events listed on the **Webhook URL** card (**Pre-call**, **Post-call**, **Text message received**, **Text message sent**, and **Form submission**), and save.
   </Step>
   <Step title="Paste the signing key back into Menaia">
     Copy the webhook's **signing key** from CallRail, paste it into the **CallRail signing key** box in the **Get Started** panel, and click **Connect CallRail**. The panel shows a **Connected** badge.
@@ -475,7 +475,7 @@ Once CallRail is connected, the CallRail page shows a **Lead sources** card. Cal
 - **Unmatched sources are flagged.** A source or tracking number with no lead source yet is highlighted, and the card warns you that calls or texts from it come in without a lead source until you pick one.
 - **A lead source named "CallRail" is never offered.** It says nothing about where the customer came from, so Menaia leaves it out — pick the channel itself.
 
-Matching sources is part of workspace settings, so you'll need an **Admin** role to change it; other roles can see the card but not change it.
+Matching sources is part of workspace settings, so only Admins can open this page and change it.
 
 <Tip>
 The lead source you match here is also what shows while the phone rings, when **Lead source on incoming calls** is on — see [Lead source on incoming calls](/guides/settings/communications#lead-source-on-incoming-calls).

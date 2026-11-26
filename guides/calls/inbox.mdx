@@ -100,10 +100,10 @@ The header shows the contact's name and number. Next to them you'll find:
 - **Call**: calls this person. See [Make and take calls](/guides/calls/use-the-dialer).
 - **View Client Page**: opens the client this number belongs to. When the number doesn't match a client but a call in the conversation is tied to a lead, this button becomes **View Lead** and opens that lead — including when the lead is on an earlier call rather than the most recent one, so a repeat caller's conversation still links to their lead. It's grayed out, with "No client is linked to this number yet", only when there's neither a matching client nor a linked lead.
 - **More actions** (the three dots):
-  - **Copy Number** (text conversations).
+  - **Copy Number** (not on marketplace conversations).
   - **Create New Lead** — starts a lead from this conversation. It works on text-only conversations and on marketplace conversations too, and it's hidden once the conversation is already tied to a contact or a client, so you don't create a duplicate. When you open it, Menaia reads the thread and fills in the new lead for you — see [Create a lead from a conversation](#create-a-lead-from-a-conversation).
-  - **Ask Meni about this thread** — opens Meni with this conversation ready to ask about. It appears when the thread has something to read.
-  - **Schedule New Event** — opens the calendar with this conversation's client already picked, the same as **New Event** on the client page. It appears for roles that can open the **Schedule**.
+  - **Ask Meni about this thread** — opens Meni with this conversation ready to ask about. It doesn't appear on a marketplace conversation that hasn't been turned into a lead yet.
+  - **Schedule New Event** — opens the calendar with this conversation's client already picked, when it has one, the same as **New Event** on the client page. It appears for roles that can open the **Schedule**.
   - **Link to existing** (when the conversation includes a call) — links the most recent call to a lead, client, or project. See [Link a call to a lead, client, or project](/guides/calls/browse-and-review-calls#link-a-call-to-a-lead-client-or-project).
 
 ### Send a text
@@ -170,7 +170,7 @@ Snippets are grouped by category, and each shows how many times it's been used. 
 - `{{project_address}}` — the address of the project this contact is tied to.
 - `{{review_link}}` — the review link set for the number's branch (see [Branches](/guides/settings/branches#branch-details)).
 
-If a placeholder has nothing to fill it — the contact isn't on a project, or no review link is set for the branch — it stays in the text as `{{…}}`. The message box then holds the send and shows a note naming what's left, for example `Fill in {{review_link}} before sending this message.` Replace it (or delete that part of the message) and you can send. This hold applies however you got there, including inserting a snippet and leaving a token unfilled.
+If a placeholder has nothing to fill it — the contact isn't on a project, or no review link is set for the branch — it stays in the text as `{{…}}`. The message box then holds the send and shows a note naming what's left, for example `Fill in {{review_link}} before sending this message.` Replace it (or delete that part of the message) and you can send.
 
 ## Messages from marketplaces
 
@@ -191,7 +191,7 @@ When a marketplace conversation is worth pursuing, open **More actions** (the th
 
 <Steps>
   <Step title="Review the pre-filled details">
-    The **New Lead** form opens, pre-filled from the conversation — the customer's name, the lead source for that platform, and, when the platform shares it (as Thumbtack does), their phone number. Menaia also reads the conversation's texts and calls and fills in the contact details and notes for you; while it does, the form shows **Filling in details from the conversation…**. Check everything and edit as needed.
+    A **Create New Lead** window opens, pre-filled from the conversation — the customer's name, the lead source for that platform, and, when the platform shares it (as Thumbtack does), their phone number. Menaia also reads the conversation's texts, calls, and voicemails and fills in the contact details and notes for you; while it does, the form shows **Filling in details from the conversation…**. Check everything and edit as needed.
   </Step>
   <Step title="Create the lead">
     A last name and a phone number are required, like any new lead. Click **Create Lead**. You'll see "Lead created successfully" and land on the new lead.
