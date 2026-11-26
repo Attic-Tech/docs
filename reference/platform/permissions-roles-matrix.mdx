@@ -114,7 +114,7 @@ You build a price-book estimate on its proposal page. What you can do there, and
 - The **Job Breakdown** is for your team only; the client never sees it. Admins and Ops Managers see the full breakdown. A **Crew Leader** sees only the labor, days, and travel figures, with no money. Sales Admins, Sales Members, and Client Coordinators don't see the Job Breakdown at all.
 - A **Crew Leader** can open price-book estimates on the clients they work on, but view-only and without prices.
 - Factor effects (such as "Labor ×1.25") and item costs show only to Admins and Ops Managers. Everyone else sees just the factor's name.
-- If you type a discount above your role's limit, it's capped at that limit and a note shows it — for example, "Your role can give up to 10%".
+- If you type a discount above your role's limit, it's capped at that limit and a note shows it — for example, "Your role can give up to 10%". Turning on **Contractor prices** applies the branch's **B2B Max Discount** even when it's above your role's limit, and a higher discount a manager already saved stays as it is.
 
 ## Resource permissions
 
@@ -161,7 +161,7 @@ See also: [/reference/leads/status-lifecycle](/reference/leads/status-lifecycle)
 | Contracts | Manage | Manage | Manage | Create/view/edit/delete | Create/view/edit/delete | View | No access |
 
 - **Ops Manager** can manage estimates but **can't move an estimate's status** to Released, Sold, Lost, Secondary Estimate, or Deleted.
-- **Sales Member** and **Client Coordinator** can change an estimate's status only within an allowed set (In Progress, Released, Sold, Lost, Secondary Estimate, Deleted).
+- **Sales Member** and **Client Coordinator** can move an estimate to any status.
 - A **Sales Member** or **Crew Leader** sees only estimates, proposals, and inspection reports on the **clients they work on**; anything else answers "No access".
 - A **Sales Member** can edit an estimate or send its proposal only if they **own** it — another salesperson's estimate opens **read-only**, on web and mobile. Managers can edit any estimate.
 - **Deleting an estimate** is limited to **Admin, Ops Manager, and Sales Admin**.

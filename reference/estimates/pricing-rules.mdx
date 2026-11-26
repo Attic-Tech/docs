@@ -152,7 +152,7 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
   - These two portions are added together.
   - **Minimum retail floor:** for most jobs, the result is raised to at least the configured minimum retail price. This floor is skipped for fully sub-contracted jobs.
 - **Notes:** Markup is not applied to labor separately, because labor is already inside the standard true cost. Any [fixed-price lines](#fixed-price-items) are added on top, and any [price factors](#factors-named-multipliers) and [Price additional costs](#additional-costs-flat-add-ons) add their uplift after that.
-- **The payment method doesn't change the price.** Every estimate is priced as cash. Branches used to have a cash factor, a credit-card fee, and financing factors that multiplied the retail price by payment method. Those were removed: each branch's cash factor was built into its multiplier ranges, its sub-contractor markup, and item markup overrides, so prices stayed the same. Some shared multiplier ranges were split into copies so each branch kept its own values. An estimate priced before the change keeps its saved payment-method factor until its pricing is updated. When that factor isn't 1, the **Job Breakdown**'s **How the price is built** shows it as **× Payment method factor**.
+- **The payment method doesn't change the price.** Every estimate is priced as cash. Branches used to have a cash factor, a credit-card fee, and financing factors that multiplied the retail price by payment method. Those were removed: each branch's cash factor was built into its multiplier ranges and its sub-contractor markup, so cash prices stayed the same, and card and financing prices now match the cash price. Some shared multiplier ranges were split into copies so each branch kept its own values. Item markup overrides apply to the whole workspace, so they took the cash factor most branches used; a branch with a different cash factor may see small price changes on those items. An estimate priced before the change keeps its saved payment-method factor until its pricing is updated. When that factor isn't 1, the **Job Breakdown**'s **How the price is built** shows it as **× Payment method factor**.
 
 ---
 
@@ -181,7 +181,7 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
 ### Maximum discount (who can discount how much)
 
 - **What it governs:** The largest discount a user can enter, based on role and B2B context.
-- **How it works:** Users with permission to manage estimates can discount up to 100%. Other users are capped at the branch's configured maximum discount. A discount entry is always clamped to between 0 and the applicable maximum. The **Contractor prices** switch on the proposal sets the discount to the branch's configured B2B maximum discount (or 0 when turned off).
+- **How it works:** Users with permission to manage estimates can discount up to 100%. Other users are capped at the branch's configured maximum discount. A typed discount is limited to between 0 and your maximum. The **Contractor prices** switch on the proposal (desktop only) sets the discount to the branch's configured B2B maximum discount even when that's above your maximum (or 0 when turned off), and a higher discount a manager already saved is kept.
 - **Inputs:** the branch's maximum discount and B2B maximum discount, and the user's role.
 
 ---
@@ -258,7 +258,7 @@ The pricing for any estimate is driven by your **branch configuration** (the pri
 
 ### Branch pricing settings
 
-- **What it governs:** The branch-level configuration values that every formula above reads (set under Settings → Branch Management).
+- **What it governs:** The branch-level configuration values that every formula above reads (set under Settings → Branch Configuration).
 - **The pricing-relevant settings include:** the base hourly rate, average work-day length, gas cost, truck average MPG, load/unload hours, default sub-contractor markup (**Sub Multiplier**), minimum retail price, quality-control visit price, maximum discount, B2B maximum discount, deposit percentage (default 10%), and maximum deposit amount (default 0, meaning no cap).
 - **Notes:** An existing estimate prices against the frozen copy of these settings captured when it was created, not the live values, until its pricing is updated.
 
