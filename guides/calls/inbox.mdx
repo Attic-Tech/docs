@@ -2,7 +2,7 @@
 title: "Use the Communications inbox"
 description: "Text clients, keep every call, voicemail, and marketplace message with the person it belongs to, and reply faster with snippets and AI drafts."
 icon: "inbox"
-keywords: ["communications", "inbox", "texting", "text a client", "sms", "mms", "send a photo by text", "turn on texting", "phone setup", "texting pending", "registration under review", "reply from another number", "snippets", "saved replies", "ai reply", "voicemail", "thumbtack messages", "yelp messages", "convert to lead", "unread messages", "mark as unread", "mark conversation unread", "number switcher", "lead requests", "angi messages", "zapier messages", "web form leads", "notifications", "out of tokens"]
+keywords: ["communications", "inbox", "texting", "text a client", "sms", "mms", "send a photo by text", "turn on texting", "phone setup", "texting pending", "registration under review", "reply from another number", "snippets", "saved replies", "ai reply", "voicemail", "thumbtack messages", "yelp messages", "convert to lead", "create new lead", "create a lead from a conversation", "ask meni about this thread", "schedule new event from inbox", "unread messages", "mark as unread", "mark conversation unread", "number switcher", "lead requests", "angi messages", "zapier messages", "web form leads", "notifications", "out of tokens"]
 ---
 
 The **Communications** inbox is where your team talks to customers. Texts, calls, and voicemails with the same person land in one conversation, and messages from marketplaces such as Thumbtack or Yelp show up here too. You can reply, call back, and turn a promising conversation into a lead without leaving the page.
@@ -99,7 +99,12 @@ The header shows the contact's name and number. Next to them you'll find:
 
 - **Call**: calls this person. See [Make and take calls](/guides/calls/use-the-dialer).
 - **View Client Page**: opens the client this number belongs to. When the number doesn't match a client but a call in the conversation is tied to a lead, this button becomes **View Lead** and opens that lead — including when the lead is on an earlier call rather than the most recent one, so a repeat caller's conversation still links to their lead. It's grayed out, with "No client is linked to this number yet", only when there's neither a matching client nor a linked lead.
-- **More actions** (the three dots): **Copy Number**, **Create New Lead**, and, when the conversation includes a call, **Link to existing** for the most recent call, to link it to a lead, client, or project. **Create New Lead** works on text-only conversations too, and it's hidden once the conversation is already tied to a contact or a client, so you don't create a duplicate. See [Link a call to a lead, client, or project](/guides/calls/browse-and-review-calls#link-a-call-to-a-lead-client-or-project).
+- **More actions** (the three dots):
+  - **Copy Number** (text conversations).
+  - **Create New Lead** — starts a lead from this conversation. It works on text-only conversations and on marketplace conversations too, and it's hidden once the conversation is already tied to a contact or a client, so you don't create a duplicate. When you open it, Menaia reads the thread and fills in the new lead for you — see [Create a lead from a conversation](#create-a-lead-from-a-conversation).
+  - **Ask Meni about this thread** — opens Meni with this conversation ready to ask about. It appears when the thread has something to read.
+  - **Schedule New Event** — opens the calendar with this conversation's client already picked, the same as **New Event** on the client page. It appears for roles that can open the **Schedule**.
+  - **Link to existing** (when the conversation includes a call) — links the most recent call to a lead, client, or project. See [Link a call to a lead, client, or project](/guides/calls/browse-and-review-calls#link-a-call-to-a-lead-client-or-project).
 
 ### Send a text
 
@@ -180,20 +185,20 @@ These conversations work a little differently from texts:
 - **The customer's number usually isn't shared**, so there's no call button and no **View Client Page**. Thumbtack is the exception when Thumbtack shares the customer's phone number.
 - **Where your replies go depends on the platform.** Thumbtack replies go back through Thumbtack when your Thumbtack account is connected. See [Thumbtack leads in Communications](/guides/settings/integrations#thumbtack-leads-in-communications). A conversation from a CallRail tracking number can be answered from Menaia once an admin adds a CallRail API key — replies go back through CallRail, from the number the customer texted. See [Reply to CallRail texts](/guides/settings/integrations#reply-to-callrail-texts). For other platforms, a reply reaches the customer only if your workspace has a connection set up to pass replies back to that platform. If you're not sure, check with your admin before relying on it.
 
-### Convert a conversation to a lead
+### Create a lead from a conversation
 
-When a marketplace conversation is worth pursuing, click **Convert to Lead** in its header.
+When a marketplace conversation is worth pursuing, open **More actions** (the three dots) in its header and click **Create New Lead**.
 
 <Steps>
-  <Step title="Fill in the contact">
-    The **Convert to lead** window starts with the name from the conversation. A last name is required. Add a **Phone** or an **Email** (at least one), since the platform usually hides the customer's real contact details.
+  <Step title="Review the pre-filled details">
+    The **New Lead** form opens, pre-filled from the conversation — the customer's name, the lead source for that platform, and, when the platform shares it (as Thumbtack does), their phone number. Menaia also reads the conversation's texts and calls and fills in the contact details and notes for you; while it does, the form shows **Filling in details from the conversation…**. Check everything and edit as needed.
   </Step>
   <Step title="Create the lead">
-    Click **Create lead**. You'll see "Lead created" and land on the new lead.
+    A last name and a phone number are required, like any new lead. Click **Create Lead**. You'll see "Lead created successfully" and land on the new lead.
   </Step>
 </Steps>
 
-Once converted, **Convert to Lead** disappears from the conversation. For Thumbtack conversations, the header then links to **View Lead**, or to **View Client Page** once the lead has a client. For who can convert and which branch the lead lands in, see [Lead capture rules](/reference/leads/capture-rules#converting-an-inbox-conversation-to-a-lead).
+Once the lead is created, **Create New Lead** disappears from the conversation. For Thumbtack conversations, the header then links to **View Lead**, or to **View Client Page** once the lead has a client. The request category, the customer's location, and the platform's answers are copied into the lead's notes, and the lead is credited to the matching lead source. For who can do this and which branch the lead lands in, see [Lead capture rules](/reference/leads/capture-rules#converting-an-inbox-conversation-to-a-lead).
 
 ## Voicemails
 
@@ -222,7 +227,7 @@ You only get these for conversations your role lets you read, and only if you've
 | Open Communications, read and send texts, mark conversations unread, use snippets and AI drafts | Every role except Crew Member |
 | Delete a voicemail | Admin, Ops Manager, Sales Admin, Client Coordinator |
 | Turn on texting | Admin |
-| Convert a marketplace conversation to a lead | Admin, Sales Admin, Ops Manager, Client Coordinator |
+| Create a lead from a marketplace conversation | Admin, Sales Admin, Ops Manager, Client Coordinator |
 | Change phone lines, voicemail, recording, and other call settings | Admin, in [Communications settings](/guides/settings/communications) |
 
 ## What's next
