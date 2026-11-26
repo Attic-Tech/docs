@@ -460,9 +460,25 @@ CallRail is an admin area — you'll need an **Admin** role to connect it. You s
 - **Leads keep the click too.** A lead you create from one of those calls, or link an existing lead to, picks up the call's ad click.
 - **The first ad click wins.** If a call or lead already has an ad click, CallRail never replaces it — the ad that first brought the customer in keeps the credit.
 - **Sales can report back to Google Ads.** Once a lead carries an ad click, the **Estimate Sold** and **Invoice Paid** triggers send the completed sale back as an offline conversion — see [Send sales and payments to your ad platforms](#send-sales-and-payments-to-your-ad-platforms).
+- **You can match each CallRail source to a lead source.** A **Lead sources** card appears on the CallRail page so you can credit calls, texts, and forms to the right lead source — see [Match CallRail sources to lead sources](#match-callrail-sources-to-lead-sources).
 
 <Tip>
 Already piping CallRail through Zapier? You can attach a call's ad click with the **Add Ad Click to Call** action instead of connecting CallRail directly — see [What Zaps can do with Menaia](#what-zaps-can-do-with-menaia).
+</Tip>
+
+### Match CallRail sources to lead sources
+
+Once CallRail is connected, the CallRail page shows a **Lead sources** card. CallRail labels every call, text, and form with the marketing source behind it — such as **Yelp** or **Google Ads** — and this card is where you tell Menaia which of your [lead sources](/guides/settings/lead-sources) each CallRail source stands for.
+
+- **Pick a lead source for each CallRail source.** Every source CallRail has reported appears in the list — any that still need a match first, then the busiest — with how many calls it brought in the last 30 days. Choose the Menaia lead source it belongs to, and new calls, texts, and forms from that source are credited to it automatically. Earlier ones keep whatever source they already have.
+- **Match tracking numbers used for texts.** A CallRail text names only the number the customer texted, not a source, so texted tracking numbers get their own **Tracking numbers (texts)** list below. Pick the lead source each number's texts should get.
+- **Unmatched sources are flagged.** A source or tracking number with no lead source yet is highlighted, and the card warns you that calls or texts from it come in without a lead source until you pick one.
+- **A lead source named "CallRail" is never offered.** It says nothing about where the customer came from, so Menaia leaves it out — pick the channel itself.
+
+Matching sources is part of workspace settings, so you'll need an **Admin** role to change it; other roles can see the card but not change it.
+
+<Tip>
+The lead source you match here is also what shows while the phone rings, when **Lead source on incoming calls** is on — see [Lead source on incoming calls](/guides/settings/communications#lead-source-on-incoming-calls).
 </Tip>
 
 ### Disconnect CallRail
