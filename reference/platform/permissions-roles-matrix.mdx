@@ -115,6 +115,7 @@ What pricing detail you can see inside the Calculator depends on your role:
 | Leads | Manage | Manage | Manage | View own | Manage | No access | No access |
 | Lead activities | Manage | Manage | Manage | Own only | Manage | No access | No access |
 | Lead statuses & sources | View | View | View | View | View | View | View |
+| Job types | View | View | View | View | View | View | View |
 
 - A **Sales Member** can't create, edit, or delete leads, but can **view their own leads** read-only — leads assigned to them (as the salesperson or client coordinator), leads they created, plus any lead that has a **lead activity assigned to them**. They don't get the Leads page itself; those leads surface when they pick a lead while scheduling a lead activity, through an activity assigned to them, or when they ask the assistant about a lead. A lead they can see **only** because an activity is assigned to them is view-only: they can't take owner actions on it, such as sending its follow-up email — that's refused with "Only the lead's creator, salesperson or coordinator can send its follow-up email." That visibility lasts only while the activity stays assigned to them.
 - A **Sales Member** can only create, view, and edit **lead activities assigned to themselves**, and only on a lead they can already see. Creating one for someone else is refused with "You can only create lead activities for yourself"; someone else's activity doesn't open for them at all.
@@ -211,7 +212,7 @@ Every staff role can add and read comments on a project and attach media to them
 
 ## Settings
 
-The entire Settings area is controlled by a single permission, and only **Admin** has it among the assignable roles. Every settings change — branches, users, employees, vehicles, equipment, the price book, payment terms, financing terms, tags, lead sources, and so on — requires Admin access.
+The entire Settings area is controlled by a single permission, and only **Admin** has it among the assignable roles. Every settings change — branches, users, employees, vehicles, equipment, the price book, payment terms, financing terms, tags, lead sources, job types, and so on — requires Admin access.
 
 Other roles can **read** certain settings entities so the rest of the app works (for example, the price book and payment terms feed the Calculator and proposals), but they can't change them. In particular:
 
